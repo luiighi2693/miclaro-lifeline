@@ -18,4 +18,8 @@ export class HomeComponent implements OnInit {
   goToUniversalService() {
     this.router.navigate(['/universal-service/personal-dates'], { replaceUrl: true });
   }
+
+  gotoUsfCase() {
+    this.router.navigate(['/usf-case'], { replaceUrl: true });
+  }
 }

@@ -32,25 +32,27 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.isLoading = true;
-    this.authenticationService
-      .login(this.loginForm.value)
-      .pipe(
-        finalize(() => {
-          this.loginForm.markAsPristine();
-          this.isLoading = false;
-        })
-      )
-      .subscribe(
-        credentials => {
-          log.debug(`${credentials.username} successfully logged in`);
-          this.router.navigate(['/home'], { replaceUrl: true });
-        },
-        error => {
-          log.debug(`Login error: ${error}`);
-          this.error = error;
-        }
-      );
+    if (!this.loginForm.invalid) {
+      this.isLoading = true;
+      this.authenticationService
+        .login(this.loginForm.value)
+        .pipe(
+          finalize(() => {
+            this.loginForm.markAsPristine();
+            this.isLoading = false;
+          })
+        )
+        .subscribe(
+          credentials => {
+            log.debug(`${credentials.username} successfully logged in`);
+            this.router.navigate(['/home'], { replaceUrl: true });
+          },
+          error => {
+            log.debug(`Login error: ${error}`);
+            this.error = error;
+          }
+        );
+    }
   }
 
   private createForm() {
