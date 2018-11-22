@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
   ) {
@@ -33,8 +32,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // this.router.navigate(['/home'], { replaceUrl: true });
-
     this.isLoading = true;
     this.authenticationService
       .login(this.loginForm.value)
@@ -47,9 +44,6 @@ export class LoginComponent implements OnInit {
       .subscribe(
         credentials => {
           log.debug(`${credentials.username} successfully logged in`);
-          // this.route.queryParams.subscribe(params =>
-          //   this.router.navigate([params.redirect || '/'], { replaceUrl: true })
-          // );
           this.router.navigate(['/home'], { replaceUrl: true });
         },
         error => {
@@ -58,18 +52,6 @@ export class LoginComponent implements OnInit {
         }
       );
   }
-
-  // setLanguage(language: string) {
-  //   this.i18nService.language = language;
-  // }
-  //
-  // get currentLanguage(): string {
-  //   return this.i18nService.language;
-  // }
-  //
-  // get languages(): string[] {
-  //   return this.i18nService.supportedLanguages;
-  // }
 
   private createForm() {
     this.loginForm = this.formBuilder.group({

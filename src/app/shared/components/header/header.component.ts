@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   constructor(public authenticationService: AuthenticationService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -28,4 +27,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login'], { replaceUrl: true });
   }
 
+  goToHome() {
+    this.router.navigate(['/home'], { replaceUrl: true });
+  }
 }

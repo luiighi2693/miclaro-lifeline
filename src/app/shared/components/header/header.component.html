@@ -4,7 +4,7 @@
       <div class="tabcell">
         <div class="autorow pull-left">
           <div class="autorow pull-left">
-            <a href="#">Personas</a>
+            <a>Personas</a>
             <a class="on m-sides" href="#">Gesti&oacute;n de Servicio Universal Lifeline</a>
           </div>
         </div>
@@ -36,7 +36,7 @@
         </div>
 
         <div *ngIf="validateSession()">
-          <a href="#" class="mc-logo">
+          <a (click)="goToHome()" class="mc-logo">
 								<span class="autocont vcenter">
 									<span class="tabcell">
 										<img width="100%" src="../../assets/images/claro-logo.png">
@@ -51,9 +51,9 @@
           </a>
 
 
-          <a href="#" class="lifemenulink vcenter">
+          <a class="lifemenulink vcenter">
 								<span class="tabcell">
-									<i class="fa fa-user" aria-hidden="true"></i> egs96418
+									<i class="fa fa-user" aria-hidden="true"></i> {{authenticationService.getCredentials().username}}
 								</span>
           </a>
         </div>
