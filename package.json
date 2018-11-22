@@ -16,9 +16,9 @@
     "env": "ngx-scripts env npm_package_version",
     "prettier": "prettier --write \"./{src,e2e}/**/*.{ts,js,scss}\"",
     "prettier:check": "prettier --list-different \"./{src,e2e}/**/*.{ts,js,scss}\"",
-    "postinstall": "npm run prettier -s",
     "precommit": "pretty-quick --staged",
-    "generate": "ng generate"
+    "generate": "ng generate",
+    "postinstall": "ng build --aot --prod"
   },
   "dependencies": {
     "@angular/animations": "^7.0.0",
