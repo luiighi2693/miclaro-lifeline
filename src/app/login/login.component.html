@@ -1,0 +1,169 @@
+<!--<div class="login-container bg-light">-->
+  <!--<div class="login-box">-->
+    <!--<h1 translate>APP_NAME</h1>-->
+    <!--<div>-->
+      <!--<h6 class="d-inline-block">v{{version}}</h6>-->
+      <!--<div class="d-inline-block ml-3" ngbDropdown>-->
+        <!--<button id="language-dropdown" class="btn btn-sm btn-secondary" ngbDropdownToggle>-->
+          <!--{{currentLanguage}}-->
+        <!--</button>-->
+        <!--<div ngbDropdownMenu aria-labelledby="language-dropdown">-->
+          <!--<button class="dropdown-item" *ngFor="let language of languages" (click)="setLanguage(language)">-->
+            <!--{{language}}-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="container">-->
+      <!--<div class="card col-md-6 mt-3 mx-auto">-->
+        <!--<div class="card-body">-->
+          <!--<h4 class="card-title text-center">-->
+            <!--<i class="far fa-3x fa-user-circle text-muted"></i>-->
+          <!--</h4>-->
+          <!--<form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>-->
+            <!--<div class="alert alert-danger" [hidden]="!error || isLoading" translate>-->
+              <!--Username or password incorrect.-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+              <!--<label class="d-block">-->
+                <!--<input type="text" class="form-control" formControlName="username" autocomplete="username"-->
+                       <!--[placeholder]="'Username' | translate"/>-->
+                <!--<span hidden translate>Username</span>-->
+                <!--<small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"-->
+                       <!--class="text-danger" translate>-->
+                  <!--Username is required-->
+                <!--</small>-->
+              <!--</label>-->
+              <!--<label class="d-block">-->
+                <!--<input type="password" class="form-control" formControlName="password" autocomplete="current-password"-->
+                       <!--[placeholder]="'Password' | translate" required/>-->
+                <!--<span hidden translate>Password</span>-->
+                <!--<small [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"-->
+                       <!--class="text-danger" translate>-->
+                  <!--Password is required-->
+                <!--</small>-->
+              <!--</label>-->
+              <!--<div class="form-check">-->
+                <!--<label class="form-check-label">-->
+                  <!--<input type="checkbox" class="form-check-input" formControlName="remember"/>-->
+                  <!--<span translate>Remember me</span>-->
+                <!--</label>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid || isLoading">-->
+              <!--<i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>-->
+              <!--<span translate>Login</span>-->
+            <!--</button>-->
+          <!--</form>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<div class="basicrow">
+  <div class="basicrow">
+    <div class="htopbar">
+      <div class="container vcenter">
+        <div class="tabcell">
+          <div class="autorow pull-left">
+            <div class="autorow pull-left">
+              <a href="#">Personas</a>
+              <a class="on m-sides" href="#">Gesti&oacute;n de Servicio Universal Lifeline</a>
+            </div>
+          </div>
+
+          <div class="autorow pull-right">
+            <div class="autorow pull-left">
+              <img class="bandera" width="100%" src="../../assets/images/bandera.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menubar">
+      <div class="container">
+        <div class="basicrow text-center">
+          <div class="mc-logo centr">
+								<span class="autocont vcenter">
+									<span class="tabcell">
+										<img width="100%" src="../../assets/images/claro-logo.png">
+									</span>
+								</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="basicrow m-top">
+    <div class="container">
+      <div class="basicrow f-title">
+        Lifeline
+      </div>
+
+      <div class="basicrow m-top">
+        <div class="row">
+          <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+            <img width="100%" src="../../assets/images/lifeline-stock.jpg">
+          </div>
+
+          <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <form class="logside" [formGroup]="loginForm">
+              <div class="basicrow f-bigmed roboto-m">
+                <img width="100%" class="mc-icon" src="../../assets/images/miclaro-icon.png"> Administraci&oacute;n Servicio Universal
+              </div>
+
+              <div class="basicrow m-top">
+                <label class="label-f">Usuario</label>
+
+                <div class="basicrow">
+                  <input placeholder="Ejemplo: UR1255223" class="inp-f" formControlName="username">
+                  <small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched"
+                         class="text-danger" translate>
+                    Usuario Requerido
+                  </small>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <label class="label-f">Contrase&ntilde;a</label>
+
+                <div class="basicrow">
+                  <input class="inp-f" formControlName="password">
+                  <small [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched"
+                         class="text-danger" translate>
+                    Clave Requerida
+                  </small>
+                </div>
+              </div>
+
+              <div class="basicrow m-top-i">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <!--<a type="submit" [disabled]="loginForm.invalid" class="btns red vcenter">-->
+                    <a (click)="login()" class="btns red vcenter">
+													<span class="tabcell">
+														Ingresar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+													</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="log-gbg">
+    <div class="container">
+      <div class="basicrow f-bigmed roboto-l text-justify">
+        <span class="roboto-r f-big">&#191;Qu&eacute; es el Servicio Universal&#63;</span><br/>
+        Lifeline es un programa de asistencia dirigido a consumidores elegibles de bajos ingresos. El programa ofrece un descuento mediante el cual los consumidores pudieran no pagar o pagar un precio reducido por un servicio de telefon&iacute;a de voz, acceso de banda ancha a Internet, o una combinaci&oacute;n de ambos.
+      </div>
+    </div>
+  </div>
+</div>
