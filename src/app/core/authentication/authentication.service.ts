@@ -71,6 +71,10 @@ export class AuthenticationService {
     return this._credentials;
   }
 
+  public getCredentials(): Credentials | null {
+    return this._credentials;
+  }
+
   /**
    * Sets the user credentials.
    * The credentials may be persisted across sessions by setting the `remember` parameter to true.
