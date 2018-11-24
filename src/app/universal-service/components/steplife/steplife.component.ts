@@ -11,7 +11,6 @@ export class SteplifeComponent implements OnInit {
 
   constructor(location: Location) {
     this.path = location.path();
-    console.log(this.path);
   }
 
   ngOnInit() {
