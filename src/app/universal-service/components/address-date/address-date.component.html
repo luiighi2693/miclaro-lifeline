@@ -1,16 +1,16 @@
-<!--[INIT LOADING DATOS DE DIRECCION 1]>
+<!--[INIT LOADING DATOS DE DIRECCION 1]-->
 
-<div class="popupbg">
+<div class="popupbg" *ngIf="validationProcessUSPS">
   <div class="popupcont morew">
     <div class="basicrow text-center">
-      <img width="100%" class="bigclarogif" src="images/claroloadgif.gif">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif">
     </div>
 
     <div class="basicrow f-bmed f-black roboto-r">
       <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
           <div class="basicrow m-top-i text-center">
-            <img width="100%" class="loadongoin" src="images/gload.gif"> Inicia Proceso de Validaci&oacute;n USPS
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif"> Inicia Proceso de Validaci&oacute;n USPS
           </div>
         </div>
       </div>
@@ -18,13 +18,13 @@
   </div>
 </div>
 
-<![END LOADING DATOS DE DIRECCION 1]-->
+<!--[END LOADING DATOS DE DIRECCION 1]-->
 
 
 
-<!--[INIT POPUP VERIFICACION DE DIRECCION]>
+<!--[INIT POPUP VERIFICACION DE DIRECCION]-->
 
-<div class="popupbg">
+<div class="popupbg" *ngIf="validationDataAddressInput">
   <div class="popupcont">
     <div class="basicrow f-black f-lbig roboto-m">
       Verificaci&oacute;n de Direcci&oacute;n
@@ -99,7 +99,7 @@
         </div>
 
         <div class="basicrow text-center m-top-i">
-          <a href="#" class="btns def-i red centr vcenter">
+          <a (click)="goToRegisterCase()" class="btns def-i red centr vcenter">
 								<span class="tabcell">
 									Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 								</span>
@@ -110,23 +110,23 @@
   </div>
 </div>
 
-<![END POPUP VERIFICACION DE DIRECCION]-->
+<!--[END POPUP VERIFICACION DE DIRECCION]-->
 
 
 
-<!--[INIT LOADING DATOS DE DIRECCION 2]>
+<!--[INIT LOADING DATOS DE DIRECCION 2]-->
 
-<div class="popupbg">
+<div class="popupbg" *ngIf="validationProcessMAILPREP">
   <div class="popupcont morew">
     <div class="basicrow text-center">
-      <img width="100%" class="bigclarogif" src="images/claroloadgif.gif">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif">
     </div>
 
     <div class="basicrow f-bmed f-black roboto-r">
       <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
           <div class="basicrow m-top-i text-center">
-            <img width="100%" class="loadongoin" src="images/gload.gif"> Inicia el Proceso de Validaci&oacute;n MAILPREP
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif"> Inicia el Proceso de Validaci&oacute;n MAILPREP
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@
   </div>
 </div>
 
-<![END LOADING DATOS DE DIRECCION 2]-->
+<!--[END LOADING DATOS DE DIRECCION 2]-->
 
 
 
@@ -145,7 +145,7 @@
     <div class="container">
       <div class="basicrow">
         <div class="fulltitle f-btitle m-bott-i">
-          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validaci&oacute;n SSN
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validación de Dirección
         </div>
 
         <div class="basicrow m-top-i m-bott text-center">
@@ -181,7 +181,7 @@
                         <label class="label-f">&#42; &#191;Cu&aacute;l es la direcci&oacute;n de tu casa&#63;</label>
 
                         <div class="basicrow rel">
-                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="images/tooltip1.png">
+                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
 
                           <input placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt">
                         </div>
@@ -311,7 +311,7 @@
                         <label class="label-f">&#42; &#191;Cu&aacute;l es la direcci&oacute;n postal&#63;</label>
 
                         <div class="basicrow rel">
-                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="images/tooltip1.png">
+                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
 
                           <input placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt">
                         </div>
@@ -366,27 +366,27 @@
                   </div>
                 </div>
 
-                <div class="basicrow">
-                  <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                      <div class="basicrow m-top-i">
-                        <label class="label-f">&#42; N&uacute;mero de Contacto 1</label>
+                <!--<div class="basicrow">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+                      <!--<div class="basicrow m-top-i">-->
+                        <!--<label class="label-f">&#42; N&uacute;mero de Contacto 1</label>-->
 
-                        <input class="inp-f ">
-                      </div>
-                    </div>
+                        <!--<input class="inp-f ">-->
+                      <!--</div>-->
+                    <!--</div>-->
 
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                      <div class="basicrow m-top-i">
-                        <label class="label-f">&#42; N&uacute;mero de Contacto 2</label>
+                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+                      <!--<div class="basicrow m-top-i">-->
+                        <!--<label class="label-f">&#42; N&uacute;mero de Contacto 2</label>-->
 
-                        <div class="basicrow rel">
-                          <input class="inp-f ">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                        <!--<div class="basicrow rel">-->
+                          <!--<input class="inp-f ">-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
               </div>
 
               <div class="basicrow">
@@ -395,13 +395,13 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a href="#" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a href="#" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>

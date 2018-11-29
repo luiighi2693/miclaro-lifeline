@@ -1,9 +1,9 @@
-<!--[INIT LOADING DATOS PERSONALES]>
+<!--[INIT LOADING DATOS PERSONALES]-->
 
-<div class="popupbg">
+<div class="popupbg" *ngIf="processValidationSIF">
   <div class="popupcont morew">
     <div class="basicrow text-center">
-      <img width="100%" class="bigclarogif" src="images/claroloadgif.gif">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif">
     </div>
 
     <div class="basicrow text-center f-black roboto-b f-bmed m-top">
@@ -18,7 +18,7 @@
           </div>
 
           <div class="basicrow m-top">
-            <img width="100%" class="loadongoin" src="images/gload.gif"> Inicia proceso de reserva de subscritor
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif"> Inicia proceso de reserva de subscritor
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<![END LOADING DATOS PERSONALES]-->
+<!--[END LOADING DATOS PERSONALES]-->
 
 
 
@@ -37,7 +37,7 @@
     <div class="container">
       <div class="basicrow">
         <div class="fulltitle f-btitle m-bott-i">
-          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validaci&oacute;n SSN
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Apertura de cuenta
         </div>
 
         <div class="basicrow m-top-i m-bott text-center">
@@ -165,13 +165,13 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a href="#" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToAceptationTerms()" class="btns def-i red pull-right vcenter">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a href="#" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>

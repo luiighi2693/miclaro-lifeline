@@ -1,5 +1,5 @@
-<!--[INIT LOADING DATOS PERSONALES]>
-<div class="popupbg">
+<!--[INIT LOADING DATOS PERSONALES]-->
+<div class="popupbg" *ngIf="processValidationSIF">
   <div class="popupcont morew">
     <div class="basicrow text-center">
       <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif">
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<![END LOADING DATOS PERSONALES]-->
+<!--[END LOADING DATOS PERSONALES]-->
 
 <div class="basicrow">
   <app-header></app-header>
@@ -240,13 +240,13 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a href="#" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToSocialSecureVerification()" class="btns def-i red pull-right vcenter">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a href="#" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>

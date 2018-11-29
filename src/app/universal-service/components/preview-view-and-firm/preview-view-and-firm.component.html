@@ -1,3 +1,53 @@
+<div class="popupbg" *ngIf="firmInput">
+  <div class="popupcont morew-ii">
+    <div class="basicrow f-reg f-black roboto-r text-justify">
+      Con este consentimiento <span class="roboto-b">AUTORIZO</span> el uso de mis iniciales y firmas en formato electr&oacute;nico, y <span class="roboto-b">CERTIFICO</span> que son de m autor&iacute;a como si estuvieran en manuscrito. Espec&iacute;ficamente, <span class="roboto-b">ACEPTO</span> que el uso de mis iniciales y firma electr&oacute;nica para los prop&oacute;sitos de esta solicitud es legal y vinculante, y que no se le restar&aacute; efecto o validez al mismo por el hecho de estar en formato electr&oacute;nico.
+    </div>
+
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div class="basicrow m-top-i">
+            <label class="label-f">&#42; Iniciales</label>
+
+            <input class="inp-f ">
+          </div>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div class="basicrow m-top-i">
+            <label class="label-f">&#42; Firma</label>
+
+            <div class="basicrow rel">
+              <input class="inp-f ">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="basicrow m-top-i">
+            <label class="label-f">&#42; Fecha</label>
+
+            <div class="basicrow rel">
+              <i class="fa fa-calendar inpcal-icon" aria-hidden="true"></i>
+
+              <input class="inp-f qt">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basicrow text-center m-top-i">
+      <a (click)="goToActivation()" class="btns def-i red centr vcenter">
+						<span class="tabcell">
+							Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <div class="basicrow">
   <app-header></app-header>
 
@@ -5,14 +55,14 @@
     <div class="container">
       <div class="basicrow">
         <div class="fulltitle f-btitle m-bott-i">
-          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validaci&oacute;n SSN
+          <i class="fa fa-laptop" aria-hidden="true"></i> Activación de Servicio Universal Prepago
         </div>
 
         <div class="basicrow m-top-i m-bott text-center">
           <app-steplife></app-steplife>
         </div>
 
-        <div class="basicrow">
+        <div class="basicrow" *ngIf="!step2">
           <div class="basicrow f-lbig f-black roboto-m text-left">
             Formulario Hoja de Hogar (Programa de Lifeline)
           </div>
@@ -23,13 +73,39 @@
 
           <div class="basicrow">
             <div class="basicrow text-center m-top-i">
-              <a href="#" class="btns def-i red pull-right vcenter">
+              <a (click)="goToStep2()" class="btns def-i red pull-right vcenter">
 										<span class="tabcell">
 											Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 										</span>
               </a>
 
-              <a href="#" class="btns def-i gray pull-left vcenter">
+              <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
+										<span class="tabcell">
+											<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+										</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="basicrow" *ngIf="step2">
+          <div class="basicrow f-lbig f-black roboto-m text-left">
+            Formulario de Aplicaci&oacute;n (Programa de Lifeline)
+          </div>
+
+          <div class="basicrow m-top-i">
+            <img width="100%" src="../../../../assets/images/firmamock2.png">
+          </div>
+
+          <div class="basicrow">
+            <div class="basicrow text-center m-top-i">
+              <a (click)="showFirmInput()" class="btns def-i red pull-right vcenter">
+										<span class="tabcell">
+											Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+										</span>
+              </a>
+
+              <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
 										<span class="tabcell">
 											<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 										</span>

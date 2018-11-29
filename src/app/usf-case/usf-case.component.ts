@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usf-case',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsfCaseComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
   }
 
+  goToHome() {
+    this.router.navigate(['/home'], { replaceUrl: true });
+  }
 }

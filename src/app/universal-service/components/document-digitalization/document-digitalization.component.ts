@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-document-digitalization',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentDigitalizationComponent implements OnInit {
 
-  constructor() { }
+  previewView = false;
+
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
+    window.scroll(0, 0);
   }
 
+  goToPreviewView() {
+    this.previewView = true;
+  }
+
+  goToAccountCreation() {
+    this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
+  }
+
+  goToHome() {
+    this.router.navigate(['/home'], { replaceUrl: true });
+  }
+
+  chargeDocuments() {
+    this.previewView = false;
+  }
 }

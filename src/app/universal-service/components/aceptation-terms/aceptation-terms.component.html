@@ -5,7 +5,7 @@
     <div class="container">
       <div class="basicrow">
         <div class="fulltitle f-btitle m-bott-i">
-          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validaci&oacute;n SSN
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Aceptación de términos
         </div>
 
         <div class="basicrow m-top-i m-bott text-center">
@@ -144,13 +144,13 @@
 
               <div class="basicrow">
                 <div class="basicrow text-center m-top-i">
-                  <a href="#" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToPreviewViewAndFirm()" class="btns def-i red pull-right vcenter">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a href="#" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>

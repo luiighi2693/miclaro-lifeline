@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-aceptation-terms',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AceptationTermsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
+    window.scroll(0, 0);
+  }
+
+  goToPreviewViewAndFirm() {
+    this.router.navigate(['/universal-service/preview-view-and-firm'], { replaceUrl: true });
+  }
+
+  goToHome() {
+    this.router.navigate(['/home'], { replaceUrl: true });
   }
 
 }
