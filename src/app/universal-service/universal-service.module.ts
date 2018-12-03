@@ -16,7 +16,10 @@ import { PreviewViewAndFirmComponent } from './components/preview-view-and-firm/
 import { ActivationComponent } from './components/activation/activation.component';
 
 @NgModule({
-  declarations: [UniversalServiceComponent, PersonalDatesComponent, SocialSecureVerificationComponent, SteplifeComponent, AddressDateComponent, RegisterCaseComponent, UsfVerificationComponent, DocumentDigitalizationComponent, AccountCreationComponent, AceptationTermsComponent, PreviewViewAndFirmComponent, ActivationComponent],
+  declarations: [UniversalServiceComponent, PersonalDatesComponent, SocialSecureVerificationComponent,
+    SteplifeComponent, AddressDateComponent, RegisterCaseComponent, UsfVerificationComponent,
+    DocumentDigitalizationComponent, AccountCreationComponent, AceptationTermsComponent, PreviewViewAndFirmComponent,
+    ActivationComponent],
   imports: [
     CommonModule,
     UniversalServiceRoutingModule,
