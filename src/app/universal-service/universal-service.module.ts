@@ -15,6 +15,8 @@ import { AceptationTermsComponent } from './components/aceptation-terms/aceptati
 import { PreviewViewAndFirmComponent } from './components/preview-view-and-firm/preview-view-and-firm.component';
 import { ActivationComponent } from './components/activation/activation.component';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [UniversalServiceComponent, PersonalDatesComponent, SocialSecureVerificationComponent,
     SteplifeComponent, AddressDateComponent, RegisterCaseComponent, UsfVerificationComponent,
@@ -23,7 +25,8 @@ import { ActivationComponent } from './components/activation/activation.componen
   imports: [
     CommonModule,
     UniversalServiceRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class UniversalServiceModule { }
