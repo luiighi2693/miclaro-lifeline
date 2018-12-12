@@ -67,7 +67,7 @@
                 <label class="label-f">&#42; Nombre</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f">
                 </div>
               </div>
 
@@ -75,7 +75,7 @@
                 <label class="label-f">Segundo Nombre (Opcional)</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f">
                 </div>
               </div>
 
@@ -83,7 +83,7 @@
                 <label type="text" maxlength="25" class="label-f">&#42; Apellido</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f">
                 </div>
               </div>
 
@@ -100,7 +100,7 @@
 
                         <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
 
-                        <input type="text" (keypress)="numberOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="socialSecure" class="inp-f qt">
+                        <input type="text" (keypress)="checkNumbersOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="socialSecure" class="inp-f qt">
                       </div>
                     </div>
 

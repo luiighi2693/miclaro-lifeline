@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
+import Util from '@app/universal-service/util';
 
 @Component({
   selector: 'app-personal-dates',
@@ -32,12 +33,12 @@ export class PersonalDatesComponent implements OnInit {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
-  numberOnly(event: any): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
+  checkNumbersOnly(event: any): boolean {
+   return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+   return Util.checkCharactersOnly(event);
   }
 
   formatInputSocialSecure(input: string) {
