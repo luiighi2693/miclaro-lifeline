@@ -134,9 +134,9 @@
                       <label class="label-f">&#42; Fecha de Nacimiento</label>
 
                       <div class="basicrow rel">
-                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true"></i>
+                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
 
-                        <input class="inp-f qt">
+                        <input type="text" class="inp-f qt" ngbDatepicker #d="ngbDatepicker">
                       </div>
                     </div>
                   </div>

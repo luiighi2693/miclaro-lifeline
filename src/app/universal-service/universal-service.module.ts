@@ -17,6 +17,8 @@ import { ActivationComponent } from './components/activation/activation.componen
 
 import { FormsModule } from '@angular/forms';
 
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [UniversalServiceComponent, PersonalDatesComponent, SocialSecureVerificationComponent,
     SteplifeComponent, AddressDateComponent, RegisterCaseComponent, UsfVerificationComponent,
@@ -26,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     UniversalServiceRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    NgbDatepickerModule
   ]
 })
 export class UniversalServiceModule { }
