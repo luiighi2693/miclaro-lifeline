@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import Util from '@app/universal-service/util';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-dates',
@@ -13,20 +14,95 @@ export class PersonalDatesComponent implements OnInit {
 
   socialSecure = '';
   format2 = 'XXX-XX-XXXX';
+  gender: boolean;
+  liveWithAnoterAdult: boolean;
+  hasLifelineTheAdult: boolean;
+  sharedMoneyWithTheAdult: boolean;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
+  public idTypes = ['Licencia de Conducir', 'Pasaporte'];
+
+  public form: FormGroup;
+
+  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     window.scroll(0, 0);
+
+    this.form = this.fb.group({
+      sufix: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      firstName: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      secondName: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
+      lastName: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      socialSecure: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      birthday: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      gender: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      idType: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      idNumber: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      idExpirationDate: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ]
+    });
+
+    console.log(this.form.valid);
   }
 
   goToSocialSecureVerification() {
-    this.processValidationSIF = true;
+    if (this.form.valid && !this.sharedMoneyWithTheAdult) {
+      this.processValidationSIF = true;
 
-    setTimeout(() => {
-      this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
-    }, 3000);
-
+      setTimeout(() => {
+        this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
+      }, 3000);
+    }
   }
 
   goToHome() {

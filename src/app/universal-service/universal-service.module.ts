@@ -15,9 +15,9 @@ import { AceptationTermsComponent } from './components/aceptation-terms/aceptati
 import { PreviewViewAndFirmComponent } from './components/preview-view-and-firm/preview-view-and-firm.component';
 import { ActivationComponent } from './components/activation/activation.component';
 
-import { FormsModule } from '@angular/forms';
-
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [UniversalServiceComponent, PersonalDatesComponent, SocialSecureVerificationComponent,
@@ -28,8 +28,9 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     UniversalServiceRoutingModule,
     SharedModule,
+    NgbDatepickerModule,
     FormsModule,
-    NgbDatepickerModule
+    ReactiveFormsModule
   ]
 })
 export class UniversalServiceModule { }

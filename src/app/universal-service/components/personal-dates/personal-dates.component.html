@@ -52,13 +52,9 @@
                 <label class="label-f">&#42; Sufijo</label>
 
                 <div class="basicrow">
-                  <select class="sel-f sufix">
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option value="">MR</option>
-                    <option value="">MRS</option>
-                    <option value="">ENG</option>
-                    <option value="">ATTY</option>
-                    <option value="">DR</option>
+                  <select class="sel-f sufix" name="sufix" [(ngModel)]="sufix" [formControl]="form.controls['sufix']">
+                    <option [value]="" disabled selected>Seleccionar</option>
+                    <option [value]="sufix" *ngFor="let sufix of sufixes">{{sufix}}</option>
                   </select>
                 </div>
               </div>
@@ -67,7 +63,7 @@
                 <label class="label-f">&#42; Nombre</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="firstName" [formControl]="form.controls['firstName']">
                 </div>
               </div>
 
@@ -75,7 +71,7 @@
                 <label class="label-f">Segundo Nombre (Opcional)</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="secondName" [formControl]="form.controls['secondName']">
                 </div>
               </div>
 
@@ -83,7 +79,7 @@
                 <label type="text" maxlength="25" class="label-f">&#42; Apellido</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="lastName" [formControl]="form.controls['lastName']">
                 </div>
               </div>
 
@@ -100,7 +96,7 @@
 
                         <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
 
-                        <input type="text" (keypress)="checkNumbersOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="socialSecure" class="inp-f qt">
+                        <input type="text" (keypress)="checkNumbersOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="socialSecure" [formControl]="form.controls['socialSecure']" class="inp-f qt">
                       </div>
                     </div>
 
@@ -134,9 +130,9 @@
                       <label class="label-f">&#42; Fecha de Nacimiento</label>
 
                       <div class="basicrow rel">
-                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
+                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
 
-                        <input type="text" class="inp-f qt" ngbDatepicker #d="ngbDatepicker">
+                        <input type="text" class="inp-f qt" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1970, month: 1, day: 1}" [(ngModel)]="birthday" [formControl]="form.controls['birthday']">
                       </div>
                     </div>
                   </div>
@@ -148,11 +144,11 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Femenino
+                    <input type="radio" name="gender" [value]="true" [(ngModel)]="gender" [formControl]="form.controls['gender']"> Femenino
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> Masculino
+                    <input type="radio" name="gender" [value]="false" [(ngModel)]="gender" [formControl]="form.controls['gender']"> Masculino
                   </div>
                 </div>
               </div>
@@ -162,10 +158,9 @@
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="basicrow m-top-i">
                       <label class="label-f">&#42; ID</label>
-
-                      <select class="sel-f">
-                        <option>Licencia de Conducir</option>
-                        <option>Pasaporte</option>
+                      <select class="sel-f" name="idType" [(ngModel)]="idType" [formControl]="form.controls['idType']">
+                        <option [value]="" disabled selected>Seleccionar</option>
+                        <option [value]="idType" *ngFor="let idType of idTypes">{{idType}}</option>
                       </select>
                     </div>
                   </div>
@@ -175,7 +170,7 @@
                       <label class="label-f">&#42; Nro de ID</label>
 
                       <div class="basicrow rel">
-                        <input type="text" maxlength="25" class="inp-f ">
+                        <input type="text" maxlength="25" class="inp-f " [(ngModel)]="idNumber" [formControl]="form.controls['idNumber']">
                       </div>
                     </div>
                   </div>
@@ -185,9 +180,9 @@
                       <label class="label-f">&#42; Fecha de Expiraci&oacute;n del ID</label>
 
                       <div class="basicrow rel">
-                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true"></i>
+                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
 
-                        <input class="inp-f qt">
+                        <input type="text" class="inp-f qt" ngbDatepicker #d="ngbDatepicker" [minDate]="{year: 1970, month: 1, day: 1}" [(ngModel)]="idExpirationDate" [formControl]="form.controls['idExpirationDate']">
                       </div>
                     </div>
                   </div>
@@ -199,44 +194,44 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Si
+                    <input type="radio" name="liveWithAnoterAdult" [value]="true" [(ngModel)]="liveWithAnoterAdult"> Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> No
+                    <input type="radio" name="liveWithAnoterAdult" [value]="false" [(ngModel)]="liveWithAnoterAdult"> No
                   </div>
                 </div>
               </div>
 
-              <div class="basicrow m-top-i">
+              <div class="basicrow m-top-i" *ngIf="liveWithAnoterAdult">
                 <label class="label-f">&#42; &#191;&Eacute;l o Ella tiene Lifeline&#63;</label>
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Si
+                    <input type="radio" name="hasLifelineTheAdult" [value]="true" [(ngModel)]="hasLifelineTheAdult"> Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> No
+                    <input type="radio" name="hasLifelineTheAdult" [value]="false" [(ngModel)]="hasLifelineTheAdult"> No
                   </div>
                 </div>
               </div>
 
-              <div class="basicrow m-top-i">
+              <div class="basicrow m-top-i" *ngIf="hasLifelineTheAdult">
                 <label class="label-f">&#42; &#191;Compartes dinero (ingresos y gastos) con ella o &eacute;l&#63;</label>
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Si
+                    <input type="radio" name="sharedMoneyWithTheAdult" [value]="true" [(ngModel)]="sharedMoneyWithTheAdult"> Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> No
+                    <input type="radio" name="sharedMoneyWithTheAdult" [value]="false" [(ngModel)]="sharedMoneyWithTheAdult"> No
                   </div>
                 </div>
               </div>
 
-              <div class="noqualifycont m-top-i">
+              <div class="noqualifycont m-top-i" *ngIf="sharedMoneyWithTheAdult">
                 No calificas para Lifeline porque alguien en tu hogar ya recibe el beneficio. S&oacute;lo se permite un beneficio de Lifeline por hogar, no por persona.
               </div>
 
@@ -246,7 +241,7 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToSocialSecureVerification()" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToSocialSecureVerification()" class="btns def-i pull-right vcenter" [ngClass]="{'red': form.valid && !sharedMoneyWithTheAdult, 'gray': !form.valid || (form.valid && sharedMoneyWithTheAdult)}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
