@@ -23,7 +23,8 @@
     "prettier:check": "prettier --list-different \"./{src,e2e}/**/*.{ts,js,scss}\"",
     "precommit": "pretty-quick --staged",
     "generate": "ng generate",
-    "postinstall": "ng build"},
+    "postinstall": "ng build"
+  },
   "dependencies": {
     "@angular/animations": "^7.0.0",
     "@angular/common": "^7.0.0",
@@ -44,7 +45,8 @@
     "lodash": "^4.17.10",
     "path": "^0.12.7",
     "rxjs": "^6.3.1",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "ng2-validation": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.10.2",

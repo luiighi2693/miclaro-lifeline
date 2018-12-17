@@ -164,11 +164,11 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Si
+                    <input type="radio" name="temporalAddress" [value]="true" [(ngModel)]="model.temporalAddress" [formControl]="form.controls['temporalAddress']"> Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> No
+                    <input type="radio" name="temporalAddress" [value]="false" [(ngModel)]="model.temporalAddress" [formControl]="form.controls['temporalAddress']"> No
                   </div>
                 </div>
               </div>
@@ -183,7 +183,7 @@
                         <div class="basicrow rel">
                           <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
 
-                          <input type="text" maxlength="40" placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt">
+                          <input type="text" maxlength="40" placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt" [(ngModel)]="model.address" [formControl]="form.controls['address']">
                         </div>
                       </div>
                     </div>
@@ -191,7 +191,7 @@
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                       <div class="basicrow m-top-iii">
                         <div class="basicrow">
-                          <input type="text" maxlength="6" placeholder="Dpto/Unidad/Otro" class="inp-f">
+                          <input type="text" maxlength="6" placeholder="Dpto/Unidad/Otro" class="inp-f" [(ngModel)]="model.depUnitOther" [formControl]="form.controls['depUnitOther']">
                         </div>
                       </div>
                     </div>
@@ -205,87 +205,10 @@
                         <label class="label-f">&#42; Municipios</label>
 
                         <div class="basicrow">
-                          <select class="sel-f">
-                            <option value="" disabled selected>Seleccionar</option>
-                            <option>Adjuntas</option>
-                            <option value="">Aguada</option>
-                            <option value="">Aguadilla</option>
-                            <option value="">Aguas Buenas</option>
-                            <option value="">Aibonito</option>
-                            <option value="">Arecibo</option>
-                            <option value="">Arroyo</option>
-                            <option value="">Añasco</option>
-                            <option value="">Barceloneta</option>
-                            <option value="">Barranquitas</option>
-                            <option value="">Bayamón</option>
-                            <option value="">Cabo Rojo</option>
-                            <option value="">Caguas</option>
-                            <option value="">Camuy</option>
-                            <option value="">Canóvanas</option>
-                            <option value="">Carolina</option>
-                            <option value="">Cataño</option>
-                            <option value="">Cayey</option>
-                            <option value="">Ceiba</option>
-                            <option value="">Ciales</option>
-                            <option value="">Cidra</option>
-                            <option value="">Coamo</option>
-                            <option value="">Comerío</option>
-                            <option value="">Corozal</option>
-                            <option value="">Culebra</option>
-                            <option value="">Dorado</option>
-                            <option value="">Fajardo</option>
-                            <option value="">Florida</option>
-                            <option value="">Guayama</option>
-                            <option value="">Guayanilla</option>
-                            <option value="">Guaynabo</option>
-                            <option value="">Gurabo</option>
-                            <option value="">Guánica</option>
-                            <option value="">Hatillo</option>
-                            <option value="">Hormigueros</option>
-                            <option value="">Humacao</option>
-                            <option value="">Isabela</option>
-                            <option value="">Jayuya</option>
-                            <option value="">Juana Díaz</option>
-                            <option value="">Juncos</option>
-                            <option value="">Lajas</option>
-                            <option value="">Lares</option>
-                            <option value="">Las Marías</option>
-                            <option value="">Las Piedras</option>
-                            <option value="">Loiza</option>
-                            <option value="">Luquillo</option>
-                            <option value="">Manatí</option>
-                            <option value="">Maricao</option>
-                            <option value="">Maunabo</option>
-                            <option value="">Mayagüez</option>
-                            <option value="">Moca</option>
-                            <option value="">Morovis</option>
-                            <option value="">Naguabo</option>
-                            <option value="">Naranjito</option>
-                            <option value="">Orocovis</option>
-                            <option value="">Patillas</option>
-                            <option value="">Peñuelas</option>
-                            <option value="">Ponce</option>
-                            <option value="">Quebradillas</option>
-                            <option value="">Rincón</option>
-                            <option value="">Rio Grande</option>
-                            <option value="">Sabana Grande</option>
-                            <option value="">Salinas</option>
-                            <option value="">San Germán</option>
-                            <option value="">San Juan</option>
-                            <option value="">San Lorenzo</option>
-                            <option value="">San Sebastián</option>
-                            <option value="">Santa Isabel</option>
-                            <option value="">Toa Alta</option>
-                            <option value="">Toa Baja</option>
-                            <option value="">Trujillo Alto</option>
-                            <option value="">Utuado</option>
-                            <option value="">Vega Alta</option>
-                            <option value="">Vega Baja</option>
-                            <option value="">Vieques</option>
-                            <option value="">Villalba</option>
-                            <option value="">Yabucoa</option>
-                            <option value="">Yauco</option>
-                          </select>
+                          <select class="sel-f" name="municipality" [(ngModel)]="model.municipality" [formControl]="form.controls['municipality']">
+                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="municipality" *ngFor="let municipality of municipalities">{{municipality}}</option>
+                            </select>
                         </div>
                       </div>
                     </div>
@@ -295,9 +218,9 @@
                         <div class="basicrow">
                           <label class="label-f">&#42; Estado</label>
 
-                          <select class="sel-f">
-                            <option value="" disabled selected>Seleccionar</option>
-                            <option value="">Puerto Rico</option>
+                          <select class="sel-f" name="estate" [(ngModel)]="model.estate" [formControl]="form.controls['estate']">
+                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="estate" *ngFor="let estate of estates">{{estate}}</option>
                           </select>
                         </div>
                       </div>
@@ -308,7 +231,7 @@
                         <div class="basicrow">
                           <label type="text" maxlength="5" class="label-f">&#42; C&oacute;digo Postal</label>
 
-                          <input type="text" maxlength="5" class="inp-f">
+                          <input type="text" maxlength="5" class="inp-f" (keypress)="checkNumbersOnly($event)" [(ngModel)]="model.postalCode" [formControl]="form.controls['postalCode']">
                         </div>
                       </div>
                     </div>
@@ -321,7 +244,7 @@
                       <div class="basicrow m-top-i">
                         <label class="label-f">&#42; N&uacute;mero de Contacto 1</label>
 
-                        <input (keypress)="numberOnly($event)" (keyup)="formatInputContactNumber('contactNumber1')" maxlength="13" class="inp-f " name="contactNumber1" [(ngModel)]="contactNumber1">
+                        <input (keypress)="checkNumbersOnly($event)" (keyup)="formatInputContactNumber('contactNumber1')" maxlength="13" class="inp-f " name="contactNumber1" [(ngModel)]="model.contactNumber1" [formControl]="form.controls['contactNumber1']">
                       </div>
                     </div>
 
@@ -330,7 +253,7 @@
                         <label class="label-f">&#42; N&uacute;mero de Contacto 2</label>
 
                         <div class="basicrow rel">
-                          <input (keypress)="numberOnly($event)" (keyup)="formatInputContactNumber('contactNumber2')" maxlength="13" class="inp-f " name="contactNumber2" [(ngModel)]="contactNumber2">
+                          <input (keypress)="checkNumbersOnly($event)" (keyup)="formatInputContactNumber('contactNumber2')" maxlength="13" class="inp-f " name="contactNumber2" [(ngModel)]="model.contactNumber2" [formControl]="form.controls['contactNumber2']">
                         </div>
                       </div>
                     </div>
@@ -342,7 +265,7 @@
                 <label class="label-f">&#42; Correo Electr&oacute;nico</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f">
+                  <input type="text" maxlength="25" class="inp-f" [(ngModel)]="model.email" [formControl]="form.controls['email']">
                 </div>
               </div>
 
@@ -351,19 +274,19 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Correo Electr&oacute;nico
+                    <input type="radio" name="contactChannel" [value]="'Correo Electronico'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Correo Electr&oacute;nico
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> Tel&eacute;fono
+                    <input type="radio" name="contactChannel" [value]="'Telefono'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Tel&eacute;fono
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> Mensaje de texto
+                    <input type="radio" name="contactChannel" [value]="'Mensaje de texto'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Mensaje de texto
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> Correo
+                    <input type="radio" name="contactChannel" [value]="'Correo'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Correo
                   </div>
                 </div>
               </div>
@@ -373,16 +296,16 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Si
+                    <input type="radio" name="postalAddressFlag" [value]="true" [(ngModel)]="model.postalAddressFlag" [formControl]="form.controls['postalAddressFlag']"> Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" checked> No
+                    <input type="radio" name="postalAddressFlag" [value]="false" [(ngModel)]="model.postalAddressFlag" [formControl]="form.controls['postalAddressFlag']"> No
                   </div>
                 </div>
               </div>
 
-              <div class="basicrow">
+              <div class="basicrow" *ngIf="!model.postalAddressFlag">
                 <div class="basicrow">
                   <div class="row">
                     <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
@@ -392,7 +315,7 @@
                         <div class="basicrow rel">
                           <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
 
-                          <input type="text" maxlength="40" placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt">
+                          <input type="text" maxlength="40" placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt" [(ngModel)]="model.postalAddress" [formControl]="form.controls['postalAddress']">
                         </div>
                       </div>
                     </div>
@@ -400,7 +323,7 @@
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                       <div class="basicrow m-top-iii">
                         <div class="basicrow">
-                          <input type="text" maxlength="6" placeholder="Dpto/Unidad/Otro" class="inp-f">
+                          <input type="text" maxlength="6" placeholder="Dpto/Unidad/Otro" class="inp-f" [(ngModel)]="model.postalDepUnitOther" [formControl]="form.controls['postalDepUnitOther']">
                         </div>
                       </div>
                     </div>
@@ -414,86 +337,9 @@
                         <label class="label-f">&#42; Municipios</label>
 
                         <div class="basicrow">
-                          <select class="sel-f">
-                            <option>Seleccionar</option>
-                            <option>Adjuntas</option>
-                            <option value="">Aguada</option>
-                            <option value="">Aguadilla</option>
-                            <option value="">Aguas Buenas</option>
-                            <option value="">Aibonito</option>
-                            <option value="">Arecibo</option>
-                            <option value="">Arroyo</option>
-                            <option value="">Añasco</option>
-                            <option value="">Barceloneta</option>
-                            <option value="">Barranquitas</option>
-                            <option value="">Bayamón</option>
-                            <option value="">Cabo Rojo</option>
-                            <option value="">Caguas</option>
-                            <option value="">Camuy</option>
-                            <option value="">Canóvanas</option>
-                            <option value="">Carolina</option>
-                            <option value="">Cataño</option>
-                            <option value="">Cayey</option>
-                            <option value="">Ceiba</option>
-                            <option value="">Ciales</option>
-                            <option value="">Cidra</option>
-                            <option value="">Coamo</option>
-                            <option value="">Comerío</option>
-                            <option value="">Corozal</option>
-                            <option value="">Culebra</option>
-                            <option value="">Dorado</option>
-                            <option value="">Fajardo</option>
-                            <option value="">Florida</option>
-                            <option value="">Guayama</option>
-                            <option value="">Guayanilla</option>
-                            <option value="">Guaynabo</option>
-                            <option value="">Gurabo</option>
-                            <option value="">Guánica</option>
-                            <option value="">Hatillo</option>
-                            <option value="">Hormigueros</option>
-                            <option value="">Humacao</option>
-                            <option value="">Isabela</option>
-                            <option value="">Jayuya</option>
-                            <option value="">Juana Díaz</option>
-                            <option value="">Juncos</option>
-                            <option value="">Lajas</option>
-                            <option value="">Lares</option>
-                            <option value="">Las Marías</option>
-                            <option value="">Las Piedras</option>
-                            <option value="">Loiza</option>
-                            <option value="">Luquillo</option>
-                            <option value="">Manatí</option>
-                            <option value="">Maricao</option>
-                            <option value="">Maunabo</option>
-                            <option value="">Mayagüez</option>
-                            <option value="">Moca</option>
-                            <option value="">Morovis</option>
-                            <option value="">Naguabo</option>
-                            <option value="">Naranjito</option>
-                            <option value="">Orocovis</option>
-                            <option value="">Patillas</option>
-                            <option value="">Peñuelas</option>
-                            <option value="">Ponce</option>
-                            <option value="">Quebradillas</option>
-                            <option value="">Rincón</option>
-                            <option value="">Rio Grande</option>
-                            <option value="">Sabana Grande</option>
-                            <option value="">Salinas</option>
-                            <option value="">San Germán</option>
-                            <option value="">San Juan</option>
-                            <option value="">San Lorenzo</option>
-                            <option value="">San Sebastián</option>
-                            <option value="">Santa Isabel</option>
-                            <option value="">Toa Alta</option>
-                            <option value="">Toa Baja</option>
-                            <option value="">Trujillo Alto</option>
-                            <option value="">Utuado</option>
-                            <option value="">Vega Alta</option>
-                            <option value="">Vega Baja</option>
-                            <option value="">Vieques</option>
-                            <option value="">Villalba</option>
-                            <option value="">Yabucoa</option>
-                            <option value="">Yauco</option>
+                          <select class="sel-f" name="postalMunicipality" [(ngModel)]="model.postalMunicipality" [formControl]="form.controls['postalMunicipality']">
+                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="postalMunicipality" *ngFor="let postalMunicipality of municipalities">{{postalMunicipality}}</option>
                           </select>
                         </div>
                       </div>
@@ -504,9 +350,9 @@
                         <div class="basicrow">
                           <label class="label-f">&#42; Estado</label>
 
-                          <select class="sel-f">
-                            <option value="" disabled selected>Seleccionar</option>
-                            <option value="">Puerto Rico</option>
+                          <select class="sel-f" name="postalEstate" [(ngModel)]="model.postalEstate" [formControl]="form.controls['postalEstate']">
+                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="postalEstate" *ngFor="let postalEstate of estates">{{postalEstate}}</option>
                           </select>
                         </div>
                       </div>
@@ -517,7 +363,7 @@
                         <div class="basicrow">
                           <label class="label-f">&#42; C&oacute;digo Postal</label>
 
-                          <input type="text" maxlength="5" class="inp-f">
+                          <input type="text" maxlength="5" class="inp-f" (keypress)="checkNumbersOnly($event)" [(ngModel)]="model.postalCode2" [formControl]="form.controls['postalCode2']">
                         </div>
                       </div>
                     </div>
@@ -553,7 +399,7 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter" [ngClass]="{'red': form.valid, 'gray': !form.valid}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>

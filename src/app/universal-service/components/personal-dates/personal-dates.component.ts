@@ -4,6 +4,22 @@ import { Router } from '@angular/router';
 import Util from '@app/universal-service/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+export interface Model {
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  birthday: string;
+  idType: string;
+  idNumber: string;
+  idExpirationDate: string;
+  sufix: string;
+  liveWithAnoterAdult: boolean;
+  hasLifelineTheAdult: boolean;
+  sharedMoneyWithTheAdult: boolean;
+  socialSecure: string;
+  gender: boolean;
+}
+
 @Component({
   selector: 'app-personal-dates',
   templateUrl: './personal-dates.component.html',
@@ -11,18 +27,27 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PersonalDatesComponent implements OnInit {
   processValidationSIF = false;
-
-  socialSecure = '';
   format2 = 'XXX-XX-XXXX';
-  gender: boolean;
-  liveWithAnoterAdult: boolean;
-  hasLifelineTheAdult: boolean;
-  sharedMoneyWithTheAdult: boolean;
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
 
   public form: FormGroup;
+  model: Model = new class implements Model {
+    sufix = '';
+    gender: boolean;
+    socialSecure = '';
+    birthday = '';
+    firstName = '';
+    idExpirationDate = '';
+    idNumber = '';
+    idType = '';
+    lastName = '';
+    secondName = '';
+    liveWithAnoterAdult: boolean;
+    hasLifelineTheAdult: boolean;
+    sharedMoneyWithTheAdult: boolean;
+  };
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
 
@@ -91,12 +116,11 @@ export class PersonalDatesComponent implements OnInit {
         ])
       ]
     });
-
-    console.log(this.form.valid);
   }
 
   goToSocialSecureVerification() {
-    if (this.form.valid && !this.sharedMoneyWithTheAdult) {
+    if (this.form.valid && !this.model.sharedMoneyWithTheAdult) {
+      console.log(this.model);
       this.processValidationSIF = true;
 
       setTimeout(() => {
@@ -118,7 +142,7 @@ export class PersonalDatesComponent implements OnInit {
   }
 
   formatInputSocialSecure(input: string) {
-    this.socialSecure = this.formatInput(this.socialSecure, this.format2);
+    this.model.socialSecure = this.formatInput(this.model.socialSecure, this.format2);
   }
 
   private formatInput(input: string, format: string) {

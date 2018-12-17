@@ -1,6 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Util from '@app/universal-service/util';
+import {CustomValidators} from 'ng2-validation';
+
+export interface Model {
+  contactNumber1: string;
+  contactNumber2: string;
+  temporalAddress: boolean;
+  address: string;
+  depUnitOther: string;
+  municipality: string;
+  estate: string;
+  postalCode: string;
+  email: string;
+  contactChannel: string;
+  postalAddressFlag: boolean;
+  postalAddress: string;
+  postalDepUnitOther: string;
+  postalMunicipality: string;
+  postalEstate: string;
+  postalCode2: string;
+}
 
 @Component({
   selector: 'app-address-date',
@@ -12,63 +34,188 @@ export class AddressDateComponent implements OnInit {
   validationDataAddressInput = false;
   validationProcessMAILPREP = false;
 
-  contactNumber1 = '';
-  contactNumber2 = '';
   format1 = 'XXX-XXX-XX-XX';
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  public municipalities = [ 'Adjuntas', 'Aguada', 'Aguadilla', 'Aguas Buenas', 'Aibonito', 'Arecibo', 'Arroyo',
+    'Añasco', 'Barceloneta', 'Barranquitas', 'Bayamón', 'Cabo Rojo', 'Caguas', 'Camuy', 'Canóvanas', 'Carolina',
+    'Cataño', 'Cayey', 'Ceiba', 'Ciales', 'Cidra', 'Coamo', 'Comerío', 'Corozal', 'Culebra', 'Dorado', 'Fajardo',
+    'Florida', 'Guayama', 'Guayanilla', 'Guaynabo', 'Gurabo', 'Guánica', 'Hatillo', 'Hormigueros', 'Humacao', 'Isabela',
+    'Jayuya', 'Juana Díaz', 'Juncos', 'Lajas', 'Lares', 'Las Marías', 'Las Piedras', 'Loiza', 'Luquillo', 'Manatí',
+    'Maricao', 'Maunabo', 'Mayagüez', 'Moca', 'Morovis', 'Naguabo', 'Naranjito', 'Orocovis', 'Patillas', 'Peñuelas',
+    'Ponce', 'Quebradillas', 'Rincón', 'Rio Grande', 'Sabana Grande', 'Salinas', 'San Germán', 'San Juan', 'San Lorenzo',
+    'San Sebastián', 'Santa Isabel', 'Toa Alta', 'Toa Baja', 'Trujillo Alto', 'Utuado', 'Vega Alta', 'Vega Baja', 'Vieques',
+    'Villalba', 'Yabucoa', 'Yauco'];
+
+  public estates = [ 'Puerto Rico'];
+
+  public form: FormGroup;
+  model: Model = new class implements Model {
+    contactNumber1 = '';
+    contactNumber2 = '';
+    temporalAddress = false;
+    address = '';
+    depUnitOther = '';
+    municipality = '';
+    estate = '';
+    postalCode = '';
+    email = '';
+    contactChannel = '';
+    postalAddressFlag = true;
+    postalAddress = '';
+    postalDepUnitOther = '';
+    postalMunicipality = '';
+    postalEstate = '';
+    postalCode2 = '';
+  };
+
+  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     window.scroll(0, 0);
+
+    this.form = this.fb.group({
+      contactNumber1: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      contactNumber2: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      temporalAddress: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      address: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      depUnitOther: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      municipality: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      estate: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      postalCode: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      email: [
+        null,
+        Validators.compose([
+          Validators.required,
+          CustomValidators.email
+        ])
+      ],
+      contactChannel: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      postalAddressFlag: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      postalAddress: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
+      postalDepUnitOther: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
+      postalMunicipality: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
+      postalEstate: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
+      postalCode2: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ]
+    });
   }
 
   goToValidationDataAddressInput() {
-    this.validationProcessUSPS = true;
+    if (this.form.valid) {
+      this.validationProcessUSPS = true;
 
-    setTimeout(() => {
-      this.validationProcessUSPS = false;
-      this.validationDataAddressInput = true;
-    }, 3000);
-
+      setTimeout(() => {
+        this.validationProcessUSPS = false;
+        this.validationDataAddressInput = true;
+      }, 3000);
+    }
   }
 
   goToRegisterCase() {
-    this.validationDataAddressInput = false;
-    this.validationProcessMAILPREP = true;
+    if (this.form.valid) {
+      console.log(this.model);
+      this.validationDataAddressInput = false;
+      this.validationProcessMAILPREP = true;
 
-    setTimeout(() => {
-      this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-    }, 3000);
-
+      setTimeout(() => {
+        this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
+      }, 3000);
+    }
   }
 
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
-  numberOnly(event: any): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
-  }
-
   formatInputContactNumber(input: string) {
     switch (input) {
       case 'contactNumber1': {
-        this.contactNumber1 = this.formatInput(this.contactNumber1, this.format1);
+        this.model.contactNumber1 = this.formatInput(this.model.contactNumber1, this.format1);
         break;
       }
 
       case 'contactNumber2': {
-        this.contactNumber2 = this.formatInput(this.contactNumber2, this.format1);
+        this.model.contactNumber2 = this.formatInput(this.model.contactNumber2, this.format1);
         break;
       }
     }
   }
 
-  private formatInput(input: string, format: string) {
+  public formatInput(input: string, format: string) {
     if (format === this.format1) {
       if (input.length === 4) {
         return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
@@ -86,5 +233,13 @@ export class AddressDateComponent implements OnInit {
     }
 
     return '';
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
   }
 }
