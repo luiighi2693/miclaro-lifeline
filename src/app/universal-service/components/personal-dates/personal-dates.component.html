@@ -132,7 +132,7 @@
                       <div class="basicrow rel">
                         <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
 
-                        <input type="text" class="inp-f qt" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1970, month: 1, day: 1}" [(ngModel)]="model.birthday" [formControl]="form.controls['birthday']">
+                        <input type="text" class="inp-f qt" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1918, month: 1, day: 1}" [maxDate]="{year: 2001, month: 1, day: 1}" [(ngModel)]="model.birthday" [formControl]="form.controls['birthday']">
                       </div>
                     </div>
                   </div>
@@ -182,7 +182,7 @@
                       <div class="basicrow rel">
                         <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
 
-                        <input type="text" class="inp-f qt" ngbDatepicker #d="ngbDatepicker" [minDate]="{year: 1970, month: 1, day: 1}" [(ngModel)]="model.idExpirationDate" [formControl]="form.controls['idExpirationDate']">
+                        <input type="text" class="inp-f qt" ngbDatepicker #d="ngbDatepicker" [minDate]="{year: 2018, month: 1, day: 1}" [maxDate]="{year: 2028, month: 1, day: 1}" [(ngModel)]="model.idExpirationDate" [formControl]="form.controls['idExpirationDate']">
                       </div>
                     </div>
                   </div>

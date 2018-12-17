@@ -60,9 +60,11 @@
               Direcci&oacute;n Postal Ingresada:
             </div>
 
-            <div class="optchoice on roboto-r text-left">
+            <div class="optchoice roboto-r text-left" [ngClass]="model.addressSelected === 'postal' ? 'on' : ''">
               <div class="checkdef">
-                <input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>
+                <!--<input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>-->
+                <input type="radio" name="addressSelected" id="radioG2" class="css-radio" [value]="'postal'"
+                       [(ngModel)]="model.addressSelected" [formControl]="form.controls['addressSelected']"><label for="radioG2" class="css-label3 radGroup1"></label>
               </div>
 
               <div class="basicrow f-reg roboto-b">
@@ -73,14 +75,15 @@
             </div>
           </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngIf="!model.postalAddressFlag">
             <div class="basicrow roboto-b m-top-i">
               Direcci&oacute;n Postal Sugerida:
             </div>
 
-            <div class="optchoice roboto-r text-left">
+            <div class="optchoice roboto-r text-left" [ngClass]="model.addressSelected === 'postalSuggested' ? 'on' : ''">
               <div class="checkdef">
-                <input type="radio" name="radioG3" id="radioG3" class="css-radio" /><label for="radioG3" class="css-label3 radGroup1"></label>
+                <!--<input type="radio" name="radioG3" id="radioG3" class="css-radio" /><label for="radioG3" class="css-label3 radGroup1"></label>-->
+                <input type="radio" name="addressSelected" id="radioG3" class="css-radio" [value]="'postalSuggested'" [(ngModel)]="model.addressSelected" [formControl]="form.controls['addressSelected']"><label for="radioG3" class="css-label3 radGroup1"></label>
               </div>
 
               <div class="basicrow f-reg roboto-b">

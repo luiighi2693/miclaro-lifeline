@@ -22,6 +22,7 @@ export interface Model {
   postalMunicipality: string;
   postalEstate: string;
   postalCode2: string;
+  addressSelected: string;
 }
 
 @Component({
@@ -66,6 +67,7 @@ export class AddressDateComponent implements OnInit {
     postalMunicipality = '';
     postalEstate = '';
     postalCode2 = '';
+    addressSelected = 'postal';
   };
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
@@ -170,12 +172,19 @@ export class AddressDateComponent implements OnInit {
         Validators.compose([
           // Validators.required
         ])
+      ],
+      addressSelected: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
       ]
     });
   }
 
   goToValidationDataAddressInput() {
     if (this.form.valid) {
+    console.log(this.model);
       this.validationProcessUSPS = true;
 
       setTimeout(() => {

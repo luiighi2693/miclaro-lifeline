@@ -51,13 +51,9 @@
                 <label class="label-f">&#42; Sufijo</label>
 
                 <div class="basicrow">
-                  <select class="sel-f sufix">
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option value="">MR</option>
-                    <option value="">MRS</option>
-                    <option value="">ENG</option>
-                    <option value="">ATTY</option>
-                    <option value="">DR</option>
+                  <select class="sel-f sufix" name="sufix" [(ngModel)]="model.sufix" [formControl]="form.controls['sufix']">
+                    <option [value]="" disabled selected>Seleccionar</option>
+                    <option [value]="sufix" *ngFor="let sufix of sufixes">{{sufix}}</option>
                   </select>
                 </div>
               </div>
@@ -66,7 +62,7 @@
                 <label class="label-f">&#42; Nombre</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="model.firstName" [formControl]="form.controls['firstName']">
                 </div>
               </div>
 
@@ -74,7 +70,7 @@
                 <label class="label-f">Segundo Nombre (Opcional)</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="model.secondName" [formControl]="form.controls['secondName']">
                 </div>
               </div>
 
@@ -82,7 +78,7 @@
                 <label class="label-f">&#42; Apellido</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="model.lastName" [formControl]="form.controls['lastName']">
                 </div>
               </div>
 
@@ -97,9 +93,9 @@
                       <label class="label-f">&#42; Fecha de Nacimiento</label>
 
                       <div class="basicrow rel">
-                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true"></i>
+                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
 
-                        <input class="inp-f qt">
+                        <input type="text" class="inp-f qt" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1918, month: 1, day: 1}" [maxDate]="{year: 2001, month: 1, day: 1}" [(ngModel)]="model.birthday" [formControl]="form.controls['birthday']">
                       </div>
                     </div>
                   </div>
@@ -117,7 +113,7 @@
                       <label class="label-f">&#42; SSN</label>
 
                       <div class="basicrow">
-                        <input type="text" (keypress)="numberOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="socialSecure" class="inp-f">
+                        <input type="text" (keypress)="checkNumbersOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="model.socialSecure" [formControl]="form.controls['socialSecure']" class="inp-f">
                       </div>
                     </div>
                   </div>
@@ -158,7 +154,7 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToDocumentDigitalization()" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToDocumentDigitalization()" class="btns def-i pull-right vcenter" [ngClass]="{'red': form.valid, 'gray': !form.valid}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
