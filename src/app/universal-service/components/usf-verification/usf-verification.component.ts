@@ -95,6 +95,10 @@ export class UsfVerificationComponent implements OnInit {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
+  goToRegisterCase() {
+    this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
+  }
+
   checkNumbersOnly(event: any): boolean {
     return Util.checkNumbersOnly(event);
   }

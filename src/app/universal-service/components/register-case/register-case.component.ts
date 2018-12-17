@@ -23,4 +23,8 @@ export class RegisterCaseComponent implements OnInit {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
+  goToAddressDate() {
+    this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
+  }
+
 }

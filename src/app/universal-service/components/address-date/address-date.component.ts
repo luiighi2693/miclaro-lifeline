@@ -210,6 +210,10 @@ export class AddressDateComponent implements OnInit {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
+  goToPersonalDates() {
+    this.router.navigate(['/universal-service/personal-dates'], { replaceUrl: true });
+  }
+
   formatInputContactNumber(input: string) {
     switch (input) {
       case 'contactNumber1': {
