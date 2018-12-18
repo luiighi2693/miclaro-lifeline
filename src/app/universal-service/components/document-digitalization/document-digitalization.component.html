@@ -123,8 +123,9 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                       <div class="basicrow">
                         <div class="basicrow">
-                          <select class="sel-f">
-                            <option>Certificaci&oacute;n de elegibilidad</option>
+                          <select class="sel-f" name="documentTypeSelected" [formControl]="form.controls['documentTypeSelected']"  (ngModelChange)="onChangeLifeline($event.valueOf())">
+                            <option [value]= null disabled selected hidden>Seleccionar</option>
+                            <option [value]="documentType.name" *ngFor="let documentType of documents">{{documentType.name}}</option>
                           </select>
                         </div>
                       </div>
@@ -133,8 +134,9 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                       <div class="basicrow">
                         <div class="basicrow">
-                          <select class="sel-f">
-                            <option>Declaraci&oacute;n Seguro Social</option>
+                          <select class="sel-f" name="subDocumentTypeSelected" [(ngModel)]="subDocumentTypeSelected" [formControl]="form.controls['subDocumentTypeSelected']">
+                            <option [value]= undefined disabled selected hidden>Seleccionar</option>
+                            <option [value]="subDocumentType" *ngFor="let subDocumentType of documentTypeSelected.subDocuments">{{subDocumentType.name}}</option>
                           </select>
                         </div>
                       </div>
@@ -323,13 +325,13 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToPreviewView()" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToPreviewView()" class="btns def-i pull-right vcenter gray" [ngClass]="{'red': form.valid}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToRegisterCase()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>
