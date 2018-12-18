@@ -53,7 +53,7 @@ export class AddressDateComponent implements OnInit {
   model: Model = new class implements Model {
     contactNumber1 = '';
     contactNumber2 = '';
-    temporalAddress = false;
+    temporalAddress: boolean;
     address = '';
     depUnitOther = '';
     municipality = '';
@@ -61,7 +61,7 @@ export class AddressDateComponent implements OnInit {
     postalCode = '';
     email = '';
     contactChannel = '';
-    postalAddressFlag = true;
+    postalAddressFlag: boolean;
     postalAddress = '';
     postalDepUnitOther = '';
     postalMunicipality = '';
@@ -180,6 +180,8 @@ export class AddressDateComponent implements OnInit {
         ])
       ]
     });
+
+    console.log(this.model.postalAddressFlag);
   }
 
   goToValidationDataAddressInput() {

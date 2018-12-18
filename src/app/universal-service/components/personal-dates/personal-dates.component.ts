@@ -119,7 +119,7 @@ export class PersonalDatesComponent implements OnInit {
   }
 
   goToSocialSecureVerification() {
-    if (this.form.valid && !this.model.sharedMoneyWithTheAdult) {
+    if (this.form.valid && (this.model.sharedMoneyWithTheAdult === false || this.model.hasLifelineTheAdult === false || this.model.liveWithAnoterAdult === false)) {
       console.log(this.model);
       this.processValidationSIF = true;
 
@@ -145,7 +145,7 @@ export class PersonalDatesComponent implements OnInit {
     this.model.socialSecure = this.formatInput(this.model.socialSecure, this.format2);
   }
 
-  private formatInput(input: string, format: string) {
+  public formatInput(input: string, format: string) {
     if (format === this.format2) {
       if (input.length === 4) {
         return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
@@ -160,5 +160,4 @@ export class PersonalDatesComponent implements OnInit {
 
     return '';
   }
-
 }

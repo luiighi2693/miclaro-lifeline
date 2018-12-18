@@ -209,7 +209,7 @@
 
                         <div class="basicrow">
                           <select class="sel-f" name="municipality" [(ngModel)]="model.municipality" [formControl]="form.controls['municipality']">
-                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
                             <option [value]="municipality" *ngFor="let municipality of municipalities">{{municipality}}</option>
                             </select>
                         </div>
@@ -222,7 +222,7 @@
                           <label class="label-f">&#42; Estado</label>
 
                           <select class="sel-f" name="estate" [(ngModel)]="model.estate" [formControl]="form.controls['estate']">
-                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
                             <option [value]="estate" *ngFor="let estate of estates">{{estate}}</option>
                           </select>
                         </div>
@@ -308,7 +308,7 @@
                 </div>
               </div>
 
-              <div class="basicrow" *ngIf="!model.postalAddressFlag">
+              <div class="basicrow" *ngIf="!model.postalAddressFlag && model.postalAddressFlag !== undefined">
                 <div class="basicrow">
                   <div class="row">
                     <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
@@ -341,7 +341,7 @@
 
                         <div class="basicrow">
                           <select class="sel-f" name="postalMunicipality" [(ngModel)]="model.postalMunicipality" [formControl]="form.controls['postalMunicipality']">
-                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
                             <option [value]="postalMunicipality" *ngFor="let postalMunicipality of municipalities">{{postalMunicipality}}</option>
                           </select>
                         </div>
@@ -354,7 +354,7 @@
                           <label class="label-f">&#42; Estado</label>
 
                           <select class="sel-f" name="postalEstate" [(ngModel)]="model.postalEstate" [formControl]="form.controls['postalEstate']">
-                            <option [value]="" disabled selected>Seleccionar</option>
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
                             <option [value]="postalEstate" *ngFor="let postalEstate of estates">{{postalEstate}}</option>
                           </select>
                         </div>

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-case.component.scss']
 })
 export class RegisterCaseComponent implements OnInit {
+  dependPeopleFlag = false;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
@@ -16,7 +17,11 @@ export class RegisterCaseComponent implements OnInit {
   }
 
   goToUsfVerification() {
-    this.router.navigate(['/universal-service/usf-verification'], { replaceUrl: true });
+    if (!this.dependPeopleFlag) {
+      this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+    } else {
+      this.router.navigate(['/universal-service/usf-verification'], { replaceUrl: true });
+    }
   }
 
   goToHome() {
@@ -26,5 +31,4 @@ export class RegisterCaseComponent implements OnInit {
   goToAddressDate() {
     this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
   }
-
 }
