@@ -59,8 +59,9 @@
                         <label class="label-f">&#42; Tipo de Cuenta</label>
 
                         <div class="basicrow">
-                          <select class="sel-f">
-                            <option>Prepago M&oacute;vil</option>
+                          <select class="sel-f" name="accountType" [(ngModel)]="model.accountType" [formControl]="form.controls['accountType']">
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="accountType" *ngFor="let accountType of accountTypes">{{accountType}}</option>
                           </select>
                         </div>
                       </div>
@@ -71,8 +72,9 @@
                         <label class="label-f">&#42; Tecnolog&iacute;a</label>
 
                         <div class="basicrow">
-                          <select class="sel-f">
-                            <option>GSM</option>
+                          <select class="sel-f" name="tecnology" [(ngModel)]="model.tecnology" [formControl]="form.controls['tecnology']">
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="tecnology" *ngFor="let tecnology of tecnologies">{{tecnology}}</option>
                           </select>
                         </div>
                       </div>
@@ -89,7 +91,7 @@
                         <label class="label-f">&#42; IMEI</label>
 
                         <div class="basicrow">
-                          <input type="text" maxlength="17" class="inp-f">
+                          <input type="text" maxlength="17" class="inp-f" [(ngModel)]="model.imei" [formControl]="form.controls['imei']">
                         </div>
                       </div>
                     </div>
@@ -99,7 +101,7 @@
                         <label class="label-f">&#42; SIM CARD</label>
 
                         <div class="basicrow">
-                          <input type="text" maxlength="20" class="inp-f">
+                          <input type="text" maxlength="20" class="inp-f" [(ngModel)]="model.simCard" [formControl]="form.controls['simCard']">
                         </div>
                       </div>
                     </div>
@@ -127,8 +129,9 @@
                         <label class="label-f">&#42; Tipo de Plan</label>
 
                         <div class="basicrow">
-                          <select class="sel-f">
-                            <option>M&oacute;vil Prepago</option>
+                          <select class="sel-f" name="planType" [(ngModel)]="model.planType" [formControl]="form.controls['planType']">
+                            <option [value]="''" disabled selected hidden>Seleccionar</option>
+                            <option [value]="planType" *ngFor="let planType of planTypes">{{planType}}</option>
                           </select>
                         </div>
                       </div>
@@ -165,13 +168,13 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToAceptationTerms()" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToAceptationTerms()" class="btns def-i pull-right vcenter gray" [ngClass]="{'red': form.valid}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToDocumentDigitalization()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>

@@ -180,8 +180,6 @@ export class AddressDateComponent implements OnInit {
         ])
       ]
     });
-
-    console.log(this.model.postalAddressFlag);
   }
 
   goToValidationDataAddressInput() {
