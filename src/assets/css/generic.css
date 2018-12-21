@@ -2430,3 +2430,7 @@ a.tablepages.off {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
 }
+
+.grayLink {
+  color: gray !important;
+}

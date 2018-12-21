@@ -31,7 +31,7 @@ export class AceptationTermsComponent implements OnInit {
   public form: FormGroup;
 
   model = new class {
-    agency = '';
+    agency = 'Seleccionar';
     ldiRestriction: boolean;
     peopleDataSelectedNumber: number;
     peopleDataSelected: PeopleData;
@@ -92,8 +92,8 @@ export class AceptationTermsComponent implements OnInit {
   }
 
   validateForm() {
-    if (this.form.valid && this.model.aceptationTerm) {
-      if (this.model.agency === 'Ingreso Suplementario de Seguridad (SSI)' &&
+    if (this.form.valid) {
+      if (this.model.agency === 'Seleccionar' &&
         this.model.peopleDataSelected &&
         this.model.earningsValidation !== undefined) {
         return true;
@@ -105,7 +105,7 @@ export class AceptationTermsComponent implements OnInit {
         return true;
       }
 
-      if (this.model.agency !== 'Ingreso Suplementario de Seguridad (SSI)' &&
+      if (this.model.agency !== 'Seleccionar' &&
         this.model.agency !==
         'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)') {
         return true;
@@ -118,6 +118,8 @@ export class AceptationTermsComponent implements OnInit {
   }
 
   setAceptationTerms(value: boolean) {
-    this.model.aceptationTerm = value;
+    if (this.model.aceptationTerm === undefined) {
+      this.model.aceptationTerm = value;
+    }
   }
 }

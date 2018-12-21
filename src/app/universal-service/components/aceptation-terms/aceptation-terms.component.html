@@ -42,8 +42,8 @@
                       <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">
 
                       <select class="sel-f qt" name="agency" [(ngModel)]="model.agency" [formControl]="form.controls['agency']">
-                        <option [value]="''" disabled selected hidden>Seleccionar</option>
-                        <option [value]="agency" *ngFor="let agency of agencies">{{agency}}</option>
+                        <option [value]="'Seleccionar'" selected>Seleccionar</option>
+                        <option [value]="agency" [disabled]="agency === 'Ingreso Suplementario de Seguridad (SSI)'" *ngFor="let agency of agencies">{{agency}}</option>
                       </select>
                     </div>
                   </div>
@@ -53,7 +53,7 @@
                   Califica a trav&eacute;s de tus ingresos
                 </div>
 
-                <div class="basicrow" *ngIf="model.agency === 'Ingreso Suplementario de Seguridad (SSI)'">
+                <div class="basicrow" *ngIf="model.agency === 'Seleccionar'">
                   <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                       <div class="basicrow m-top">
@@ -113,7 +113,7 @@
                   </div>
                 </div>
 
-                <div class="basicrow m-top" *ngIf="model.aceptationTerm === undefined">
+                <div class="basicrow m-top">
                   <div class="termgbg">
                     <div class="basicrow roboto-b f-reg">
                       &#42; T&eacute;rminos y Condiciones
@@ -129,18 +129,24 @@
                     </div>
 
                     <div class="basicrow m-top">
-                      <a (click)="setAceptationTerms(true)" class="btns termdef blue pull-right vcenter">
+                      <a (click)="setAceptationTerms(true)" class="btns termdef pull-right vcenter" [ngClass]="{'gray': model.aceptationTerm !== undefined, 'blue': model.aceptationTerm === undefined}">
 														<span class="tabcell">
 															Aceptar T&eacute;rminos
 														</span>
                       </a>
 
-                      <a (click)="setAceptationTerms(false)" class="linkdefs termdef">
+                      <a (click)="setAceptationTerms(false)" class="linkdefs termdef" [ngClass]="{'grayLink': model.aceptationTerm !== undefined, 'blue': model.aceptationTerm === undefined}">
                         No Acepto
                       </a>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div class="redbgbadmsg error m-top-i" *ngIf="model.aceptationTerm === false">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+
+                Debe aceptar los Términos y Condiciones para poder procesar su solicitud
               </div>
 
               <div class="basicrow">
