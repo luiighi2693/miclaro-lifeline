@@ -34,6 +34,8 @@ export class AccountCreationComponent implements OnInit {
     simCard = '';
   };
 
+  public checkImeiValidated = false;
+
   constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -74,7 +76,7 @@ export class AccountCreationComponent implements OnInit {
   }
 
   goToAceptationTerms() {
-    if (this.form.valid) {
+    if (this.form.valid && this.checkImeiValidated) {
       this.processValidationSIF = true;
 
       setTimeout(() => {
@@ -91,4 +93,7 @@ export class AccountCreationComponent implements OnInit {
     this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
   }
 
+  onCheckChange($event: any) {
+    this.checkImeiValidated = !this.checkImeiValidated;
+  }
 }

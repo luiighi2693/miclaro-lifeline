@@ -24,11 +24,11 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio"> Si
+                    <input type="radio" name="ldiRestriction" [value]="true" [(ngModel)]="model.ldiRestriction" [formControl]="form.controls['ldiRestriction']"> Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio"> No
+                    <input type="radio" name="ldiRestriction" [value]="false" [(ngModel)]="model.ldiRestriction" [formControl]="form.controls['ldiRestriction']"> No
                   </div>
                 </div>
               </div>
@@ -41,23 +41,19 @@
                     <div class="basicrow rel">
                       <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">
 
-                      <select class="sel-f qt">
-                        <option value="" disabled selected>Seleccionar</option>
-                        <option value="">Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)</option>
-                        <option value="">Ingreso Suplementario de Seguridad (SSI)</option>
-                        <option value="">Medicaid</option>
-                        <option value="">Asistencia Federal para la Vivienda Pública (FPHA)</option>
-                        <option value="">Beneficio de Pensión para Veteranos y Sobrevivientes</option>
+                      <select class="sel-f qt" name="agency" [(ngModel)]="model.agency" [formControl]="form.controls['agency']">
+                        <option [value]="''" disabled selected hidden>Seleccionar</option>
+                        <option [value]="agency" *ngFor="let agency of agencies">{{agency}}</option>
                       </select>
                     </div>
                   </div>
                 </div>
 
-                <div class="basicrow f-bmed f-black roboto-b m-top-i">
+                <div class="basicrow f-bmed f-black roboto-b m-top-i" *ngIf="model.agency === 'Ingreso Suplementario de Seguridad (SSI)'">
                   Califica a trav&eacute;s de tus ingresos
                 </div>
 
-                <div class="basicrow">
+                <div class="basicrow" *ngIf="model.agency === 'Ingreso Suplementario de Seguridad (SSI)'">
                   <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                       <div class="basicrow m-top">
@@ -66,8 +62,8 @@
                         <div class="basicrow rel">
                           <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">
 
-                          <select class="sel-f qt">
-                            <option>2</option>
+                          <select class="sel-f qt" name="peopleDataSelected" [(ngModel)]="model.peopleDataSelectedNumber" (ngModelChange)="onChangeSelect($event)">
+                            <option [value]="peopleDataSelected.number" *ngFor="let peopleDataSelected of homePeopleData">{{peopleDataSelected.number}}</option>
                           </select>
                         </div>
                       </div>
@@ -80,15 +76,15 @@
 
                           <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                             <div class="autorow pull-left m-right m-top-u-ii roboto-b">
-                              &#36;22,221
+                              {{model.peopleDataSelected.money}}
                             </div>
 
                             <div class="popopt">
-                              <input type="radio"> Si
+                              <input type="radio" name="earningsValidation" [value]="true" [(ngModel)]="model.earningsValidation"> Si
                             </div>
 
                             <div class="popopt">
-                              <input type="radio"> No
+                              <input type="radio" name="earningsValidation" [value]="false" [(ngModel)]="model.earningsValidation"> No
                             </div>
 
                             <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-stat pull-right" src="../../../../assets/images/tooltip1.png">
@@ -99,7 +95,7 @@
                   </div>
                 </div>
 
-                <div class="basicrow m-top-i">
+                <div class="basicrow m-top-i" *ngIf="model.agency === 'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)'">
                   <label class="label-b">&#42; Inscripci&oacute;n autom&aacute;tica para los participantes del PAN (Programa de Asistencia Nutricional)</label>
 
                   <div class="basicrow m-top-ii roboto-r f-reg">
@@ -108,16 +104,16 @@
 
                   <div class="basicrow m-top f-reg f-black roboto-r">
                     <div class="popopt">
-                      <input type="radio"> Si
+                      <input type="radio" name="lifelineProgramInscription" [value]="true" [(ngModel)]="model.lifelineProgramInscription"> Si
                     </div>
 
                     <div class="popopt">
-                      <input type="radio"> No
+                      <input type="radio" name="lifelineProgramInscription" [value]="false" [(ngModel)]="model.lifelineProgramInscription"> No
                     </div>
                   </div>
                 </div>
 
-                <div class="basicrow m-top">
+                <div class="basicrow m-top" *ngIf="model.aceptationTerm === undefined">
                   <div class="termgbg">
                     <div class="basicrow roboto-b f-reg">
                       &#42; T&eacute;rminos y Condiciones
@@ -133,13 +129,13 @@
                     </div>
 
                     <div class="basicrow m-top">
-                      <a href="#" class="btns termdef blue pull-right vcenter">
+                      <a (click)="setAceptationTerms(true)" class="btns termdef blue pull-right vcenter">
 														<span class="tabcell">
 															Aceptar T&eacute;rminos
 														</span>
                       </a>
 
-                      <a href="#" class="linkdefs termdef">
+                      <a (click)="setAceptationTerms(false)" class="linkdefs termdef">
                         No Acepto
                       </a>
                     </div>
@@ -149,13 +145,13 @@
 
               <div class="basicrow">
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToPreviewViewAndFirm()" class="btns def-i red pull-right vcenter">
+                  <a (click)="goToPreviewViewAndFirm()" class="btns def-i red pull-right vcenter gray" [ngClass]="{'red': validateForm()}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToAccountCreation()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>

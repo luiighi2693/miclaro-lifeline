@@ -112,7 +112,7 @@
               <div class="basicrow m-top-i f-reg f-black roboto-r text-justify">
                 <div class="row">
                   <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                    <input type="checkbox">
+                    <input type="checkbox" (change)="onCheckChange($event)">
                   </div>
 
                   <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11" style="padding-left: 0;">
@@ -168,7 +168,7 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToAceptationTerms()" class="btns def-i pull-right vcenter gray" [ngClass]="{'red': form.valid}">
+                  <a (click)="goToAceptationTerms()" class="btns def-i pull-right vcenter gray" [ngClass]="{'red': form.valid && checkImeiValidated}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
