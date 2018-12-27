@@ -63,7 +63,7 @@
                 <label class="label-f">&#42; Nombre</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="model.firstName" [formControl]="form.controls['firstName']">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="23" class="inp-f" [(ngModel)]="model.firstName" [formControl]="form.controls['firstName']">
                 </div>
               </div>
 
@@ -71,15 +71,15 @@
                 <label class="label-f">Segundo Nombre (Opcional)</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="model.secondName" [formControl]="form.controls['secondName']">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="18" class="inp-f" [(ngModel)]="model.secondName" [formControl]="form.controls['secondName']">
                 </div>
               </div>
 
               <div class="basicrow m-top-i">
-                <label type="text" maxlength="25" class="label-f">&#42; Apellido</label>
+                <label class="label-f">&#42; Apellido</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="25" class="inp-f" [(ngModel)]="model.lastName" [formControl]="form.controls['lastName']">
+                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="23" class="inp-f" [(ngModel)]="model.lastName" [formControl]="form.controls['lastName']">
                 </div>
               </div>
 
@@ -170,7 +170,7 @@
                       <label class="label-f">&#42; Nro de ID</label>
 
                       <div class="basicrow rel">
-                        <input type="text" maxlength="25" class="inp-f " [(ngModel)]="model.idNumber" [formControl]="form.controls['idNumber']">
+                        <input type="text" maxlength="25" class="inp-f" (keypress)="checkNumbersOnly($event)" [(ngModel)]="model.idNumber" [formControl]="form.controls['idNumber']">
                       </div>
                     </div>
                   </div>

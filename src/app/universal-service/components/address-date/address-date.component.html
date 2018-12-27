@@ -277,19 +277,19 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="contactChannel" [value]="'Correo Electronico'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Correo Electr&oacute;nico
+                    <input type="checkbox" name="contactChannel" [value]="'Correo Electronico'" [(ngModel)]="contactChannelEmail"> Correo Electr&oacute;nico
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="contactChannel" [value]="'Telefono'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Tel&eacute;fono
+                    <input type="checkbox" name="contactChannel" [value]="'Telefono'" [(ngModel)]="contactChannelPhone"> Tel&eacute;fono
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="contactChannel" [value]="'Mensaje de texto'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Mensaje de texto
+                    <input type="checkbox" name="contactChannel" [value]="'Mensaje de texto'" [(ngModel)]="contactChannelTextMessage"> Mensaje de texto
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="contactChannel" [value]="'Correo'" [(ngModel)]="model.contactChannel" [formControl]="form.controls['contactChannel']"> Correo
+                    <input type="checkbox" name="contactChannel" [value]="'Correo'" [(ngModel)]="contactChannelMail"> Correo
                   </div>
                 </div>
               </div>
@@ -402,7 +402,7 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter gray" [ngClass]="{'red': form.valid}">
+                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter gray" [ngClass]="{'red': form.valid && (contactChannelEmail || contactChannelPhone || contactChannelTextMessage || contactChannelMail)}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>

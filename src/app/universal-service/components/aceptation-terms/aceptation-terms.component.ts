@@ -92,11 +92,11 @@ export class AceptationTermsComponent implements OnInit {
   }
 
   validateForm() {
-    if (this.form.valid) {
+    if (this.form.valid && this.model.aceptationTerm !== undefined) {
       if (this.model.agency === 'Seleccionar' &&
         this.model.peopleDataSelected &&
         this.model.earningsValidation !== undefined) {
-        return true;
+        return this.model.earningsValidation;
       }
 
       if (this.model.agency ===

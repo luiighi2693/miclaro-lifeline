@@ -35,6 +35,11 @@ export class AddressDateComponent implements OnInit {
   validationDataAddressInput = false;
   validationProcessMAILPREP = false;
 
+  contactChannelEmail = false;
+  contactChannelPhone = false;
+  contactChannelTextMessage = false;
+  contactChannelMail = false;
+
   format1 = 'XXX-XXX-XX-XX';
 
   public municipalities = [ 'Adjuntas', 'Aguada', 'Aguadilla', 'Aguas Buenas', 'Aibonito', 'Arecibo', 'Arroyo',
@@ -103,7 +108,7 @@ export class AddressDateComponent implements OnInit {
       depUnitOther: [
         null,
         Validators.compose([
-          Validators.required
+          // Validators.required
         ])
       ],
       municipality: [
@@ -131,12 +136,12 @@ export class AddressDateComponent implements OnInit {
           CustomValidators.email
         ])
       ],
-      contactChannel: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
+      // contactChannel: [
+      //   null,
+      //   Validators.compose([
+      //     Validators.required
+      //   ])
+      // ],
       postalAddressFlag: [
         null,
         Validators.compose([
@@ -183,8 +188,8 @@ export class AddressDateComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid) {
-    console.log(this.model);
+    if (this.form.valid && (this.contactChannelEmail || this.contactChannelPhone || this.contactChannelTextMessage || this.contactChannelMail)) {
+      console.log(this.model);
       this.validationProcessUSPS = true;
 
       setTimeout(() => {
