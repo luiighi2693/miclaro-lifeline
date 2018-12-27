@@ -12,18 +12,22 @@ export interface Model {
   simCard: string;
 }
 
+export interface Plan {
+  plan: string;
+  planDetails: string[];
+}
+
 @Component({
   selector: 'app-account-creation',
   templateUrl: './account-creation.component.html',
   styleUrls: ['./account-creation.component.scss']
 })
 export class AccountCreationComponent implements OnInit {
-
   processValidationSIF = false;
 
-  public accountTypes = [ 'Prepago Móvil'];
-  public planTypes = [ 'Móvil Prepago'];
-  public tecnologies = [ 'GSM'];
+  public accountTypes = ['Prepago Móvil'];
+  public planTypes = ['Móvil Prepago'];
+  public tecnologies = ['GSM'];
 
   public form: FormGroup;
   model: Model = new class implements Model {
@@ -32,46 +36,47 @@ export class AccountCreationComponent implements OnInit {
     planType = '';
     imei = '';
     simCard = '';
-  };
+  }();
+
+  plans: Plan[] = [
+    {
+      plan: 'Plan 2099',
+      planDetails: [
+        '1,000 minutos para uso de voz local, larga distancia a Estados Unidos' +
+          ' y “Roaming” en EEUU compartido. Costo del minuto adicional es 10¢.',
+        '400 SMS/MMS locales, a EEUU y a ciertos destinos internacionales',
+        'Costo SMS/MMS adicional enviado es de 10¢.',
+        'SMS/MMS recibidos son gratis.'
+      ]
+    },
+    {
+      plan: 'Plan 2219',
+      planDetails: [
+        '1,000 minutos para uso de voz local, larga distancia a Estados Unidos' +
+          ' y “Roaming” en EEUU compartido. Costo del minuto adicional es 10¢.',
+        '1,000 SMS/MMS locales, a EEUU y a ciertos destinos internacionales.',
+        'Costo SMS/MMS adicional enviado es de 10¢.',
+        'SMS/MMS recibidos son gratis.',
+        ' 2 GB de data para uso en PR y en EEUU con bloqueo'
+      ]
+    }
+  ];
+
+  planSelected: Plan = undefined;
 
   public checkImeiValidated = false;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     window.scroll(0, 0);
 
     this.form = this.fb.group({
-      accountType: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      tecnology: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      planType: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      imei: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      simCard: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ]
+      accountType: [null, Validators.compose([Validators.required])],
+      tecnology: [null, Validators.compose([Validators.required])],
+      planType: [null, Validators.compose([Validators.required])],
+      imei: [null, Validators.compose([Validators.required])],
+      simCard: [null, Validators.compose([Validators.required])]
     });
   }
 
@@ -95,5 +100,9 @@ export class AccountCreationComponent implements OnInit {
 
   onCheckChange($event: any) {
     this.checkImeiValidated = !this.checkImeiValidated;
+  }
+
+  setPlan($event: any) {
+    this.planSelected = this.plans.find(x => x.plan === $event);
   }
 }
