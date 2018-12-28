@@ -4,20 +4,20 @@
       <div class="tabcell">
         <div class="autorow pull-left">
           <div class="autorow pull-left">
-            <a>Personas</a>
-            <a class="on m-sides" href="#">Gesti&oacute;n de Servicio Universal Lifeline</a>
+            <a>Personas</a> <a class="on m-sides" href="#">Gesti&oacute;n de Servicio Universal Lifeline</a>
           </div>
         </div>
 
         <div class="autorow pull-left t-blline" *ngIf="validateSession()">
           <div class="autorow pull-left">
-            <span class="roboto-b">Comp Id:</span> 00001-CTI-Cellulars - <span class="roboto-b">Localidad:</span> REG-General
+            <span class="roboto-b">Comp Id:</span> 00001-CTI-Cellulars -
+            <span class="roboto-b">Localidad:</span> REG-General
           </div>
         </div>
 
         <div class="autorow pull-right">
           <div class="autorow pull-left">
-            <img class="bandera" width="100%" src="../../assets/images/bandera.png">
+            <img class="bandera" width="100%" src="../../assets/images/bandera.png" />
           </div>
         </div>
       </div>
@@ -28,33 +28,26 @@
     <div class="container">
       <div class="basicrow text-center">
         <div class="mc-logo centr" *ngIf="!validateSession()">
-								<span class="autocont vcenter">
-									<span class="tabcell">
-										<img width="100%" src="../../assets/images/claro-logo.png">
-									</span>
-								</span>
+          <span class="autocont vcenter">
+            <span class="tabcell"> <img width="100%" src="../../assets/images/claro-logo.png" /> </span>
+          </span>
         </div>
 
         <div *ngIf="validateSession()">
           <a (click)="goToHome()" class="mc-logo">
-								<span class="autocont vcenter">
-									<span class="tabcell">
-										<img width="100%" src="../../assets/images/claro-logo.png">
-									</span>
-								</span>
+            <span class="autocont vcenter">
+              <span class="tabcell"> <img width="100%" src="../../assets/images/claro-logo.png" /> </span>
+            </span>
           </a>
 
           <a (click)="logout()" class="lifemenulink vcenter">
-								<span class="tabcell">
-									<i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesi&oacute;n
-								</span>
+            <span class="tabcell"> <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesi&oacute;n </span>
           </a>
 
-
           <a class="lifemenulink vcenter">
-								<span class="tabcell">
-									<i class="fa fa-user" aria-hidden="true"></i> {{authenticationService.getCredentials().username}}
-								</span>
+            <span class="tabcell">
+              <i class="fa fa-user" aria-hidden="true"></i> {{ authenticationService.getCredentials().UserName }}
+            </span>
           </a>
         </div>
       </div>

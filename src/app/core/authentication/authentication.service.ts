@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface Credentials {
   // Customize received credentials here
@@ -23,7 +24,7 @@ const credentialsKey = 'credentials';
 export class AuthenticationService {
   private _credentials: Credentials | null;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
@@ -35,14 +36,17 @@ export class AuthenticationService {
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
+  login(context: LoginContext): Observable<any> {
     // Replace by proper authentication call
     const data = {
-      username: context.username,
+      userName: context.username,
+      Password: context.password,
       token: '123456'
     };
-    this.setCredentials(data, context.remember);
-    return of(data);
+
+    return this.http.post<any>('http://wslifeusf.claropr.com/Service/AuthAD', data, { observe: 'response' });
+    // this.setCredentials(data, context.remember);
+    // return of(data);
   }
 
   /**
@@ -82,7 +86,7 @@ export class AuthenticationService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  private setCredentials(credentials?: Credentials, remember?: boolean) {
+  public setCredentials(credentials?: Credentials, remember?: boolean) {
     this._credentials = credentials || null;
 
     if (credentials) {

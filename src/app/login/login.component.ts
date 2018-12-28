@@ -15,7 +15,7 @@ const log = new Logger('Login');
 })
 export class LoginComponent implements OnInit {
   version: string = environment.version;
-  error: string;
+  error = '';
   loginForm: FormGroup;
   isLoading = false;
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (!this.loginForm.invalid) {
+    if (!this.loginForm.invalid && !this.isLoading) {
       this.isLoading = true;
       this.authenticationService
         .login(this.loginForm.value)
@@ -44,12 +44,33 @@ export class LoginComponent implements OnInit {
         )
         .subscribe(
           credentials => {
-            log.debug(`${credentials.username} successfully logged in`);
-            this.router.navigate(['/home'], { replaceUrl: true });
+            log.debug(credentials);
+
+            if (!credentials.body.HasError) {
+              if (credentials.body.Active) {
+                this.authenticationService.setCredentials(credentials.body, false);
+                this.router.navigate(['/home'], { replaceUrl: true });
+              } else {
+                this.error = 'error';
+              }
+            } else {
+              if (this.loginForm.value.username.length === 0 || this.loginForm.value.password.length === 0) {
+                this.error =
+                  'Hemos detectado un error en el ingreso de sus credenciales de acceso. Favor ' +
+                  'intentarlo nuevamente ingresando los campos marcados como requeridos.';
+              } else {
+                this.error =
+                  'Hemos detectado un error en el ingreso de sus credenciales de acceso. Favor ' +
+                  'intentarlo nuevamente.';
+              }
+            }
           },
           error => {
             log.debug(`Login error: ${error}`);
-            this.error = error;
+            // this.error = error;
+            this.error =
+              'Estimado usuario al momento la aplicación no está disponible para su uso por favor ' +
+              'intente nuevamente en 10 min o contacte al administrador del sistema.';
           }
         );
     }
@@ -57,8 +78,8 @@ export class LoginComponent implements OnInit {
 
   private createForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: [''],
+      password: [''],
       remember: false
     });
   }
