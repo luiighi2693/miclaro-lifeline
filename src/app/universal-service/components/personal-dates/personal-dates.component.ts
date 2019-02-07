@@ -148,14 +148,14 @@ export class PersonalDatesComponent implements OnInit {
   public formatInput(input: string, format: string) {
     if (format === this.format2) {
       if (input.length === 4) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length).replace(/[0-9]/g, "X");
       }
 
       if (input.length === 7) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length).replace(/[0-9]/g, "X");
       }
 
-      return input;
+      return input.replace(/[0-9]/g, "X");
     }
 
     return '';

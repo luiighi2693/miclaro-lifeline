@@ -53,11 +53,11 @@ export class DocumentDigitalizationComponent implements OnInit {
           pageNumber: 15
         },
         {
-          name: 'Talonario de los últimos tres (3) meses',
+          name: 'Talonario de los últimos tres (3) meses consecutivos',
           pageNumber: 15
         },
         {
-          name: 'Declaración Seguro Social',
+          name: 'Declaración de Beneficio de Seguro Social',
           pageNumber: 15
         },
         {
