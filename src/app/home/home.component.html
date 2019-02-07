@@ -62,7 +62,7 @@
                       </div>
 
                       <div class="basicrow m-top">
-                        <input placeholder="Nro de Caso &oacute; Nro de SSN" class="inp-f">
+                        <input type="text" maxlength="9" placeholder="Nro de Caso &oacute; Nro de SSN" class="inp-f" (keypress)="checkNumbersOnly($event)">
                       </div>
 
                       <a (click)="gotoUsfCase()" class="btns blue vcenter m-top-i">

@@ -15,9 +15,10 @@ import { AceptationTermsComponent } from './components/aceptation-terms/aceptati
 import { PreviewViewAndFirmComponent } from './components/preview-view-and-firm/preview-view-and-firm.component';
 import { ActivationComponent } from './components/activation/activation.component';
 
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MomentDateFormatter } from '@app/universal-service/MomentDateFormatter';
 
 @NgModule({
   declarations: [UniversalServiceComponent, PersonalDatesComponent, SocialSecureVerificationComponent,
@@ -31,6 +32,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbDatepickerModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    {provide: NgbDateParserFormatter, useClass: MomentDateFormatter}
   ]
 })
 export class UniversalServiceModule { }

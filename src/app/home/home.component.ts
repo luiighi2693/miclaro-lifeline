@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Util from '@app/universal-service/util';
 
 @Component({
   selector: 'app-home',
@@ -21,5 +22,9 @@ export class HomeComponent implements OnInit {
 
   gotoUsfCase() {
     this.router.navigate(['/usf-case'], { replaceUrl: true });
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
   }
 }
