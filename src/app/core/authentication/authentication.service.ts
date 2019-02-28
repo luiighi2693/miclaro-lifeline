@@ -44,7 +44,7 @@ export class AuthenticationService {
       token: '123456'
     };
 
-    return this.http.post<any>('http://wslifeusf.claropr.com/Service/AuthAD', data, { observe: 'response' });
+    return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, { observe: 'response' });
     // this.setCredentials(data, context.remember);
     // return of(data);
   }
