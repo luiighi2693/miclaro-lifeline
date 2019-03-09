@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { constants } from '@env/constants';
 
 export interface Credentials {
   // Customize received credentials here
@@ -41,10 +42,12 @@ export class AuthenticationService {
     const data = {
       userName: context.username,
       Password: context.password,
+      method: 'loginAdMcapi',
       token: '123456'
     };
 
-    return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, { observe: 'response' });
+    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, { observe: 'response' });
+    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
     // this.setCredentials(data, context.remember);
     // return of(data);
   }
