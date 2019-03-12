@@ -122,6 +122,6 @@ export class AuthenticationService {
       COMUNICATION: '',
       Home: 1
     };
-    return this.http.post('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data);
+    return this.http.post('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', data);
   }
 }

@@ -142,7 +142,7 @@ export class PersonalDatesComponent implements OnInit {
         COMUNICATION: '',
         Home: 1
       };
-      fetch('https://osbtest.claropr.com/services/Lifeline/v2.0?WSDL', {
+      fetch('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', {
         method: 'POST',
         body: JSON.stringify(datos),
         headers: {
@@ -151,6 +151,8 @@ export class PersonalDatesComponent implements OnInit {
       }).then(console.log);
 
       /*
+      http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI
+      https://osbtest.claropr.com/services/Lifeline/v2.0?WSDL
       // tslint:disable-next-line:prefer-const
       let form = new FormData();
       form.append('USER_ID', '11');
