@@ -1,23 +1,24 @@
-<!--[INIT LOADING DATOS PERSONALES]-->
+<!-- [INIT LOADING DATOS PERSONALES] -->
 <div class="popupbg" *ngIf="processValidationSIF">
   <div class="popupcont morew">
     <div class="basicrow text-center">
-      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
     </div>
 
-    <div class="basicrow text-center f-black roboto-b f-bmed m-top">
-      El proceso puede demorar unos segundos...
-    </div>
+    <div class="basicrow text-center f-black roboto-b f-bmed m-top">El proceso puede demorar unos segundos...</div>
 
     <div class="basicrow f-bmed f-black roboto-r">
       <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
           <div class="basicrow m-top-i">
             <i class="fa fa-check-circle loadone" aria-hidden="true"></i> Inicia el proceso de validaci&oacute;n CIDS
           </div>
 
           <div class="basicrow m-top">
-            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif"> Inicia el proceso de validaci&oacute;n SIF
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el proceso de
+            validaci&oacute;n SIF
           </div>
         </div>
       </div>
@@ -25,7 +26,7 @@
   </div>
 </div>
 
-<!--[END LOADING DATOS PERSONALES]-->
+<!-- [END LOADING DATOS PERSONALES] -->
 
 <div class="basicrow">
   <app-header></app-header>
@@ -37,24 +38,25 @@
           <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validaci&oacute;n SSN
         </div>
 
-        <div class="basicrow m-top-i m-bott text-center">
-          <app-steplife></app-steplife>
-        </div>
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
 
         <div class="basicrow text-center">
           <div class="shortcont">
             <div class="basicrow">
-              <div class="basicrow f-lbig f-black roboto-m">
-                Datos Personales del Cliente
-              </div>
+              <div class="basicrow f-lbig f-black roboto-m">Datos Personales del Cliente</div>
 
               <div class="basicrow m-top">
                 <label class="label-f">&#42; Sufijo</label>
 
                 <div class="basicrow">
-                  <select class="sel-f sufix" name="sufix" [(ngModel)]="model.sufix" [formControl]="form.controls['sufix']">
+                  <select
+                    class="sel-f sufix"
+                    name="sufix"
+                    [(ngModel)]="model.sufix"
+                    [formControl]="form.controls['sufix']"
+                  >
                     <option [value]="''" disabled selected hidden>Seleccionar</option>
-                    <option [value]="sufix" *ngFor="let sufix of sufixes">{{sufix}}</option>
+                    <option [value]="sufix" *ngFor="let sufix of sufixes">{{ sufix }}</option>
                   </select>
                 </div>
               </div>
@@ -63,7 +65,14 @@
                 <label class="label-f">&#42; Nombre</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="23" class="inp-f" [(ngModel)]="model.firstName" [formControl]="form.controls['firstName']">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="23"
+                    class="inp-f"
+                    [(ngModel)]="model.firstName"
+                    [formControl]="form.controls['firstName']"
+                  />
                 </div>
               </div>
 
@@ -71,7 +80,14 @@
                 <label class="label-f">Segundo Nombre (Opcional)</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="18" class="inp-f" [(ngModel)]="model.secondName" [formControl]="form.controls['secondName']">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="18"
+                    class="inp-f"
+                    [(ngModel)]="model.secondName"
+                    [formControl]="form.controls['secondName']"
+                  />
                 </div>
               </div>
 
@@ -79,50 +95,76 @@
                 <label class="label-f">&#42; Apellido</label>
 
                 <div class="basicrow">
-                  <input type="text" (keypress)="checkCharactersOnly($event)" maxlength="23" class="inp-f" [(ngModel)]="model.lastName" [formControl]="form.controls['lastName']">
+                  <input
+                    type="text"
+                    (keypress)="checkCharactersOnly($event)"
+                    maxlength="23"
+                    class="inp-f"
+                    [(ngModel)]="model.lastName"
+                    [formControl]="form.controls['lastName']"
+                  />
                 </div>
               </div>
 
               <div class="basicrow">
                 <div class="row">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <!-- [RESULTADO POSITIVO]-->
+                    <!-- [RESULTADO POSITIVO] -->
 
                     <div class="basicrow m-top-i">
-                      <label class="label-f">&#42; Seguro Social</label>
+                      <label class="label-f"
+                        >&#42; Seguro Social {{ checkSSN }} {{ model.socialSecure }} {{ valueSSN }}*</label
+                      >
 
                       <div class="basicrow rel">
-                        <div class="social-oc valid"></div>
+                        <div *ngIf="checkSSN" class="social-oc valid"></div>
 
-                        <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
+                        <img
+                          data-toggle="popover"
+                          data-html="true"
+                          data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                          data-placement="bottom"
+                          width="100%"
+                          class="q-t"
+                          src="../../../../assets/images/tooltip1.png"
+                        />
 
-                        <input type="text" (keypress)="checkNumbersOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="model.socialSecure" [formControl]="form.controls['socialSecure']" class="inp-f qt">
+                        <input
+                          type="text"
+                          (keypress)="checkNumbersOnly($event)"
+                          (keyup)="formatInputSocialSecure('socialSecure')"
+                          maxlength="11"
+                          name="socialSecure"
+                          [(ngModel)]="model.socialSecure"
+                          [formControl]="form.controls['socialSecure']"
+                          class="inp-f qt"
+                        />
                       </div>
                     </div>
 
-                    <!-- [RESULTADO POSITIVO]-->
+                    <!-- [RESULTADO POSITIVO] -->
 
+                    <!--
+                      [RESULTADO NEGATIVO]>
 
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; Seguro Social</label>
 
-                    <!-- [RESULTADO NEGATIVO]>
+                        <div class="basicrow rel">
+                          <div class="social-oc wrong"></div>
 
-                    <div class="basicrow m-top-i">
-                      <label class="label-f">&#42; Seguro Social</label>
+                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
 
-                      <div class="basicrow rel">
-                        <div class="social-oc wrong"></div>
+                          <input type="text" (keypress)="numberOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="model.socialSecure" class="inp-f redbg qt">
+                        </div>
 
-                        <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
-
-                        <input type="text" (keypress)="numberOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="model.socialSecure" class="inp-f redbg qt">
+                        <div class="basicrow f-reg f-red roboto-l text-justify m-top-u">
+                          Este n&uacute;mero de SSN ya posee una cuenta registrada en USF, por favor ind&iacute;quele al usuario que debe dirigirse a una tienda Claro
+                        </div>
                       </div>
 
-                      <div class="basicrow f-reg f-red roboto-l text-justify m-top-u">
-                        Este n&uacute;mero de SSN ya posee una cuenta registrada en USF, por favor ind&iacute;quele al usuario que debe dirigirse a una tienda Claro
-                      </div>
-                    </div>
-
-                    <![RESULTADO NEGATIVO] -->
+                      <![RESULTADO NEGATIVO]
+                    -->
                   </div>
 
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -132,7 +174,16 @@
                       <div class="basicrow rel">
                         <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
 
-                        <input type="text" class="inp-f qt" ngbDatepicker #d1="ngbDatepicker" [minDate]="{year: 1918, month: 1, day: 1}" [maxDate]="{year: 2001, month: 1, day: 1}" [(ngModel)]="model.birthday" [formControl]="form.controls['birthday']">
+                        <input
+                          type="text"
+                          class="inp-f qt"
+                          ngbDatepicker
+                          #d1="ngbDatepicker"
+                          [minDate]="{ year: 1918, month: 1, day: 1 }"
+                          [maxDate]="{ year: 2001, month: 1, day: 1 }"
+                          [(ngModel)]="model.birthday"
+                          [formControl]="form.controls['birthday']"
+                        />
                       </div>
                     </div>
                   </div>
@@ -144,11 +195,25 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="gender" [value]="true" [(ngModel)]="model.gender" [formControl]="form.controls['gender']"> Femenino
+                    <input
+                      type="radio"
+                      name="gender"
+                      [value]="true"
+                      [(ngModel)]="model.gender"
+                      [formControl]="form.controls['gender']"
+                    />
+                    Femenino
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="gender" [value]="false" [(ngModel)]="model.gender" [formControl]="form.controls['gender']"> Masculino
+                    <input
+                      type="radio"
+                      name="gender"
+                      [value]="false"
+                      [(ngModel)]="model.gender"
+                      [formControl]="form.controls['gender']"
+                    />
+                    Masculino
                   </div>
                 </div>
               </div>
@@ -158,9 +223,15 @@
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="basicrow m-top-i">
                       <label class="label-f">&#42; ID</label>
-                      <select class="sel-f" name="idType" placeholder="Seleccionar" [(ngModel)]="model.idType" [formControl]="form.controls['idType']">
+                      <select
+                        class="sel-f"
+                        name="idType"
+                        placeholder="Seleccionar"
+                        [(ngModel)]="model.idType"
+                        [formControl]="form.controls['idType']"
+                      >
                         <option [value]="''" disabled selected hidden>Seleccionar</option>
-                        <option [value]="idType" *ngFor="let idType of idTypes">{{idType}}</option>
+                        <option [value]="idType" *ngFor="let idType of idTypes">{{ idType }}</option>
                       </select>
                     </div>
                   </div>
@@ -170,7 +241,14 @@
                       <label class="label-f">&#42; Nro de ID</label>
 
                       <div class="basicrow rel">
-                        <input type="text" maxlength="25" class="inp-f" (keypress)="checkNumbersOnly($event)" [(ngModel)]="model.idNumber" [formControl]="form.controls['idNumber']">
+                        <input
+                          type="text"
+                          maxlength="25"
+                          class="inp-f"
+                          (keypress)="checkNumbersOnly($event)"
+                          [(ngModel)]="model.idNumber"
+                          [formControl]="form.controls['idNumber']"
+                        />
                       </div>
                     </div>
                   </div>
@@ -182,7 +260,16 @@
                       <div class="basicrow rel">
                         <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
 
-                        <input type="text" class="inp-f qt" ngbDatepicker #d="ngbDatepicker" [minDate]="{year: 2018, month: 1, day: 1}" [maxDate]="{year: 2028, month: 1, day: 1}" [(ngModel)]="model.idExpirationDate" [formControl]="form.controls['idExpirationDate']">
+                        <input
+                          type="text"
+                          class="inp-f qt"
+                          ngbDatepicker
+                          #d="ngbDatepicker"
+                          [minDate]="{ year: 2018, month: 1, day: 1 }"
+                          [maxDate]="{ year: 2028, month: 1, day: 1 }"
+                          [(ngModel)]="model.idExpirationDate"
+                          [formControl]="form.controls['idExpirationDate']"
+                        />
                       </div>
                     </div>
                   </div>
@@ -194,11 +281,23 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="liveWithAnoterAdult" [value]="true" [(ngModel)]="model.liveWithAnoterAdult"> Si
+                    <input
+                      type="radio"
+                      name="liveWithAnoterAdult"
+                      [value]="true"
+                      [(ngModel)]="model.liveWithAnoterAdult"
+                    />
+                    Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="liveWithAnoterAdult" [value]="false" [(ngModel)]="model.liveWithAnoterAdult"> No
+                    <input
+                      type="radio"
+                      name="liveWithAnoterAdult"
+                      [value]="false"
+                      [(ngModel)]="model.liveWithAnoterAdult"
+                    />
+                    No
                   </div>
                 </div>
               </div>
@@ -208,50 +307,84 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="hasLifelineTheAdult" [value]="true" [(ngModel)]="model.hasLifelineTheAdult"> Si
+                    <input
+                      type="radio"
+                      name="hasLifelineTheAdult"
+                      [value]="true"
+                      [(ngModel)]="model.hasLifelineTheAdult"
+                    />
+                    Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="hasLifelineTheAdult" [value]="false" [(ngModel)]="model.hasLifelineTheAdult"> No
+                    <input
+                      type="radio"
+                      name="hasLifelineTheAdult"
+                      [value]="false"
+                      [(ngModel)]="model.hasLifelineTheAdult"
+                    />
+                    No
                   </div>
                 </div>
               </div>
 
               <div class="basicrow m-top-i" *ngIf="model.liveWithAnoterAdult && model.hasLifelineTheAdult">
-                <label class="label-f">&#42; &#191;Compartes dinero (ingresos y gastos) con ella o &eacute;l&#63;</label>
+                <label class="label-f"
+                  >&#42; &#191;Compartes dinero (ingresos y gastos) con ella o &eacute;l&#63;</label
+                >
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="sharedMoneyWithTheAdult" [value]="true" [(ngModel)]="model.sharedMoneyWithTheAdult"> Si
+                    <input
+                      type="radio"
+                      name="sharedMoneyWithTheAdult"
+                      [value]="true"
+                      [(ngModel)]="model.sharedMoneyWithTheAdult"
+                    />
+                    Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="sharedMoneyWithTheAdult" [value]="false" [(ngModel)]="model.sharedMoneyWithTheAdult"> No
+                    <input
+                      type="radio"
+                      name="sharedMoneyWithTheAdult"
+                      [value]="false"
+                      [(ngModel)]="model.sharedMoneyWithTheAdult"
+                    />
+                    No
                   </div>
                 </div>
               </div>
 
               <div class="noqualifycont m-top-i" *ngIf="model.sharedMoneyWithTheAdult">
-                No calificas para Lifeline porque alguien en tu hogar ya recibe el beneficio. S&oacute;lo se permite un beneficio de Lifeline por hogar, no por persona.
+                No calificas para Lifeline porque alguien en tu hogar ya recibe el beneficio. S&oacute;lo se permite un
+                beneficio de Lifeline por hogar, no por persona.
               </div>
 
               <div class="basicrow">
-                <div class="basicrow m-top-i">
-                  <div class="logline full"></div>
-                </div>
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToSocialSecureVerification()" class="btns def-i pull-right vcenter gray" [ngClass]="{
-                  'red': form.valid && (model.sharedMoneyWithTheAdult === false || model.hasLifelineTheAdult === false || model.liveWithAnoterAdult === false)}">
-												<span class="tabcell">
-													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
-												</span>
+                  <a
+                    (click)="goToSocialSecureVerification()"
+                    class="btns def-i pull-right vcenter gray"
+                    [ngClass]="{
+                      red:
+                        form.valid &&
+                        (model.sharedMoneyWithTheAdult === false ||
+                          model.hasLifelineTheAdult === false ||
+                          model.liveWithAnoterAdult === false)
+                    }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
                   </a>
 
                   <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
-												<span class="tabcell">
-													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
-												</span>
+                    <span class="tabcell">
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                    </span>
                   </a>
                 </div>
               </div>
