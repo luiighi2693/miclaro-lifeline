@@ -48,13 +48,15 @@ export class LoginComponent implements OnInit {
 
             if (!credentials.body.HasError) {
               if (credentials.body.Active) {
-                if (credentials.body.RoleName === 'USF-Supbackend' || credentials.body.RoleName === 'USF-CSR') {
+                if (credentials.body.RoleName.toUpperCase() === 'USF-SUP' ||
+                  credentials.body.RoleName.toUpperCase() === 'USF-AGENT'||
+                  credentials.body.RoleName.toUpperCase() === 'USF-REPSTORE') {
+                  this.authenticationService.setCredentials(credentials.body, false);
+                  this.router.navigate(['/home'], { replaceUrl: true });
+                } else {
                   this.error =
                     'Estimado usuario hemos detectado que su usuario no tiene permisos otorgados para acceso a la  ' +
                     'aplicación. Por favor contacte al administrador del sistema.';
-                } else {
-                  this.authenticationService.setCredentials(credentials.body, false);
-                  this.router.navigate(['/home'], { replaceUrl: true });
                 }
               } else {
                 this.error = 'error';
@@ -65,9 +67,15 @@ export class LoginComponent implements OnInit {
                   'Hemos detectado un error en el ingreso de sus credenciales de acceso. Favor ' +
                   'intentarlo nuevamente ingresando los campos marcados como requeridos.';
               } else {
-                this.error =
-                  'Hemos detectado un error en el ingreso de sus credenciales de acceso. Favor ' +
-                  'intentarlo nuevamente.';
+                if (credentials.body.LoginAttems === 3) {
+                  this.error =
+                    'Usted ha excedido el número de intentos permitidos. Su cuenta ha sido bloqueada. ' +
+                    'Por favor contacte al administrador del sistema.';
+                } else {
+                  this.error =
+                    'Hemos detectado un error en el ingreso de sus credenciales de acceso. Favor ' +
+                    'intentarlo nuevamente.';
+                }
               }
             }
           },
