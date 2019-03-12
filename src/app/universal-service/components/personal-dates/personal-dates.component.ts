@@ -125,8 +125,14 @@ export class PersonalDatesComponent implements OnInit {
       console.log(this.authenticationService.credentials);
       console.log(this.authenticationService.credentials.userid);
 
-      console.log(this.authenticationService.validateSSN({}));
-      // tslint:disable-next-line:prefer-const
+      // en validateSSN {} se le envian los datos en un Objeto por el momento estan estaticos los datos
+      this.authenticationService.validateSSN({}).subscribe(resp => {
+        console.log(resp);
+      });
+
+      /*
+        Funcional en VanillaJS
+              // tslint:disable-next-line:prefer-const
       let datos = {
         USER_ID: 11,
         CUSTOMER_NAME: 'Jhonny',
@@ -143,57 +149,15 @@ export class PersonalDatesComponent implements OnInit {
         COMUNICATION: '',
         Home: 1
       };
+
       fetch('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', {
         method: 'POST',
         body: JSON.stringify(datos),
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then(console.log);
-
-      /*
-      http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI
-      https://osbtest.claropr.com/services/Lifeline/v2.0?WSDL
-      // tslint:disable-next-line:prefer-const
-      let form = new FormData();
-      form.append('USER_ID', '11');
-      form.append('CUSTOMER_NAME', 'Jhonny');
-      form.append('CUSTOMER_MN', 'C');
-      form.append('CUSTOMER_LAST', 'Ferraz');
-      form.append('CUSTOMER_SSN', '0581552714');
-      form.append('CUSTOMER_DOB', '1974-3-1');
-      form.append('GENDER', '1');
-      form.append('CUSTOMER_ID_TYPE', '1');
-      form.append('ID_NUMBER', '890980980808');
-      form.append('DTS_EXP', '2021-3-1');
-      form.append('DEP_APPLICATION', '');
-      form.append('PHONE_1', '');
-      form.append('COMUNICATION', '');
-      form.append('Home', '1');
-
-
-      fetch('https://osbtest.claropr.com/services/Lifeline/v2.0?WSDL', {
-        method: 'POST',
-        body: form
-      }).then((r) => { console.log(r); });
-
-      {
-        USER_ID:11,
-        CUSTOMER_NAME:"Jhonny",
-        CUSTOMER_MN:"C",
-        CUSTOMER_LAST:"Ferraz",
-        CUSTOMER_SSN : "0581552714",
-        CUSTOMER_DOB : "1974-3-1",
-        GENDER : "1",
-        CUSTOMER_ID_TYPE : "1",
-        ID_NUMBER : "890980980808",
-        DTS_EXP : "2021-3-1",
-        DEP_APPLICATION : "",
-        PHONE_1 : "",
-        COMUNICATION : "",
-        Home : 1
-      }
-      */
+      }).then((r) => { console.log( r ); });
+    */
     }
 
     if (format === this.format2) {
