@@ -126,7 +126,8 @@ export class PersonalDatesComponent implements OnInit {
       console.log(this.authenticationService.credentials.userid);
 
       console.log(this.authenticationService.validateSSN({}));
-      const datos = {
+      // tslint:disable-next-line:prefer-const
+      let datos = {
         USER_ID: 11,
         CUSTOMER_NAME: 'Jhonny',
         CUSTOMER_MN: 'C',
@@ -146,7 +147,7 @@ export class PersonalDatesComponent implements OnInit {
         method: 'POST',
         body: JSON.stringify(datos),
         headers: {
-          ContentType: 'application/json'
+          'Content-Type': 'application/json'
         }
       }).then(console.log);
 
