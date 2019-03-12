@@ -48,8 +48,14 @@ export class LoginComponent implements OnInit {
 
             if (!credentials.body.HasError) {
               if (credentials.body.Active) {
-                this.authenticationService.setCredentials(credentials.body, false);
-                this.router.navigate(['/home'], { replaceUrl: true });
+                if (credentials.body.RoleName === 'USF-Supbackend' || credentials.body.RoleName === 'USF-CSR') {
+                  this.error =
+                    'Estimado usuario hemos detectado que su usuario no tiene permisos otorgados para acceso a la  ' +
+                    'aplicación. Por favor contacte al administrador del sistema.';
+                } else {
+                  this.authenticationService.setCredentials(credentials.body, false);
+                  this.router.navigate(['/home'], { replaceUrl: true });
+                }
               } else {
                 this.error = 'error';
               }
