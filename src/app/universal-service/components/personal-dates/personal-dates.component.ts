@@ -113,7 +113,7 @@ export class PersonalDatesComponent implements OnInit {
       console.log(input.substr(input.length - 1, 1));
       this.valueSSN += String(input.substr(input.length - 1, 1));
     } else {
-      if (input !== 'X') {
+      if (input !== 'X' && input !== 'XXX-XX-XXXX') {
         this.valueSSN = input;
         console.log(input);
       }
