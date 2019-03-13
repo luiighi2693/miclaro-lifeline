@@ -27,6 +27,7 @@ export interface Model {
 })
 export class PersonalDatesComponent implements OnInit {
   checkSSN = false;
+  invalidSSN = false;
   valueSSN = '';
   processValidationSIF = false;
   format2 = 'XXX-XX-XXXX';
@@ -110,17 +111,26 @@ export class PersonalDatesComponent implements OnInit {
   public formatInput(input: string, format: string) {
     // Almacenando valor real en variable temporal
     if (input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
-      console.log(input.substr(input.length - 1, 1));
+      // console.log(input.substr(input.length - 1, 1));
       this.valueSSN += String(input.substr(input.length - 1, 1));
     } else {
       if (input !== 'X' && input !== 'XXX-XX-XXXX') {
         this.valueSSN = input;
-        console.log(input);
+        // console.log(input);
       }
     }
+
+    // tslint:disable-next-line:radix
+    if (input.length === 11 && parseInt(this.valueSSN) > 99999999 === false) {
+      this.invalidSSN = true;
+    }
+
     // Si llega a 11 Caracteres hay que hacer la validacion Real contra el servicio
     // ya que tiene el formato XXX-XX-XXXX  de 11 caracteres serian 9 digitos
-    if (input.length === 11) {
+    // parseInt( this.valueSSN ) > 99999999 [USADO PARA VALIDAR Y CUMPLIR LA CONDICION QUE SEA NUERICO Y DE 9 DIGITOS ]
+    // tslint:disable-next-line:radix
+    if (input.length === 11 && parseInt(this.valueSSN) > 99999999) {
+      this.invalidSSN = false;
       this.checkSSN = true;
       console.log(this.authenticationService.credentials);
       console.log(this.authenticationService.credentials.userid);
