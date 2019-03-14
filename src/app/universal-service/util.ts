@@ -1,7 +1,18 @@
 export default class Util {
+  // static checkNumbersOnly(event: any): boolean {
+  //   const charCode = (event.which) ? event.which : event.keyCode;
+  //   return !(charCode > 31 && (charCode < 48 || charCode > 57));
+  // }
+
   static checkNumbersOnly(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
-    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+
+    if (charCode === 8) {
+      return true;
+    }
+
+    const patron = /[0-9]/;
+    return patron.test(String.fromCharCode(charCode));
   }
 
   static checkCharactersOnly(event: any): boolean {

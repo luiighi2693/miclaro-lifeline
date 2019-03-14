@@ -58,6 +58,11 @@
                     <option [value]="''" disabled selected hidden>Seleccionar</option>
                     <option [value]="sufix" *ngFor="let sufix of sufixes">{{ sufix }}</option>
                   </select>
+                  <small
+                    [hidden]="form.controls['sufix'].valid || form.controls['sufix'].untouched"
+                    class="text-danger" translate>
+                    Campo Requerido
+                  </small>
                 </div>
               </div>
 
@@ -73,6 +78,11 @@
                     [(ngModel)]="model.firstName"
                     [formControl]="form.controls['firstName']"
                   />
+                  <small
+                    [hidden]="form.controls['firstName'].valid || form.controls['firstName'].untouched"
+                    class="text-danger" translate>
+                    Campo Requerido
+                  </small>
                 </div>
               </div>
 
@@ -103,6 +113,11 @@
                     [(ngModel)]="model.lastName"
                     [formControl]="form.controls['lastName']"
                   />
+                  <small
+                    [hidden]="form.controls['lastName'].valid || form.controls['lastName'].untouched"
+                    class="text-danger" translate>
+                    Campo Requerido
+                  </small>
                 </div>
               </div>
 
@@ -112,12 +127,11 @@
                     <!-- [RESULTADO POSITIVO] -->
 
                     <div class="basicrow m-top-i">
-                      <label class="label-f"
-                        >&#42; Seguro Social {{ checkSSN }} {{ model.socialSecure }} {{ valueSSN }}</label
-                      >
+                      <label class="label-f">&#42; Seguro Social</label>
 
                       <div class="basicrow rel">
                         <div *ngIf="checkSSN" class="social-oc valid"></div>
+                        <div *ngIf="!checkSSN" class="social-oc wrong"></div>
 
                         <img
                           data-toggle="popover"
@@ -139,7 +153,16 @@
                           [formControl]="form.controls['socialSecure']"
                           class="inp-f qt"
                         />
+                        <small
+                          [hidden]="form.controls['socialSecure'].valid || form.controls['socialSecure'].untouched"
+                          class="text-danger" translate>
+                          Campo Requerido
+                        </small>
                       </div>
+
+                      <!--<div *ngIf="!checkSSN" class="basicrow f-reg f-red roboto-l text-justify m-top-u">-->
+                        <!--Este n&uacute;mero de SSN ya posee una cuenta registrada en USF, por favor ind&iacute;quele al usuario que debe dirigirse a una tienda Claro-->
+                      <!--</div>-->
                     </div>
 
                     <!-- [RESULTADO POSITIVO] -->
@@ -184,6 +207,11 @@
                           [(ngModel)]="model.birthday"
                           [formControl]="form.controls['birthday']"
                         />
+                        <small
+                          [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
+                          class="text-danger" translate>
+                          Campo Requerido
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -233,6 +261,11 @@
                         <option [value]="''" disabled selected hidden>Seleccionar</option>
                         <option [value]="idType" *ngFor="let idType of idTypes">{{ idType }}</option>
                       </select>
+                      <small
+                        [hidden]="form.controls['idType'].valid || form.controls['idType'].untouched"
+                        class="text-danger" translate>
+                        Campo Requerido
+                      </small>
                     </div>
                   </div>
 
@@ -249,6 +282,11 @@
                           [(ngModel)]="model.idNumber"
                           [formControl]="form.controls['idNumber']"
                         />
+                        <small
+                          [hidden]="form.controls['idNumber'].valid || form.controls['idNumber'].untouched"
+                          class="text-danger" translate>
+                          Campo Requerido
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -270,6 +308,11 @@
                           [(ngModel)]="model.idExpirationDate"
                           [formControl]="form.controls['idExpirationDate']"
                         />
+                        <small
+                          [hidden]="form.controls['idExpirationDate'].valid || form.controls['idExpirationDate'].untouched"
+                          class="text-danger" translate>
+                          Campo Requerido
+                        </small>
                       </div>
                     </div>
                   </div>

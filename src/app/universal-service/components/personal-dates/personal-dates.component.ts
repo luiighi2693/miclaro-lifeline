@@ -77,7 +77,7 @@ export class PersonalDatesComponent implements OnInit {
 
   goToSocialSecureVerification() {
     if (
-      this.form.valid &&
+      this.form.valid && this.model.socialSecure.length === 11 &&
       (this.model.sharedMoneyWithTheAdult === false ||
         this.model.hasLifelineTheAdult === false ||
         this.model.liveWithAnoterAdult === false)
@@ -85,9 +85,40 @@ export class PersonalDatesComponent implements OnInit {
       console.log(this.model);
       this.processValidationSIF = true;
 
-      setTimeout(() => {
-        this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
-      }, 3000);
+      let datos = {
+        method:'validareSSNAdMcapi',
+        USER_ID: this.authenticationService.credentials.userid.toString(),
+        CUSTOMER_NAME: this.model.firstName,
+        CUSTOMER_MN: this.model.secondName,
+        CUSTOMER_LAST: this.model.lastName,
+        CUSTOMER_SSN: this.valueSSN,
+        CUSTOMER_DOB: this.formatDate(this.form.controls['birthday'].value),
+        GENDER: this.model.gender ? '1' : '0',
+        CUSTOMER_ID_TYPE: this.model.idType === 'Pasaporte' ? '0' : '1',
+        ID_NUMBER: this.model.idNumber,
+        DTS_EXP: this.formatDate(this.form.controls['idExpirationDate'].value),
+        DEP_APPLICATION: '',
+        PHONE_1: '',
+        COMUNICATION: '',
+        Home: this.model.liveWithAnoterAdult ? 1 : 0
+      };
+
+      console.log(datos);
+
+      this.authenticationService.validateSSN(datos).subscribe(resp => {
+        this.processValidationSIF = false;
+        console.log(resp);
+
+        if (resp.body.data.length === 0){
+          this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
+        } else {
+          this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
+        }
+      });
+
+      // setTimeout(() => {
+      //   this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
+      // }, 3000);
     }
   }
 
@@ -110,7 +141,7 @@ export class PersonalDatesComponent implements OnInit {
   public formatInput(input: string, format: string) {
     // Almacenando valor real en variable temporal
     if (input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
-      console.log(input.substr(input.length - 1, 1));
+      // console.log(input.substr(input.length - 1, 1));
       this.valueSSN += String(input.substr(input.length - 1, 1));
     } else {
       if (input !== 'X') {
@@ -122,61 +153,39 @@ export class PersonalDatesComponent implements OnInit {
     // ya que tiene el formato XXX-XX-XXXX  de 11 caracteres serian 9 digitos
     if (input.length === 11) {
       this.checkSSN = true;
-      console.log(this.authenticationService.credentials);
-      console.log(this.authenticationService.credentials.userid);
-
-      // en validateSSN {} se le envian los datos en un Objeto por el momento estan estaticos los datos
-      this.authenticationService.validateSSN({}).subscribe(resp => {
-        console.log(resp);
-      });
-
-      /*
-        Funcional en VanillaJS
-              // tslint:disable-next-line:prefer-const
-      let datos = {
-        USER_ID: 11,
-        CUSTOMER_NAME: 'Jhonny',
-        CUSTOMER_MN: 'C',
-        CUSTOMER_LAST: 'Ferraz',
-        CUSTOMER_SSN: '0581552714',
-        CUSTOMER_DOB: '1974-3-1',
-        GENDER: '1',
-        CUSTOMER_ID_TYPE: '1',
-        ID_NUMBER: '890980980808',
-        DTS_EXP: '2021-3-1',
-        DEP_APPLICATION: '',
-        PHONE_1: '',
-        COMUNICATION: '',
-        Home: 1
-      };
-
-      fetch('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', {
-        method: 'POST',
-        body: JSON.stringify(datos),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then((r) => { console.log( r ); });
-    */
+      console.log(this.valueSSN);
     }
 
     if (format === this.format2) {
+      console.log(input);
       if (input.length === 4) {
-        return (
-          input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
-        );
+        if (input[input.length-1] === '-') {
+          return ( input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X') );
+        } else {
+          return ( input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X') );
+        }
       }
 
       if (input.length === 7) {
         console.log(input);
-        return (
-          input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
-        );
+        if (input[input.length-1] === '-') {
+          return ( input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length) );
+        } else {
+          return ( input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length) );
+        }
       }
 
-      return input.replace(/[0-9]/g, 'X');
+      if (input.length > 7) {
+        return input;
+      } else {
+        return input.replace(/[0-9]/g, 'X');
+      }
     }
 
     return '';
+  }
+
+  public formatDate(date: any){
+    return date.year + '-' + date.month + '-' + date.day
   }
 }

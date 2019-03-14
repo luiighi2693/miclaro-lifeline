@@ -30,7 +30,8 @@ public partial class proccess_procesos2 : System.Web.UI.Page
     string wspathNetApiKey2 = "6af3982a-ce65-41a0-93d9-52bd172685cd";
     string wspathNet2 = "https://wsclarorprodnew.claropr.com/api-miclaro-services-prod-new/miclaro/";
 
-    string wspathUSF = "http://wslifeusf.claropr.com/";
+    //string wspathUSF = "http://wslifeusf.claropr.com/";
+    string wspathUSF = "http://wslife00042ws.claroinfo.com";
 
     private const string AntiXsrfTokenKey = "__AntiXsrfToken";
     private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
@@ -443,6 +444,10 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         {
             loginAdMcapi(jo);
         }
+        else if (ejecutar == "validareSSNAdMcapi")
+        {
+            validareSSNAdMcapi(jo);
+        }
         else
         {
             // Response.Redirect("../error_404.html");
@@ -459,6 +464,36 @@ public partial class proccess_procesos2 : System.Web.UI.Page
 
         //string PostURL =wspathNet+"AccountPackagesInfo";
         string PostURL = "http://wslife00042ws.claroinfo.com/Service/svc/1/LOGINAD.MCAPI";
+        //object resp = ToJson(PostWebServiceBearrer(PostURL, PostData, token));
+        object resp = ToJson(PostWebService(PostURL, PostData));
+
+        // respuesta json.
+        Response.Clear();
+        Response.ContentType = "application/json; charset=utf-8";
+        Response.Write(json.Serialize(resp));
+        Response.End();
+    }
+
+    public void validareSSNAdMcapi(JObject jo)
+    {
+        string USER_ID = jo["USER_ID"].ToString();
+        string CUSTOMER_NAME = jo["CUSTOMER_NAME"].ToString();
+        string CUSTOMER_MN = jo["CUSTOMER_MN"].ToString();
+        string CUSTOMER_LAST = jo["CUSTOMER_LAST"].ToString();
+        string CUSTOMER_SSN = jo["CUSTOMER_SSN"].ToString();
+        string CUSTOMER_DOB = jo["CUSTOMER_DOB"].ToString();
+        string GENDER = jo["GENDER"].ToString();
+        string CUSTOMER_ID_TYPE = jo["CUSTOMER_ID_TYPE"].ToString();
+        string ID_NUMBER = jo["ID_NUMBER"].ToString();
+        string DTS_EXP = jo["DTS_EXP"].ToString();
+        string DEP_APPLICATION = jo["DEP_APPLICATION"].ToString();
+        string PHONE_1 = jo["PHONE_1"].ToString();
+        string COMUNICATION = jo["COMUNICATION"].ToString();
+        string Home = jo["Home"].ToString();
+        string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\",\"DEP_APPLICATION\":\"" + DEP_APPLICATION + "\",\"PHONE_1\":\"" + PHONE_1 + "\",\"COMUNICATION\":\"" + COMUNICATION + "\",\"Home\":\"" + Home + "\"}";
+
+        //string PostURL =wspathNet+"AccountPackagesInfo";
+        string PostURL = "http://wslife00042ws.claroinfo.com/Service/svc/1/VALIDATE_SSN.MCAPI";
         //object resp = ToJson(PostWebServiceBearrer(PostURL, PostData, token));
         object resp = ToJson(PostWebService(PostURL, PostData));
 

@@ -24,6 +24,12 @@ export class SocialSecureVerificationComponent implements OnInit {
         Validators.compose([
           Validators.required
         ])
+      ],
+      prepaidAccountCreation: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
       ]
     });
   }

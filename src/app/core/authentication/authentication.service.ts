@@ -47,10 +47,10 @@ export class AuthenticationService {
       token: '123456'
     };
 
-    return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, {
-      observe: 'response'
-    });
-    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, {
+    //   observe: 'response'
+    // });
+    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
     // this.setCredentials(data, context.remember);
     // return of(data);
   }
@@ -104,26 +104,10 @@ export class AuthenticationService {
     }
   }
 
-  validateSSN(context: Object): Observable<any> {
-    // Set the Data Format
-    const data = {
-      USER_ID: 11,
-      CUSTOMER_NAME: 'Jhonny',
-      CUSTOMER_MN: 'C',
-      CUSTOMER_LAST: 'Ferraz',
-      CUSTOMER_SSN: '0581552714',
-      CUSTOMER_DOB: '1974-3-1',
-      GENDER: '1',
-      CUSTOMER_ID_TYPE: '1',
-      ID_NUMBER: '890980980808',
-      DTS_EXP: '2021-3-1',
-      DEP_APPLICATION: '',
-      PHONE_1: '',
-      COMUNICATION: '',
-      Home: 1
-    };
-    return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', data, {
-      observe: 'response'
-    });
+  validateSSN(data: any): Observable<any> {
+    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', data, {
+    //   observe: 'response'
+    // });
+    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
 }
