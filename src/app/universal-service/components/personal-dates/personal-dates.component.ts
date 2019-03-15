@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Util from '@app/universal-service/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsfServiceService } from '@app/core/usf/usf-service.service';
+import { BaseComponent } from '@app/core/base/BaseComponent';
 
 export interface Model {
   firstName: string;
@@ -26,7 +27,7 @@ export interface Model {
   templateUrl: './personal-dates.component.html',
   styleUrls: ['./personal-dates.component.scss']
 })
-export class PersonalDatesComponent implements OnInit {
+export class PersonalDatesComponent extends BaseComponent implements OnInit {
   checkSSN = false;
   invalidSSN = false;
   valueSSN = '';
@@ -36,7 +37,7 @@ export class PersonalDatesComponent implements OnInit {
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
 
-  public form: FormGroup;
+
   model: Model = new class implements Model {
     sufix = '';
     gender: boolean;
@@ -53,10 +54,13 @@ export class PersonalDatesComponent implements OnInit {
     sharedMoneyWithTheAdult: boolean;
   }();
 
-  constructor(private authenticationService: AuthenticationService, private usfServiceService: UsfServiceService, private router: Router, private fb: FormBuilder) {}
+  constructor(public authenticationService: AuthenticationService, public usfServiceService: UsfServiceService, public router: Router, public fb: FormBuilder) {
+    super(authenticationService, usfServiceService, router, fb);
+  }
 
   ngOnInit() {
     window.scroll(0, 0);
+    this.usfServiceService.setValidateSSNData();
 
     this.form = this.fb.group({
       sufix: [null, Validators.compose([Validators.required])],
@@ -118,23 +122,7 @@ export class PersonalDatesComponent implements OnInit {
           this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
         }
       });
-
-      // setTimeout(() => {
-      //   this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
-      // }, 3000);
     }
-  }
-
-  goToHome() {
-    this.router.navigate(['/home'], { replaceUrl: true });
-  }
-
-  checkNumbersOnly(event: any): boolean {
-    return Util.checkNumbersOnly(event);
-  }
-
-  checkCharactersOnly(event: any): boolean {
-    return Util.checkCharactersOnly(event);
   }
 
   formatInputSocialSecure(input: string) {
@@ -197,7 +185,4 @@ export class PersonalDatesComponent implements OnInit {
     return '';
   }
 
-  public formatDate(date: any){
-    return date.year + '-' + date.month + '-' + date.day
-  }
 }

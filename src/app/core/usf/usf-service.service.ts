@@ -42,7 +42,7 @@ export class UsfServiceService {
 
   public getValidateSSNData(): ValidateSSNData | null {
     let validateSSNData: ValidateSSNData;
-    validateSSNData = JSON.parse(sessionStorage.getItem(validateSSNDataKey))
+    validateSSNData = JSON.parse(sessionStorage.getItem(validateSSNDataKey));
     return validateSSNData;
   }
 
