@@ -47,9 +47,9 @@ export class AuthenticationService {
       token: '123456'
     };
 
-    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, {
-    //   observe: 'response'
-    // });
+     // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, {
+     //   observe: 'response'
+     // });
     return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
     // this.setCredentials(data, context.remember);
     // return of(data);
@@ -102,12 +102,5 @@ export class AuthenticationService {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
     }
-  }
-
-  validateSSN(data: any): Observable<any> {
-    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', data, {
-    //   observe: 'response'
-    // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
 }

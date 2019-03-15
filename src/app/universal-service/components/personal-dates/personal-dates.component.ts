@@ -3,6 +3,7 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import Util from '@app/universal-service/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsfServiceService } from '@app/core/usf/usf-service.service';
 
 export interface Model {
   firstName: string;
@@ -52,7 +53,7 @@ export class PersonalDatesComponent implements OnInit {
     sharedMoneyWithTheAdult: boolean;
   }();
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) {}
+  constructor(private authenticationService: AuthenticationService, private usfServiceService: UsfServiceService, private router: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -106,8 +107,9 @@ export class PersonalDatesComponent implements OnInit {
 
       console.log(datos);
 
-      this.authenticationService.validateSSN(datos).subscribe(resp => {
+      this.usfServiceService.validateSSN(datos).subscribe(resp => {
         this.processValidationSIF = false;
+        this.usfServiceService.setValidateSSNData(resp.body);
         console.log(resp);
 
         if (resp.body.data.length === 0){
