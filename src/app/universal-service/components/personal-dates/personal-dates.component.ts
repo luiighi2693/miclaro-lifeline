@@ -37,7 +37,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
 
-
   model: Model = new class implements Model {
     sufix = '';
     gender: boolean;
@@ -54,7 +53,13 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     sharedMoneyWithTheAdult: boolean;
   }();
 
-  constructor(public authenticationService: AuthenticationService, public usfServiceService: UsfServiceService, public router: Router, public fb: FormBuilder) {
+  // tslint:disable-next-line:max-line-length
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
     super(authenticationService, usfServiceService, router, fb);
   }
 
@@ -83,7 +88,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
   goToSocialSecureVerification() {
     if (
-      this.form.valid && this.model.socialSecure.length === 11 &&
+      this.form.valid &&
+      this.model.socialSecure.length === 11 &&
       (this.model.sharedMoneyWithTheAdult === false ||
         this.model.hasLifelineTheAdult === false ||
         this.model.liveWithAnoterAdult === false)
@@ -91,8 +97,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       console.log(this.model);
       this.processValidationSIF = true;
 
-      let datos = {
-        method:'validareSSNAdMcapi',
+      const datos = {
+        method: 'validareSSNAdMcapi',
         USER_ID: this.authenticationService.credentials.userid.toString(),
         CUSTOMER_NAME: this.model.firstName,
         CUSTOMER_MN: this.model.secondName,
@@ -116,7 +122,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         this.usfServiceService.setValidateSSNData(resp.body);
         console.log(resp);
 
-        if (resp.body.data.length === 0){
+        if (resp.body.data.length === 0) {
           this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
         } else {
           this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
@@ -159,19 +165,25 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     if (format === this.format2) {
       console.log(input);
       if (input.length === 4) {
-        if (input[input.length-1] === '-') {
-          return ( input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X') );
+        if (input[input.length - 1] === '-') {
+          return (
+            input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
+          );
         } else {
-          return ( input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X') );
+          return (
+            input.substr(0, input.length - 1) +
+            '-' +
+            input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
+          );
         }
       }
 
       if (input.length === 7) {
         console.log(input);
-        if (input[input.length-1] === '-') {
-          return ( input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length) );
+        if (input[input.length - 1] === '-') {
+          return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
         } else {
-          return ( input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length) );
+          return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
         }
       }
 
@@ -184,5 +196,4 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
     return '';
   }
-
 }
