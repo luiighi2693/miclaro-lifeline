@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="assets/css/font-awesome.css" />
     <link rel="stylesheet" href="assets/css/jquery-ui.css" />
     <link rel="stylesheet" href="assets/css/jquery-ui.theme.css" />
+
+    <!-- CSS alertify -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/bootstrap.min.css" />
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -31,8 +40,11 @@
       <p>This page requires JavaScript to work properly. Please enable JavaScript in your browser.</p>
     </noscript>
     <app-root></app-root>
+    <!-- JavaScript -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery-ui.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
     <script>
@@ -40,13 +52,19 @@
         $(this).toggleClass('mon');
       });
 
-      /*formato de datepicker para jquery-ui (Calendario) */
+      /*formato de datepicker para jquery-ui (Calendario)  */
       $(document).ready(function() {
         $('#dp_fecha_nacimiento').datepicker({
           dateFormat: 'dd/mm/yy',
           changeMonth: true,
           changeYear: true,
-          yearRange: '-100:+0'
+          //yearRange: '-100:+0',
+          yearRange: '-100:-18',
+          defaultDate: '-18y'
+        });
+
+        $('#activadorFN').on('click', function(e) {
+          $('#dp_fecha_nacimiento').datepicker('show');
         });
       });
     </script>

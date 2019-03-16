@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { constants } from '@env/constants';
+declare let alertify: any;
 
 export interface Credentials {
   [x: string]: any;
   // Customize received credentials here
   username: string;
   token: string;
+  timeLogin: Date;
 }
 
 export interface LoginContext {
@@ -25,12 +27,33 @@ const credentialsKey = 'credentials';
 @Injectable()
 export class AuthenticationService {
   private _credentials: Credentials | null;
+  private _max_min_inactive = 3;
 
   constructor(private http: HttpClient) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
-      this._credentials = JSON.parse(savedCredentials);
+      const resp_temp = JSON.parse(savedCredentials);
+      resp_temp.timeLogin = new Date();
+      this._credentials = resp_temp;
+      // this._credentials = JSON.parse(savedCredentials);
     }
+
+    // Para que quede verificando el tiempo se session cada vez que pase 1 min
+    // si pasa de X minutos en session  hay que sacarlo
+    setInterval(() => {
+      console.log(`Han transcurrido ${this.getMinutesInSessionI()} Min en session inactiva`);
+      if (this.getMinutesInSessionI() >= this._max_min_inactive) {
+        // si alcanzo el Limite permitido
+        alertify.alert(
+          'Sesión Inactiva',
+          'No hemos detectado actividad en los últimos 15 minutos. Por favor inicie nuevamente ingresando su nombre de usuario y contraseña.',
+          function() {
+            alertify.success('Ok');
+          }
+        );
+      }
+    }, 60000);
+    // 60.000 milisegundos Referentes a 1 min
   }
 
   /**
@@ -47,9 +70,9 @@ export class AuthenticationService {
       token: '123456'
     };
 
-     // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, {
-     //   observe: 'response'
-     // });
+    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, {
+    //   observe: 'response'
+    // });
     return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
     // this.setCredentials(data, context.remember);
     // return of(data);
@@ -63,6 +86,22 @@ export class AuthenticationService {
     // Customize credentials invalidation here
     this.setCredentials();
     return of(true);
+  }
+
+  /**
+   * Retorna el tiempo en que se identifico
+   * @return Object Type Date
+   */
+  public getTimeLogin(): Date {
+    return this.credentials.timeLogin;
+  }
+
+  /**
+   * Retorna el tiempo de MINUTOS en de session Transcurrido
+   * @return number
+   */
+  public getMinutesInSessionI(): number {
+    return new Date(new Date().getTime() - this.getTimeLogin().getTime()).getMinutes();
   }
 
   /**

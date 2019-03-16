@@ -205,9 +205,25 @@
                       <label class="label-f">&#42;DP Fecha de Nacimiento</label>
 
                       <div class="basicrow rel">
-                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true"></i>
+                        <i
+                          id="activadorFN"
+                          class="fa fa-calendar inpcal-icon"
+                          aria-hidden="true"
+                          (click)="activarDatepickerFechaNacimiento()"
+                        ></i>
 
-                        <input type="text" class="inp-f qt" id="dp_fecha_nacimiento" />
+                        <input
+                          type="text"
+                          class="inp-f qt"
+                          id="dp_fecha_nacimiento"
+                          #dp_fecha_nacimiento_v
+                          [ngModel]="valueBirthday"
+                          (change)="setFechaNacimiento(dp_fecha_nacimiento_v.value)"
+                          (blur)="
+                            setFechaNacimiento(dp_fecha_nacimiento_v.value); valueBirthday = dp_fecha_nacimiento_v.value
+                          "
+                          (keyup.enter)="setFechaNacimiento(dp_fecha_nacimiento_v.value)"
+                        />
 
                         <small
                           [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"

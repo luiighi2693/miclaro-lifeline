@@ -33,6 +33,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   valueSSN = '';
   processValidationSIF = false;
   format2 = 'XXX-XX-XXXX';
+  valueBirthday = '';
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
@@ -195,5 +196,41 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
 
     return '';
+  }
+
+  public setFechaNacimiento(entrada: string) {
+    setTimeout(() => {
+      if (document.getElementById('dp_fecha_nacimiento') != null) {
+        const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
+        const inputValue: string = inputElement.value;
+        this.valueBirthday = inputValue;
+        this.model.birthday = inputValue;
+        console.log('entrada: ' + entrada);
+        console.log('modelo valueBirthday: ' + this.valueBirthday);
+        console.log('inputValue: ' + inputValue);
+      }
+    }, 250);
+    console.log(this.authenticationService.getTimeLogin());
+    console.log('current:' + new Date());
+    console.log('setFechaNacimiento');
+  }
+
+  public activarDatepickerFechaNacimiento(entrada?: string) {
+    // (<any>$('#dp_fecha_nacimiento')).datepicker('show');
+    // tslint:disable-next-line:prefer-const
+    // let $: any;
+    // (<any>$('#dp_fecha_nacimiento')).datepicker('show');
+    // $(document).ready(function () {
+    //   $('#dp_fecha_nacimiento').datepicker('show');
+    // });
+    if (entrada) {
+      console.log('in-> ' + entrada);
+    }
+    console.log('activarDatepickerFechaNacimiento: ' + this.valueBirthday);
+    if (document.getElementById('dp_fecha_nacimiento') != null) {
+      const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
+      const inputValue: string = inputElement.value;
+      console.log(inputValue);
+    }
   }
 }
