@@ -46,7 +46,10 @@ export class AuthenticationService {
         // si alcanzo el Limite permitido
         alertify.alert(
           'Sesión Inactiva',
-          'No hemos detectado actividad en los últimos 15 minutos. Por favor inicie nuevamente ingresando su nombre de usuario y contraseña.',
+          // tslint:disable-next-line:max-line-length
+          'No hemos detectado actividad en los últimos ' +
+            this._max_min_inactive +
+            ' minutos. Por favor inicie nuevamente ingresando su nombre de usuario y contraseña.',
           function() {
             alertify.success('Ok');
           }
