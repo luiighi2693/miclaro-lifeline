@@ -5,6 +5,10 @@ import Util from '@app/universal-service/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsfServiceService } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
+// para poder usar Jquery de forma limpia solo donde es necesario
+// y de esta forma se pueden usar todas sus librerias y dependencias
+// como lo es datepicker y extras de JqueryUI
+declare let $: any;
 
 export interface Model {
   firstName: string;
@@ -62,6 +66,22 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     public fb: FormBuilder
   ) {
     super(authenticationService, usfServiceService, router, fb);
+
+    /*formato de datepicker para jquery-ui (Calendario)  */
+    $(document).ready(function() {
+      $('#dp_fecha_nacimiento').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        // yearRange: '-100:+0',
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+
+      $('#activadorFN').on('click', function(e: any) {
+        $('#dp_fecha_nacimiento').datepicker('show');
+      });
+    });
   }
 
   ngOnInit() {

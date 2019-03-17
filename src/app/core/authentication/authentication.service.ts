@@ -41,7 +41,8 @@ export class AuthenticationService {
     // Para que quede verificando el tiempo se session cada vez que pase 1 min
     // si pasa de X minutos en session  hay que sacarlo
     setInterval(() => {
-      console.log(`Han transcurrido ${this.getMinutesInSessionI()} Min en session inactiva`);
+      console.log(`Han transcurrido ${this.getMinutesInSessionI()} Min con la session inactiva`);
+
       if (this.getMinutesInSessionI() >= this._max_min_inactive) {
         // si alcanzo el Limite permitido
         alertify.alert(
