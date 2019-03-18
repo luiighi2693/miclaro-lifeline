@@ -552,4 +552,29 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       }
     }
   }
+
+  onBlurSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5,4);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onFocusSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = this.valueSSN.substr(0,3) + '-' + this.valueSSN.substr(3,2) + '-' + this.valueSSN.substr(5,4);
+        console.log(this.model.socialSecure);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
 }
