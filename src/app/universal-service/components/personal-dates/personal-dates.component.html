@@ -202,7 +202,7 @@
 
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="basicrow m-top-i">
-                      <label class="label-f">&#42;DP Fecha de Nacimiento</label>
+                      <label class="label-f">&#42; Fecha de Nacimiento</label>
 
                       <div class="basicrow rel">
                         <i
@@ -236,33 +236,36 @@
                     </div>
                   </div>
 
-                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="basicrow m-top-i">
-                      <label class="label-f">&#42; Fecha de Nacimiento</label>
+                  <!--
+                    BK [ RESPALDO ANTIGUA FORMA ]
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; Fecha de Nacimiento</label>
 
-                      <div class="basicrow rel">
-                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
+                        <div class="basicrow rel">
+                          <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
 
-                        <input
-                          type="text"
-                          class="inp-f qt"
-                          ngbDatepicker
-                          #d1="ngbDatepicker"
-                          [minDate]="{ year: 1918, month: 1, day: 1 }"
-                          [maxDate]="{ year: 2001, month: 1, day: 1 }"
-                          [(ngModel)]="model.birthday"
-                          [formControl]="form.controls['birthday']"
-                        />
-                        <small
-                          [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
-                          class="text-danger"
-                          translate
-                        >
-                          Campo Requerido
-                        </small>
+                          <input
+                            type="text"
+                            class="inp-f qt"
+                            ngbDatepicker
+                            #d1="ngbDatepicker"
+                            [minDate]="{ year: 1918, month: 1, day: 1 }"
+                            [maxDate]="{ year: 2001, month: 1, day: 1 }"
+                            [(ngModel)]="model.birthday"
+                            [formControl]="form.controls['birthday']"
+                          />
+                          <small
+                            [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
+                            class="text-danger"
+                            translate
+                          >
+                            Campo Requerido
+                          </small>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  -->
                 </div>
               </div>
 
@@ -348,18 +351,27 @@
                       <label class="label-f">&#42; Fecha de Expiraci&oacute;n del ID</label>
 
                       <div class="basicrow rel">
-                        <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
+                        <i
+                          id="activadorFEXP"
+                          class="fa fa-calendar inpcal-icon"
+                          aria-hidden="true"
+                          (click)="activarDatepickerFechaNacimiento()"
+                        ></i>
 
                         <input
                           type="text"
                           class="inp-f qt"
-                          ngbDatepicker
-                          #d="ngbDatepicker"
-                          [minDate]="{ year: 2018, month: 1, day: 1 }"
-                          [maxDate]="{ year: 2028, month: 1, day: 1 }"
-                          [(ngModel)]="model.idExpirationDate"
-                          [formControl]="form.controls['idExpirationDate']"
+                          id="dp_fecha_expiracion"
+                          #dp_fecha_expiracion_v
+                          [ngModel]="valueExpirationDate"
+                          (change)="setFechaExpiracion(dp_fecha_expiracion_v.value)"
+                          (blur)="
+                            setFechaExpiracion(dp_fecha_expiracion_v.value);
+                            valueExpirationDate = dp_fecha_expiracion_v.value
+                          "
+                          (keyup)="setFechaExpiracion(dp_fecha_expiracion_v.value)"
                         />
+
                         <small
                           [hidden]="
                             form.controls['idExpirationDate'].valid || form.controls['idExpirationDate'].untouched
@@ -372,6 +384,39 @@
                       </div>
                     </div>
                   </div>
+
+                  <!--
+                    ANTIGUA MANERA
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="basicrow m-top-i">
+                        <label class="label-f">&#42; Fecha de Expiraci&oacute;n del ID</label>
+
+                        <div class="basicrow rel">
+                          <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
+
+                          <input
+                            type="text"
+                            class="inp-f qt"
+                            ngbDatepicker
+                            #d="ngbDatepicker"
+                            [minDate]="{ year: 2018, month: 1, day: 1 }"
+                            [maxDate]="{ year: 2028, month: 1, day: 1 }"
+                            [(ngModel)]="model.idExpirationDate"
+                            [formControl]="form.controls['idExpirationDate']"
+                          />
+                          <small
+                            [hidden]="
+                              form.controls['idExpirationDate'].valid || form.controls['idExpirationDate'].untouched
+                            "
+                            class="text-danger"
+                            translate
+                          >
+                            Campo Requerido
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  -->
                 </div>
               </div>
 

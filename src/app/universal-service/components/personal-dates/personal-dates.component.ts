@@ -38,6 +38,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   processValidationSIF = false;
   format2 = 'XXX-XX-XXXX';
   valueBirthday = '';
+  valueExpirationDate = '';
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
@@ -70,7 +71,15 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     /*formato de datepicker para jquery-ui (Calendario)  */
     $(document).ready(function() {
       $('#dp_fecha_nacimiento').datepicker({
-        dateFormat: 'dd/mm/yy',
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        // yearRange: '-100:+0',
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      $('#dp_fecha_expiracion').datepicker({
+        dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
         // yearRange: '-100:+0',
@@ -78,8 +87,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         defaultDate: '-18y'
       });
 
+      // Activadores Iconos de calendarrio
       $('#activadorFN').on('click', function(e: any) {
         $('#dp_fecha_nacimiento').datepicker('show');
+      });
+      $('#activadorFEXP').on('click', function(e: any) {
+        $('#dp_fecha_expiracion').datepicker('show');
       });
     });
   }
@@ -107,6 +120,17 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     });
   }
 
+  inFormat(cadena_fecha: string) {
+    const temp_str = cadena_fecha.replace('/', '');
+    const temp_str2 = temp_str.replace('/', '');
+    console.log(temp_str2);
+    return {
+      year: temp_str2.substr(4, 4),
+      day: temp_str2.substr(2, 2),
+      month: temp_str2.substr(0, 2)
+    };
+  }
+
   goToSocialSecureVerification() {
     if (
       this.form.valid &&
@@ -125,11 +149,14 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         CUSTOMER_MN: this.model.secondName,
         CUSTOMER_LAST: this.model.lastName,
         CUSTOMER_SSN: this.valueSSN,
-        CUSTOMER_DOB: this.formatDate(this.form.controls['birthday'].value),
+        // CUSTOMER_DOB: this.formatDate(this.form.controls['birthday'].value),
+        // date.year + '-' + date.month + '-' + date.day
+        CUSTOMER_DOB: this.formatDate(this.inFormat(this.valueBirthday)),
         GENDER: this.model.gender ? '1' : '0',
         CUSTOMER_ID_TYPE: this.model.idType === 'Pasaporte' ? '0' : '1',
         ID_NUMBER: this.model.idNumber,
-        DTS_EXP: this.formatDate(this.form.controls['idExpirationDate'].value),
+        // DTS_EXP: this.formatDate(this.form.controls['idExpirationDate'].value),
+        DTS_EXP: this.formatDate(this.inFormat(this.valueExpirationDate)),
         DEP_APPLICATION: '',
         PHONE_1: '',
         COMUNICATION: '',
@@ -218,6 +245,34 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     return '';
   }
 
+  public setFechaExpiracion(entrada: string) {
+    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_expiracion') as HTMLInputElement;
+    const inputValue: string = inputElement.value;
+
+    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
+      entrada = entrada.replace('/', '');
+      console.log(entrada);
+      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
+      this.valueExpirationDate = entrada;
+      this.model.idExpirationDate = entrada;
+    }
+
+    console.log(entrada + ' :' + entrada.length);
+
+    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
+      // caso para el 2do Slash
+      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
+      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
+      this.valueExpirationDate = entrada;
+      this.model.idExpirationDate = entrada;
+    }
+
+    if (entrada.length >= 10) {
+      console.log(this.inFormat(entrada));
+      console.log(inputValue);
+    }
+  }
+
   public setFechaNacimiento(entrada: string) {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
     const inputValue: string = inputElement.value;
@@ -243,6 +298,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
 
     if (entrada.length >= 10) {
+      console.log(this.inFormat(entrada));
+      console.log(inputValue);
       // $('#dp_fecha_nacimiento').datepicker('show');
     }
     /*
@@ -276,6 +333,18 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     console.log('activarDatepickerFechaNacimiento: ' + this.valueBirthday);
     if (document.getElementById('dp_fecha_nacimiento') != null) {
       const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
+      const inputValue: string = inputElement.value;
+      console.log(inputValue);
+    }
+  }
+
+  public activarDatepickerFechaExpiracion(entrada?: string) {
+    if (entrada) {
+      console.log('in-> ' + entrada);
+    }
+    console.log('activarDatepickerFechaExpiracion: ' + this.valueExpirationDate);
+    if (document.getElementById('dp_fecha_expiracion') != null) {
+      const inputElement: HTMLInputElement = document.getElementById('dp_fecha_expiracion') as HTMLInputElement;
       const inputValue: string = inputElement.value;
       console.log(inputValue);
     }
