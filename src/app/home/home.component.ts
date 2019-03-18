@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Util from '@app/universal-service/util';
+import { AuthenticationService } from '@app/core';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,9 @@ import Util from '@app/universal-service/util';
 export class HomeComponent implements OnInit {
   isLoading: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {
+    authenticationService.validaSessionActiva();
+  }
 
   ngOnInit() {
     this.isLoading = true;

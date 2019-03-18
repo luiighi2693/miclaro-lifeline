@@ -72,10 +72,15 @@ export class AuthenticationService {
   }
 
   validaSessionActiva() {
-    if (this._credentials === null || this.getTimeLogin === undefined || this._credentials === null) {
+    if (
+      this._credentials === undefined ||
+      this._credentials === null ||
+      this.getTimeLogin === undefined ||
+      this._credentials === null
+    ) {
       // this.router.navigate(['/login'], { replaceUrl: true });
       this.router.navigateByUrl('/');
-      return 0;
+      return -1;
     }
   }
 
