@@ -240,7 +240,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
 
     if (entrada.length >= 10) {
-      $('#dp_fecha_nacimiento').datepicker('show');
+      // $('#dp_fecha_nacimiento').datepicker('show');
     }
     /*
     setTimeout(() => {

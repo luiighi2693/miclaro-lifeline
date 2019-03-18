@@ -8,11 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(public authenticationService: AuthenticationService, private router: Router) {
-    if (this.authenticationService.validaSessionActiva() === undefined) {
-      this.router.navigate(['/login'], { replaceUrl: true });
-    }
-  }
+  constructor(public authenticationService: AuthenticationService, private router: Router) {}
 
   ngOnInit() {}
 

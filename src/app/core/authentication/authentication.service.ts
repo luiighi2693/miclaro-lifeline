@@ -36,6 +36,7 @@ export class AuthenticationService {
       const resp_temp = JSON.parse(savedCredentials);
       resp_temp.timeLogin = new Date();
       this._credentials = resp_temp;
+      console.log(this._credentials);
       // this._credentials = JSON.parse(savedCredentials);
     }
 
@@ -57,12 +58,14 @@ export class AuthenticationService {
             function() {
               // alertify.success('Ok');
               this._credentials = null;
-              router.navigateByUrl('/');
+              this.router.navigate(['/login'], { replaceUrl: true });
+              // router.navigateByUrl('/');
             }
           );
         }
       } else if (this.getTimeLogin === undefined || this._credentials === null) {
-        router.navigateByUrl('/');
+        this.router.navigate(['/login'], { replaceUrl: true });
+        // router.navigateByUrl('/');
       }
     }, 60000);
     // 60.000 milisegundos Referentes a 1 min
@@ -70,7 +73,8 @@ export class AuthenticationService {
 
   validaSessionActiva() {
     if (this._credentials === null || this.getTimeLogin === undefined || this._credentials === null) {
-      this.router.navigateByUrl('/');
+      this.router.navigate(['/login'], { replaceUrl: true });
+      // this.router.navigateByUrl('/');
       return 0;
     }
   }
