@@ -219,12 +219,35 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   }
 
   public setFechaNacimiento(entrada: string) {
+    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
+    const inputValue: string = inputElement.value;
+
+    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
+      console.log(inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length));
+      entrada = inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length);
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
+    }
+
+    console.log(entrada + ' :' + entrada.length);
+
+    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
+      // caso para el 2do Slash
+      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
+      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
+    }
+
+    if (entrada.length >= 10) {
+      $('#dp_fecha_nacimiento').datepicker('show');
+    }
+    /*
     setTimeout(() => {
       if (document.getElementById('dp_fecha_nacimiento') != null) {
-        const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
-        const inputValue: string = inputElement.value;
         this.valueBirthday = inputValue;
         this.model.birthday = inputValue;
+
         console.log('entrada: ' + entrada);
         console.log('modelo valueBirthday: ' + this.valueBirthday);
         console.log('inputValue: ' + inputValue);
@@ -233,6 +256,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     console.log(this.authenticationService.getTimeLogin());
     console.log('current:' + new Date());
     console.log('setFechaNacimiento');
+  */
   }
 
   public activarDatepickerFechaNacimiento(entrada?: string) {
