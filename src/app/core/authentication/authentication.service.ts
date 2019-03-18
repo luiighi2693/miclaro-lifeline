@@ -128,7 +128,11 @@ export class AuthenticationService {
    * @return number
    */
   public getMinutesInSessionI(): number {
-    return new Date(new Date().getTime() - this.getTimeLogin().getTime()).getMinutes();
+    if (this.getTimeLogin() !== undefined) {
+      return new Date(new Date().getTime() - this.getTimeLogin().getTime()).getMinutes();
+    } else {
+      return 0;
+    }
   }
 
   /**
