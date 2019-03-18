@@ -223,8 +223,11 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     const inputValue: string = inputElement.value;
 
     if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
-      console.log(inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length));
-      entrada = inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length);
+      entrada = entrada.replace('/', '');
+      console.log(entrada);
+
+      // console.log(inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length));
+      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
       this.valueBirthday = entrada;
       this.model.birthday = entrada;
     }
