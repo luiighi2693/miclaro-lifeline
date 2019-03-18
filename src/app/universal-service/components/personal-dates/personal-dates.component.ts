@@ -231,13 +231,13 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       if (input.length === 4) {
         if (input[input.length - 1] === '-') {
           return (
-            input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
+            input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length)
           );
         } else {
           return (
             input.substr(0, input.length - 1) +
             '-' +
-            input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
+            input.substr(input.length - 1, input.length)
           );
         }
       }
@@ -254,7 +254,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       if (input.length > 7) {
         return input;
       } else {
-        return input.replace(/[0-9]/g, 'X');
+        return input;
       }
     }
 
@@ -526,5 +526,30 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     console.log(ic_fecha);
     console.log(this.inputControl2);
     console.log('ic_change2');
+  }
+
+  onBlurSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5,4);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onFocusSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = this.valueSSN.substr(0,3) + '-' + this.valueSSN.substr(3,2) + '-' + this.valueSSN.substr(5,4);
+        console.log(this.model.socialSecure);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
   }
 }
