@@ -452,6 +452,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       const inputValue: string = inputElement.value;
       this.valueBirthday = inputValue;
       this.model.birthday = inputValue;
+      this.inputControl = inputValue;
       console.log('#blur :' + inputValue);
     }, 200);
   }
