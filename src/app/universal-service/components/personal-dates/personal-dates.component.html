@@ -217,7 +217,8 @@
                           class="inp-f qt"
                           id="dp_fecha_nacimiento"
                           #dp_fecha_nacimiento_v
-                          [ngModel]="valueBirthday"
+                          [(ngModel)]="valueBirthday"
+                          [formControl]="form.controls['birthday']"
                           (change)="setFechaNacimiento(dp_fecha_nacimiento_v.value)"
                           (blur)="
                             setFechaNacimiento(dp_fecha_nacimiento_v.value); valueBirthday = dp_fecha_nacimiento_v.value
@@ -364,7 +365,8 @@
                           class="inp-f qt"
                           id="dp_fecha_expiracion"
                           #dp_fecha_expiracion_v
-                          [ngModel]="valueExpirationDate"
+                          [(ngModel)]="valueExpirationDate"
+                          [formControl]="form.controls['idExpirationDate']"
                           (change)="setFechaExpiracion(dp_fecha_expiracion_v.value)"
                           (blur)="
                             setFechaExpiracion(dp_fecha_expiracion_v.value);
