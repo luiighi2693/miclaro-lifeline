@@ -70,7 +70,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     public fb: FormBuilder
   ) {
     super(authenticationService, usfServiceService, router, fb);
-    authenticationService.validaSessionActiva();
+
     /*formato de datepicker para jquery-ui (Calendario)  */
     $(document).ready(function() {
       $('#inputControl').datepicker({
