@@ -81,10 +81,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       $('#dp_fecha_expiracion').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
-        changeYear: true,
-        // yearRange: '-100:+0',
-        yearRange: '-100:-18',
-        defaultDate: '-18y'
+        changeYear: true
       });
 
       // Activadores Iconos de calendarrio
@@ -132,6 +129,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   }
 
   goToSocialSecureVerification() {
+    console.log(this.formatDate(this.inFormat(this.valueBirthday)));
+    // aqui abajo es que esta dando el error
+    // console.log(this.formatDate(this.form.controls['birthday'].value));
     if (
       this.form.valid &&
       this.model.socialSecure.length === 11 &&
@@ -141,7 +141,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     ) {
       console.log(this.model);
       this.processValidationSIF = true;
-
       const datos = {
         method: 'validareSSNAdMcapi',
         USER_ID: this.authenticationService.credentials.userid.toString(),
@@ -258,6 +257,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
 
     console.log(entrada + ' :' + entrada.length);
+    console.log(inputValue + ' :' + inputValue.length);
 
     if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
       // caso para el 2do Slash
