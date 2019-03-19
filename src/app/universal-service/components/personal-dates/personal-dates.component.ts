@@ -417,8 +417,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-100:-18',
-        defaultDate: '-18y'
+        yearRange: '-10:10'
       });
       this.datePicker_is_init = true;
     }
@@ -437,8 +436,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-100:-18',
-        defaultDate: '-18y'
+        yearRange: '-10:10'
       });
       this.datePicker_is_init = true;
     }
