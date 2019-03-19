@@ -234,6 +234,19 @@
                         >
                           Campo Requerido
                         </small>
+
+                        <input
+                          type="text"
+                          class="inp-f qt"
+                          id="inputControl"
+                          [(ngModel)]="inputControl"
+                          #ic_fecha
+                          (blur)="ic_blur($event.target.value)"
+                          (click)="ic_click($event.target.value)"
+                          (keyup)="ic_key_up(ic_fecha)"
+                          (change)="ic_change(ic_fecha)"
+                          (input)="ic_in($event.target.value)"
+                        />
                       </div>
                     </div>
                   </div>

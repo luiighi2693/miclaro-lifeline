@@ -40,6 +40,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   valueBirthday = '';
   valueExpirationDate = '';
   datePicker_is_init = false;
+  inputControl = '';
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
@@ -71,6 +72,14 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     authenticationService.validaSessionActiva();
     /*formato de datepicker para jquery-ui (Calendario)  */
     $(document).ready(function() {
+      $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+
       $('#dp_fecha_nacimiento').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
@@ -312,16 +321,16 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
       // console.log(inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length));
       entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
-      this.valueBirthday = entrada;
-      this.model.birthday = entrada;
+      // this.valueBirthday = entrada;
+      // this.model.birthday = entrada;
     }
 
     if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
       // caso para el 2do Slash
       console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
       entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
-      this.valueBirthday = entrada;
-      this.model.birthday = entrada;
+      // this.valueBirthday = entrada;
+      // this.model.birthday = entrada;
     }
 
     console.log(entrada + ' :' + entrada.length);
@@ -332,6 +341,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
 
     if (entrada.length >= 10) {
+      console.log('#' + this.model.birthday);
+      console.log('##' + this.valueBirthday);
       console.log(this.inFormat(entrada));
       console.log(inputValue);
       // $('#dp_fecha_nacimiento').datepicker('show');
@@ -382,6 +393,13 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           yearRange: '-100:-18',
           defaultDate: '-18y'
         });
+        $('#inputControl').datepicker({
+          dateFormat: 'mm/dd/yy',
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '-100:-18',
+          defaultDate: '-18y'
+        });
 
         // Activadores Iconos de calendarrio
         $('#activadorFN').on('click', function(e: any) {
@@ -404,5 +422,39 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       const inputValue: string = inputElement.value;
       console.log(inputValue);
     }
+  }
+
+  // Pruebas de control de evento
+  public ic_in(entra: any) {
+    console.log(entra);
+    console.log('ic_in');
+  }
+  public ic_blur(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_blur');
+    setTimeout(() => {
+      const inputElement: HTMLInputElement = document.getElementById('inputControl') as HTMLInputElement;
+      const inputValue: string = inputElement.value;
+      console.log('#blur :' + inputValue);
+    }, 200);
+  }
+
+  public ic_click(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_click');
+  }
+
+  public ic_key_up(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_key_up');
+  }
+
+  public ic_change(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_change');
   }
 }
