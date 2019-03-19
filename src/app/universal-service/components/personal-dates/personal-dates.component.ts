@@ -424,6 +424,20 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
   }
 
+  // NUEVA ESTRUCCTURA >>>>>>>>>>>>>>>>>>>
+  public activarDatepickerFechaN() {
+    if (this.datePicker_is_init === false) {
+      $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      this.datePicker_is_init = true;
+    }
+    $('#inputControl').datepicker('show');
+  }
   // Pruebas de control de evento
   public ic_in(entra: any) {
     console.log(entra);
@@ -436,6 +450,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     setTimeout(() => {
       const inputElement: HTMLInputElement = document.getElementById('inputControl') as HTMLInputElement;
       const inputValue: string = inputElement.value;
+      this.valueBirthday = inputValue;
+      this.model.birthday = inputValue;
       console.log('#blur :' + inputValue);
     }, 200);
   }

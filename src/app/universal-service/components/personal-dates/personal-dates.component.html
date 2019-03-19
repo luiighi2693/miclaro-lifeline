@@ -206,40 +206,18 @@
 
                       <div class="basicrow rel">
                         <i
-                          id="activadorFN"
+                          id="activadorFNinputControl"
                           class="fa fa-calendar inpcal-icon"
                           aria-hidden="true"
-                          (click)="activarDatepickerFechaNacimiento()"
+                          (click)="activarDatepickerFechaN()"
                         ></i>
-
-                        <input
-                          type="text"
-                          class="inp-f qt"
-                          id="dp_fecha_nacimiento"
-                          #dp_fecha_nacimiento_v
-                          [(ngModel)]="valueBirthday"
-                          [formControl]="form.controls['birthday']"
-                          (change)="setFechaNacimiento(dp_fecha_nacimiento_v.value)"
-                          (blur)="
-                            setFechaNacimiento(dp_fecha_nacimiento_v.value); valueBirthday = dp_fecha_nacimiento_v.value
-                          "
-                          (keyup)="setFechaNacimiento(dp_fecha_nacimiento_v.value)"
-                          (click)="activarDatepickerFechaNacimiento()"
-                        />
-
-                        <small
-                          [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
-                          class="text-danger"
-                          translate
-                        >
-                          Campo Requerido
-                        </small>
 
                         <input
                           type="text"
                           class="inp-f qt"
                           id="inputControl"
                           [(ngModel)]="inputControl"
+                          [formControl]="form.controls['birthday']"
                           #ic_fecha
                           (blur)="ic_blur($event.target.value)"
                           (click)="ic_click($event.target.value)"
@@ -247,6 +225,13 @@
                           (change)="ic_change(ic_fecha)"
                           (input)="ic_in($event.target.value)"
                         />
+                        <small
+                          [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
+                          class="text-danger"
+                          translate
+                        >
+                          Campo Requerido
+                        </small>
                       </div>
                     </div>
                   </div>
