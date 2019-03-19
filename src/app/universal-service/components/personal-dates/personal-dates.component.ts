@@ -173,9 +173,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         ID_NUMBER: this.model.idNumber,
         // DTS_EXP: this.formatDate(this.form.controls['idExpirationDate'].value),
         DTS_EXP: this.formatDate(this.inFormat(this.valueExpirationDate)),
-        DEP_APPLICATION: '',
-        PHONE_1: '',
-        COMUNICATION: '',
+        // DEP_APPLICATION: '',
+        // PHONE_1: '',
+        // COMUNICATION: '',
         Home: this.model.liveWithAnoterAdult ? 1 : 0
       };
 

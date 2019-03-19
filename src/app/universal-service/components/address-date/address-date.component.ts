@@ -26,6 +26,7 @@ export interface Model {
   postalEstate: string;
   postalCode2: string;
   addressSelected: string;
+  temporalAddressExtraContent: string;
 }
 
 @Component({
@@ -77,6 +78,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     postalEstate = '';
     postalCode2 = '';
     addressSelected = 'postal';
+    temporalAddressExtraContent = '';
   };
 
   constructor(public authenticationService: AuthenticationService,
@@ -151,12 +153,12 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
           CustomValidators.email
         ])
       ],
-      // contactChannel: [
-      //   null,
-      //   Validators.compose([
-      //     Validators.required
-      //   ])
-      // ],
+      contactChannel: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
       postalAddressFlag: [
         null,
         Validators.compose([
@@ -203,9 +205,34 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid && (this.contactChannelEmail || this.contactChannelPhone || this.contactChannelTextMessage || this.contactChannelMail)) {
+    if (this.form.valid) {
       console.log(this.model);
       this.validationProcessUSPS = true;
+
+      const datos = {
+        method: 'addressValidationMcapi',
+        UserName : this.authenticationService.credentials.UserName,
+        caseID : 123,
+        Tipodireccion1: this.model.temporalAddress1 ? 1 : 0,
+        urban: this.model.address,
+        addr: this.model.depUnitOther + this.model.temporalAddress ? (' ' + this.model.temporalAddressExtraContent) : '',
+        city: this.model.municipality,
+        state: 'PR',
+        zip: this.model.postalCode,
+        Tipodireccion3: this.model.temporalAddress ? 3 : 0,
+        Tlfreferencia: this.model.contactNumber1,
+        Tlfreferencia2: this.model.contactNumber2,
+        email: this.model.email,
+        Prefcontacto: this.model.contactChannel,
+        Tipodireccion2: this.model.postalAddressFlag ? 0 : 2,
+        urban2: this.model.postalAddress,
+        addr2: this.model.postalDepUnitOther,
+        city2: this.model.postalMunicipality,
+        state2: 'PR',
+        zip2: this.model.postalCode2,
+      };
+
+      console.log(datos);
 
       setTimeout(() => {
         this.validationProcessUSPS = false;
