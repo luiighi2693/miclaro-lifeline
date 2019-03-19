@@ -64,7 +64,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   valueBirthday = '';
   valueExpirationDate = '';
   datePicker_is_init = false;
-  datePicker_is_init2 = false;
+  inputControl = '';
+  inputControl2 = '';
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
@@ -97,6 +98,20 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
     /*formato de datepicker para jquery-ui (Calendario)  */
     $(document).ready(function() {
+      $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      $('#inputControl2').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '+0:+10'
+      });
+
       $('#dp_fecha_nacimiento').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
@@ -375,14 +390,16 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
       // console.log(inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length));
       entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
-      this.valueBirthday = entrada;
+      // this.valueBirthday = entrada;
+      // this.model.birthday = entrada;
     }
 
     if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
       // caso para el 2do Slash
       console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
       entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
-      this.valueBirthday = entrada;
+      // this.valueBirthday = entrada;
+      // this.model.birthday = entrada;
     }
     this.model.birthday = entrada;
 
@@ -394,25 +411,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
 
     if (entrada.length >= 10) {
+      console.log('#' + this.model.birthday);
+      console.log('##' + this.valueBirthday);
       console.log(this.inFormat(entrada));
       console.log(inputValue);
       // $('#dp_fecha_nacimiento').datepicker('show');
     }
-    /*
-    setTimeout(() => {
-      if (document.getElementById('dp_fecha_nacimiento') != null) {
-        this.valueBirthday = inputValue;
-        this.model.birthday = inputValue;
-
-        console.log('entrada: ' + entrada);
-        console.log('modelo valueBirthday: ' + this.valueBirthday);
-        console.log('inputValue: ' + inputValue);
-      }
-    }, 250);
-    console.log(this.authenticationService.getTimeLogin());
-    console.log('current:' + new Date());
-    console.log('setFechaNacimiento');
-  */
   }
 
   public activarDatepickerFechaNacimiento(entrada?: string) {
@@ -436,6 +440,20 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           // yearRange: '-100:+0',
           yearRange: '-100:-18',
           defaultDate: '-18y'
+        });
+        $('#inputControl').datepicker({
+          dateFormat: 'mm/dd/yy',
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '-100:-18',
+          defaultDate: '-18y'
+        });
+
+        $('#inputControl2').datepicker({
+          dateFormat: 'mm/dd/yy',
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '+0:+10'
         });
 
         // Activadores Iconos de calendarrio
@@ -484,29 +502,115 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
   }
 
-  onBlurSSN() {
-    if (this.model.socialSecure !== undefined) {
-      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
-        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
-      } else {
-        this.model.socialSecure = undefined;
-        this.valueSSN = undefined;
-        this.checkSSN = false;
-      }
+  // NUEVA ESTRUCCTURA >>>>>>>>>>>>>>>>>>>
+  public activarDatepickerFechaN() {
+    if (this.datePicker_is_init === false) {
+      $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      $('#inputControl2').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '0:+10'
+      });
+      this.datePicker_is_init = true;
     }
+    $('#inputControl').datepicker('show');
+  }
+  public activarDatepickerFechaE() {
+    if (this.datePicker_is_init === false) {
+      $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      $('#inputControl2').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '+0:+10'
+      });
+      this.datePicker_is_init = true;
+    }
+    $('#inputControl2').datepicker('show');
+  }
+  // Pruebas de control de evento
+  public ic_in(entra: any) {
+    console.log(entra);
+    console.log('ic_in');
+  }
+  public ic_blur(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_blur');
+    setTimeout(() => {
+      const inputElement: HTMLInputElement = document.getElementById('inputControl') as HTMLInputElement;
+      const inputValue: string = inputElement.value;
+      this.valueBirthday = inputValue;
+      this.model.birthday = inputValue;
+      this.inputControl = inputValue;
+      console.log('#blur :' + inputValue);
+    }, 200);
   }
 
-  onFocusSSN() {
-    if (this.model.socialSecure !== undefined) {
-      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
-        this.model.socialSecure =
-          this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
-        console.log(this.model.socialSecure);
-      } else {
-        this.model.socialSecure = undefined;
-        this.valueSSN = undefined;
-        this.checkSSN = false;
-      }
-    }
+  public ic_click(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_click');
+  }
+
+  public ic_key_up(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_key_up');
+  }
+
+  public ic_change(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl);
+    console.log('ic_change');
+  }
+
+  // ============= Segundo DatePicker ==================
+  // Pruebas de control de evento
+  public ic_in2(entra: any) {
+    console.log(entra);
+    console.log('ic_in2');
+  }
+  public ic_blur2(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log('ic_blur2');
+    setTimeout(() => {
+      const inputElement: HTMLInputElement = document.getElementById('inputControl2') as HTMLInputElement;
+      const inputValue: string = inputElement.value;
+      this.model.idExpirationDate = inputValue;
+      this.inputControl2 = inputValue;
+      console.log('#blur :' + inputValue);
+    }, 200);
+  }
+
+  public ic_click2(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log(this.inputControl2);
+    console.log('ic_click2');
+  }
+
+  public ic_key_up2(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl2);
+    console.log('ic_key_up2');
+  }
+
+  public ic_change2(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl2);
+    console.log('ic_change2');
   }
 }
