@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Util from '@app/universal-service/util';
 import {CustomValidators} from 'ng2-validation';
+import { UsfServiceService } from '@app/core/usf/usf-service.service';
+import { BaseComponent } from '@app/core/base/BaseComponent';
 
 export interface Model {
   temporalAddress1: boolean;
@@ -31,7 +33,7 @@ export interface Model {
   templateUrl: './address-date.component.html',
   styleUrls: ['./address-date.component.scss']
 })
-export class AddressDateComponent implements OnInit {
+export class AddressDateComponent extends BaseComponent implements OnInit {
   validationProcessUSPS = false;
   validationDataAddressInput = false;
   validationProcessMAILPREP = false;
@@ -77,7 +79,12 @@ export class AddressDateComponent implements OnInit {
     addressSelected = 'postal';
   };
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
+  constructor(public authenticationService: AuthenticationService,
+              public usfServiceService: UsfServiceService,
+              public router: Router,
+              public fb: FormBuilder) {
+    super(authenticationService, usfServiceService, router, fb);
+  }
 
   ngOnInit() {
     window.scroll(0, 0);

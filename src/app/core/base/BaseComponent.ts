@@ -13,7 +13,10 @@ export class BaseComponent {
     public usfServiceService: UsfServiceService,
     public router: Router,
     public fb: FormBuilder
-  ) {}
+  ) {
+    authenticationService.validaSessionActiva();
+    this.authenticationService.getCredentials().timeLogin = new Date();
+  }
 
   public goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });

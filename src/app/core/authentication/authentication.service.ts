@@ -43,6 +43,7 @@ export class AuthenticationService {
     // Para que quede verificando el tiempo se session cada vez que pase 1 min
     // si pasa de X minutos en session  hay que sacarlo
     setInterval(() => {
+      console.log(`Han transcurrido ${this.getMinutesInSessionI()} Min`);
       if (this.getMinutesInSessionI() >= this._max_min_inactive) {
         // si alcanzo el Limite permitido
         // y si no esta en /login es que se va a mostrar
