@@ -199,7 +199,7 @@
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                   <div class="basicrow m-top-i" *ngIf="model.temporalAddress">
                     <div class="basicrow rel">
-                      <input type="text" maxlength="40" placeholder="Carretera, Kilómetro o Hectómetro" class="inp-f qt" >
+                      <input [(ngModel)]="model.temporalAddressExtraContent" type="text" maxlength="40" placeholder="Carretera, Kilómetro o Hectómetro" class="inp-f qt" >
                     </div>
                   </div>
                 </div>
@@ -306,19 +306,19 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Correo Electronico'" [(ngModel)]="contactChannelEmail"> Correo Electr&oacute;nico
+                    <input type="radio" name="contactChannel" [value]="'1'" [formControl]="form.controls['contactChannel']" [(ngModel)]="model.contactChannel"> Correo Electr&oacute;nico
                   </div>
 
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Telefono'" [(ngModel)]="contactChannelPhone"> Tel&eacute;fono
+                    <input type="radio" name="contactChannel" [value]="'2'" [formControl]="form.controls['contactChannel']" [(ngModel)]="model.contactChannel"> Tel&eacute;fono
                   </div>
 
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Mensaje de texto'" [(ngModel)]="contactChannelTextMessage"> Mensaje de texto
+                    <input type="radio" name="contactChannel" [value]="'3'" [formControl]="form.controls['contactChannel']" [(ngModel)]="model.contactChannel"> Mensaje de texto
                   </div>
 
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Correo'" [(ngModel)]="contactChannelMail"> Correo
+                    <input type="radio" name="contactChannel" [value]="'4'" [formControl]="form.controls['contactChannel']" [(ngModel)]="model.contactChannel"> Correo
                   </div>
                 </div>
               </div>
@@ -431,7 +431,7 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter gray" [ngClass]="{'red': form.valid && (contactChannelEmail || contactChannelPhone || contactChannelTextMessage || contactChannelMail)}">
+                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter gray" [ngClass]="{'red': form.valid}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
