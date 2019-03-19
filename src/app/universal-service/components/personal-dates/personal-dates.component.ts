@@ -92,6 +92,31 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   ) {
     super(authenticationService, usfServiceService, router, fb);
     authenticationService.validaSessionActiva();
+
+    /*formato de datepicker para jquery-ui (Calendario)  */
+    $(document).ready(function() {
+      $('#dp_fecha_nacimiento').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        // yearRange: '-100:+0',
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      $('#dp_fecha_expiracion').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true
+      });
+
+      // Activadores Iconos de calendarrio
+      $('#activadorFN').on('click', function(e: any) {
+        $('#dp_fecha_nacimiento').datepicker('show');
+      });
+      $('#activadorFEXP').on('click', function(e: any) {
+        $('#dp_fecha_expiracion').datepicker('show');
+      });
+    });
   }
 
   ngOnInit() {
@@ -213,15 +238,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       console.log(input);
       if (input.length === 4) {
         if (input[input.length - 1] === '-') {
-          return (
-            input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
-          );
+          return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
         } else {
-          return (
-            input.substr(0, input.length - 1) +
-            '-' +
-            input.substr(input.length - 1, input.length).replace(/[0-9]/g, 'X')
-          );
+          return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
         }
       }
 
@@ -237,7 +256,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       if (input.length > 7) {
         return input;
       } else {
-        return input.replace(/[0-9]/g, 'X');
+        return input;
       }
     }
 
@@ -419,6 +438,32 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       const inputValue: string = inputElement.value;
       console.log(inputValue);
       $('#dp_fecha_expiracion').datepicker('show');
+    }
+  }
+
+  onBlurSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onFocusSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure =
+          this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
+        console.log(this.model.socialSecure);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
     }
   }
 }

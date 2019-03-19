@@ -3,9 +3,12 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Util from '@app/universal-service/util';
-import {CustomValidators} from 'ng2-validation';
+import { CustomValidators } from 'ng2-validation';
+import { UsfServiceService } from '@app/core/usf/usf-service.service';
+import { BaseComponent } from '@app/core/base/BaseComponent';
 
 export interface Model {
+  temporalAddress1: boolean;
   contactNumber1: string;
   contactNumber2: string;
   temporalAddress: boolean;
@@ -30,7 +33,7 @@ export interface Model {
   templateUrl: './address-date.component.html',
   styleUrls: ['./address-date.component.scss']
 })
-export class AddressDateComponent implements OnInit {
+export class AddressDateComponent extends BaseComponent implements OnInit {
   validationProcessUSPS = false;
   validationDataAddressInput = false;
   validationProcessMAILPREP = false;
@@ -42,20 +45,92 @@ export class AddressDateComponent implements OnInit {
 
   format1 = 'XXX-XXX-XX-XX';
 
-  public municipalities = [ 'Adjuntas', 'Aguada', 'Aguadilla', 'Aguas Buenas', 'Aibonito', 'Arecibo', 'Arroyo',
-    'Añasco', 'Barceloneta', 'Barranquitas', 'Bayamón', 'Cabo Rojo', 'Caguas', 'Camuy', 'Canóvanas', 'Carolina',
-    'Cataño', 'Cayey', 'Ceiba', 'Ciales', 'Cidra', 'Coamo', 'Comerío', 'Corozal', 'Culebra', 'Dorado', 'Fajardo',
-    'Florida', 'Guayama', 'Guayanilla', 'Guaynabo', 'Gurabo', 'Guánica', 'Hatillo', 'Hormigueros', 'Humacao', 'Isabela',
-    'Jayuya', 'Juana Díaz', 'Juncos', 'Lajas', 'Lares', 'Las Marías', 'Las Piedras', 'Loiza', 'Luquillo', 'Manatí',
-    'Maricao', 'Maunabo', 'Mayagüez', 'Moca', 'Morovis', 'Naguabo', 'Naranjito', 'Orocovis', 'Patillas', 'Peñuelas',
-    'Ponce', 'Quebradillas', 'Rincón', 'Rio Grande', 'Sabana Grande', 'Salinas', 'San Germán', 'San Juan', 'San Lorenzo',
-    'San Sebastián', 'Santa Isabel', 'Toa Alta', 'Toa Baja', 'Trujillo Alto', 'Utuado', 'Vega Alta', 'Vega Baja', 'Vieques',
-    'Villalba', 'Yabucoa', 'Yauco'];
+  public municipalities = [
+    'Adjuntas',
+    'Aguada',
+    'Aguadilla',
+    'Aguas Buenas',
+    'Aibonito',
+    'Arecibo',
+    'Arroyo',
+    'Añasco',
+    'Barceloneta',
+    'Barranquitas',
+    'Bayamón',
+    'Cabo Rojo',
+    'Caguas',
+    'Camuy',
+    'Canóvanas',
+    'Carolina',
+    'Cataño',
+    'Cayey',
+    'Ceiba',
+    'Ciales',
+    'Cidra',
+    'Coamo',
+    'Comerío',
+    'Corozal',
+    'Culebra',
+    'Dorado',
+    'Fajardo',
+    'Florida',
+    'Guayama',
+    'Guayanilla',
+    'Guaynabo',
+    'Gurabo',
+    'Guánica',
+    'Hatillo',
+    'Hormigueros',
+    'Humacao',
+    'Isabela',
+    'Jayuya',
+    'Juana Díaz',
+    'Juncos',
+    'Lajas',
+    'Lares',
+    'Las Marías',
+    'Las Piedras',
+    'Loiza',
+    'Luquillo',
+    'Manatí',
+    'Maricao',
+    'Maunabo',
+    'Mayagüez',
+    'Moca',
+    'Morovis',
+    'Naguabo',
+    'Naranjito',
+    'Orocovis',
+    'Patillas',
+    'Peñuelas',
+    'Ponce',
+    'Quebradillas',
+    'Rincón',
+    'Rio Grande',
+    'Sabana Grande',
+    'Salinas',
+    'San Germán',
+    'San Juan',
+    'San Lorenzo',
+    'San Sebastián',
+    'Santa Isabel',
+    'Toa Alta',
+    'Toa Baja',
+    'Trujillo Alto',
+    'Utuado',
+    'Vega Alta',
+    'Vega Baja',
+    'Vieques',
+    'Villalba',
+    'Yabucoa',
+    'Yauco'
+  ];
 
-  public estates = [ 'Puerto Rico'];
+  public estates = ['Puerto Rico'];
 
   public form: FormGroup;
   model: Model = new class implements Model {
+    temporalAddress1: boolean;
     contactNumber1 = '';
     contactNumber2 = '';
     temporalAddress: boolean;
@@ -73,81 +148,43 @@ export class AddressDateComponent implements OnInit {
     postalEstate = '';
     postalCode2 = '';
     addressSelected = 'postal';
-  };
+  }();
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
+    super(authenticationService, usfServiceService, router, fb);
+  }
 
   ngOnInit() {
     window.scroll(0, 0);
 
     this.form = this.fb.group({
-      contactNumber1: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      contactNumber2: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      temporalAddress: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      address: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
+      temporalAddress1: [null, Validators.compose([Validators.required])],
+      contactNumber1: [null, Validators.compose([Validators.required])],
+      contactNumber2: [null, Validators.compose([Validators.required])],
+      temporalAddress: [null, Validators.compose([Validators.required])],
+      address: [null, Validators.compose([Validators.required])],
       depUnitOther: [
         null,
         Validators.compose([
           // Validators.required
         ])
       ],
-      municipality: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      estate: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      postalCode: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      email: [
-        null,
-        Validators.compose([
-          Validators.required,
-          CustomValidators.email
-        ])
-      ],
+      municipality: [null, Validators.compose([Validators.required])],
+      estate: [null, Validators.compose([Validators.required])],
+      postalCode: [null, Validators.compose([Validators.required])],
+      email: [null, Validators.compose([Validators.required, CustomValidators.email])],
       // contactChannel: [
       //   null,
       //   Validators.compose([
       //     Validators.required
       //   ])
       // ],
-      postalAddressFlag: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
+      postalAddressFlag: [null, Validators.compose([Validators.required])],
       postalAddress: [
         null,
         Validators.compose([
@@ -188,7 +225,13 @@ export class AddressDateComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid && (this.contactChannelEmail || this.contactChannelPhone || this.contactChannelTextMessage || this.contactChannelMail)) {
+    if (
+      this.form.valid &&
+      (this.contactChannelEmail ||
+        this.contactChannelPhone ||
+        this.contactChannelTextMessage ||
+        this.contactChannelMail)
+    ) {
       console.log(this.model);
       this.validationProcessUSPS = true;
 

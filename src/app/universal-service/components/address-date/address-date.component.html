@@ -1,16 +1,19 @@
-<!--[INIT LOADING DATOS DE DIRECCION 1]-->
+<!-- [INIT LOADING DATOS DE DIRECCION 1] -->
 
 <div class="popupbg" *ngIf="validationProcessUSPS">
   <div class="popupcont morew">
     <div class="basicrow text-center">
-      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
     </div>
 
     <div class="basicrow f-bmed f-black roboto-r">
       <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
           <div class="basicrow m-top-i text-center">
-            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif"> Inicia Proceso de Validaci&oacute;n USPS
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia Proceso de
+            Validaci&oacute;n USPS
           </div>
         </div>
       </div>
@@ -18,34 +21,31 @@
   </div>
 </div>
 
-<!--[END LOADING DATOS DE DIRECCION 1]-->
+<!-- [END LOADING DATOS DE DIRECCION 1] -->
 
-
-
-<!--[INIT POPUP VERIFICACION DE DIRECCION]-->
+<!-- [INIT POPUP VERIFICACION DE DIRECCION] -->
 
 <div class="popupbg" *ngIf="validationDataAddressInput">
   <div class="popupcont">
-    <div class="basicrow f-black f-lbig roboto-m">
-      Verificaci&oacute;n de Direcci&oacute;n
-    </div>
+    <div class="basicrow f-black f-lbig roboto-m">Verificaci&oacute;n de Direcci&oacute;n</div>
 
     <div class="basicrow f-reg f-black roboto-r">
       <div class="basicrow">
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="basicrow roboto-b m-top-i">
-              Direcci&oacute;n F&iacute;sica Ingresada:
-            </div>
+            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n F&iacute;sica Ingresada:</div>
 
             <div class="optchoice on roboto-r text-left">
               <div class="checkdef">
-                <input type="radio" name="radioG1" id="radioG1" class="css-radio" checked/><label for="radioG1" class="css-label3 radGroup1"></label>
+                <input type="radio" name="radioG1" id="radioG1" class="css-radio" checked /><label
+                  for="radioG1"
+                  class="css-label3 radGroup1"
+                ></label>
               </div>
 
               <div class="basicrow f-reg roboto-b">
-                URB HERMOSILLO<br/>
-                123 CALLE 1<br/>
+                URB HERMOSILLO<br />
+                123 CALLE 1<br />
                 BAYAMÓN PR 00961-1212
               </div>
             </div>
@@ -56,39 +56,57 @@
       <div class="basicrow m-top">
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="basicrow roboto-b m-top-i">
-              Direcci&oacute;n Postal Ingresada:
-            </div>
+            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n Postal Ingresada:</div>
 
             <div class="optchoice roboto-r text-left" [ngClass]="model.addressSelected === 'postal' ? 'on' : ''">
               <div class="checkdef">
-                <!--<input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>-->
-                <input type="radio" name="addressSelected" id="radioG2" class="css-radio" [value]="'postal'"
-                       [(ngModel)]="model.addressSelected" [formControl]="form.controls['addressSelected']"><label for="radioG2" class="css-label3 radGroup1"></label>
+                <!--
+                  <input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>
+                -->
+                <input
+                  type="radio"
+                  name="addressSelected"
+                  id="radioG2"
+                  class="css-radio"
+                  [value]="'postal'"
+                  [(ngModel)]="model.addressSelected"
+                  [formControl]="form.controls['addressSelected']"
+                /><label for="radioG2" class="css-label3 radGroup1"></label>
               </div>
 
               <div class="basicrow f-reg roboto-b">
-                {{model.address}}<br/>
-                CALLE {{model.depUnitOther}}<br/>
-                {{model.municipality}} PR {{model.postalCode}}
+                {{ model.address }}<br />
+                CALLE {{ model.depUnitOther }}<br />
+                {{ model.municipality }} PR {{ model.postalCode }}
               </div>
             </div>
           </div>
 
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngIf="!model.postalAddressFlag">
-            <div class="basicrow roboto-b m-top-i">
-              Direcci&oacute;n Postal Sugerida:
-            </div>
+            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n Postal Sugerida:</div>
 
-            <div class="optchoice roboto-r text-left" [ngClass]="model.addressSelected === 'postalSuggested' ? 'on' : ''">
+            <div
+              class="optchoice roboto-r text-left"
+              [ngClass]="model.addressSelected === 'postalSuggested' ? 'on' : ''"
+            >
               <div class="checkdef">
-                <!--<input type="radio" name="radioG3" id="radioG3" class="css-radio" /><label for="radioG3" class="css-label3 radGroup1"></label>-->
-                <input type="radio" name="addressSelected" id="radioG3" class="css-radio" [value]="'postalSuggested'" [(ngModel)]="model.addressSelected" [formControl]="form.controls['addressSelected']"><label for="radioG3" class="css-label3 radGroup1"></label>
+                <!--
+                  <input type="radio" name="radioG3" id="radioG3" class="css-radio" /><label for="radioG3" class="css-label3 radGroup1"></label>
+                -->
+                <input
+                  type="radio"
+                  name="addressSelected"
+                  id="radioG3"
+                  class="css-radio"
+                  [value]="'postalSuggested'"
+                  [(ngModel)]="model.addressSelected"
+                  [formControl]="form.controls['addressSelected']"
+                /><label for="radioG3" class="css-label3 radGroup1"></label>
               </div>
 
               <div class="basicrow f-reg roboto-b">
-                URB HERMOSILLO<br/>
-                123 CALLE 1<br/>
+                URB HERMOSILLO<br />
+                123 CALLE 1<br />
                 BAYAMÓN PR 00961-1212
               </div>
             </div>
@@ -97,15 +115,11 @@
       </div>
 
       <div class="basicrow">
-        <div class="basicrow m-top-i">
-          <div class="logline full"></div>
-        </div>
+        <div class="basicrow m-top-i"><div class="logline full"></div></div>
 
         <div class="basicrow text-center m-top-i">
           <a (click)="goToRegisterCase()" class="btns def-i red centr vcenter">
-								<span class="tabcell">
-									Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
-								</span>
+            <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
           </a>
         </div>
       </div>
@@ -113,23 +127,24 @@
   </div>
 </div>
 
-<!--[END POPUP VERIFICACION DE DIRECCION]-->
+<!-- [END POPUP VERIFICACION DE DIRECCION] -->
 
-
-
-<!--[INIT LOADING DATOS DE DIRECCION 2]-->
+<!-- [INIT LOADING DATOS DE DIRECCION 2] -->
 
 <div class="popupbg" *ngIf="validationProcessMAILPREP">
   <div class="popupcont morew">
     <div class="basicrow text-center">
-      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
     </div>
 
     <div class="basicrow f-bmed f-black roboto-r">
       <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
           <div class="basicrow m-top-i text-center">
-            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif"> Inicia el Proceso de Validaci&oacute;n MAILPREP
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el Proceso de
+            Validaci&oacute;n MAILPREP
           </div>
         </div>
       </div>
@@ -137,9 +152,7 @@
   </div>
 </div>
 
-<!--[END LOADING DATOS DE DIRECCION 2]-->
-
-
+<!-- [END LOADING DATOS DE DIRECCION 2] -->
 
 <div class="basicrow">
   <app-header></app-header>
@@ -151,15 +164,43 @@
           <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validación de Dirección
         </div>
 
-        <div class="basicrow m-top-i m-bott text-center">
-          <app-steplife></app-steplife>
-        </div>
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
 
         <div class="basicrow text-center">
           <div class="shortcont">
             <div class="basicrow">
-              <div class="basicrow f-lbig f-black roboto-m">
-                Direcci&oacute;n F&iacute;sica
+              <div class="basicrow f-lbig f-black roboto-m">Direcci&oacute;n F&iacute;sica</div>
+
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <div class="basicrow m-top">
+                    <label class="label-f">&#42; &#191;Es una direcci&oacute;n temporal&#63;</label>
+
+                    <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                      <div class="popopt">
+                        <input
+                          type="radio"
+                          name="temporalAddress1"
+                          [value]="true"
+                          [(ngModel)]="model.temporalAddress1"
+                          [formControl]="form.controls['temporalAddress1']"
+                        />
+                        Si
+                      </div>
+
+                      <div class="popopt">
+                        <input
+                          type="radio"
+                          name="temporalAddress1"
+                          [value]="false"
+                          [(ngModel)]="model.temporalAddress1"
+                          [formControl]="form.controls['temporalAddress1']"
+                        />
+                        No
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="row">
@@ -169,11 +210,25 @@
 
                     <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                       <div class="popopt">
-                        <input type="radio" name="temporalAddress" [value]="true" [(ngModel)]="model.temporalAddress" [formControl]="form.controls['temporalAddress']"> Si
+                        <input
+                          type="radio"
+                          name="temporalAddress"
+                          [value]="true"
+                          [(ngModel)]="model.temporalAddress"
+                          [formControl]="form.controls['temporalAddress']"
+                        />
+                        Si
                       </div>
 
                       <div class="popopt">
-                        <input type="radio" name="temporalAddress" [value]="false" [(ngModel)]="model.temporalAddress" [formControl]="form.controls['temporalAddress']"> No
+                        <input
+                          type="radio"
+                          name="temporalAddress"
+                          [value]="false"
+                          [(ngModel)]="model.temporalAddress"
+                          [formControl]="form.controls['temporalAddress']"
+                        />
+                        No
                       </div>
                     </div>
                   </div>
@@ -181,7 +236,12 @@
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                   <div class="basicrow m-top-i" *ngIf="model.temporalAddress">
                     <div class="basicrow rel">
-                      <input type="text" maxlength="40" placeholder="Carretera, Kilómetro o Hectómetro" class="inp-f qt" >
+                      <input
+                        type="text"
+                        maxlength="40"
+                        placeholder="Carretera, Kilómetro o Hectómetro"
+                        class="inp-f qt"
+                      />
                     </div>
                   </div>
                 </div>
@@ -195,9 +255,24 @@
                         <label class="label-f">&#42; &#191;Cu&aacute;l es la direcci&oacute;n de tu casa&#63;</label>
 
                         <div class="basicrow rel">
-                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
+                          <img
+                            data-toggle="popover"
+                            data-html="true"
+                            data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                            data-placement="bottom"
+                            width="100%"
+                            class="q-t"
+                            src="../../../../assets/images/tooltip1.png"
+                          />
 
-                          <input type="text" maxlength="40" placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt" [(ngModel)]="model.address" [formControl]="form.controls['address']">
+                          <input
+                            type="text"
+                            maxlength="40"
+                            placeholder="N&uacute;mero y Nombre de Calle"
+                            class="inp-f qt"
+                            [(ngModel)]="model.address"
+                            [formControl]="form.controls['address']"
+                          />
                         </div>
                       </div>
                     </div>
@@ -205,7 +280,14 @@
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                       <div class="basicrow m-top-iii">
                         <div class="basicrow">
-                          <input type="text" maxlength="6" placeholder="Dpto/Unidad/Otro" class="inp-f" [(ngModel)]="model.depUnitOther" [formControl]="form.controls['depUnitOther']">
+                          <input
+                            type="text"
+                            maxlength="6"
+                            placeholder="Dpto/Unidad/Otro"
+                            class="inp-f"
+                            [(ngModel)]="model.depUnitOther"
+                            [formControl]="form.controls['depUnitOther']"
+                          />
                         </div>
                       </div>
                     </div>
@@ -219,10 +301,17 @@
                         <label class="label-f">&#42; Municipios</label>
 
                         <div class="basicrow">
-                          <select class="sel-f" name="municipality" [(ngModel)]="model.municipality" [formControl]="form.controls['municipality']">
+                          <select
+                            class="sel-f"
+                            name="municipality"
+                            [(ngModel)]="model.municipality"
+                            [formControl]="form.controls['municipality']"
+                          >
                             <option [value]="''" disabled selected hidden>Seleccionar</option>
-                            <option [value]="municipality" *ngFor="let municipality of municipalities">{{municipality}}</option>
-                            </select>
+                            <option [value]="municipality" *ngFor="let municipality of municipalities">{{
+                              municipality
+                            }}</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -232,9 +321,14 @@
                         <div class="basicrow">
                           <label class="label-f">&#42; Estado</label>
 
-                          <select class="sel-f" name="estate" [(ngModel)]="model.estate" [formControl]="form.controls['estate']">
+                          <select
+                            class="sel-f"
+                            name="estate"
+                            [(ngModel)]="model.estate"
+                            [formControl]="form.controls['estate']"
+                          >
                             <option [value]="''" disabled selected hidden>Seleccionar</option>
-                            <option [value]="estate" *ngFor="let estate of estates">{{estate}}</option>
+                            <option [value]="estate" *ngFor="let estate of estates">{{ estate }}</option>
                           </select>
                         </div>
                       </div>
@@ -245,7 +339,14 @@
                         <div class="basicrow">
                           <label type="text" maxlength="5" class="label-f">&#42; C&oacute;digo Postal</label>
 
-                          <input type="text" maxlength="5" class="inp-f" (keypress)="checkNumbersOnly($event)" [(ngModel)]="model.postalCode" [formControl]="form.controls['postalCode']">
+                          <input
+                            type="text"
+                            maxlength="5"
+                            class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
+                            [(ngModel)]="model.postalCode"
+                            [formControl]="form.controls['postalCode']"
+                          />
                         </div>
                       </div>
                     </div>
@@ -258,7 +359,15 @@
                       <div class="basicrow m-top-i">
                         <label class="label-f">&#42; N&uacute;mero de Contacto 1</label>
 
-                        <input (keypress)="checkNumbersOnly($event)" (keyup)="formatInputContactNumber('contactNumber1')" maxlength="13" class="inp-f " name="contactNumber1" [(ngModel)]="model.contactNumber1" [formControl]="form.controls['contactNumber1']">
+                        <input
+                          (keypress)="checkNumbersOnly($event)"
+                          (keyup)="formatInputContactNumber('contactNumber1')"
+                          maxlength="13"
+                          class="inp-f "
+                          name="contactNumber1"
+                          [(ngModel)]="model.contactNumber1"
+                          [formControl]="form.controls['contactNumber1']"
+                        />
                       </div>
                     </div>
 
@@ -267,7 +376,15 @@
                         <label class="label-f">&#42; N&uacute;mero de Contacto 2</label>
 
                         <div class="basicrow rel">
-                          <input (keypress)="checkNumbersOnly($event)" (keyup)="formatInputContactNumber('contactNumber2')" maxlength="13" class="inp-f " name="contactNumber2" [(ngModel)]="model.contactNumber2" [formControl]="form.controls['contactNumber2']">
+                          <input
+                            (keypress)="checkNumbersOnly($event)"
+                            (keyup)="formatInputContactNumber('contactNumber2')"
+                            maxlength="13"
+                            class="inp-f "
+                            name="contactNumber2"
+                            [(ngModel)]="model.contactNumber2"
+                            [formControl]="form.controls['contactNumber2']"
+                          />
                         </div>
                       </div>
                     </div>
@@ -279,7 +396,13 @@
                 <label class="label-f">&#42; Correo Electr&oacute;nico</label>
 
                 <div class="basicrow">
-                  <input type="text" maxlength="25" class="inp-f" [(ngModel)]="model.email" [formControl]="form.controls['email']">
+                  <input
+                    type="text"
+                    maxlength="25"
+                    class="inp-f"
+                    [(ngModel)]="model.email"
+                    [formControl]="form.controls['email']"
+                  />
                 </div>
               </div>
 
@@ -288,33 +411,68 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Correo Electronico'" [(ngModel)]="contactChannelEmail"> Correo Electr&oacute;nico
+                    <input
+                      type="checkbox"
+                      name="contactChannel"
+                      [value]="'Correo Electronico'"
+                      [(ngModel)]="contactChannelEmail"
+                    />
+                    Correo Electr&oacute;nico
                   </div>
 
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Telefono'" [(ngModel)]="contactChannelPhone"> Tel&eacute;fono
+                    <input
+                      type="checkbox"
+                      name="contactChannel"
+                      [value]="'Telefono'"
+                      [(ngModel)]="contactChannelPhone"
+                    />
+                    Tel&eacute;fono
                   </div>
 
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Mensaje de texto'" [(ngModel)]="contactChannelTextMessage"> Mensaje de texto
+                    <input
+                      type="checkbox"
+                      name="contactChannel"
+                      [value]="'Mensaje de texto'"
+                      [(ngModel)]="contactChannelTextMessage"
+                    />
+                    Mensaje de texto
                   </div>
 
                   <div class="popopt">
-                    <input type="checkbox" name="contactChannel" [value]="'Correo'" [(ngModel)]="contactChannelMail"> Correo
+                    <input type="checkbox" name="contactChannel" [value]="'Correo'" [(ngModel)]="contactChannelMail" />
+                    Correo
                   </div>
                 </div>
               </div>
 
               <div class="basicrow m-top-i">
-                <label class="label-f">&#42; &#191;La direcci&oacute;n ingresada es la misma a su direcci&oacute;n Postal&#63;</label>
+                <label class="label-f"
+                  >&#42; &#191;La direcci&oacute;n ingresada es la misma a su direcci&oacute;n Postal&#63;</label
+                >
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="postalAddressFlag" [value]="true" [(ngModel)]="model.postalAddressFlag" [formControl]="form.controls['postalAddressFlag']"> Si
+                    <input
+                      type="radio"
+                      name="postalAddressFlag"
+                      [value]="true"
+                      [(ngModel)]="model.postalAddressFlag"
+                      [formControl]="form.controls['postalAddressFlag']"
+                    />
+                    Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="postalAddressFlag" [value]="false" [(ngModel)]="model.postalAddressFlag" [formControl]="form.controls['postalAddressFlag']"> No
+                    <input
+                      type="radio"
+                      name="postalAddressFlag"
+                      [value]="false"
+                      [(ngModel)]="model.postalAddressFlag"
+                      [formControl]="form.controls['postalAddressFlag']"
+                    />
+                    No
                   </div>
                 </div>
               </div>
@@ -327,9 +485,24 @@
                         <label class="label-f">&#42; &#191;Cu&aacute;l es la direcci&oacute;n postal&#63;</label>
 
                         <div class="basicrow rel">
-                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
+                          <img
+                            data-toggle="popover"
+                            data-html="true"
+                            data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                            data-placement="bottom"
+                            width="100%"
+                            class="q-t"
+                            src="../../../../assets/images/tooltip1.png"
+                          />
 
-                          <input type="text" maxlength="40" placeholder="N&uacute;mero y Nombre de Calle" class="inp-f qt" [(ngModel)]="model.postalAddress" [formControl]="form.controls['postalAddress']">
+                          <input
+                            type="text"
+                            maxlength="40"
+                            placeholder="N&uacute;mero y Nombre de Calle"
+                            class="inp-f qt"
+                            [(ngModel)]="model.postalAddress"
+                            [formControl]="form.controls['postalAddress']"
+                          />
                         </div>
                       </div>
                     </div>
@@ -337,7 +510,14 @@
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                       <div class="basicrow m-top-iii">
                         <div class="basicrow">
-                          <input type="text" maxlength="6" placeholder="Dpto/Unidad/Otro" class="inp-f" [(ngModel)]="model.postalDepUnitOther" [formControl]="form.controls['postalDepUnitOther']">
+                          <input
+                            type="text"
+                            maxlength="6"
+                            placeholder="Dpto/Unidad/Otro"
+                            class="inp-f"
+                            [(ngModel)]="model.postalDepUnitOther"
+                            [formControl]="form.controls['postalDepUnitOther']"
+                          />
                         </div>
                       </div>
                     </div>
@@ -351,9 +531,16 @@
                         <label class="label-f">&#42; Municipios</label>
 
                         <div class="basicrow">
-                          <select class="sel-f" name="postalMunicipality" [(ngModel)]="model.postalMunicipality" [formControl]="form.controls['postalMunicipality']">
+                          <select
+                            class="sel-f"
+                            name="postalMunicipality"
+                            [(ngModel)]="model.postalMunicipality"
+                            [formControl]="form.controls['postalMunicipality']"
+                          >
                             <option [value]="''" disabled selected hidden>Seleccionar</option>
-                            <option [value]="postalMunicipality" *ngFor="let postalMunicipality of municipalities">{{postalMunicipality}}</option>
+                            <option [value]="postalMunicipality" *ngFor="let postalMunicipality of municipalities">{{
+                              postalMunicipality
+                            }}</option>
                           </select>
                         </div>
                       </div>
@@ -364,9 +551,16 @@
                         <div class="basicrow">
                           <label class="label-f">&#42; Estado</label>
 
-                          <select class="sel-f" name="postalEstate" [(ngModel)]="model.postalEstate" [formControl]="form.controls['postalEstate']">
+                          <select
+                            class="sel-f"
+                            name="postalEstate"
+                            [(ngModel)]="model.postalEstate"
+                            [formControl]="form.controls['postalEstate']"
+                          >
                             <option [value]="''" disabled selected hidden>Seleccionar</option>
-                            <option [value]="postalEstate" *ngFor="let postalEstate of estates">{{postalEstate}}</option>
+                            <option [value]="postalEstate" *ngFor="let postalEstate of estates">{{
+                              postalEstate
+                            }}</option>
                           </select>
                         </div>
                       </div>
@@ -377,52 +571,65 @@
                         <div class="basicrow">
                           <label class="label-f">&#42; C&oacute;digo Postal</label>
 
-                          <input type="text" maxlength="5" class="inp-f" (keypress)="checkNumbersOnly($event)" [(ngModel)]="model.postalCode2" [formControl]="form.controls['postalCode2']">
+                          <input
+                            type="text"
+                            maxlength="5"
+                            class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
+                            [(ngModel)]="model.postalCode2"
+                            [formControl]="form.controls['postalCode2']"
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!--<div class="basicrow">-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                      <!--<div class="basicrow m-top-i">-->
-                        <!--<label class="label-f">&#42; N&uacute;mero de Contacto 1</label>-->
+                <!-- <div class="basicrow"> -->
+                <!-- <div class="row"> -->
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                <!-- <div class="basicrow m-top-i"> -->
+                <!-- <label class="label-f">&#42; N&uacute;mero de Contacto 1</label> -->
 
-                        <!--<input class="inp-f ">-->
-                      <!--</div>-->
-                    <!--</div>-->
+                <!-- <input class="inp-f "> -->
+                <!-- </div> -->
+                <!-- </div> -->
 
-                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                      <!--<div class="basicrow m-top-i">-->
-                        <!--<label class="label-f">&#42; N&uacute;mero de Contacto 2</label>-->
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                <!-- <div class="basicrow m-top-i"> -->
+                <!-- <label class="label-f">&#42; N&uacute;mero de Contacto 2</label> -->
 
-                        <!--<div class="basicrow rel">-->
-                          <!--<input class="inp-f ">-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <!-- <div class="basicrow rel"> -->
+                <!-- <input class="inp-f "> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
               </div>
 
               <div class="basicrow">
-                <div class="basicrow m-top-i">
-                  <div class="logline full"></div>
-                </div>
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToValidationDataAddressInput()" class="btns def-i red pull-right vcenter gray" [ngClass]="{'red': form.valid && (contactChannelEmail || contactChannelPhone || contactChannelTextMessage || contactChannelMail)}">
-												<span class="tabcell">
-													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
-												</span>
+                  <a
+                    (click)="goToValidationDataAddressInput()"
+                    class="btns def-i red pull-right vcenter gray"
+                    [ngClass]="{
+                      red:
+                        form.valid &&
+                        (contactChannelEmail || contactChannelPhone || contactChannelTextMessage || contactChannelMail)
+                    }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
                   </a>
 
                   <a (click)="goToPersonalDates()" class="btns def-i gray pull-left vcenter">
-												<span class="tabcell">
-													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
-												</span>
+                    <span class="tabcell">
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                    </span>
                   </a>
                 </div>
               </div>
