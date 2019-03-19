@@ -272,7 +272,32 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       console.log(inputValue);
     }
   }
-
+  public inDelayDatePicker() {
+    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
+    // tslint:disable-next-line:prefer-const
+    let entrada: string = inputElement.value;
+    console.log('in delay ' + entrada);
+    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
+      entrada = entrada.replace('/', '');
+      console.log(entrada);
+      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
+    }
+    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
+      // caso para el 2do Slash
+      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
+      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
+    }
+    if (entrada.length >= 10) {
+      console.log(this.inFormat(entrada));
+      console.log(entrada);
+    }
+    $('#activadorFN').click();
+    return;
+  }
   public setFechaNacimiento(entrada: string) {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
     const inputValue: string = inputElement.value;
@@ -287,14 +312,19 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       this.model.birthday = entrada;
     }
 
-    console.log(entrada + ' :' + entrada.length);
-
     if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
       // caso para el 2do Slash
       console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
       entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
       this.valueBirthday = entrada;
       this.model.birthday = entrada;
+    }
+
+    console.log(entrada + ' :' + entrada.length);
+    if (entrada.length === 0) {
+      setTimeout(() => {
+        this.inDelayDatePicker();
+      }, 150);
     }
 
     if (entrada.length >= 10) {
