@@ -10,6 +10,34 @@ import { BaseComponent } from '@app/core/base/BaseComponent';
 // como lo es datepicker y extras de JqueryUI
 declare let $: any;
 
+/*
+//formato de datepicker para jquery-ui (Calendario)
+$(document).ready(function () {
+  $('#dp_fecha_nacimiento').datepicker({
+    dateFormat: 'mm/dd/yy',
+    changeMonth: true,
+    changeYear: true,
+    // yearRange: '-100:+0',
+    yearRange: '-100:-18',
+    defaultDate: '-18y'
+  });
+  $('#dp_fecha_expiracion').datepicker({
+    dateFormat: 'mm/dd/yy',
+    yearRange: '-10:+10',
+    changeMonth: true,
+    changeYear: true
+  });
+  this.datePicker_is_init = true;
+  // Activadores Iconos de calendarrio
+  $('#activadorFN').on('click', function (e: any) {
+    $('#dp_fecha_nacimiento').datepicker('show');
+  });
+  $('#activadorFEXP').on('click', function (e: any) {
+    $('#dp_fecha_expiracion').datepicker('show');
+  });
+});
+*/
+
 export interface Model {
   firstName: string;
   secondName: string;
@@ -70,31 +98,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   ) {
     super(authenticationService, usfServiceService, router, fb);
     authenticationService.validaSessionActiva();
-    /*formato de datepicker para jquery-ui (Calendario)  */
-    $(document).ready(function() {
-      $('#dp_fecha_nacimiento').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true,
-        // yearRange: '-100:+0',
-        yearRange: '-100:-18',
-        defaultDate: '-18y'
-      });
-      $('#dp_fecha_expiracion').datepicker({
-        dateFormat: 'mm/dd/yy',
-        yearRange: '-10:+10',
-        changeMonth: true,
-        changeYear: true
-      });
-      this.datePicker_is_init = true;
-      // Activadores Iconos de calendarrio
-      $('#activadorFN').on('click', function(e: any) {
-        $('#dp_fecha_nacimiento').datepicker('show');
-      });
-      $('#activadorFEXP').on('click', function(e: any) {
-        $('#dp_fecha_expiracion').datepicker('show');
-      });
-    });
   }
 
   ngOnInit() {
@@ -270,10 +273,47 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       this.model.idExpirationDate = entrada;
     }
 
+    if (entrada.length === 0) {
+      setTimeout(() => {
+        this.inDelayDatePicker2();
+      }, 200);
+    }
+
     if (entrada.length >= 10) {
       console.log(this.inFormat(entrada));
       console.log(inputValue);
     }
+  }
+  inDelayDatePicker2(): any {
+    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_expiracion') as HTMLInputElement;
+    // tslint:disable-next-line:prefer-const
+    let entrada = '';
+    if (inputElement != null) {
+      entrada = inputElement.value;
+    }
+    console.log('in delay exp ' + entrada);
+    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
+      entrada = entrada.replace('/', '');
+      console.log(entrada);
+      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
+    }
+    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
+      // caso para el 2do Slash
+      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
+      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
+    }
+    if (entrada.length >= 10) {
+      console.log(this.inFormat(entrada));
+      console.log('in to delay 10 characters' + entrada);
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
+    }
+
+    $('#dp_fecha_expiracion').focus();
   }
   public inDelayDatePicker() {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
@@ -298,11 +338,14 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       this.model.birthday = entrada;
     }
     if (entrada.length >= 10) {
+      this.valueBirthday = entrada;
+      this.model.birthday = entrada;
       console.log(this.inFormat(entrada));
       console.log(entrada);
     }
-    $('#activadorFN').click();
-    return;
+    // $('#activadorFN').click();
+    $('#dp_fecha_nacimiento').focus();
+    // return;
   }
   public setFechaNacimiento(entrada: string) {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
@@ -330,12 +373,13 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     if (entrada.length === 0) {
       setTimeout(() => {
         this.inDelayDatePicker();
-      }, 150);
+      }, 200);
     }
 
     if (entrada.length >= 10) {
       console.log(this.inFormat(entrada));
       console.log(inputValue);
+      this.inDelayDatePicker();
       // $('#dp_fecha_nacimiento').datepicker('show');
     }
     /*
