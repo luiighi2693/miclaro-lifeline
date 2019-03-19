@@ -276,7 +276,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   public inDelayDatePicker() {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
     // tslint:disable-next-line:prefer-const
-    let entrada: string = inputElement.value;
+    let entrada = '';
+    if (inputElement != null) {
+      entrada = inputElement.value;
+    }
     console.log('in delay ' + entrada);
     if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
       entrada = entrada.replace('/', '');
