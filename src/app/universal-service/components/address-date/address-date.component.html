@@ -163,6 +163,24 @@
               </div>
 
               <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <div class="basicrow m-top">
+                    <label class="label-f">&#42; &#191;Es una direcci&oacute;n temporal&#63;</label>
+
+                    <div class="basicrow m-top-u-i f-reg f-black roboto-r">
+                      <div class="popopt">
+                        <input type="radio" name="temporalAddress1" [value]="true" [(ngModel)]="model.temporalAddress1" [formControl]="form.controls['temporalAddress1']"> Si
+                      </div>
+
+                      <div class="popopt">
+                        <input type="radio" name="temporalAddress1" [value]="false" [(ngModel)]="model.temporalAddress1" [formControl]="form.controls['temporalAddress1']"> No
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                   <div class="basicrow m-top">
                     <label class="label-f">&#42; &#191;Es una direcci&oacute;n rural&#63;</label>

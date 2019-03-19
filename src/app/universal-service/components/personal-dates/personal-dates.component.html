@@ -157,6 +157,8 @@
                           name="socialSecure"
                           [(ngModel)]="model.socialSecure"
                           [formControl]="form.controls['socialSecure']"
+                          (focus)="onFocusSSN()"
+                          (blur)="onBlurSSN()"
                           class="inp-f qt"
                         />
                         <small

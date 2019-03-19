@@ -6,6 +6,7 @@ import Util from '@app/universal-service/util';
 import {CustomValidators} from 'ng2-validation';
 
 export interface Model {
+  temporalAddress1: boolean;
   contactNumber1: string;
   contactNumber2: string;
   temporalAddress: boolean;
@@ -56,6 +57,7 @@ export class AddressDateComponent implements OnInit {
 
   public form: FormGroup;
   model: Model = new class implements Model {
+    temporalAddress1: boolean;
     contactNumber1 = '';
     contactNumber2 = '';
     temporalAddress: boolean;
@@ -81,6 +83,12 @@ export class AddressDateComponent implements OnInit {
     window.scroll(0, 0);
 
     this.form = this.fb.group({
+      temporalAddress1: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
       contactNumber1: [
         null,
         Validators.compose([
