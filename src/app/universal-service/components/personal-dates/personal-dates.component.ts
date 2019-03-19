@@ -84,7 +84,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-10:10'
+        yearRange: '+0:+10'
       });
 
       $('#dp_fecha_nacimiento').datepicker({
@@ -390,7 +390,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           dateFormat: 'mm/dd/yy',
           changeMonth: true,
           changeYear: true,
-          yearRange: '-10:10'
+          yearRange: '+0:+10'
         });
 
         // Activadores Iconos de calendarrio
@@ -430,7 +430,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-10:10'
+        yearRange: '0:+10'
       });
       this.datePicker_is_init = true;
     }
@@ -449,7 +449,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-10:10'
+        yearRange: '+0:+10'
       });
       this.datePicker_is_init = true;
     }
