@@ -41,6 +41,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   valueExpirationDate = '';
   datePicker_is_init = false;
   inputControl = '';
+  inputControl2 = '';
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
@@ -347,31 +348,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       console.log(inputValue);
       // $('#dp_fecha_nacimiento').datepicker('show');
     }
-    /*
-    setTimeout(() => {
-      if (document.getElementById('dp_fecha_nacimiento') != null) {
-        this.valueBirthday = inputValue;
-        this.model.birthday = inputValue;
-
-        console.log('entrada: ' + entrada);
-        console.log('modelo valueBirthday: ' + this.valueBirthday);
-        console.log('inputValue: ' + inputValue);
-      }
-    }, 250);
-    console.log(this.authenticationService.getTimeLogin());
-    console.log('current:' + new Date());
-    console.log('setFechaNacimiento');
-  */
   }
 
   public activarDatepickerFechaNacimiento(entrada?: string) {
-    // (<any>$('#dp_fecha_nacimiento')).datepicker('show');
-    // tslint:disable-next-line:prefer-const
-    // let $: any;
-    // (<any>$('#dp_fecha_nacimiento')).datepicker('show');
-    // $(document).ready(function () {
-    //   $('#dp_fecha_nacimiento').datepicker('show');
-    // });
     if (entrada) {
       console.log('in-> ' + entrada);
     }
@@ -434,9 +413,36 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         yearRange: '-100:-18',
         defaultDate: '-18y'
       });
+      $('#inputControl2').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
       this.datePicker_is_init = true;
     }
     $('#inputControl').datepicker('show');
+  }
+  public activarDatepickerFechaE() {
+    if (this.datePicker_is_init === false) {
+      $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      $('#inputControl2').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:-18',
+        defaultDate: '-18y'
+      });
+      this.datePicker_is_init = true;
+    }
+    $('#inputControl2').datepicker('show');
   }
   // Pruebas de control de evento
   public ic_in(entra: any) {
@@ -473,5 +479,41 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     console.log(ic_fecha);
     console.log(this.inputControl);
     console.log('ic_change');
+  }
+
+  // ============= Segundo DatePicker ==================
+  // Pruebas de control de evento
+  public ic_in2(entra: any) {
+    console.log(entra);
+    console.log('ic_in2');
+  }
+  public ic_blur2(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log('ic_blur2');
+    setTimeout(() => {
+      const inputElement: HTMLInputElement = document.getElementById('inputControl2') as HTMLInputElement;
+      const inputValue: string = inputElement.value;
+      this.model.idExpirationDate = inputValue;
+      this.inputControl2 = inputValue;
+      console.log('#blur :' + inputValue);
+    }, 200);
+  }
+
+  public ic_click2(ic_fecha?: any) {
+    console.log(ic_fecha);
+    console.log(this.inputControl2);
+    console.log('ic_click2');
+  }
+
+  public ic_key_up2(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl2);
+    console.log('ic_key_up2');
+  }
+
+  public ic_change2(ic_fecha?: string) {
+    console.log(ic_fecha);
+    console.log(this.inputControl2);
+    console.log('ic_change2');
   }
 }

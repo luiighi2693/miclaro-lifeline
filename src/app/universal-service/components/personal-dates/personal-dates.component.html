@@ -353,27 +353,25 @@
 
                       <div class="basicrow rel">
                         <i
-                          id="activadorFEXP"
+                          id="activadorFEinputControl"
                           class="fa fa-calendar inpcal-icon"
                           aria-hidden="true"
-                          (click)="activarDatepickerFechaNacimiento()"
+                          (click)="activarDatepickerFechaE()"
                         ></i>
 
                         <input
                           type="text"
                           class="inp-f qt"
-                          id="dp_fecha_expiracion"
-                          #dp_fecha_expiracion_v
-                          [(ngModel)]="valueExpirationDate"
+                          id="inputControl2"
+                          [(ngModel)]="inputControl2"
                           [formControl]="form.controls['idExpirationDate']"
-                          (change)="setFechaExpiracion(dp_fecha_expiracion_v.value)"
-                          (blur)="
-                            setFechaExpiracion(dp_fecha_expiracion_v.value);
-                            valueExpirationDate = dp_fecha_expiracion_v.value
-                          "
-                          (keyup)="setFechaExpiracion(dp_fecha_expiracion_v.value)"
+                          #ic_fecha2
+                          (blur)="ic_blur2($event.target.value)"
+                          (click)="ic_click2($event.target.value)"
+                          (keyup)="ic_key_up2(ic_fecha2)"
+                          (change)="ic_change2(ic_fecha2)"
+                          (input)="ic_in2($event.target.value)"
                         />
-
                         <small
                           [hidden]="
                             form.controls['idExpirationDate'].valid || form.controls['idExpirationDate'].untouched
