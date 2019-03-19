@@ -63,6 +63,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   format2 = 'XXX-XX-XXXX';
   valueBirthday = '';
   valueExpirationDate = '';
+  datePicker_is_init = false;
+  datePicker_is_init2 = false;
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
@@ -105,10 +107,11 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       });
       $('#dp_fecha_expiracion').datepicker({
         dateFormat: 'mm/dd/yy',
+        yearRange: '-10:+10',
         changeMonth: true,
         changeYear: true
       });
-
+      this.datePicker_is_init = true;
       // Activadores Iconos de calendarrio
       $('#activadorFN').on('click', function(e: any) {
         $('#dp_fecha_nacimiento').datepicker('show');
@@ -301,7 +304,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   public inDelayDatePicker() {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
     // tslint:disable-next-line:prefer-const
-    let entrada: string = inputElement.value;
+    let entrada = '';
+    if (inputElement != null) {
+      entrada = inputElement.value;
+    }
     console.log('in delay ' + entrada);
     if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
       entrada = entrada.replace('/', '');
@@ -410,13 +416,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   }
 
   public activarDatepickerFechaNacimiento(entrada?: string) {
-    // (<any>$('#dp_fecha_nacimiento')).datepicker('show');
-    // tslint:disable-next-line:prefer-const
-    // let $: any;
-    // (<any>$('#dp_fecha_nacimiento')).datepicker('show');
-    // $(document).ready(function () {
-    //   $('#dp_fecha_nacimiento').datepicker('show');
-    // });
     if (entrada) {
       console.log('in-> ' + entrada);
     }
@@ -425,6 +424,28 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
       const inputValue: string = inputElement.value;
       console.log(inputValue);
+      // Dentro del ciclo y la condicion
+      console.log(this.datePicker_is_init);
+      if (this.datePicker_is_init === false) {
+        // si por alguna razon no se inicializa  lo inicializamos en este punto
+        // y solo va a entrar una vez ya que antes de salir del IF cambiamos el flag
+        $('#dp_fecha_nacimiento').datepicker({
+          dateFormat: 'mm/dd/yy',
+          changeMonth: true,
+          changeYear: true,
+          // yearRange: '-100:+0',
+          yearRange: '-100:-18',
+          defaultDate: '-18y'
+        });
+
+        // Activadores Iconos de calendarrio
+        $('#activadorFN').on('click', function(e: any) {
+          $('#dp_fecha_nacimiento').datepicker('show');
+        });
+        // Lo mostramos
+        $('#dp_fecha_nacimiento').datepicker('show');
+        this.datePicker_is_init = true;
+      }
     }
   }
 
@@ -437,7 +458,29 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       const inputElement: HTMLInputElement = document.getElementById('dp_fecha_expiracion') as HTMLInputElement;
       const inputValue: string = inputElement.value;
       console.log(inputValue);
-      $('#dp_fecha_expiracion').datepicker('show');
+      // Dentro del ciclo y la condicion
+      console.log(this.datePicker_is_init2);
+      if (this.datePicker_is_init2 === false) {
+        // si por alguna razon no se inicializa  lo inicializamos en este punto
+        // y solo va a entrar una vez ya que antes de salir del IF cambiamos el flag
+        $('#dp_fecha_expiracion').datepicker({
+          dateFormat: 'mm/dd/yy',
+          yearRange: '-10:+10',
+          changeMonth: true,
+          changeYear: true
+        });
+
+        // Activadores Iconos de calendarrio
+        $('#activadorFN').on('click', function(e: any) {
+          $('#dp_fecha_expiracion').datepicker('show');
+        });
+        // Lo mostramos
+        $('#dp_fecha_expiracion').datepicker('show');
+        this.datePicker_is_init2 = true;
+      } else {
+        $('#dp_fecha_expiracion').datepicker('show');
+        console.log('despliegue dp_fecha_expiracion');
+      }
     }
   }
 

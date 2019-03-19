@@ -226,6 +226,7 @@
                             setFechaNacimiento(dp_fecha_nacimiento_v.value); valueBirthday = dp_fecha_nacimiento_v.value
                           "
                           (keyup)="setFechaNacimiento(dp_fecha_nacimiento_v.value)"
+                          (click)="activarDatepickerFechaNacimiento()"
                         />
 
                         <small
@@ -375,6 +376,7 @@
                             valueExpirationDate = dp_fecha_expiracion_v.value
                           "
                           (keyup)="setFechaExpiracion(dp_fecha_expiracion_v.value)"
+                          (click)="activarDatepickerFechaExpiracion()"
                         />
 
                         <small
