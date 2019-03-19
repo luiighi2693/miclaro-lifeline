@@ -80,6 +80,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         yearRange: '-100:-18',
         defaultDate: '-18y'
       });
+      $('#inputControl2').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-10:10'
+      });
 
       $('#dp_fecha_nacimiento').datepicker({
         dateFormat: 'mm/dd/yy',
@@ -378,6 +384,13 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           changeYear: true,
           yearRange: '-100:-18',
           defaultDate: '-18y'
+        });
+
+        $('#inputControl2').datepicker({
+          dateFormat: 'mm/dd/yy',
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '-10:10'
         });
 
         // Activadores Iconos de calendarrio
