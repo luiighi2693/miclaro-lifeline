@@ -358,7 +358,7 @@
                           id="activadorFEXP"
                           class="fa fa-calendar inpcal-icon"
                           aria-hidden="true"
-                          (click)="activarDatepickerFechaNacimiento()"
+                          (click)="activarDatepickerFechaExpiracion()"
                         ></i>
 
                         <input
@@ -374,6 +374,7 @@
                             valueExpirationDate = dp_fecha_expiracion_v.value
                           "
                           (keyup)="setFechaExpiracion(dp_fecha_expiracion_v.value)"
+                          (click)="activarDatepickerFechaExpiracion()"
                         />
 
                         <small
