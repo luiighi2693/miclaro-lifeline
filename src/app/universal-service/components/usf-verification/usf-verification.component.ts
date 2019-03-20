@@ -132,7 +132,7 @@ export class UsfVerificationComponent implements OnInit {
     if (entrada.length > 10) {
       entrada = entrada.substr(0, 10);
     }
-    // Limpiando especificando caracteres permitidos
+    // Limpiando especificando caracteres no permitidos
     const patron = /abcdefghijklmnopqrstuvwxyz/gi;
     const nuevoValor = '';
     entrada = entrada.replace(patron, nuevoValor);
