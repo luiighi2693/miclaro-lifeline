@@ -439,15 +439,40 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
     $('#inputControl2').datepicker('show');
   }
+
+  public formateadorFecha(entrada: string) {
+    // NO se aceptara mas de 10 caracteres
+    if (entrada.length > 10) {
+      entrada = entrada.substr(0, 10);
+    }
+    // Limpiando especificando caracteres permitidos
+    const patron = /abcdefghijklmnopqrstuvwxyz/gi;
+    const nuevoValor = '';
+    entrada = entrada.replace(patron, nuevoValor);
+
+    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
+      entrada = entrada.replace('/', '');
+      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
+    }
+
+    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
+      // caso para el 2do Slash
+      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
+    }
+    if (entrada.length >= 10) {
+      console.log(this.inFormat(entrada));
+    }
+    return entrada;
+  }
+
   // Pruebas de control de evento
   public ic_in(entra: any) {
-    console.log(entra);
-    console.log('ic_in');
+    // console.log('ic_in');
   }
   public ic_blur(ic_fecha?: any) {
-    console.log(ic_fecha);
-    console.log(this.inputControl);
-    console.log('ic_blur');
+    // console.log(ic_fecha);
+    // console.log(this.inputControl);
+    // console.log('ic_blur');
     setTimeout(() => {
       const inputElement: HTMLInputElement = document.getElementById('inputControl') as HTMLInputElement;
       const inputValue: string = inputElement.value;
@@ -459,32 +484,34 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   }
 
   public ic_click(ic_fecha?: any) {
-    console.log(ic_fecha);
-    console.log(this.inputControl);
-    console.log('ic_click');
+    this.activarDatepickerFechaN();
+    // console.log(ic_fecha);
+    // console.log(this.inputControl);
+    // console.log('ic_click');
   }
 
   public ic_key_up(ic_fecha?: string) {
-    console.log(ic_fecha);
+    // console.log(ic_fecha);
+    this.inputControl = this.formateadorFecha(this.inputControl);
     console.log(this.inputControl);
     console.log('ic_key_up');
   }
 
   public ic_change(ic_fecha?: string) {
-    console.log(ic_fecha);
-    console.log(this.inputControl);
-    console.log('ic_change');
+    // console.log(ic_fecha);
+    // console.log(this.inputControl);
+    // console.log('ic_change');
   }
 
   // ============= Segundo DatePicker ==================
   // Pruebas de control de evento
   public ic_in2(entra: any) {
-    console.log(entra);
-    console.log('ic_in2');
+    // console.log(entra);
+    // console.log('ic_in2');
   }
   public ic_blur2(ic_fecha?: any) {
-    console.log(ic_fecha);
-    console.log('ic_blur2');
+    // console.log(ic_fecha);
+    // console.log('ic_blur2');
     setTimeout(() => {
       const inputElement: HTMLInputElement = document.getElementById('inputControl2') as HTMLInputElement;
       const inputValue: string = inputElement.value;
@@ -495,21 +522,23 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   }
 
   public ic_click2(ic_fecha?: any) {
-    console.log(ic_fecha);
-    console.log(this.inputControl2);
-    console.log('ic_click2');
+    this.activarDatepickerFechaE();
+    // console.log(ic_fecha);
+    // console.log(this.inputControl2);
+    // console.log('ic_click2');
   }
 
   public ic_key_up2(ic_fecha?: string) {
-    console.log(ic_fecha);
+    // console.log(ic_fecha);
+    this.inputControl2 = this.formateadorFecha(this.inputControl2);
     console.log(this.inputControl2);
     console.log('ic_key_up2');
   }
 
   public ic_change2(ic_fecha?: string) {
-    console.log(ic_fecha);
-    console.log(this.inputControl2);
-    console.log('ic_change2');
+    // console.log(ic_fecha);
+    // console.log(this.inputControl2);
+    // console.log('ic_change2');
   }
 
   onBlurSSN() {
