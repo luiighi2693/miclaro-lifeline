@@ -467,40 +467,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
   }
 
-  public activarDatepickerFechaExpiracion(entrada?: string) {
-    if (entrada) {
-      console.log('in-> ' + entrada);
-    }
-    console.log('activarDatepickerFechaExpiracion: ' + this.valueExpirationDate);
-    if (document.getElementById('dp_fecha_expiracion') != null) {
-      const inputElement: HTMLInputElement = document.getElementById('dp_fecha_expiracion') as HTMLInputElement;
-      const inputValue: string = inputElement.value;
-      console.log(inputValue);
-      // Dentro del ciclo y la condicion
-      console.log(this.datePicker_is_init2);
-      if (this.datePicker_is_init2 === false) {
-        // si por alguna razon no se inicializa  lo inicializamos en este punto
-        // y solo va a entrar una vez ya que antes de salir del IF cambiamos el flag
-        $('#dp_fecha_expiracion').datepicker({
-          dateFormat: 'mm/dd/yy',
-          yearRange: '-10:+10',
-          changeMonth: true,
-          changeYear: true
-        });
-
-        // Activadores Iconos de calendarrio
-        $('#activadorFN').on('click', function(e: any) {
-          $('#dp_fecha_expiracion').datepicker('show');
-        });
-        // Lo mostramos
-        $('#dp_fecha_expiracion').datepicker('show');
-        this.datePicker_is_init2 = true;
-      } else {
-        $('#dp_fecha_expiracion').datepicker('show');
-        console.log('despliegue dp_fecha_expiracion');
-      }
-    }
-  }
+  public activarDatepickerFechaExpiracion(entrada?: string) {}
 
   // NUEVA ESTRUCCTURA >>>>>>>>>>>>>>>>>>>
   public activarDatepickerFechaN() {
