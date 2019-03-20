@@ -9,30 +9,6 @@ import { BaseComponent } from '@app/core/base/BaseComponent';
 // y de esta forma se pueden usar todas sus librerias y dependencias
 // como lo es datepicker y extras de JqueryUI
 declare let $: any;
-/*formato de datepicker para jquery-ui (Calendario)  */
-$(document).ready(function() {
-  $('#dp_fecha_nacimiento').datepicker({
-    dateFormat: 'mm/dd/yy',
-    changeMonth: true,
-    changeYear: true,
-    // yearRange: '-100:+0',
-    yearRange: '-100:-18',
-    defaultDate: '-18y'
-  });
-  $('#dp_fecha_expiracion').datepicker({
-    dateFormat: 'mm/dd/yy',
-    changeMonth: true,
-    changeYear: true
-  });
-
-  // Activadores Iconos de calendarrio
-  $('#activadorFN').on('click', function(e: any) {
-    $('#dp_fecha_nacimiento').datepicker('show');
-  });
-  $('#activadorFEXP').on('click', function(e: any) {
-    $('#dp_fecha_expiracion').datepicker('show');
-  });
-});
 
 export interface Model {
   firstName: string;
@@ -94,7 +70,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     public fb: FormBuilder
   ) {
     super(authenticationService, usfServiceService, router, fb);
-    authenticationService.validaSessionActiva();
 
     /*formato de datepicker para jquery-ui (Calendario)  */
     $(document).ready(function() {
@@ -122,7 +97,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       });
       $('#dp_fecha_expiracion').datepicker({
         dateFormat: 'mm/dd/yy',
-        yearRange: '-10:+10',
         changeMonth: true,
         changeYear: true
       });
@@ -199,9 +173,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         ID_NUMBER: this.model.idNumber,
         // DTS_EXP: this.formatDate(this.form.controls['idExpirationDate'].value),
         DTS_EXP: this.formatDate(this.inFormat(this.valueExpirationDate)),
-        DEP_APPLICATION: '',
-        PHONE_1: '',
-        COMUNICATION: '',
+        // DEP_APPLICATION: '',
+        // PHONE_1: '',
+        // COMUNICATION: '',
         Home: this.model.liveWithAnoterAdult ? 1 : 0
       };
 
@@ -308,13 +282,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       console.log(this.inFormat(entrada));
       console.log(inputValue);
     }
-
-    if (entrada.length === 0) {
-      console.log('para delay');
-      setTimeout(() => {
-        this.inDelayDatePicker2();
-      }, 150);
-    }
   }
   public inDelayDatePicker() {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
@@ -339,47 +306,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       this.model.birthday = entrada;
     }
     if (entrada.length >= 10) {
-      this.model.birthday = entrada.trim();
       console.log(this.inFormat(entrada));
       console.log(entrada);
-      console.log(typeof entrada);
-      console.log(this.model.birthday);
-      console.log(typeof this.model.birthday);
-
-      console.log(this.form.controls['birthday']);
     }
     $('#activadorFN').click();
-    $('#dp_fecha_nacimiento').datepicker('hide');
     return;
   }
-
-  public inDelayDatePicker2() {
-    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_expiracion') as HTMLInputElement;
-    // tslint:disable-next-line:prefer-const
-    let entrada: string = inputElement.value;
-    console.log('in delay ' + entrada);
-    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
-      entrada = entrada.replace('/', '');
-      console.log(entrada);
-      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
-      this.valueExpirationDate = entrada;
-    }
-    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
-      // caso para el 2do Slash
-      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
-      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
-      this.valueExpirationDate = entrada;
-    }
-    this.model.idExpirationDate = entrada;
-    if (entrada.length >= 10) {
-      console.log(this.inFormat(entrada));
-      console.log(entrada);
-    }
-    $('#activadorFEXP').click();
-    $('#dp_fecha_expiracion').datepicker('hide');
-    return;
-  }
-
   public setFechaNacimiento(entrada: string) {
     const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
     const inputValue: string = inputElement.value;
@@ -401,13 +333,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       // this.valueBirthday = entrada;
       // this.model.birthday = entrada;
     }
-    this.model.birthday = entrada;
 
     console.log(entrada + ' :' + entrada.length);
     if (entrada.length === 0) {
       setTimeout(() => {
         this.inDelayDatePicker();
-      }, 100);
+      }, 150);
     }
 
     if (entrada.length >= 10) {
@@ -579,5 +510,83 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     console.log(ic_fecha);
     console.log(this.inputControl2);
     console.log('ic_change2');
+  }
+
+  onBlurSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onFocusSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure =
+          this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
+        console.log(this.model.socialSecure);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onBlurSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onFocusSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure =
+          this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
+        console.log(this.model.socialSecure);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onBlurSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onFocusSSN() {
+    if (this.model.socialSecure !== undefined) {
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure =
+          this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
+        console.log(this.model.socialSecure);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
   }
 }
