@@ -644,7 +644,7 @@
                   <a
                     (click)="goToValidationDataAddressInput()"
                     class="btns def-i red pull-right vcenter gray"
-                    [ngClass]="{ red: form.valid }"
+                    [ngClass]="{ red: form.valid && ( (model.temporalAddress && model.temporalAddressExtraContent.length > 0) || !model.temporalAddress)}"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>

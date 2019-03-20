@@ -170,12 +170,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
       contactNumber2: [null, Validators.compose([Validators.required])],
       temporalAddress: [null, Validators.compose([Validators.required])],
       address: [null, Validators.compose([Validators.required])],
-      depUnitOther: [
-        null,
-        Validators.compose([
-          // Validators.required
-        ])
-      ],
+      depUnitOther: [ null, Validators.compose([ Validators.required ]) ],
       municipality: [null, Validators.compose([Validators.required])],
       estate: [null, Validators.compose([Validators.required])],
       postalCode: [null, Validators.compose([Validators.required])],
