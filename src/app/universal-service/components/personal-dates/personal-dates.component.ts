@@ -461,6 +461,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     if (entrada.length > 10) {
       entrada = entrada.substr(0, 10);
     }
+    // Limpiando especificando caracteres permitidos
+    const patron = /abcdefghijklmnopqrstuvwxyz/gi;
+    const nuevoValor = '';
+    entrada = entrada.replace(patron, nuevoValor);
 
     if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
       entrada = entrada.replace('/', '');
