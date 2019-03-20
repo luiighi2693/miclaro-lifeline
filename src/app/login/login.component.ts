@@ -48,9 +48,11 @@ export class LoginComponent implements OnInit {
 
             if (!credentials.body.HasError) {
               if (credentials.body.Active) {
-                if (credentials.body.RoleName.toUpperCase() === 'USF-SUP' ||
-                  credentials.body.RoleName.toUpperCase() === 'USF-AGENT'||
-                  credentials.body.RoleName.toUpperCase() === 'USF-REPSTORE') {
+                if (
+                  credentials.body.RoleName.toUpperCase() === 'USF-SUP' ||
+                  credentials.body.RoleName.toUpperCase() === 'USF-AGENT' ||
+                  credentials.body.RoleName.toUpperCase() === 'USF-REPSTORE'
+                ) {
                   this.authenticationService.setCredentials(credentials.body, false);
                   this.router.navigate(['/home'], { replaceUrl: true });
                 } else {
@@ -89,7 +91,11 @@ export class LoginComponent implements OnInit {
         );
     }
   }
-
+  capturaInKey(evt: any) {
+    if (evt.keyCode === 13) {
+      this.login();
+    }
+  }
   private createForm() {
     this.loginForm = this.formBuilder.group({
       username: [''],
