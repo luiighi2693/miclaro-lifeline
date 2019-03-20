@@ -516,6 +516,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       const inputElement: HTMLInputElement = document.getElementById('inputControl2') as HTMLInputElement;
       const inputValue: string = inputElement.value;
       this.model.idExpirationDate = inputValue;
+      this.valueExpirationDate = inputValue;
       this.inputControl2 = inputValue;
       console.log('#blur :' + inputValue);
     }, 200);
