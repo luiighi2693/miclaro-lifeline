@@ -54,4 +54,11 @@ export class UsfServiceService {
     }
   }
 
+  validateAddress(data: any): Observable<any> {
+    return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/ADDRESSVALIDATION.MCAPI', data, {
+      observe: 'response'
+    });
+    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+  }
+
 }

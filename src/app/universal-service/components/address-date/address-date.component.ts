@@ -223,33 +223,41 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
       const datos = {
         method: 'addressValidationMcapi',
-        UserName: this.authenticationService.credentials.UserName,
+        UserName: this.authenticationService.credentials.userid,
         caseID: 123,
-        Tipodireccion1: this.model.temporalAddress1 ? 1 : 0,
-        urban: this.model.address,
-        addr: this.model.depUnitOther + this.model.temporalAddress ? ' ' + this.model.temporalAddressExtraContent : '',
+        addresstype : this.model.temporalAddress ? 3 : 1,
+        // Tipodireccion1: this.model.temporalAddress1 ? 1 : 0,
+        address1: this.model.address,
+        address2: this.model.depUnitOther + this.model.temporalAddress ? ' ' + this.model.temporalAddressExtraContent : '',
         city: this.model.municipality,
         state: 'PR',
         zip: this.model.postalCode,
-        Tipodireccion3: this.model.temporalAddress ? 3 : 0,
-        Tlfreferencia: this.model.contactNumber1,
-        Tlfreferencia2: this.model.contactNumber2,
+        // Tipodireccion3: this.model.temporalAddress ? 3 : 0,
+        phone1: this.model.contactNumber1,
+        phone2: this.model.contactNumber2,
         email: this.model.email,
-        Prefcontacto: this.model.contactChannel,
-        Tipodireccion2: this.model.postalAddressFlag ? 0 : 2,
-        urban2: this.model.postalAddress,
-        addr2: this.model.postalDepUnitOther,
-        city2: this.model.postalMunicipality,
-        state2: 'PR',
-        zip2: this.model.postalCode2
+        contact_preference: this.model.contactChannel,
+        PostalAddress: this.model.postalAddressFlag ? 'true' : 'false',
+        PostalAddress1: this.model.postalAddress,
+        PostalAddress2: this.model.postalDepUnitOther,
+        PostalAddresscity: this.model.postalMunicipality,
+        PostalAddressState: 'PR',
+        PostalAddresszip: this.model.postalCode2
       };
 
       console.log(datos);
 
-      setTimeout(() => {
+      this.usfServiceService.validateAddress(datos).subscribe(resp => {
         this.validationProcessUSPS = false;
         this.validationDataAddressInput = true;
-      }, 3000);
+        console.log(resp);
+
+      });
+
+      // setTimeout(() => {
+      //   this.validationProcessUSPS = false;
+      //   this.validationDataAddressInput = true;
+      // }, 3000);
     }
   }
 
