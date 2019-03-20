@@ -120,8 +120,7 @@ export class UsfVerificationComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-100:-18',
-        defaultDate: '-18y'
+        yearRange: '-100:+0'
       });
       this.datePicker_is_init = true;
     }
