@@ -23,6 +23,9 @@ export class UsfVerificationComponent implements OnInit {
   processValidationNLAD = false;
 
   format2 = 'XXX-XX-XXXX';
+  valueSSN = '';
+  checkSSN = false;
+  invalidSSN = true;
 
   public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
 
@@ -84,22 +87,6 @@ export class UsfVerificationComponent implements OnInit {
 
   formatInputSocialSecure(input: string) {
     this.model.socialSecure = this.formatInput(this.model.socialSecure, this.format2);
-  }
-
-  private formatInput(input: string, format: string) {
-    if (format === this.format2) {
-      if (input.length === 4) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
-      }
-
-      if (input.length === 7) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
-      }
-
-      return input;
-    }
-
-    return '';
   }
   // NUEVA ESTRUCCTURA >>>>>>>>>>>>>>>>>>>
   // tslint:disable-next-line:member-ordering
@@ -174,4 +161,105 @@ export class UsfVerificationComponent implements OnInit {
     console.log(this.model.birthday);
     console.log('ic_key_up');
   }
+
+  // tslint:disable-next-line:member-ordering
+  onBlurSSN() {
+    if (this.model.socialSecure !== undefined) {
+      // tslint:disable-next-line:radix
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  onFocusSSN() {
+    if (this.model.socialSecure !== undefined) {
+      // tslint:disable-next-line:radix
+      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+        this.model.socialSecure =
+          this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
+        console.log(this.model.socialSecure);
+      } else {
+        this.model.socialSecure = undefined;
+        this.valueSSN = undefined;
+        this.checkSSN = false;
+      }
+    }
+  }
+
+  public formatInput(input: string, format: string) {
+    // Almacenando valor real en variable temporal
+    if (input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
+      // console.log(input.substr(input.length - 1, 1));
+      this.valueSSN += String(input.substr(input.length - 1, 1));
+    } else {
+      if (input !== 'X' && input !== 'XXX-XX-XXXX') {
+        this.valueSSN = input;
+        // console.log(input);
+      }
+    }
+
+    // tslint:disable-next-line:radix
+    if (input.length === 11 && parseInt(this.valueSSN) > 99999999 === false) {
+      this.invalidSSN = true;
+    }
+
+    // Si llega a 11 Caracteres hay que hacer la validacion Real contra el servicio
+    // ya que tiene el formato XXX-XX-XXXX  de 11 caracteres serian 9 digitos
+    // parseInt( this.valueSSN ) > 99999999 [USADO PARA VALIDAR Y CUMPLIR LA CONDICION QUE SEA NUERICO Y DE 9 DIGITOS ]
+    // tslint:disable-next-line:radix
+    if (input.length === 11 && parseInt(this.valueSSN) > 99999999) {
+      this.invalidSSN = false;
+      this.checkSSN = true;
+      console.log(this.valueSSN);
+    }
+
+    if (format === this.format2) {
+      console.log(input);
+      if (input.length === 4) {
+        if (input[input.length - 1] === '-') {
+          return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
+        } else {
+          return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+        }
+      }
+
+      if (input.length === 7) {
+        console.log(input);
+        if (input[input.length - 1] === '-') {
+          return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
+        } else {
+          return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+        }
+      }
+
+      if (input.length > 7) {
+        return input;
+      } else {
+        return input;
+      }
+    }
+
+    return '';
+  }
+  /*
+  private formatInput(input: string, format: string) {
+    if (format === this.format2) {
+      if (input.length === 4) {
+        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+      }
+
+      if (input.length === 7) {
+        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+      }
+
+      return input;
+    }
+
+    return '';
+  }*/
 }

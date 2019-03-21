@@ -161,6 +161,8 @@
                           maxlength="11"
                           name="socialSecure"
                           [(ngModel)]="model.socialSecure"
+                          (focus)="onFocusSSN()"
+                          (blur)="onBlurSSN()"
                           [formControl]="form.controls['socialSecure']"
                           class="inp-f"
                         />
