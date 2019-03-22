@@ -78,13 +78,15 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-18',
-        defaultDate: '-18y'
+        defaultDate: '-18y',
+        minDate: '-18y'
       });
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+0:+10'
+        yearRange: '+0:+10',
+        minDate: 0
       });
 
       $('#dp_fecha_nacimiento').datepicker({
@@ -93,7 +95,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeYear: true,
         // yearRange: '-100:+0',
         yearRange: '-100:-18',
-        defaultDate: '-18y'
+        defaultDate: '-18y',
+        minDate: '-18y'
       });
       $('#dp_fecha_expiracion').datepicker({
         dateFormat: 'mm/dd/yy',
@@ -370,21 +373,24 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           changeYear: true,
           // yearRange: '-100:+0',
           yearRange: '-100:-18',
-          defaultDate: '-18y'
+          defaultDate: '-18y',
+          minDate: '-18y'
         });
         $('#inputControl').datepicker({
           dateFormat: 'mm/dd/yy',
           changeMonth: true,
           changeYear: true,
           yearRange: '-100:-18',
-          defaultDate: '-18y'
+          defaultDate: '-18y',
+          minDate: '-18y'
         });
 
         $('#inputControl2').datepicker({
           dateFormat: 'mm/dd/yy',
           changeMonth: true,
           changeYear: true,
-          yearRange: '+0:+10'
+          yearRange: '+0:+10',
+          minDate: 0
         });
 
         // Activadores Iconos de calendarrio
@@ -408,13 +414,15 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-18',
-        defaultDate: '-18y'
+        defaultDate: '-18y',
+        minDate: '-18y'
       });
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+0:+10'
+        yearRange: '+0:+10',
+        minDate: 0
       });
       this.datePicker_is_init = true;
     }
@@ -427,13 +435,15 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-18',
-        defaultDate: '-18y'
+        defaultDate: '-18y',
+        minDate: '-18y'
       });
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+0:+10'
+        yearRange: '+0:+10',
+        minDate: 0
       });
       this.datePicker_is_init = true;
     }
