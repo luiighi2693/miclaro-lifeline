@@ -28,7 +28,18 @@ export interface ValidateSSNDataContent {
   system: string;
 }
 
+export interface DataObjectAddress {
+  CASENUMBER: string;
+  CUSTOMERADDRESS: string;
+  CUSTOMERLASTNAME: string;
+  CUSTOMERNAME: string;
+  DOB: string;
+  SSN: string;
+  SUGGESTADDRESS: string;
+}
+
 const validateSSNDataKey = 'validateSSNData';
+const dataObjectAddressKey = 'dataObjectAddress';
 
 @Injectable()
 export class UsfServiceService {
@@ -52,6 +63,20 @@ export class UsfServiceService {
       sessionStorage.setItem(validateSSNDataKey, JSON.stringify(validateSSNData));
     } else {
       sessionStorage.removeItem(validateSSNDataKey);
+    }
+  }
+
+  public getDataObjectAddress(): DataObjectAddress[] | null {
+    let dataObjectAddress: DataObjectAddress[];
+    dataObjectAddress = JSON.parse(sessionStorage.getItem(dataObjectAddressKey));
+    return dataObjectAddress;
+  }
+
+  public setDataObjectAddress(dataObjectAddress?: DataObjectAddress[]) {
+    if (dataObjectAddress) {
+      sessionStorage.setItem(dataObjectAddressKey, JSON.stringify(dataObjectAddress));
+    } else {
+      sessionStorage.removeItem(dataObjectAddressKey);
     }
   }
 

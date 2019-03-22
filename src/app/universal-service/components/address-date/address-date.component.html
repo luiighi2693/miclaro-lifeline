@@ -399,7 +399,7 @@
                           <input
                             (keypress)="checkNumbersOnly($event)"
                             (keyup)="formatInputContactNumber('contactNumber2')"
-                            maxlength="13"
+                            maxlength="12"
                             class="inp-f "
                             name="contactNumber2"
                             [(ngModel)]="model.contactNumber2"
@@ -418,7 +418,7 @@
                 <div class="basicrow">
                   <input
                     type="text"
-                    maxlength="40"
+                    maxlength="43"
                     class="inp-f"
                     [(ngModel)]="model.email"
                     [formControl]="form.controls['email']"
@@ -644,7 +644,7 @@
                   <a
                     (click)="goToValidationDataAddressInput()"
                     class="btns def-i red pull-right vcenter gray"
-                    [ngClass]="{ red: form.valid && ( (model.temporalAddress && model.temporalAddressExtraContent.length > 0) || !model.temporalAddress) && model.contactNumber1.length === 12}"
+                    [ngClass]="{ red: form.valid && ( (model.temporalAddress && model.temporalAddressExtraContent.length > 0) || !model.temporalAddress) && model.contactNumber1.length === 12 && validatePostalAddress()}"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>

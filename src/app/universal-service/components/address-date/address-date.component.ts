@@ -7,6 +7,8 @@ import { CustomValidators } from 'ng2-validation';
 import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 
+declare let alertify: any;
+
 export interface Model {
   temporalAddress1: boolean;
   contactNumber1: string;
@@ -166,6 +168,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0, 0);
+    this.usfServiceService.setDataObjectAddress();
 
     this.form = this.fb.group({
       temporalAddress1: [null, Validators.compose([Validators.required])],
@@ -224,7 +227,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid && this.model.contactNumber1.length === 12 && ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress)) {
+    if (this.form.valid && this.model.contactNumber1.length === 12 && ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress) && this.validatePostalAddress()) {
       console.log(this.model);
       this.validationProcessUSPS = true;
 
@@ -256,8 +259,24 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
       this.usfServiceService.validateAddress(datos).subscribe(resp => {
         this.validationProcessUSPS = false;
-        this.validationDataAddressInput = true;
-        console.log(resp);
+
+        if (!resp.body.HasError) {
+          this.usfServiceService.setDataObjectAddress(resp.body.dataObject);
+          if (resp.body.dataObject.length < 3) {
+            this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
+          } else {
+            this.validationDataAddressInput = true;
+          }
+        } else {
+          alertify.alert(
+            'Aviso',
+            // tslint:disable-next-line:max-line-length
+            'Error intentando validar la dirección ingresada',
+            function() {
+            }
+          );
+        }
+
 
       });
 
@@ -328,5 +347,13 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
   checkCharactersOnly(event: any): boolean {
     return Util.checkCharactersOnly(event);
+  }
+
+  validatePostalAddress() {
+    if (this.model.postalAddressFlag) {
+      return true
+    } else {
+      return this.model.postalAddress.length > 0 && this.model.postalDepUnitOther.length > 0 && this.model.postalMunicipality.length > 0 && this.model.postalEstate.length > 0 && this.model.postalCode2.length > 0;
+    }
   }
 }

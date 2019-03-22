@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
+import { BaseComponent } from '@app/core/base/BaseComponent';
+import { DataObjectAddress, UsfServiceService } from '@app/core/usf/usf-service.service';
 
 @Component({
   selector: 'app-register-case',
   templateUrl: './register-case.component.html',
   styleUrls: ['./register-case.component.scss']
 })
-export class RegisterCaseComponent implements OnInit {
+export class RegisterCaseComponent extends BaseComponent implements OnInit {
   dependPeopleFlag = false;
+  dataObjectAddress: DataObjectAddress[];
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(public authenticationService: AuthenticationService, public router: Router, public usfServiceService: UsfServiceService) {
+    super(authenticationService, usfServiceService, router, null);
+    this.dataObjectAddress = this.usfServiceService.getDataObjectAddress();
+  }
 
   ngOnInit() {
     window.scroll(0, 0);
