@@ -70,48 +70,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     public fb: FormBuilder
   ) {
     super(authenticationService, usfServiceService, router, fb);
-
-    /*formato de datepicker para jquery-ui (Calendario)  */
-    $(document).ready(function() {
-      $('#inputControl').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-100:-18',
-        defaultDate: '-18y',
-        minDate: '-18y'
-      });
-      $('#inputControl2').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '+0:+10',
-        minDate: 0
-      });
-
-      $('#dp_fecha_nacimiento').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true,
-        // yearRange: '-100:+0',
-        yearRange: '-100:-18',
-        defaultDate: '-18y',
-        minDate: '-18y'
-      });
-      $('#dp_fecha_expiracion').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true
-      });
-      this.datePicker_is_init = true;
-      // Activadores Iconos de calendarrio
-      $('#activadorFN').on('click', function(e: any) {
-        $('#dp_fecha_nacimiento').datepicker('show');
-      });
-      $('#activadorFEXP').on('click', function(e: any) {
-        $('#dp_fecha_expiracion').datepicker('show');
-      });
-    });
   }
 
   ngOnInit() {
@@ -367,22 +325,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       if (this.datePicker_is_init === false) {
         // si por alguna razon no se inicializa  lo inicializamos en este punto
         // y solo va a entrar una vez ya que antes de salir del IF cambiamos el flag
-        $('#dp_fecha_nacimiento').datepicker({
-          dateFormat: 'mm/dd/yy',
-          changeMonth: true,
-          changeYear: true,
-          // yearRange: '-100:+0',
-          yearRange: '-100:-18',
-          defaultDate: '-18y',
-          minDate: '-18y'
-        });
         $('#inputControl').datepicker({
           dateFormat: 'mm/dd/yy',
           changeMonth: true,
           changeYear: true,
           yearRange: '-100:-18',
-          defaultDate: '-18y',
-          minDate: '-18y'
+          defaultDate: '-18y'
         });
 
         $('#inputControl2').datepicker({
@@ -414,9 +362,21 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-18',
-        defaultDate: '-18y',
-        minDate: '-18y'
+        defaultDate: '-18y'
       });
+
+      /* in BETA
+      $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
+        changeMonth: true,
+        changeYear: true,
+        // yearRange: String(new Date().getFullYear() - 100) + ':' + String (new Date().getFullYear() - 18),
+        defaultDate: '-18y',
+        minDate: new Date().setFullYear(new Date().getFullYear() - 18) ,
+        maxDate: new Date().setFullYear(new Date().getFullYear() - 100)
+      });
+      */
+
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
@@ -435,8 +395,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-18',
-        defaultDate: '-18y',
-        minDate: '-18y'
+        defaultDate: '-18y'
       });
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
@@ -486,9 +445,19 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     setTimeout(() => {
       const inputElement: HTMLInputElement = document.getElementById('inputControl') as HTMLInputElement;
       const inputValue: string = inputElement.value;
-      this.valueBirthday = inputValue;
-      this.model.birthday = inputValue;
-      this.inputControl = inputValue;
+      // tslint:disable-next-line:radix
+      const year: number = parseInt(inputValue.substr(-4, 4));
+      console.log('y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear());
+      // tslint:disable-next-line:radix
+      if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear()) {
+        this.valueBirthday = '';
+        this.model.birthday = '';
+        this.inputControl = '';
+      } else {
+        this.valueBirthday = inputValue;
+        this.model.birthday = inputValue;
+        this.inputControl = inputValue;
+      }
       console.log('#blur :' + inputValue);
     }, 200);
   }
@@ -504,6 +473,26 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     // console.log(ic_fecha);
     this.inputControl = this.formateadorFecha(this.inputControl);
     console.log(this.inputControl);
+    // si tiene 10 digitos y esta formateada
+    if (
+      this.inputControl.length === 10 &&
+      this.inputControl.indexOf('/') === 2 &&
+      this.inputControl.indexOf('/', 5) === 5
+    ) {
+      // tslint:disable-next-line:radix
+      const year: number = parseInt(this.inputControl.substr(-4, 4));
+      console.log('y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear());
+      // tslint:disable-next-line:radix
+      if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear()) {
+        this.valueBirthday = '';
+        this.model.birthday = '';
+        this.inputControl = '';
+      } else {
+        this.valueBirthday = this.inputControl;
+        this.model.birthday = this.inputControl;
+        this.inputControl = this.inputControl;
+      }
+    }
     console.log('ic_key_up');
   }
 
