@@ -8,6 +8,7 @@ import { Credentials } from '@app/core';
 export interface ValidateSSNData {
   data: ValidateSSNDataContent[];
   response: string;
+  CASENUMBER: number;
 }
 
 export interface ValidateSSNDataContent {

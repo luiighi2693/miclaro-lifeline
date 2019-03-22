@@ -189,7 +189,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         this.usfServiceService.setValidateSSNData(resp.body);
         console.log(resp);
 
-        if (resp.body.data.length === 0) {
+        if (!resp.body.HasError) {
           this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
         } else {
           this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
