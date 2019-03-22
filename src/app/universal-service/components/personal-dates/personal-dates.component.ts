@@ -357,12 +357,40 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   // NUEVA ESTRUCCTURA >>>>>>>>>>>>>>>>>>>
   public activarDatepickerFechaN() {
     if (this.datePicker_is_init === false) {
+      /* SIN DESABILITACION
       $('#inputControl').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-18',
         defaultDate: '-18y'
+      });
+      */
+
+      // tslint:disable-next-line:prefer-const
+      let dia = String(new Date().getDate());
+      // tslint:disable-next-line:radix
+      if (parseInt(dia) < 10) {
+        dia = '0' + dia;
+      }
+      // tslint:disable-next-line:prefer-const
+      let mes = String(new Date().getMonth());
+      // tslint:disable-next-line:radix
+      if (parseInt(mes) < 10) {
+        mes = '0' + mes;
+      }
+      const fecha_ = {
+        d: String(dia),
+        m: String(mes),
+        y: String(new Date().getFullYear())
+      };
+
+      $('#inputControl').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        maxDate: '-18y',
+        minDate: '-100y',
+        defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y
       });
 
       /* in BETA
@@ -447,9 +475,11 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       const inputValue: string = inputElement.value;
       // tslint:disable-next-line:radix
       const year: number = parseInt(inputValue.substr(-4, 4));
-      console.log('y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear());
       // tslint:disable-next-line:radix
       if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear()) {
+        console.log(
+          'y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear()
+        );
         this.valueBirthday = '';
         this.model.birthday = '';
         this.inputControl = '';
