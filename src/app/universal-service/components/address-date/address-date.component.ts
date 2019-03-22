@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Util from '@app/universal-service/util';
 import { CustomValidators } from 'ng2-validation';
-import { UsfServiceService } from '@app/core/usf/usf-service.service';
+import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 
 export interface Model {
@@ -152,6 +152,8 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     temporalAddressExtraContent = '';
   }();
 
+  validateSSNData: ValidateSSNData;
+
   constructor(
     public authenticationService: AuthenticationService,
     public usfServiceService: UsfServiceService,
@@ -159,6 +161,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     public fb: FormBuilder
   ) {
     super(authenticationService, usfServiceService, router, fb);
+    this.validateSSNData = this.usfServiceService.getValidateSSNData();
   }
 
   ngOnInit() {
@@ -167,10 +170,14 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     this.form = this.fb.group({
       temporalAddress1: [null, Validators.compose([Validators.required])],
       contactNumber1: [null, Validators.compose([Validators.required])],
-      contactNumber2: [null, Validators.compose([Validators.required])],
+      contactNumber2: [null, Validators.compose([
+        // Validators.required
+      ])],
       temporalAddress: [null, Validators.compose([Validators.required])],
       address: [null, Validators.compose([Validators.required])],
-      depUnitOther: [ null, Validators.compose([ Validators.required ]) ],
+      depUnitOther: [ null, Validators.compose([
+        // Validators.required
+      ]) ],
       municipality: [null, Validators.compose([Validators.required])],
       estate: [null, Validators.compose([Validators.required])],
       postalCode: [null, Validators.compose([Validators.required])],
@@ -217,14 +224,14 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid) {
+    if (this.form.valid && this.model.contactNumber1.length === 12 && ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress)) {
       console.log(this.model);
       this.validationProcessUSPS = true;
 
       const datos = {
         method: 'addressValidationMcapi',
         UserName: this.authenticationService.credentials.userid,
-        caseID: 123,
+        caseID: this.validateSSNData.CASENUMBER,
         addresstype : this.model.temporalAddress ? 3 : 1,
         // Tipodireccion1: this.model.temporalAddress1 ? 1 : 0,
         address1: this.model.address,
@@ -305,9 +312,9 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
       }
 
-      if (input.length === 11) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
-      }
+      // if (input.length === 11) {
+      //   return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+      // }
 
       return input;
     }
