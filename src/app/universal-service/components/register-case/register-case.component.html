@@ -24,7 +24,7 @@
               <div class="greenmsg m-top-i">
                 <i class="fa fa-check-circle" aria-hidden="true"></i>
 
-                Hemos registrado tu Solicitud Servicio Universal con <span class="roboto-b">N&uacute;mero de Caso: 123456</span>
+                Hemos registrado tu Solicitud Servicio Universal con <span class="roboto-b">N&uacute;mero de Caso: {{dataObjectAddress[0].CASENUMBER}}</span>
               </div>
 
               <div class="userinfo full">
@@ -38,7 +38,7 @@
                   </div>
 
                   <div class="autorow roboto-b pull-right">
-                    Miguel A Nieves Castillo
+                    {{dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME}}
                   </div>
                 </div>
 
@@ -48,7 +48,7 @@
                   </div>
 
                   <div class="autorow roboto-b pull-right">
-                    &#42;&#42;&#42;&#42;&#42;&#42;6511
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{dataObjectAddress[0].SSN}}
                   </div>
                 </div>
 
@@ -58,7 +58,8 @@
                   </div>
 
                   <div class="autorow roboto-b pull-right">
-                    01/01/1991
+                    <!--01/01/1991-->
+                    {{getFormatDateCustom(dataObjectAddress[0].DOB)}}
                   </div>
                 </div>
 
@@ -68,7 +69,7 @@
                   </div>
 
                   <div class="basicrow roboto-b m-top-ii">
-                    COND ASHFORD PALACE - 1234 AVE ASHFORD APT 1A - SAN JUAN PR 00907-1234
+                    {{dataObjectAddress[0].CUSTOMERADDRESS}}
                   </div>
                 </div>
               </div>
