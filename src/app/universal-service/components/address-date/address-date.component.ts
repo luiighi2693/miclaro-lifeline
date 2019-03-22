@@ -170,10 +170,14 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     this.form = this.fb.group({
       temporalAddress1: [null, Validators.compose([Validators.required])],
       contactNumber1: [null, Validators.compose([Validators.required])],
-      contactNumber2: [null, Validators.compose([Validators.required])],
+      contactNumber2: [null, Validators.compose([
+        // Validators.required
+      ])],
       temporalAddress: [null, Validators.compose([Validators.required])],
       address: [null, Validators.compose([Validators.required])],
-      depUnitOther: [ null, Validators.compose([ Validators.required ]) ],
+      depUnitOther: [ null, Validators.compose([
+        // Validators.required
+      ]) ],
       municipality: [null, Validators.compose([Validators.required])],
       estate: [null, Validators.compose([Validators.required])],
       postalCode: [null, Validators.compose([Validators.required])],
@@ -220,7 +224,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid) {
+    if (this.form.valid && this.model.contactNumber1.length === 12 && ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress)) {
       console.log(this.model);
       this.validationProcessUSPS = true;
 
@@ -308,9 +312,9 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
       }
 
-      if (input.length === 11) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
-      }
+      // if (input.length === 11) {
+      //   return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
+      // }
 
       return input;
     }
