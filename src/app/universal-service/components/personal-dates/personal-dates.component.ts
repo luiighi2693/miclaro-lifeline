@@ -413,6 +413,25 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         minDate: 0
       });
       this.datePicker_is_init = true;
+      // recorrido
+      /* Test */
+      // tslint:disable-next-line:prefer-const
+      let dp1 = document.getElementsByClassName('ui-datepicker-year')[0] as HTMLSelectElement;
+      if (dp1 !== undefined) {
+        for (let c = 0; c < dp1.options.length; c++) {
+          dp1.options.remove(c);
+        }
+
+        for (let c = new Date().getFullYear() - 100; c < new Date().getFullYear() - 18; c++) {
+          const opt = document.createElement('option');
+          opt.value = '' + c;
+          opt.innerHTML = '' + c;
+          dp1.options.add(opt);
+          console.log(c);
+        }
+        // ----------------------------------
+      }
+    } else {
     }
     $('#inputControl').datepicker('show');
   }
@@ -489,6 +508,23 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         this.inputControl = inputValue;
       }
       console.log('#blur :' + inputValue);
+
+      // tslint:disable-next-line:prefer-const
+      let dp1 = document.getElementsByClassName('ui-datepicker-year')[0] as HTMLSelectElement;
+      if (dp1 !== undefined) {
+        for (let c = 0; c < dp1.options.length; c++) {
+          dp1.options.remove(1);
+        }
+        document.getElementsByClassName('ui-datepicker-year')[0].innerHTML = '';
+        for (let c = new Date().getFullYear() - 18; c > new Date().getFullYear() - 100; c--) {
+          const opt = document.createElement('option');
+          opt.value = '' + c;
+          opt.innerHTML = '' + c;
+          dp1.options.add(opt);
+          console.log(c);
+        }
+      }
+      // ----------------------------------
     }, 200);
   }
 
