@@ -412,12 +412,11 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         yearRange: '+0:+10',
         minDate: 0
       });
-      this.datePicker_is_init = true;
       // recorrido
       /* Test */
       // tslint:disable-next-line:prefer-const
       let dp1 = document.getElementsByClassName('ui-datepicker-year')[0] as HTMLSelectElement;
-      if (dp1 !== undefined) {
+      if (dp1 !== undefined && this.datePicker_is_init === false) {
         for (let c = 0; c < dp1.options.length; c++) {
           dp1.options.remove(c);
         }
@@ -427,9 +426,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           opt.value = '' + c;
           opt.innerHTML = '' + c;
           dp1.options.add(opt);
-          console.log(c);
+          // console.log(c);
         }
         // ----------------------------------
+        this.datePicker_is_init = true;
       }
     } else {
     }
@@ -511,7 +511,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
       // tslint:disable-next-line:prefer-const
       let dp1 = document.getElementsByClassName('ui-datepicker-year')[0] as HTMLSelectElement;
-      if (dp1 !== undefined) {
+      if (dp1 !== undefined && this.datePicker_is_init === false) {
         for (let c = 0; c < dp1.options.length; c++) {
           dp1.options.remove(1);
         }
@@ -523,6 +523,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           dp1.options.add(opt);
           console.log(c);
         }
+        // Test despues de iniciado
+        this.datePicker_is_init = true;
       }
       // ----------------------------------
     }, 200);
