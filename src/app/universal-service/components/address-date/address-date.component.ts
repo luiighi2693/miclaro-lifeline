@@ -353,7 +353,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     if (this.model.postalAddressFlag) {
       return true
     } else {
-      return this.model.postalAddress.length > 0 && this.model.postalDepUnitOther.length > 0 && this.model.postalMunicipality.length > 0 && this.model.postalEstate.length > 0 && this.model.postalCode2.length > 0;
+      return this.model.postalAddress.length > 0 && this.model.postalMunicipality.length > 0 && this.model.postalEstate.length > 0 && this.model.postalCode2.length > 0;
     }
   }
 }
