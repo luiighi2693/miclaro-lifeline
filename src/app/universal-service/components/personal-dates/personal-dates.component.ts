@@ -311,62 +311,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     }
   }
 
-  public activarDatepickerFechaNacimiento(entrada?: string) {
-    if (entrada) {
-      console.log('in-> ' + entrada);
-    }
-    console.log('activarDatepickerFechaNacimiento: ' + this.valueBirthday);
-    if (document.getElementById('dp_fecha_nacimiento') != null) {
-      const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
-      const inputValue: string = inputElement.value;
-      console.log(inputValue);
-      // Dentro del ciclo y la condicion
-      console.log(this.datePicker_is_init);
-      if (this.datePicker_is_init === false) {
-        // si por alguna razon no se inicializa  lo inicializamos en este punto
-        // y solo va a entrar una vez ya que antes de salir del IF cambiamos el flag
-        $('#inputControl').datepicker({
-          dateFormat: 'mm/dd/yy',
-          changeMonth: true,
-          changeYear: true,
-          yearRange: '-100:-18',
-          defaultDate: '-18y'
-        });
-
-        $('#inputControl2').datepicker({
-          dateFormat: 'mm/dd/yy',
-          changeMonth: true,
-          changeYear: true,
-          yearRange: '+0:+10',
-          minDate: 0
-        });
-
-        // Activadores Iconos de calendarrio
-        $('#activadorFN').on('click', function(e: any) {
-          $('#dp_fecha_nacimiento').datepicker('show');
-        });
-        // Lo mostramos
-        $('#dp_fecha_nacimiento').datepicker('show');
-        this.datePicker_is_init = true;
-      }
-    }
-  }
-
-  public activarDatepickerFechaExpiracion(entrada?: string) {}
-
   // NUEVA ESTRUCCTURA >>>>>>>>>>>>>>>>>>>
   public activarDatepickerFechaN() {
     if (this.datePicker_is_init === false) {
-      /* SIN DESABILITACION
-      $('#inputControl').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-100:-18',
-        defaultDate: '-18y'
-      });
-      */
-
       // tslint:disable-next-line:prefer-const
       let dia = String(new Date().getDate());
       // tslint:disable-next-line:radix
@@ -386,24 +333,14 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       };
 
       $('#inputControl').datepicker({
+        dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
+        yearRange: '-100:-18',
         maxDate: '-18y',
         minDate: '-100y',
         defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y
       });
-
-      /* in BETA
-      $('#inputControl').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true,
-        // yearRange: String(new Date().getFullYear() - 100) + ':' + String (new Date().getFullYear() - 18),
-        defaultDate: '-18y',
-        minDate: new Date().setFullYear(new Date().getFullYear() - 18) ,
-        maxDate: new Date().setFullYear(new Date().getFullYear() - 100)
-      });
-      */
 
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
@@ -413,14 +350,14 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         minDate: 0
       });
       // recorrido
-      /* Test */
+      /* Test
       // tslint:disable-next-line:prefer-const
       let dp1 = document.getElementsByClassName('ui-datepicker-year')[0] as HTMLSelectElement;
       if (dp1 !== undefined && this.datePicker_is_init === false) {
         for (let c = 0; c < dp1.options.length; c++) {
           dp1.options.remove(c);
         }
-
+        document.getElementsByClassName('ui-datepicker-year')[0].innerHTML = '';
         for (let c = new Date().getFullYear() - 100; c < new Date().getFullYear() - 18; c++) {
           const opt = document.createElement('option');
           opt.value = '' + c;
@@ -431,7 +368,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         // ----------------------------------
         this.datePicker_is_init = true;
       }
-    } else {
+      */
     }
     $('#inputControl').datepicker('show');
   }
@@ -442,6 +379,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-18',
+        maxDate: '-18y',
+        minDate: '-100y',
         defaultDate: '-18y'
       });
       $('#inputControl2').datepicker({
@@ -521,11 +460,48 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           opt.value = '' + c;
           opt.innerHTML = '' + c;
           dp1.options.add(opt);
-          console.log(c);
+          // console.log(c);
         }
+
         // Test despues de iniciado
         this.datePicker_is_init = true;
       }
+      // tslint:disable-next-line:prefer-const
+      let selector_mes = document.getElementsByClassName('ui-datepicker-month')[0] as HTMLSelectElement;
+      // tslint:disable-next-line:typedef
+      selector_mes.addEventListener('change', function(evt) {
+        console.log(evt);
+        console.log('change Ldpk1:' + dp1.options.length);
+        console.log(
+          'select Ldpk1 index:' +
+            dp1.options.selectedIndex +
+            ' value:' +
+            dp1.options.item(dp1.options.selectedIndex).value
+        );
+
+        /*
+        // si no es la opcion seleccionada se borra
+          for (let c = 0; dp1.options.length > 1; c++) {
+            if ( dp1.options.item(dp1.options.selectedIndex).value !== dp1.options.item(c).value ) {
+              console.log(dp1.options.item(c).value + ' RM' + c);
+              dp1.options.item(c).remove();
+            }
+          }
+          for (let c = new Date().getFullYear() - 100; c < new Date().getFullYear() - 18; c++) {
+            const opt = document.createElement('option');
+            opt.value = '' + c;
+            opt.innerHTML = '' + c;
+            dp1.options.add(opt);
+            // console.log(c);
+          }
+          */
+        // ----------------------------------
+      });
+      // tslint:disable-next-line:typedef
+      selector_mes.addEventListener('click', function(evt) {
+        console.log(evt);
+        console.log('click');
+      });
       // ----------------------------------
     }, 200);
   }
