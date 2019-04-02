@@ -6,6 +6,8 @@ import Util from '@app/universal-service/util';
 import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 declare let $: any;
+declare let alertify: any;
+
 export interface Model {
   firstName: string;
   secondName: string;
@@ -80,11 +82,12 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
 
       const datos = {
         method: 'subscriberVerificationMcapi',
-        UserID: this.authenticationService.credentials.userid.toString(),
-        // caseID: this.validateSSNData.CASENUMBER,
-        caseID: 264,
+        UserID: this.authenticationService.credentials.userid,
+        // UserID: 40,
+        caseID: this.validateSSNData.CASENUMBER,
+        // caseID: 267,
         Lookup_Type: 2,
-        response: 1,
+        response: 3,
         depent_sufijo: this.model.sufix,
         depent_name: this.model.firstName,
         depent_mn: this.model.secondName,
@@ -100,9 +103,16 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         // this.usfServiceService.setValidateSSNData(resp.body);
         console.log(resp);
 
-        // if (!resp.body.HasError) {
-        //   this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
-        // }
+        if (!resp.body.HasError) {
+          this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+        } else {
+          alertify.alert(
+            'Aviso',
+            resp.body.ErrorDesc,
+            function() {
+            }
+          );
+        }
       });
     }
   }
