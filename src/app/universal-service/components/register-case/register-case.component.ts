@@ -37,7 +37,7 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
         caseID: this.validateSSNData.CASENUMBER,
         // caseID: 267,
         Lookup_Type: 1,
-        response: 3
+        response: 1
       };
 
       console.log(datos);
