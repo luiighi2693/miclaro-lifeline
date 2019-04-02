@@ -3,6 +3,8 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Util from '@app/universal-service/util';
+import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import { BaseComponent } from '@app/core/base/BaseComponent';
 declare let $: any;
 export interface Model {
   firstName: string;
@@ -18,7 +20,7 @@ export interface Model {
   templateUrl: './usf-verification.component.html',
   styleUrls: ['./usf-verification.component.scss']
 })
-export class UsfVerificationComponent implements OnInit {
+export class UsfVerificationComponent extends BaseComponent implements OnInit {
   datePicker_is_init = false;
   processValidationNLAD = false;
 
@@ -39,7 +41,18 @@ export class UsfVerificationComponent implements OnInit {
     secondName = '';
   }();
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) {}
+  validateSSNData: ValidateSSNData;
+
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
+    super(authenticationService, usfServiceService, router, fb);
+    //para adquirir el numero de caso
+    this.validateSSNData = this.usfServiceService.getValidateSSNData();
+  }
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -60,29 +73,42 @@ export class UsfVerificationComponent implements OnInit {
   }
 
   goToDocumentDigitalization() {
-    if (this.form.valid) {
+    if (this.form.valid && this.model.socialSecure.length === 11) {
       this.processValidationNLAD = true;
 
-      setTimeout(() => {
-        this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
-      }, 3000);
-    }
-  }
+      console.log(this.model);
 
-  goToHome() {
-    this.router.navigate(['/home'], { replaceUrl: true });
+      const datos = {
+        method: 'subscriberVerificationMcapi',
+        UserID: this.authenticationService.credentials.userid.toString(),
+        // caseID: this.validateSSNData.CASENUMBER,
+        caseID: 264,
+        Lookup_Type: 2,
+        response: 1,
+        depent_sufijo: this.model.sufix,
+        depent_name: this.model.firstName,
+        depent_mn: this.model.secondName,
+        depent_last: this.model.lastName,
+        depent_dob: this.formatDate(this.inFormat(this.model.birthday)),
+        depent_ssn: this.valueSSN
+      };
+
+      console.log(datos);
+
+      this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
+        this.processValidationNLAD = false;
+        // this.usfServiceService.setValidateSSNData(resp.body);
+        console.log(resp);
+
+        // if (!resp.body.HasError) {
+        //   this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+        // }
+      });
+    }
   }
 
   goToRegisterCase() {
     this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-  }
-
-  checkNumbersOnly(event: any): boolean {
-    return Util.checkNumbersOnly(event);
-  }
-
-  checkCharactersOnly(event: any): boolean {
-    return Util.checkCharactersOnly(event);
   }
 
   formatInputSocialSecure(input: string) {

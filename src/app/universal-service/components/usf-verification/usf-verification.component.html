@@ -207,8 +207,8 @@
                 <div class="basicrow text-center m-top-i">
                   <a
                     (click)="goToDocumentDigitalization()"
-                    class="btns def-i pull-right vcenter"
-                    [ngClass]="{ red: form.valid, gray: !form.valid }"
+                    class="btns def-i pull-right vcenter gray"
+                    [ngClass]="{ red: form.valid && this.model.socialSecure.length === 11}"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
