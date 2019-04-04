@@ -432,44 +432,40 @@
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="contactChannel"
                       [value]="'1'"
-                      [formControl]="form.controls['contactChannel']"
-                      [(ngModel)]="model.contactChannel"
+                      [(ngModel)]="contactChannelEmail"
                     />
                     Correo Electr&oacute;nico
                   </div>
 
                   <div class="popopt">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="contactChannel"
                       [value]="'2'"
-                      [formControl]="form.controls['contactChannel']"
-                      [(ngModel)]="model.contactChannel"
+                      [(ngModel)]="contactChannelPhone"
                     />
                     Tel&eacute;fono
                   </div>
 
                   <div class="popopt">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="contactChannel"
                       [value]="'3'"
-                      [formControl]="form.controls['contactChannel']"
-                      [(ngModel)]="model.contactChannel"
+                      [(ngModel)]="contactChannelTextMessage"
                     />
                     Mensaje de texto
                   </div>
 
                   <div class="popopt">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="contactChannel"
                       [value]="'4'"
-                      [formControl]="form.controls['contactChannel']"
-                      [(ngModel)]="model.contactChannel"
+                      [(ngModel)]="contactChannelMail"
                     />
                     Correo
                   </div>
@@ -644,7 +640,9 @@
                   <a
                     (click)="goToValidationDataAddressInput()"
                     class="btns def-i red pull-right vcenter gray"
-                    [ngClass]="{ red: form.valid && ( (model.temporalAddress && model.temporalAddressExtraContent.length > 0) || !model.temporalAddress) && model.contactNumber1.length === 12 && validatePostalAddress()}"
+                    [ngClass]="{ red: form.valid &&
+                    ( (model.temporalAddress && model.temporalAddressExtraContent.length > 0) || !model.temporalAddress) &&
+                    model.contactNumber1.length === 12 && validatePostalAddress() && validateContactChannel()}"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>

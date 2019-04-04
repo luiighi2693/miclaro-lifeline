@@ -185,7 +185,9 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
       estate: [null, Validators.compose([Validators.required])],
       postalCode: [null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required, CustomValidators.email])],
-      contactChannel: [null, Validators.compose([Validators.required])],
+      contactChannel: [null, Validators.compose([
+        // Validators.required
+      ])],
       postalAddressFlag: [null, Validators.compose([Validators.required])],
       postalAddress: [
         null,
@@ -227,7 +229,9 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid && this.model.contactNumber1.length === 12 && ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress) && this.validatePostalAddress()) {
+    if (this.form.valid && this.model.contactNumber1.length === 12 &&
+      ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress) &&
+      this.validatePostalAddress() && this.validateContactChannel()) {
       console.log(this.model);
       this.validationProcessUSPS = true;
 
@@ -247,7 +251,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         phone1: this.model.contactNumber1,
         phone2: this.model.contactNumber2,
         email: this.model.email,
-        contact_preference: this.model.contactChannel,
+        contact_preference: this.getContactChannelValues(),
         PostalAddress: this.model.postalAddressFlag ? 'true' : 'false',
         PostalAddress1: this.model.postalAddress,
         PostalAddress2: this.model.postalDepUnitOther,
@@ -357,4 +361,30 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
       return this.model.postalAddress.length > 0 && this.model.postalMunicipality.length > 0 && this.model.postalEstate.length > 0 && this.model.postalCode2.length > 0;
     }
   }
+
+  public validateContactChannel() {
+    let contactChannelArray = [];
+    contactChannelArray.push(this.contactChannelEmail, this.contactChannelPhone, this.contactChannelTextMessage, this.contactChannelMail);
+    console.log(contactChannelArray);
+    return contactChannelArray.includes(true);
+  }
+
+  public getContactChannelValues() {
+    let contactChannelArray = [];
+    let contactChannelArrayValues: number[] = [];
+    let index = 0;
+
+    contactChannelArray.push(this.contactChannelEmail, this.contactChannelPhone, this.contactChannelTextMessage, this.contactChannelMail);
+
+    contactChannelArray.forEach(contactChannelflag => {
+      if (contactChannelflag) {
+        contactChannelArrayValues.push(index + 1)
+      }
+      index++;
+    });
+
+    return contactChannelArrayValues;
+  }
+
+
 }
