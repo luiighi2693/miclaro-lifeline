@@ -448,6 +448,14 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         {
             validareSSNAdMcapi(jo);
         }
+        else if (ejecutar == "addressValidationMcapi")
+        {
+            addressValidationMcapi(jo);
+        }
+        else if (ejecutar == "subscriberVerificationMcapi")
+        {
+            subscriberVerificationMcapi(jo);
+        }
         else
         {
             // Response.Redirect("../error_404.html");
@@ -486,11 +494,12 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         string CUSTOMER_ID_TYPE = jo["CUSTOMER_ID_TYPE"].ToString();
         string ID_NUMBER = jo["ID_NUMBER"].ToString();
         string DTS_EXP = jo["DTS_EXP"].ToString();
-        string DEP_APPLICATION = jo["DEP_APPLICATION"].ToString();
+        /*string DEP_APPLICATION = jo["DEP_APPLICATION"].ToString();
         string PHONE_1 = jo["PHONE_1"].ToString();
         string COMUNICATION = jo["COMUNICATION"].ToString();
         string Home = jo["Home"].ToString();
-        string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\",\"DEP_APPLICATION\":\"" + DEP_APPLICATION + "\",\"PHONE_1\":\"" + PHONE_1 + "\",\"COMUNICATION\":\"" + COMUNICATION + "\",\"Home\":\"" + Home + "\"}";
+        string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\",\"DEP_APPLICATION\":\"" + DEP_APPLICATION + "\",\"PHONE_1\":\"" + PHONE_1 + "\",\"COMUNICATION\":\"" + COMUNICATION + "\",\"Home\":\"" + Home + "\"}";*/
+		string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\"}";
 
         //string PostURL =wspathNet+"AccountPackagesInfo";
         string PostURL = "http://wslife00042ws.claroinfo.com/Service/svc/1/VALIDATE_SSN.MCAPI";
@@ -498,6 +507,69 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         object resp = ToJson(PostWebService(PostURL, PostData));
 
         // respuesta json.
+        Response.Clear();
+        Response.ContentType = "application/json; charset=utf-8";
+        Response.Write(json.Serialize(resp));
+        Response.End();
+    }
+
+    public void addressValidationMcapi(JObject jo)
+    {
+        string user_ID = jo["user_ID"].ToString();
+        string case_ID = jo["case_ID"].ToString();
+        string addresstype = jo["addresstype"].ToString();
+        string address1 = jo["address1"].ToString();
+        string address2 = jo["address2"].ToString();
+        string city = jo["city"].ToString();
+        string state = jo["state"].ToString();
+        string zip = jo["zip"].ToString();
+        string phone1 = jo["phone1"].ToString();
+        string phone2 = jo["phone2"].ToString();
+        string email = jo["email"].ToString();
+        string contact_preference = jo["contact_preference"].ToString();
+        string PostalAddress = jo["PostalAddress"].ToString();
+
+        string PostalAddress1 = jo["PostalAddress1"].ToString();
+        string PostalAddress2 = jo["PostalAddress2"].ToString();
+        string PostalAddresscity = jo["PostalAddresscity"].ToString();
+        string PostalAddressState = jo["PostalAddressState"].ToString();
+        string PostalAddresszip = jo["PostalAddresszip"].ToString();
+
+
+        string PostData = "{\"user_ID\":\"" + UserName + "\",\"case_ID\":\"" + caseID + "\",\"addresstype\":\"" + addresstype + "\",\"address1\":\"" + address1 + "\",\"address2\":\"" + address2 + "\",\"city\":\"" + city + "\",\"state\":\"" + state + "\",\"zip\":\"" + zip + "\",\"phone1\":\"" + phone1 + "\",\"phone2\":\"" + phone2 + "\",\"email\":\"" + email + "\",\"contact_preference\":\"" + contact_preference + "\",\"PostalAddress\":\"" + PostalAddress + "\",\"PostalAddress1\":\"" + PostalAddress1 + "\",\"PostalAddress2\":\"" + PostalAddress2 + "\",\"PostalAddresscity\":\"" + PostalAddresscity + "\",\"PostalAddressState\":\"" + PostalAddressState + "\",\"PostalAddresszip\":\"" + PostalAddresszip + "\"}";
+
+
+        string PostURL = "http://wslife00042ws.claroinfo.com/Service/svc/1/ADDRESSVALIDATION.MCAPI";
+        object resp = ToJson(PostWebService(PostURL, PostData));
+
+        Response.Clear();
+        Response.ContentType = "application/json; charset=utf-8";
+        Response.Write(json.Serialize(resp));
+        Response.End();
+    }
+
+
+    public void subscriberVerificationMcapi(JObject jo)
+    {
+        string UserID = jo["UserID"].ToString();
+        string caseID = jo["caseID"].ToString();
+        string Lookup_Type = jo["Lookup_Type"].ToString();
+        string response = jo["response"].ToString();
+        string depent_sufijo = jo["depent_sufijo"].ToString();
+        string depent_name = jo["depent_name"].ToString();
+        string depent_mn = jo["depent_mn"].ToString();
+        string depent_last = jo["depent_last"].ToString();
+        string depent_dob = jo["depent_dob"].ToString();
+        string depent_ssn = jo["depent_ssn"].ToString();
+
+
+
+        string PostData = "{\"UserID\":\"" + UserID + "\",\"caseID\":\"" + caseID + "\",\"Lookup_Type\":\"" + Lookup_Type + "\",\"response\":\"" + response + "\",\"depent_sufijo\":\"" + depent_sufijo + "\",\"depent_name\":\"" + depent_name + "\",\"depent_mn\":\"" + depent_mn + "\",\"depent_last\":\"" + depent_last + "\",\"depent_dob\":\"" + depent_dob + "\",\"depent_ssn\":\"" + depent_ssn + "\"}";
+
+
+        string PostURL = "http://wslife00042ws.claroinfo.com/Service/svc/1/SUBSCRIBER_VERIFICATION.MCAPI";
+        object resp = ToJson(PostWebService(PostURL, PostData));
+
         Response.Clear();
         Response.ContentType = "application/json; charset=utf-8";
         Response.Write(json.Serialize(resp));

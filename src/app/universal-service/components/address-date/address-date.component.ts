@@ -237,8 +237,8 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
       const datos = {
         method: 'addressValidationMcapi',
-        UserName: this.authenticationService.credentials.userid,
-        caseID: this.validateSSNData.CASENUMBER,
+        user_ID: this.authenticationService.credentials.userid,
+        case_ID: this.validateSSNData.CASENUMBER,
         // caseID: 1234,
         addresstype : this.model.temporalAddress ? 3 : 1,
         // Tipodireccion1: this.model.temporalAddress1 ? 1 : 0,
