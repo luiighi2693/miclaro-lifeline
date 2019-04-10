@@ -383,7 +383,8 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
       index++;
     });
 
-    return contactChannelArrayValues;
+    // return contactChannelArrayValues;
+    return '[' + contactChannelArrayValues.join(',') + ']';
   }
 
 
