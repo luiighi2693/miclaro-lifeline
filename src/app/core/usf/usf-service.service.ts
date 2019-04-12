@@ -40,6 +40,7 @@ export interface DataObjectAddress {
 
 const validateSSNDataKey = 'validateSSNData';
 const dataObjectAddressKey = 'dataObjectAddress';
+const requiredDocumentsKey = 'requiredDocuments';
 
 @Injectable()
 export class UsfServiceService {
@@ -94,4 +95,40 @@ export class UsfServiceService {
     return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
 
+
+
+  public getRequiredDocumentData(): string[] | null {
+    let requiredDocuments: string[];
+    requiredDocuments = JSON.parse(sessionStorage.getItem(requiredDocumentsKey));
+    return requiredDocuments;
+  }
+
+  setRequiredDocumentData(requiredDocuments: any) {
+    if (requiredDocuments) {
+      sessionStorage.setItem(requiredDocumentsKey, JSON.stringify(requiredDocuments));
+    } else {
+      sessionStorage.removeItem(requiredDocumentsKey);
+    }
+  }
+
+  uploadDocument(data: any): Observable<any> {
+    return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/UpdloadDocument.MCAPI', data, {
+      observe: 'response'
+    });
+    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+  }
+
+  retrieveDocument(data: any): Observable<any> {
+    return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/RetrieveDocument.MCAPI', data, {
+      observe: 'response'
+    });
+    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+  }
+
+  deleteDocument(data: any): Observable<any> {
+    return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/DeleteDocument.MCAPI', data, {
+      observe: 'response'
+    });
+    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+  }
 }

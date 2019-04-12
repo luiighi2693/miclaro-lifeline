@@ -18,7 +18,7 @@
 
     <div class="basicrow previewcont m-top-i">
       <div class="basicrow">
-        <a (click)="goToAccountCreation()" class="btns def-i red pull-right vcenter">
+        <a (click)="chargeDocuments()" class="btns def-i red pull-right vcenter">
 							<span class="tabcell">
 								Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 							</span>
@@ -120,12 +120,21 @@
 
                 <div class="basicrow">
                   <div class="row">
+                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+                      <!--<div class="basicrow">-->
+                        <!--<div class="basicrow">-->
+                          <!--<select class="sel-f" name="documentTypeSelected" [formControl]="form.controls['documentTypeSelected']"  (ngModelChange)="onChangeLifeline($event.valueOf())">-->
+                            <!--<option [value]= null disabled selected hidden>Seleccionar</option>-->
+                            <!--<option [value]="documentType.name" *ngFor="let documentType of documents">{{documentType.name}}</option>-->
+                          <!--</select>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                       <div class="basicrow">
                         <div class="basicrow">
-                          <select class="sel-f" name="documentTypeSelected" [formControl]="form.controls['documentTypeSelected']"  (ngModelChange)="onChangeLifeline($event.valueOf())">
-                            <option [value]= null disabled selected hidden>Seleccionar</option>
-                            <option [value]="documentType.name" *ngFor="let documentType of documents">{{documentType.name}}</option>
+                          <select class="sel-f" name="documentTypeSelected" [formControl]="form.controls['documentTypeSelected']" [(ngModel)]="requiredDocumentSelected"  (ngModelChange)="onChangeLifelineCustom($event)">
+                            <option [value]="documentType.id" *ngFor="let documentType of this.requiredDocumentsContent" [disabled]="documentType.isCharged">{{documentType.name}}</option>
                           </select>
                         </div>
                       </div>
@@ -135,8 +144,7 @@
                       <div class="basicrow">
                         <div class="basicrow">
                           <select class="sel-f" name="subDocumentTypeSelected" [(ngModel)]="subDocumentTypeSelected" [formControl]="form.controls['subDocumentTypeSelected']">
-                            <option [value]= undefined disabled selected hidden>Seleccionar</option>
-                            <option [value]="subDocumentType" *ngFor="let subDocumentType of documentTypeSelected.subDocuments">{{subDocumentType.name}}</option>
+                            <option [value]="subDocumentType" *ngFor="let subDocumentType of subDocumentsTypeSelected" [disabled]="subDocumentType === 'Seleccionar'" [selected]="subDocumentType === 'Seleccionar'" [hidden]="subDocumentType === 'Seleccionar'">{{subDocumentType}}</option>
                           </select>
                         </div>
                       </div>
@@ -152,28 +160,31 @@
                       <div class="tabcell">
                         <img class="dgtl-icon" width="100%" src="../../../../assets/images/lifescan-icon.png">
 
-                        <a href="#" class="lbluebtn dgtldef vcenter">
-															<span class="tabcell">
+                        <a class="lbluebtn dgtldef vcenter" style="cursor: pointer;" [ngClass]="{'background-white': validateDocumentCharged()}">
+                          <label style="    font-weight: normal; margin-bottom: -13px; cursor: pointer;">
+                            <span class="tabcell">
 																Activar scanner
 															</span>
+                            <input [disabled]="validateDocumentCharged()" style="display: none" type="file" (change)="onFileChange($event)" />
+                          </label>
                         </a>
                       </div>
                     </div>
                   </div>
 
-                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="digitalizecont vcenter">
-                      <div class="tabcell">
-                        <img class="dgtl-icon" width="100%" src="../../../../assets/images/lifecam-icon.png">
+                  <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+                    <!--<div class="digitalizecont vcenter">-->
+                      <!--<div class="tabcell">-->
+                        <!--<img class="dgtl-icon" width="100%" src="../../../../assets/images/lifecam-icon.png">-->
 
-                        <a href="#" class="lbluebtn dgtldef vcenter">
-															<span class="tabcell">
-																Activar camara
-															</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                        <!--<a class="lbluebtn dgtldef vcenter">-->
+															<!--<span class="tabcell">-->
+																<!--Activar camara-->
+															<!--</span>-->
+                        <!--</a>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
                 </div>
               </div>
 
@@ -182,138 +193,170 @@
                   <label class="label-f">&#42; Documentos Requeridos</label>
                 </div>
 
-                <div class="basicrow m-top-u">
-                  <div class="basicrow on">
+                <div class="basicrow m-top-u" *ngFor="let documentType of this.requiredDocumentsContent">
+                  <div class="basicrow" [ngClass]="{'on': documentType.isCharged}" *ngIf="documentType.id !== null">
                     <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Solicitud de Servicio Universal
+                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> {{documentType.name}}
                     </div>
 
-                    <a href="#" class="dgtl-action vcenter">
+                    <a (click)="showPreviewFile(documentType.idToSearch)" class="dgtl-action vcenter">
 													<span class="tabcell">
 														<i class="fa fa-file-image-o" aria-hidden="true"></i>
 													</span>
                     </a>
 
-                    <a href="#" class="dgtl-action vcenter">
+                    <a (click)="deleteFile(documentType.idToSearch, documentType.id)" class="dgtl-action vcenter">
 													<span class="tabcell">
 														<i class="fa fa-trash" aria-hidden="true"></i>
 													</span>
                     </a>
                   </div>
 
-                  <div class="basicrow m-top-u">
-                    <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Validaci&oacute;n de Direcci&oacute;n (&#42;&#42;)
-                    </div>
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-file-image-o" aria-hidden="true"></i>
-													</span>
-                    </a>
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-trash" aria-hidden="true"></i>
-													</span>
-                    </a>
-                  </div>
 
-                  <div class="basicrow m-top-u">
-                    <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Certificaci&oacute;n de Programa (&#42;&#42;)
-                    </div>
+                <!---->
+                <!--<div class="basicrow m-top-u">-->
+                  <!--<div class="basicrow on">-->
+                    <!--<div class="dgtl-list">-->
+                      <!--<i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Solicitud de Servicio Universal-->
+                    <!--</div>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-file-image-o" aria-hidden="true"></i>
-													</span>
-                    </a>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-file-image-o" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-trash" aria-hidden="true"></i>
-													</span>
-                    </a>
-                  </div>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+                  <!--</div>-->
 
-                  <div class="basicrow m-top-u">
-                    <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Hoja de Transferencia de Beneficio
-                    </div>
+                  <!--<div class="basicrow m-top-u">-->
+                    <!--<div class="dgtl-list">-->
+                      <!--<i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Validaci&oacute;n de Direcci&oacute;n (&#42;&#42;)-->
+                    <!--</div>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-file-image-o" aria-hidden="true"></i>
-													</span>
-                    </a>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-file-image-o" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-trash" aria-hidden="true"></i>
-													</span>
-                    </a>
-                  </div>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+                  <!--</div>-->
 
-                  <div class="basicrow m-top-u">
-                    <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Identificaci&oacute;n del Cliente
-                    </div>
+                  <!--<div class="basicrow m-top-u">-->
+                    <!--<div class="dgtl-list">-->
+                      <!--<i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Certificaci&oacute;n de Programa (&#42;&#42;)-->
+                    <!--</div>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-file-image-o" aria-hidden="true"></i>
-													</span>
-                    </a>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-file-image-o" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-trash" aria-hidden="true"></i>
-													</span>
-                    </a>
-                  </div>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+                  <!--</div>-->
 
-                  <div class="basicrow m-top-u">
-                    <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Hoja Multiunidad Familia (&#42;&#42;)
-                    </div>
+                  <!--<div class="basicrow m-top-u">-->
+                    <!--<div class="dgtl-list">-->
+                      <!--<i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Hoja de Transferencia de Beneficio-->
+                    <!--</div>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-file-image-o" aria-hidden="true"></i>
-													</span>
-                    </a>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-file-image-o" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-trash" aria-hidden="true"></i>
-													</span>
-                    </a>
-                  </div>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+                  <!--</div>-->
 
-                  <div class="basicrow m-top-u">
-                    <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Otros (&#42;&#42;)
-                    </div>
+                  <!--<div class="basicrow m-top-u">-->
+                    <!--<div class="dgtl-list">-->
+                      <!--<i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Identificaci&oacute;n del Cliente-->
+                    <!--</div>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-file-image-o" aria-hidden="true"></i>
-													</span>
-                    </a>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-file-image-o" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
 
-                    <a href="#" class="dgtl-action vcenter">
-													<span class="tabcell">
-														<i class="fa fa-trash" aria-hidden="true"></i>
-													</span>
-                    </a>
-                  </div>
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+                  <!--</div>-->
+
+                  <!--<div class="basicrow m-top-u">-->
+                    <!--<div class="dgtl-list">-->
+                      <!--<i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Hoja Multiunidad Familia (&#42;&#42;)-->
+                    <!--</div>-->
+
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-file-image-o" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+                  <!--</div>-->
+
+                  <!--<div class="basicrow m-top-u">-->
+                    <!--<div class="dgtl-list">-->
+                      <!--<i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> Otros (&#42;&#42;)-->
+                    <!--</div>-->
+
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-file-image-o" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+
+                    <!--<a href="#" class="dgtl-action vcenter">-->
+													<!--<span class="tabcell">-->
+														<!--<i class="fa fa-trash" aria-hidden="true"></i>-->
+													<!--</span>-->
+                    <!--</a>-->
+                  <!--</div>-->
                 </div>
 
-                <div class="redbgbadmsg error m-top-i">
+                <div class="redbgbadmsg error m-top-i" *ngIf="uploadHasError">
                   <i class="fa fa-times-circle" aria-hidden="true"></i>
 
-                  Su foto/documento <span class="roboto-b">imagen.jpg</span> no fue cargada exitosamente.<br/><br/>
+                  Su foto/documento <span class="roboto-b">{{documentName}}</span> no fue cargada exitosamente.<br/><br/>
+
+                  <span class="roboto-b">Favor volver a intentar.</span>
+                </div>
+
+                <div class="redbgbadmsg error m-top-i" *ngIf="uploadHasValidationError">
+                  <i class="fa fa-times-circle" aria-hidden="true"></i>
+
+                  Su foto/documento <span class="roboto-b">{{documentName}}</span> no fue cargada exitosamente.<br/><br/>
+                  Debe seleccionar un documento de tipo <span class="roboto-b">{{uploadHasValidationErrorTypes}}</span> y como maximo <span class="roboto-b">{{uploadHasValidationErrorSize}}KB.</span><br/><br/>
 
                   <span class="roboto-b">Favor volver a intentar.</span>
                 </div>
@@ -325,13 +368,13 @@
                 </div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToPreviewView()" class="btns def-i pull-right vcenter gray" [ngClass]="{'red': form.valid}">
+                  <a (click)="goToAccountCreation()" class="btns def-i pull-right vcenter gray" [ngClass]="{'red': validateAllDocumentsChargued()}">
 												<span class="tabcell">
 													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
 												</span>
                   </a>
 
-                  <a (click)="goToRegisterCase()" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
 												<span class="tabcell">
 													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
 												</span>

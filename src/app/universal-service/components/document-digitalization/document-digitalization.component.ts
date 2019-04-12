@@ -2,15 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BaseComponent } from '@app/core/base/BaseComponent';
+import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 
 export interface DocumentLifeline {
   name: string;
-  subDocuments: SubDocumentLifeline[];
+  types: string[];
+  maxSize: number;
+  subDocuments: string[];
 }
 
-export interface SubDocumentLifeline {
+export interface RequiredDocumentContent {
+  id: string;
   name: string;
-  pageNumber: number;
+  isCharged: boolean;
+  idToSearch: string;
 }
 
 @Component({
@@ -18,135 +24,113 @@ export interface SubDocumentLifeline {
   templateUrl: './document-digitalization.component.html',
   styleUrls: ['./document-digitalization.component.scss']
 })
-export class DocumentDigitalizationComponent implements OnInit {
+export class DocumentDigitalizationComponent extends BaseComponent implements OnInit {
 
   previewView = false;
 
   documents: DocumentLifeline [] = [
     {
       name: 'Formulario de Servicio Universal',
+      types: ['.pdf'],
+      maxSize: 200,
       subDocuments: [
-        {
-          name: 'Formulario de Aplicación (Forma 5629)',
-          pageNumber: 8
-        },
-        {
-          name: 'Términos & Condiciones y Anejos.',
-          pageNumber: 9
-        }
+        'Formulario de Aplicación (Forma 5629)',
+        'Anejos'
       ]
     },
     {
       name: 'Formulario Hoja de Hogar',
+      types: ['.pdf'],
+      maxSize: 200,
       subDocuments: [
-        {
-          name: 'Formulario de Aplicación (Forma 5631)',
-          pageNumber: 4
-        }
+        'Formulario de Aplicación (Forma 5631)'
       ]
     },
     {
-      name: 'Certificación de Elegibilidad',
+      name: 'Certificación de elegibilidad',
+      types: ['.pdf'],
+      maxSize: 350,
       subDocuments: [
-        {
-          name: 'Planilla',
-          pageNumber: 15
-        },
-        {
-          name: 'Talonario de los últimos tres (3) meses consecutivos',
-          pageNumber: 15
-        },
-        {
-          name: 'Declaración de Beneficio de Seguro Social',
-          pageNumber: 15
-        },
-        {
-          name: 'Declaración Veteranos',
-          pageNumber: 15
-        },
-        {
-          name: 'Declaración Retiro/Pensión',
-          pageNumber: 15
-        },
-        {
-          name: 'Declaración Desempleo/Seguro del Estado',
-          pageNumber: 15
-        },
-        {
-          name: 'Divorcio/Pensión Alimentaria',
-          pageNumber: 15
-        },
-        {
-          name: 'Otros',
-          pageNumber: 15
-        }
+        'Planilla',
+        'Talonario de los últimos tres (3) meses consecutivos',
+        'Declaración de Beneficio de Seguro Social',
+        'Declaración Veteranos',
+        'Declaración Retiro/Pensión',
+        'Declaración Desempleo/Seguro del Estado',
+        'Divorcio/Pensión Alimentaria',
+        'Otros'
       ]
     },
     {
-      name: 'Evidencia de Factura',
+      name: 'Evidencia de factura',
+      types: ['.pdf'],
+      maxSize: 200,
       subDocuments: [
-        {
-          name: 'Licencia de Conducir',
-          pageNumber: 1
-        },
-        {
-          name: 'ID',
-          pageNumber: 1
-        },
-        {
-          name: 'Factura de Luz/Agua/TV/Teléfono',
-          pageNumber: 1
-        }
+        'Licencia de Conducir',
+        'ID',
+        'Factura de Luz/Agua/TV/Teléfono'
       ]
     },
     {
-      name: 'Evidencia de identidad',
+      name: 'Evidencia de Identidad',
+      types: ['.pdf', '.jpeg', '.png'],
+      maxSize: 200,
       subDocuments: [
-        {
-          name: 'Certificado de Nacimiento',
-          pageNumber: 1
-        },
-        {
-          name: 'Pasaporte',
-          pageNumber: 1
-        },
-        {
-          name: 'Licencia de Conducir',
-          pageNumber: 1
-        }
+        'Certificado de Nacimiento',
+        'Pasaporte',
+        'Licencia de Conducir'
       ]
     },
     {
       name: 'Transferencia de Beneficio',
+      types: ['.pdf'],
+      maxSize: 200,
       subDocuments: [
-        {
-          name: 'Hoja de Transferencia de Beneficio',
-          pageNumber: 1
-        }
+        'Hoja de Transferencia de Beneficio'
       ]
     },
     {
       name: 'Otros',
+      types: ['.pdf'],
+      maxSize: 300,
       subDocuments: [
-        {
-          name: 'Otros',
-          pageNumber: 4
-        }
+        'Otros'
       ]
     }
   ];
 
   public form: FormGroup;
 
-  initDocument: DocumentLifeline = {
-    name: '',
-    subDocuments: []
-  };
+  subDocumentTypeSelected: string;
+  subDocumentsTypeSelected: string[] = [];
 
-  documentTypeSelected: DocumentLifeline = this.initDocument;
-  subDocumentTypeSelected: SubDocumentLifeline;
+  requiredDocuments: string[] = [];
+  requiredDocumentSelected: any;
+  requiredDocumentsContent: RequiredDocumentContent[] = [];
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
+  uploadHasError = false;
+  uploadHasValidationError = false;
+  validateSSNData: ValidateSSNData;
+  documentName: string;
+
+  uploadHasValidationErrorSize: number;
+  uploadHasValidationErrorTypes: string;
+
+
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
+    super(authenticationService, usfServiceService, router, fb);
+    this.requiredDocuments = this.usfServiceService.getRequiredDocumentData();
+    this.parseRequiredDocumentsContent();
+
+    this.validateSSNData = this.usfServiceService.getValidateSSNData();
+
+    this.subDocumentsTypeSelected.push('Seleccionar');
+  }
 
   ngOnInit() {
     console.log();
@@ -157,13 +141,13 @@ export class DocumentDigitalizationComponent implements OnInit {
       documentTypeSelected: [
         null,
         Validators.compose([
-          Validators.required
+          // Validators.required
         ])
       ],
       subDocumentTypeSelected: [
         null,
         Validators.compose([
-          Validators.required
+          // Validators.required
         ])
       ]
     });
@@ -174,7 +158,9 @@ export class DocumentDigitalizationComponent implements OnInit {
   }
 
   goToAccountCreation() {
-    this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
+    if (!this.validateAllDocumentsChargued){
+      this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
+    }
   }
 
   goToHome() {
@@ -189,11 +175,214 @@ export class DocumentDigitalizationComponent implements OnInit {
     this.previewView = false;
   }
 
-  onChangeLifeline($event: any) {
-    this.documentTypeSelected = this.documents.find(x => x.name === $event);
+  onChangeLifelineCustom(event: string) {
+    if (event !== null) {
+      console.log(event);
+      var index =this.requiredDocumentsContent.map(x => x.id).indexOf(event);
+      console.log(index);
+      var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name)
+      console.log(index2);
+
+      this.subDocumentsTypeSelected = [];
+      this.subDocumentsTypeSelected.push('Seleccionar');
+      this.subDocumentTypeSelected = 'Seleccionar';
+      if (index2 !== -1) {
+        console.log(this.documents[index2].subDocuments);
+        this.documents[index2].subDocuments.forEach(document => {
+          this.subDocumentsTypeSelected.push(document);
+        });
+      }
+
+    }
   }
 
   checkResponsive() {
 
+  }
+
+  onFileChange($event: Event) {
+    this.uploadHasError = false;
+    this.uploadHasValidationError = false;
+    // @ts-ignore
+    this.documentName = $event.target.files[0].name;
+    // @ts-ignore
+    let fileExtention = ($event.target.files[0].type).replace('application/', '.').replace('image/', '.');
+    // @ts-ignore
+    let size = $event.target.files[0].size / 1024;
+
+    var index =this.requiredDocumentsContent.map(x => x.id).indexOf(this.requiredDocumentSelected);
+    console.log(index);
+    var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name)
+    console.log(index, index2);
+    console.log(this.documents[index2].types, fileExtention);
+
+    if (this.documents[index2].types.indexOf(fileExtention) !== -1 && size <= this.documents[index2].maxSize){
+      var FR= new FileReader();
+
+
+      FR.addEventListener("load", (e) => {
+        // @ts-ignore
+        let imageBase64 = e.target.result.split(';base64,')[1];
+
+        const datos = {
+          method: 'UpdloadDocumentMcapi',
+          documentTypeID: this.requiredDocumentSelected,
+          user_Id: this.authenticationService.credentials.userid,
+          // user_Id: 56,
+          case_number: this.validateSSNData.CASENUMBER,
+          // case_number: 36,
+          content: imageBase64,
+          fileType: fileExtention
+        };
+
+        console.log(datos);
+
+        this.usfServiceService.uploadDocument(datos).subscribe(resp => {
+          // this.usfServiceService.setValidateSSNData(resp.body);
+          console.log(resp);
+
+          if (!resp.body.HasError) {
+            this.requiredDocumentsContent[index].idToSearch = resp.body.data[0].documentID;
+            this.requiredDocumentsContent[index].isCharged = true;
+
+          } else {
+            this.uploadHasError = true;
+          }
+
+          // @ts-ignore
+          $event.target.value = '';
+
+          this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
+          this.subDocumentsTypeSelected = [];
+          this.subDocumentsTypeSelected.push('Seleccionar');
+          this.subDocumentTypeSelected = 'Seleccionar';
+
+        }, error => {
+          console.log(error);
+          this.uploadHasError = true;
+
+          // @ts-ignore
+          $event.target.value = '';
+
+          this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
+          this.subDocumentsTypeSelected = [];
+          this.subDocumentsTypeSelected.push('Seleccionar');
+          this.subDocumentTypeSelected = 'Seleccionar';
+
+        });
+      });
+
+      // @ts-ignore
+      FR.readAsDataURL( $event.target.files[0]);
+    } else {
+      this.uploadHasValidationError = true;
+      this.uploadHasValidationErrorSize = this.documents[index2].maxSize;
+      this.uploadHasValidationErrorTypes = this.documents[index2].types.join(', ');
+    }
+
+  }
+
+  private parseRequiredDocumentsContent() {
+    this.requiredDocumentsContent.push({
+      id:null,
+      name:'Seleccionar',
+      isCharged: true,
+      idToSearch: null
+    });
+
+    this.requiredDocuments.forEach(requiredDocument => {
+      var name = requiredDocument.split('::')[1] === 'Certificación de programa' ? 'Certificación de elegibilidad' : requiredDocument.split('::')[1];
+
+      this.requiredDocumentsContent.push({
+        id:requiredDocument.split('::')[0],
+        name:name,
+        isCharged: false,
+        idToSearch: null
+      })
+    });
+
+    this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
+  }
+
+  validateDocumentCharged() {
+    if (this.requiredDocumentSelected !== null) {
+      if (this.subDocumentTypeSelected === 'Seleccionar') {
+        return true;
+      } else {
+        return this.requiredDocumentsContent[this.requiredDocumentsContent.map(x => x.id).indexOf(this.requiredDocumentSelected)].isCharged
+      }
+    } else {
+      return true;
+    }
+  }
+
+  showPreviewFile(id: string) {
+    console.log('showPreviewFile');
+    console.log(id);
+
+    const datos = {
+      method: 'RetrieveDocumentMcapi',
+      documentTypeID: id,
+      user_Id: this.authenticationService.credentials.userid,
+      // user_Id: 56,
+      case_number: this.validateSSNData.CASENUMBER,
+      // case_number: 36,
+    };
+
+    console.log(datos);
+
+    this.usfServiceService.retrieveDocument(datos).subscribe(resp => {
+      console.log(resp);
+
+      if (!resp.body.HasError) {
+        this.previewView = true;
+        console.log(resp.body.data[0].docPopURL);
+      } else {
+
+      }
+
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  deleteFile(idToSearch: string, id: string) {
+    console.log('deleteFile');
+    console.log(idToSearch, id);
+
+    const datos = {
+      method: 'DeleteDocumentMcapi',
+      documentTypeID: idToSearch,
+      user_Id: this.authenticationService.credentials.userid,
+      // user_Id: 56,
+      case_number: this.validateSSNData.CASENUMBER,
+      // case_number: 36,
+    };
+
+    console.log(datos);
+
+    this.usfServiceService.deleteDocument(datos).subscribe(resp => {
+      console.log(resp);
+
+      if (!resp.body.HasError) {
+        let index = this.requiredDocumentsContent.map(x => x.id).indexOf(id);
+        this.requiredDocumentsContent[index].isCharged = false;
+        this.requiredDocumentsContent[index].idToSearch = null;
+
+        this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
+        this.subDocumentsTypeSelected = [];
+        this.subDocumentsTypeSelected.push('Seleccionar');
+        this.subDocumentTypeSelected = 'Seleccionar';
+      } else {
+
+      }
+
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  validateAllDocumentsChargued() {
+    return this.requiredDocumentsContent.every(item => item.isCharged);
   }
 }
