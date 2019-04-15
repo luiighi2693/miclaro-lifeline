@@ -112,23 +112,23 @@ export class UsfServiceService {
   }
 
   uploadDocument(data: any): Observable<any> {
-    return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/UpdloadDocument.MCAPI', data, {
-      observe: 'response'
-    });
-    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/UpdloadDocument.MCAPI', data, {
+    //   observe: 'response'
+    // });
+    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
 
   retrieveDocument(data: any): Observable<any> {
-    return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/RetrieveDocument.MCAPI', data, {
-      observe: 'response'
-    });
-    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/RetrieveDocument.MCAPI', data, {
+    //   observe: 'response'
+    // });
+    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
 
   deleteDocument(data: any): Observable<any> {
-    return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/DeleteDocument.MCAPI', data, {
-      observe: 'response'
-    });
-    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/DeleteDocument.MCAPI', data, {
+    //   observe: 'response'
+    // });
+    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
 }

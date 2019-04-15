@@ -44,6 +44,7 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
 
       this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
         // this.usfServiceService.setValidateSSNData(resp.body);
+        this.usfServiceService.setRequiredDocumentData(resp.body.required);
         console.log(resp);
 
         if (!resp.body.HasError) {
