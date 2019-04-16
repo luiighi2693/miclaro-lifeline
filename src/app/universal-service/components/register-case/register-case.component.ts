@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@app/core/base/BaseComponent';
-import { DataObjectAddress, UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import {
+  DataAgencyMoneySelection,
+  DataObjectAddress,
+  PeopleData,
+  UsfServiceService,
+  ValidateSSNData
+} from '@app/core/usf/usf-service.service';
 declare let alertify: any;
 
 @Component({
@@ -16,10 +22,43 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
 
   validateSSNData: ValidateSSNData;
 
+  agencies = [
+    'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)',
+    'Ingreso Suplementario de Seguridad (SSI)',
+    'Medicaid',
+    'Asistencia Federal para la Vivienda Pública (FPHA)',
+    'Beneficio de Pensión para Veteranos y Sobrevivientes'];
+
+  homePeopleData: PeopleData [] = [
+    { number: 1, money: '$16,389' },
+    { number: 2, money: '$22,221' },
+    { number: 3, money: '$28,053' },
+    { number: 4, money: '$33,885' },
+    { number: 5, money: '$39,717' },
+    { number: 6, money: '$45,549' },
+    { number: 7, money: '$51,381' },
+    { number: 8, money: '$57,213' }
+  ];
+
+  model: DataAgencyMoneySelection ={
+    agency: 'Seleccionar',
+    ldiRestriction: false,
+    peopleDataSelectedNumber: null,
+    peopleDataSelected: null,
+    earningsValidation: false,
+    lifelineProgramInscription: false,
+    aceptationTerm: false
+  };
+
   constructor(public authenticationService: AuthenticationService, public router: Router, public usfServiceService: UsfServiceService) {
     super(authenticationService, usfServiceService, router, null);
     this.dataObjectAddress = this.usfServiceService.getDataObjectAddress();
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
+
+    this.model.peopleDataSelectedNumber = this.homePeopleData[0].number;
+    this.model.peopleDataSelected = this.homePeopleData[0];
+
+    console.log(this.model);
   }
 
   ngOnInit() {
@@ -27,6 +66,8 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   }
 
   goToUsfVerification() {
+    this.usfServiceService.setDataAgencyMoneySelection(this.model);
+
     if (!this.dependPeopleFlag) {
       // this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
 
@@ -64,11 +105,11 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
     }
   }
 
-  goToHome() {
-    this.router.navigate(['/home'], { replaceUrl: true });
-  }
-
   goToAddressDate() {
     this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
+  }
+
+  onChangeSelect($event: any) {
+    this.model.peopleDataSelected = this.homePeopleData.find(x => x.number.toString() === $event);
   }
 }

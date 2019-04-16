@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@app/core/base/BaseComponent';
-import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import { DataAgencyMoneySelection, UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export interface DocumentLifeline {
   name: string;
@@ -50,16 +51,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       name: 'Certificación de elegibilidad',
       types: ['.pdf'],
       maxSize: 350,
-      subDocuments: [
-        'Planilla',
-        'Talonario de los últimos tres (3) meses consecutivos',
-        'Declaración de Beneficio de Seguro Social',
-        'Declaración Veteranos',
-        'Declaración Retiro/Pensión',
-        'Declaración Desempleo/Seguro del Estado',
-        'Divorcio/Pensión Alimentaria',
-        'Otros'
-      ]
+      subDocuments: []
     },
     {
       name: 'Evidencia de factura',
@@ -106,6 +98,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
   requiredDocuments: string[] = [];
   requiredDocumentSelected: any;
+  requiredDocumentIdSelected: string;
   requiredDocumentsContent: RequiredDocumentContent[] = [];
 
   uploadHasError = false;
@@ -116,12 +109,37 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   uploadHasValidationErrorSize: number;
   uploadHasValidationErrorTypes: string;
 
+  dataAgencyMoneySelection: DataAgencyMoneySelection;
+
+  certificacionIngresoDocuments: string[] = [
+    'Planilla',
+    'Talonario de los últimos tres (3) meses consecutivos',
+    'Declaración de Beneficio de Seguro Social',
+    'Declaración Veteranos',
+    'Declaración Retiro/Pensión',
+    'Declaración Desempleo/Seguro del Estado',
+    'Divorcio/Pensión Alimentaria',
+    'Otros'
+  ];
+
+  certificacionProgramaDocuments: string[] = [
+    'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)',
+    'Ingreso Suplementario de Seguridad (SSI)',
+    'Medicaid',
+    'Asistencia Federal para la Vivienda Pública (FPHA)',
+    'Beneficio de Pensión para Veteranos y Sobrevivientes'
+  ];
+
+  previewUrl: string;
+
+  @ViewChild('inputFiles') inputFiles: ElementRef;
 
   constructor(
     public authenticationService: AuthenticationService,
     public usfServiceService: UsfServiceService,
     public router: Router,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private sanitizer: DomSanitizer
   ) {
     super(authenticationService, usfServiceService, router, fb);
     this.requiredDocuments = this.usfServiceService.getRequiredDocumentData();
@@ -130,6 +148,10 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
 
     this.subDocumentsTypeSelected.push('Seleccionar');
+
+    this.dataAgencyMoneySelection = this.usfServiceService.getDataAgencyMoneySelection();
+
+    this.documents[2].subDocuments = this.dataAgencyMoneySelection.agency === 'Seleccionar' ? this.certificacionIngresoDocuments : this.certificacionProgramaDocuments;
   }
 
   ngOnInit() {
@@ -153,25 +175,13 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     });
   }
 
-  goToPreviewView() {
-    this.previewView = true;
-  }
-
   goToAccountCreation() {
-    if (!this.validateAllDocumentsChargued){
+    if (this.validateAllDocumentsChargued){
       this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
     }
   }
 
-  goToHome() {
-    this.router.navigate(['/home'], { replaceUrl: true });
-  }
-
-  goToRegisterCase() {
-    this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-  }
-
-  chargeDocuments() {
+  continueChargeDocuments() {
     this.previewView = false;
   }
 
@@ -320,6 +330,8 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     console.log('showPreviewFile');
     console.log(id);
 
+    this.requiredDocumentIdSelected = id;
+
     const datos = {
       method: 'RetrieveDocumentMcapi',
       documentTypeID: id,
@@ -336,6 +348,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
       if (!resp.body.HasError) {
         this.previewView = true;
+        this.previewUrl = resp.body.data[0].docPopURL;
         console.log(resp.body.data[0].docPopURL);
       } else {
 
@@ -383,6 +396,29 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   }
 
   validateAllDocumentsChargued() {
-    return this.requiredDocumentsContent.every(item => item.isCharged);
+    return this.requiredDocumentsContent.filter(x => x.name !== 'Otros').every(item => item.isCharged);
+  }
+
+  getSecureUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  getHeightModal() {
+    return (window.innerHeight - (window.innerHeight * 0.27) )+'px';
+  }
+
+  reUploadDocument(){
+    var index = this.requiredDocumentsContent.map(x => x.idToSearch).indexOf(this.requiredDocumentIdSelected);
+    console.log(index);
+    var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name);
+    console.log(index2);
+
+    this.requiredDocumentsContent[index].isCharged = false;
+    this.requiredDocumentSelected = this.requiredDocumentsContent[index].id;
+
+    let el: HTMLElement = this.inputFiles.nativeElement as HTMLElement;
+    el.click();
+
+    this.previewView = false;
   }
 }

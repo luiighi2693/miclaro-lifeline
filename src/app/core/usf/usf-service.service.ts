@@ -38,9 +38,25 @@ export interface DataObjectAddress {
   SUGGESTADDRESS: string;
 }
 
+export interface PeopleData {
+  number: number;
+  money: string;
+}
+
+export interface DataAgencyMoneySelection {
+  agency : string;
+  ldiRestriction: boolean;
+  peopleDataSelectedNumber: number;
+  peopleDataSelected: PeopleData;
+  earningsValidation: boolean;
+  lifelineProgramInscription: boolean;
+  aceptationTerm: boolean;
+}
+
 const validateSSNDataKey = 'validateSSNData';
 const dataObjectAddressKey = 'dataObjectAddress';
 const requiredDocumentsKey = 'requiredDocuments';
+const dataAgencyMoneySelectionKey = 'dataAgencyMoneySelection';
 
 @Injectable()
 export class UsfServiceService {
@@ -108,6 +124,20 @@ export class UsfServiceService {
       sessionStorage.setItem(requiredDocumentsKey, JSON.stringify(requiredDocuments));
     } else {
       sessionStorage.removeItem(requiredDocumentsKey);
+    }
+  }
+
+  public getDataAgencyMoneySelection(): DataAgencyMoneySelection | null {
+    let dataAgencyMoneySelection: DataAgencyMoneySelection;
+    dataAgencyMoneySelection = JSON.parse(sessionStorage.getItem(dataAgencyMoneySelectionKey));
+    return dataAgencyMoneySelection;
+  }
+
+  setDataAgencyMoneySelection(dataAgencyMoneySelection: DataAgencyMoneySelection) {
+    if (dataAgencyMoneySelection) {
+      sessionStorage.setItem(dataAgencyMoneySelectionKey, JSON.stringify(dataAgencyMoneySelection));
+    } else {
+      sessionStorage.removeItem(dataAgencyMoneySelectionKey);
     }
   }
 
