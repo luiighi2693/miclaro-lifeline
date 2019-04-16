@@ -57,6 +57,7 @@ const validateSSNDataKey = 'validateSSNData';
 const dataObjectAddressKey = 'dataObjectAddress';
 const requiredDocumentsKey = 'requiredDocuments';
 const dataAgencyMoneySelectionKey = 'dataAgencyMoneySelection';
+const ssnKey = 'ssn';
 
 @Injectable()
 export class UsfServiceService {
@@ -94,6 +95,20 @@ export class UsfServiceService {
       sessionStorage.setItem(dataObjectAddressKey, JSON.stringify(dataObjectAddress));
     } else {
       sessionStorage.removeItem(dataObjectAddressKey);
+    }
+  }
+
+  public getSnn(): string | null {
+    let ssn: string;
+    ssn = JSON.parse(sessionStorage.getItem(ssnKey));
+    return ssn;
+  }
+
+  public setSsn(ssn?: string) {
+    if (ssn) {
+      sessionStorage.setItem(ssnKey, JSON.stringify(ssn));
+    } else {
+      sessionStorage.removeItem(ssnKey);
     }
   }
 
