@@ -3,6 +3,8 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
+import { UsfServiceService } from '@app/core/usf/usf-service.service';
+import { BaseComponent } from '@app/core/base/BaseComponent';
 
 export interface Model {
   agency: string;
@@ -19,7 +21,7 @@ export interface PeopleData {
   templateUrl: './aceptation-terms.component.html',
   styleUrls: ['./aceptation-terms.component.scss']
 })
-export class AceptationTermsComponent implements OnInit {
+export class AceptationTermsComponent extends BaseComponent implements OnInit {
 
   public agencies = [
     'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)',
@@ -51,7 +53,12 @@ export class AceptationTermsComponent implements OnInit {
     { number: 8, money: '$57,213' }
   ];
 
-  constructor(private authenticationService: AuthenticationService, private router: Router , private fb: FormBuilder) { }
+  constructor(public authenticationService: AuthenticationService,
+              public usfServiceService: UsfServiceService,
+              public router: Router,
+              public fb: FormBuilder) {
+    super(authenticationService, usfServiceService, router, fb);
+  }
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -60,7 +67,7 @@ export class AceptationTermsComponent implements OnInit {
       agency: [
         null,
         Validators.compose([
-          Validators.required
+          // Validators.required
         ])
       ],
       ldiRestriction: [
@@ -76,11 +83,9 @@ export class AceptationTermsComponent implements OnInit {
   }
 
   goToPreviewViewAndFirm() {
-    this.router.navigate(['/universal-service/preview-view-and-firm'], { replaceUrl: true });
-  }
-
-  goToHome() {
-    this.router.navigate(['/home'], { replaceUrl: true });
+    if (this.validateForm()){
+      this.router.navigate(['/universal-service/preview-view-and-firm'], { replaceUrl: true });
+    }
   }
 
   goToAccountCreation() {
@@ -92,29 +97,31 @@ export class AceptationTermsComponent implements OnInit {
   }
 
   validateForm() {
-    if (this.form.valid && this.model.aceptationTerm !== undefined) {
-      if (this.model.agency === 'Seleccionar' &&
-        this.model.peopleDataSelected &&
-        this.model.earningsValidation !== undefined) {
-        return this.model.earningsValidation;
-      }
+    return this.form.valid && this.model.aceptationTerm;
 
-      if (this.model.agency ===
-        'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)' &&
-        this.model.lifelineProgramInscription !== undefined) {
-        return true;
-      }
-
-      if (this.model.agency !== 'Seleccionar' &&
-        this.model.agency !==
-        'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)') {
-        return true;
-      }
-
-      return false;
-    }
-
-    return false;
+    // if (this.form.valid && this.model.aceptationTerm !== undefined) {
+    //   if (this.model.agency === 'Seleccionar' &&
+    //     this.model.peopleDataSelected &&
+    //     this.model.earningsValidation !== undefined) {
+    //     return this.model.earningsValidation;
+    //   }
+    //
+    //   if (this.model.agency ===
+    //     'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)' &&
+    //     this.model.lifelineProgramInscription !== undefined) {
+    //     return true;
+    //   }
+    //
+    //   if (this.model.agency !== 'Seleccionar' &&
+    //     this.model.agency !==
+    //     'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)') {
+    //     return true;
+    //   }
+    //
+    //   return false;
+    // }
+    //
+    // return false;
   }
 
   setAceptationTerms(value: boolean) {
