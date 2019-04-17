@@ -43,7 +43,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   inputControl = '';
   inputControl2 = '';
 
-  public sufixes = ['MR', 'MRS', 'ENG', 'ATTY', 'DR'];
+  public sufixes = ['MR.', 'MRS.', 'ENG.', 'ATTY.', 'DR.'];
   public idTypes = ['Licencia de Conducir', 'Pasaporte'];
 
   model: Model = new class implements Model {
@@ -121,6 +121,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       this.processValidationSIF = true;
       const datos = {
         method: 'validareSSNAdMcapi',
+        CUSTOMER_SUFFIX: this.model.sufix,
         USER_ID: this.authenticationService.credentials.userid.toString(),
         CUSTOMER_NAME: this.model.firstName,
         CUSTOMER_MN: this.model.secondName,
