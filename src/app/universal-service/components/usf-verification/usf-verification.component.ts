@@ -149,7 +149,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
       const fecha_ = {
         d: String(dia),
         m: String(mes),
-        y: String(new Date().getFullYear())
+        y: String(new Date().getFullYear() - 21)
       };
       $('#inputControl3').datepicker({
         dateFormat: 'mm/dd/yy',
