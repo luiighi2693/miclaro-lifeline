@@ -303,7 +303,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
     // ya que tiene el formato XXX-XX-XXXX  de 11 caracteres serian 9 digitos
     // parseInt( this.valueSSN ) > 99999999 [USADO PARA VALIDAR Y CUMPLIR LA CONDICION QUE SEA NUERICO Y DE 9 DIGITOS ]
     // tslint:disable-next-line:radix
-    if (input.length === 11 && parseInt(this.valueSSN) > 99999999) {
+    if (input !== undefined && input.length === 11 && parseInt(this.valueSSN) > 99999999) {
       this.invalidSSN = false;
       this.checkSSN = true;
       console.log(this.valueSSN);
