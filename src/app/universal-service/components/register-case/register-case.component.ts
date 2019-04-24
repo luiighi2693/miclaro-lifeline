@@ -79,7 +79,23 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
     window.scroll(0, 0);
   }
   evaluaCountPeoplesCustom() {
-    return 'to Evaluate' + this.countPeoplesCustom;
+    let valorNum: any = new Number(this.countPeoplesCustom);
+    let valorMonto: any = 16389;
+
+    let acuTemp: any = valorMonto + 8 * 5832;
+
+    if (valorNum > 1 && valorNum < 9) {
+      valorMonto = valorMonto + (valorNum - 1) * 5832;
+    } else if (valorNum > 8) {
+      // valorMonto = valorMonto + (( valorNum-1 ) * 5967);
+      if (valorNum > 9) {
+        valorMonto = acuTemp + (valorNum - 9) * 5967;
+      } else {
+        valorMonto = acuTemp + 1 * 5967;
+      }
+    }
+
+    return '$' + valorMonto;
   }
 
   goToUsfVerification() {
