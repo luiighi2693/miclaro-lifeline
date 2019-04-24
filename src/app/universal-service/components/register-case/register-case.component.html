@@ -8,69 +8,54 @@
           <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Registro de Solicitud
         </div>
 
-        <div class="basicrow m-top-i m-bott text-center">
-          <app-steplife></app-steplife>
-        </div>
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
 
         <div class="basicrow text-center">
           <div class="shortcont">
             <div class="basicrow">
               <div class="basicrow text-center">
-                <div class="rdtitles">
-                  <span class="roboto-b">&#161;Gracias</span> por tu solicitud&#33;
-                </div>
+                <div class="rdtitles"><span class="roboto-b">&#161;Gracias</span> por tu solicitud&#33;</div>
               </div>
 
               <div class="greenmsg m-top-i">
                 <i class="fa fa-check-circle" aria-hidden="true"></i>
 
-                Hemos registrado tu Solicitud Servicio Universal con <span class="roboto-b">N&uacute;mero de Caso: {{dataObjectAddress[0].CASENUMBER}}</span>
+                Hemos registrado tu Solicitud Servicio Universal con
+                <span class="roboto-b">N&uacute;mero de Caso: {{ dataObjectAddress[0].CASENUMBER }}</span>
               </div>
 
               <div class="userinfo full">
-                <div class="basicrow f-black roboto-b f-bmed">
-                  Resumen de Registro
-                </div>
+                <div class="basicrow f-black roboto-b f-bmed">Resumen de Registro</div>
 
                 <div class="redstat m-top">
-                  <div class="autorow roboto-r pull-left">
-                    Nombre
-                  </div>
+                  <div class="autorow roboto-r pull-left">Nombre</div>
 
                   <div class="autorow roboto-b pull-right">
-                    {{dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME}}
+                    {{ dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME }}
                   </div>
                 </div>
 
                 <div class="redstat m-top-ii">
-                  <div class="autorow roboto-r pull-left">
-                    SSN
-                  </div>
+                  <div class="autorow roboto-r pull-left">SSN</div>
 
                   <div class="autorow roboto-b pull-right">
-                    &#42;&#42;&#42;&#42;&#42;&#42;{{dataObjectAddress[0].SSN}}
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ dataObjectAddress[0].SSN }}
                   </div>
                 </div>
 
                 <div class="redstat m-top-ii">
-                  <div class="autorow roboto-r pull-left">
-                    Fecha de Nacimiento
-                  </div>
+                  <div class="autorow roboto-r pull-left">Fecha de Nacimiento</div>
 
                   <div class="autorow roboto-b pull-right">
-                    <!--01/01/1991-->
-                    {{getFormatDateCustom(dataObjectAddress[0].DOB)}}
+                    <!-- 01/01/1991 -->
+                    {{ getFormatDateCustom(dataObjectAddress[0].DOB) }}
                   </div>
                 </div>
 
                 <div class="redstat m-top-ii">
-                  <div class="basicrow roboto-r">
-                    Direcci&oacute;n
-                  </div>
+                  <div class="basicrow roboto-r">Direcci&oacute;n</div>
 
-                  <div class="basicrow roboto-b m-top-ii">
-                    {{dataObjectAddress[0].CUSTOMERADDRESS}}
-                  </div>
+                  <div class="basicrow roboto-b m-top-ii">{{ dataObjectAddress[0].CUSTOMERADDRESS }}</div>
                 </div>
               </div>
 
@@ -79,17 +64,33 @@
                   <label class="label-f">&#42; Listado de Agencias</label>
 
                   <div class="basicrow rel">
-                    <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">
+                    <img
+                      data-toggle="popover"
+                      data-html="true"
+                      data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                      data-placement="bottom"
+                      width="100%"
+                      class="q-t-i"
+                      src="../../../../assets/images/tooltip1.png"
+                    />
 
                     <select class="sel-f qt" name="agency" [(ngModel)]="model.agency">
                       <option [value]="'Seleccionar'" selected>Seleccionar</option>
-                      <option [value]="agency" [disabled]="agency === 'Ingreso Suplementario de Seguridad (SSI)'" *ngFor="let agency of agencies">{{agency}}</option>
+                      <option
+                        [value]="agency"
+                        [disabled]="agency === 'Ingreso Suplementario de Seguridad (SSI)'"
+                        *ngFor="let agency of agencies"
+                        >{{ agency }}</option
+                      >
                     </select>
                   </div>
                 </div>
               </div>
 
-              <div class="basicrow f-bmed f-black roboto-b m-top-i" *ngIf="model.agency === 'Ingreso Suplementario de Seguridad (SSI)'">
+              <div
+                class="basicrow f-bmed f-black roboto-b m-top-i"
+                *ngIf="model.agency === 'Ingreso Suplementario de Seguridad (SSI)'"
+              >
                 Califica a trav&eacute;s de tus ingresos
               </div>
 
@@ -97,15 +98,47 @@
                 <div class="row">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="basicrow m-top">
-                      <label class="label-f">&#42; &#191;Incluy&eacute;ndote a ti, &#191;Cu&aacute;ntas personas viven en tu hogar&#63;</label>
+                      <label class="label-f"
+                        >&#42; &#191;Incluy&eacute;ndote a ti, &#191;Cu&aacute;ntas personas viven en tu
+                        hogar&#63;</label
+                      >
 
                       <div class="basicrow rel">
-                        <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">
+                        <img
+                          data-toggle="popover"
+                          data-html="true"
+                          data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                          data-placement="bottom"
+                          width="100%"
+                          class="q-t-i"
+                          src="../../../../assets/images/tooltip1.png"
+                        />
 
-                        <select class="sel-f qt" name="peopleDataSelected" [(ngModel)]="model.peopleDataSelectedNumber" (ngModelChange)="onChangeSelect($event)">
-                          <option [value]="peopleDataSelected.number" *ngFor="let peopleDataSelected of homePeopleData">{{peopleDataSelected.number}}</option>
+                        <select
+                          class="sel-f qt"
+                          name="peopleDataSelected"
+                          [(ngModel)]="model.peopleDataSelectedNumber"
+                          (ngModelChange)="onChangeSelect($event)"
+                        >
+                          <option
+                            [value]="peopleDataSelected.number"
+                            *ngFor="let peopleDataSelected of homePeopleData"
+                            >{{ peopleDataSelected.number }}</option
+                          >
                         </select>
                       </div>
+
+                      <div class="basicrow">
+                        <input
+                          type="number"
+                          min="1"
+                          max="30"
+                          required="required"
+                          [(ngModel)]="countPeoplesCustom"
+                          class="inp-f"
+                        />
+                      </div>
+                      <div class="basicrow"><label class="label-f"></label></div>
                     </div>
                   </div>
 
@@ -116,18 +149,38 @@
 
                         <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                           <div class="autorow pull-left m-right m-top-u-ii roboto-b">
-                            {{model.peopleDataSelected.money}}
+                            {{ model.peopleDataSelected.money }}
                           </div>
 
                           <div class="popopt">
-                            <input type="radio" name="earningsValidation" [value]="true" [(ngModel)]="model.earningsValidation"> Si
+                            <input
+                              type="radio"
+                              name="earningsValidation"
+                              [value]="true"
+                              [(ngModel)]="model.earningsValidation"
+                            />
+                            Si
                           </div>
 
                           <div class="popopt">
-                            <input type="radio" name="earningsValidation" [value]="false" [(ngModel)]="model.earningsValidation"> No
+                            <input
+                              type="radio"
+                              name="earningsValidation"
+                              [value]="false"
+                              [(ngModel)]="model.earningsValidation"
+                            />
+                            No
                           </div>
 
-                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-stat pull-right" src="../../../../assets/images/tooltip1.png">
+                          <img
+                            data-toggle="popover"
+                            data-html="true"
+                            data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                            data-placement="bottom"
+                            width="100%"
+                            class="q-t-stat pull-right"
+                            src="../../../../assets/images/tooltip1.png"
+                          />
                         </div>
                       </div>
                     </div>
@@ -135,20 +188,42 @@
                 </div>
               </div>
 
-              <div class="basicrow m-top-i" *ngIf="model.agency === 'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)'">
-                <label class="label-b">&#42; Inscripci&oacute;n autom&aacute;tica para los participantes del PAN (Programa de Asistencia Nutricional)</label>
+              <div
+                class="basicrow m-top-i"
+                *ngIf="
+                  model.agency ===
+                  'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)'
+                "
+              >
+                <label class="label-b"
+                  >&#42; Inscripci&oacute;n autom&aacute;tica para los participantes del PAN (Programa de Asistencia
+                  Nutricional)</label
+                >
 
                 <div class="basicrow m-top-ii roboto-r f-reg">
-                  Solicito se me inscriba en el Programa Lifeline de Claro mediante el proceso de inscripci&oacute;n autom&aacute;tica.
+                  Solicito se me inscriba en el Programa Lifeline de Claro mediante el proceso de inscripci&oacute;n
+                  autom&aacute;tica.
                 </div>
 
                 <div class="basicrow m-top f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="lifelineProgramInscription" [value]="true" [(ngModel)]="model.lifelineProgramInscription"> Si
+                    <input
+                      type="radio"
+                      name="lifelineProgramInscription"
+                      [value]="true"
+                      [(ngModel)]="model.lifelineProgramInscription"
+                    />
+                    Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="lifelineProgramInscription" [value]="false" [(ngModel)]="model.lifelineProgramInscription"> No
+                    <input
+                      type="radio"
+                      name="lifelineProgramInscription"
+                      [value]="false"
+                      [(ngModel)]="model.lifelineProgramInscription"
+                    />
+                    No
                   </div>
                 </div>
               </div>
@@ -156,7 +231,13 @@
               <div class="basicrow m-top-u">
                 <div class="optchoice roboto-r text-left">
                   <div class="checkdef">
-                    <input type="checkbox" name="radioG1" id="radioG1" class="css-radio" [(ngModel)]="dependPeopleFlag" /><label for="radioG1" class="css-label3 radGroup1"></label>
+                    <input
+                      type="checkbox"
+                      name="radioG1"
+                      id="radioG1"
+                      class="css-radio"
+                      [(ngModel)]="dependPeopleFlag"
+                    /><label for="radioG1" class="css-label3 radGroup1"></label>
                   </div>
 
                   <div class="basicrow f-med roboto-b">
@@ -168,15 +249,15 @@
               <div class="basicrow">
                 <div class="basicrow text-center m-top-i">
                   <a (click)="goToUsfVerification()" class="btns def-i red pull-right vcenter">
-												<span class="tabcell">
-													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
-												</span>
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
                   </a>
 
                   <a (click)="goToAddressDate()" class="btns def-i gray pull-left vcenter">
-												<span class="tabcell">
-													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
-												</span>
+                    <span class="tabcell">
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                    </span>
                   </a>
                 </div>
               </div>

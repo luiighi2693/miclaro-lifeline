@@ -164,7 +164,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
   public formatInput(input: string, format: string) {
     // Almacenando valor real en variable temporal
-    if (input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
+    if (input !== undefined && input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
       // console.log(input.substr(input.length - 1, 1));
       this.valueSSN += String(input.substr(input.length - 1, 1));
     } else {
@@ -334,15 +334,43 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         y: String(new Date().getFullYear())
       };
 
-      $('#inputControl').datepicker({
-        dateFormat: 'mm/dd/yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-100:-18',
-        maxDate: '-18y',
-        minDate: '-100y',
-        defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y
-      });
+      $('#inputControl')
+        .datepicker({
+          dateFormat: 'mm/dd/yy',
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '-100:-21',
+          maxDate: '-21',
+          minDate: '-100y',
+          defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y,
+          onSelect: function(dateText: any) {
+            console.log(dateText + ' *onSelect');
+          },
+          onChangeMonthYear: function(year: any, month: any, datepicker: any) {
+            // #CAMBIO APLICADO y Necesario ya que al seleccionar el mes y cambiar el a#o en los selects
+            // # no Cambiaba el valor del input  Ahora si se esta aplocando el cambio
+            console.log('onChangeMonthYear');
+            if ($('#inputControl').val().length === 10) {
+              console.log('to :' + month + ' ' + $('#inputControl').val().sub + ' ' + year);
+
+              let new_date = new Date(
+                month +
+                  '/' +
+                  $('#inputControl')
+                    .val()
+                    .substr(3, 2) +
+                  '/' +
+                  year
+              );
+
+              $('#inputControl').datepicker('setDate', new_date);
+            }
+          }
+        })
+        .on('change', function(evtChange: any) {
+          console.log(evtChange);
+          console.log('Change event');
+        });
 
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
@@ -380,10 +408,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-100:-18',
-        maxDate: '-18y',
+        yearRange: '-100:-21',
+        maxDate: '-21',
         minDate: '-100y',
-        defaultDate: '-18y'
+        defaultDate: '-21'
       });
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
@@ -436,9 +464,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       // tslint:disable-next-line:radix
       const year: number = parseInt(inputValue.substr(-4, 4));
       // tslint:disable-next-line:radix
-      if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear()) {
+      if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 21)).getFullYear()) {
         console.log(
-          'y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear()
+          'y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 21)).getFullYear()
         );
         this.valueBirthday = '';
         this.model.birthday = '';
@@ -457,7 +485,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           dp1.options.remove(1);
         }
         document.getElementsByClassName('ui-datepicker-year')[0].innerHTML = '';
-        for (let c = new Date().getFullYear() - 18; c > new Date().getFullYear() - 100; c--) {
+        for (let c = new Date().getFullYear() - 21; c > new Date().getFullYear() - 100; c--) {
           const opt = document.createElement('option');
           opt.value = '' + c;
           opt.innerHTML = '' + c;
@@ -527,9 +555,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     ) {
       // tslint:disable-next-line:radix
       const year: number = parseInt(this.inputControl.substr(-4, 4));
-      console.log('y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear());
+      console.log('y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 21)).getFullYear());
       // tslint:disable-next-line:radix
-      if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getFullYear()) {
+      if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 21)).getFullYear()) {
         this.valueBirthday = '';
         this.model.birthday = '';
         this.inputControl = '';

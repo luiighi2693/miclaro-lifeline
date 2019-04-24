@@ -27,9 +27,10 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
     'Ingreso Suplementario de Seguridad (SSI)',
     'Medicaid',
     'Asistencia Federal para la Vivienda Pública (FPHA)',
-    'Beneficio de Pensión para Veteranos y Sobrevivientes'];
+    'Beneficio de Pensión para Veteranos y Sobrevivientes'
+  ];
 
-  homePeopleData: PeopleData [] = [
+  homePeopleData: PeopleData[] = [
     { number: 1, money: '$16,389' },
     { number: 2, money: '$22,221' },
     { number: 3, money: '$28,053' },
@@ -37,10 +38,17 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
     { number: 5, money: '$39,717' },
     { number: 6, money: '$45,549' },
     { number: 7, money: '$51,381' },
-    { number: 8, money: '$57,213' }
+    { number: 8, money: '$57,213' },
+    { number: 9, money: '$63,180' },
+    { number: 10, money: '$69,147' },
+    { number: 11, money: '$75,114' },
+    { number: 12, money: '$81,081' },
+    { number: 13, money: '$87,048' },
+    { number: 14, money: '$93,015' },
+    { number: 15, money: '$98,982' }
   ];
 
-  model: DataAgencyMoneySelection ={
+  model: DataAgencyMoneySelection = {
     agency: 'Seleccionar',
     ldiRestriction: false,
     peopleDataSelectedNumber: null,
@@ -50,7 +58,13 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
     aceptationTerm: false
   };
 
-  constructor(public authenticationService: AuthenticationService, public router: Router, public usfServiceService: UsfServiceService) {
+  countPeoplesCustom = 1;
+
+  constructor(
+    public authenticationService: AuthenticationService,
+    public router: Router,
+    public usfServiceService: UsfServiceService
+  ) {
     super(authenticationService, usfServiceService, router, null);
     this.dataObjectAddress = this.usfServiceService.getDataObjectAddress();
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
@@ -63,6 +77,9 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0, 0);
+  }
+  evaluaCountPeoplesCustom() {
+    return 'to Evaluate' + this.countPeoplesCustom;
   }
 
   goToUsfVerification() {
@@ -91,15 +108,9 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
         if (!resp.body.HasError) {
           this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
         } else {
-          alertify.alert(
-            'Aviso',
-            resp.body.ErrorDesc,
-            function() {
-            }
-          );
+          alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
         }
       });
-
     } else {
       this.router.navigate(['/universal-service/usf-verification'], { replaceUrl: true });
     }
