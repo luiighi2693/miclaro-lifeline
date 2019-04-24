@@ -31,21 +31,21 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   ];
 
   homePeopleData: PeopleData[] = [
-    { number: 1, money: '$16,389' },
-    { number: 2, money: '$22,221' },
-    { number: 3, money: '$28,053' },
-    { number: 4, money: '$33,885' },
-    { number: 5, money: '$39,717' },
-    { number: 6, money: '$45,549' },
-    { number: 7, money: '$51,381' },
-    { number: 8, money: '$57,213' },
-    { number: 9, money: '$63,180' },
-    { number: 10, money: '$69,147' },
-    { number: 11, money: '$75,114' },
-    { number: 12, money: '$81,081' },
-    { number: 13, money: '$87,048' },
-    { number: 14, money: '$93,015' },
-    { number: 15, money: '$98,982' }
+    { number: 1, money: '$16,862' },
+    { number: 2, money: '$22,829' },
+    { number: 3, money: '$28,796' },
+    { number: 4, money: '$34,763' },
+    { number: 5, money: '$40,730' },
+    { number: 6, money: '$46,697' },
+    { number: 7, money: '$52,664' },
+    { number: 8, money: '$58,631' },
+    { number: 9, money: '$64,598' },
+    { number: 10, money: '$70,565' },
+    { number: 11, money: '$76,532' },
+    { number: 12, money: '$82,499' },
+    { number: 13, money: '$88,466' },
+    { number: 14, money: '$94,433' },
+    { number: 15, money: '$100,400' }
   ];
 
   model: DataAgencyMoneySelection = {
@@ -80,18 +80,20 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   }
   evaluaCountPeoplesCustom() {
     let valorNum: any = new Number(this.countPeoplesCustom);
-    let valorMonto: any = 16389;
+    let valorMonto: any = 16862;
 
-    let acuTemp: any = valorMonto + 8 * 5832;
+    // let acuTemp: any = valorMonto + 8 * 5832;
+    let acuTemp: any = valorMonto + 8 * 5967;
 
     if (valorNum > 1 && valorNum < 9) {
-      valorMonto = valorMonto + (valorNum - 1) * 5832;
+      // valorMonto = valorMonto + (valorNum - 1) * 5832;
+      valorMonto = valorMonto + (valorNum - 1) * 5967;
     } else if (valorNum > 8) {
       // valorMonto = valorMonto + (( valorNum-1 ) * 5967);
       if (valorNum > 9) {
         valorMonto = acuTemp + (valorNum - 9) * 5967;
       } else {
-        valorMonto = acuTemp + 1 * 5967;
+        valorMonto = acuTemp + 5967;
       }
     }
 
