@@ -284,7 +284,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
 
   public formatInput(input: string, format: string) {
     // Almacenando valor real en variable temporal
-    if (input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
+    if (input !== undefined && input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
       // console.log(input.substr(input.length - 1, 1));
       this.valueSSN += String(input.substr(input.length - 1, 1));
     } else {
