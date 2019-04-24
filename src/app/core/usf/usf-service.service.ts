@@ -176,4 +176,11 @@ export class UsfServiceService {
     // });
     return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
+
+  createNewAccount(data: any): Observable<any> {
+    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/CREATENEWACCOUNT.MCAPI', data, {
+    //   observe: 'response'
+    // });
+    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+  }
 }

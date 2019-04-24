@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Net.Http;
 //using System.Net.Http.Headers;
 using System.Net;
+using Claro.Models;
 
 
 public partial class proccess_procesos2 : System.Web.UI.Page
@@ -20,6 +21,7 @@ public partial class proccess_procesos2 : System.Web.UI.Page
 
     // intarcia Serializado
     System.Web.Script.Serialization.JavaScriptSerializer json = new System.Web.Script.Serialization.JavaScriptSerializer();
+    
     string wspathUSF = "http://wslife00042ws.claroinfo.com/Service/svc/1/";
     
 
@@ -127,6 +129,10 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         {
             ChangeStatusDocumentMcapi(jo);
         }
+		else if (ejecutar == "CreateNewAccountMcapi")
+        {
+            CreateNewAccountMcapi(jo);
+        }
         else
         {
             // Response.Redirect("../error_404.html");
@@ -154,6 +160,7 @@ public partial class proccess_procesos2 : System.Web.UI.Page
     public void validareSSNAdMcapi(JObject jo)
     {
         string USER_ID = jo["USER_ID"].ToString();
+		string CUSTOMER_SUFFIX = jo["CUSTOMER_SUFFIX"].ToString();
         string CUSTOMER_NAME = jo["CUSTOMER_NAME"].ToString();
         string CUSTOMER_MN = jo["CUSTOMER_MN"].ToString();
         string CUSTOMER_LAST = jo["CUSTOMER_LAST"].ToString();
@@ -164,7 +171,7 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         string ID_NUMBER = jo["ID_NUMBER"].ToString();
         string DTS_EXP = jo["DTS_EXP"].ToString();
        
-		string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\"}";
+		string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_SUFFIX\":\"" + CUSTOMER_SUFFIX + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\"}";
         string PostURL = wspathUSF + "VALIDATE_SSN.MCAPI";
        
         object resp = ToJson(PostWebService(PostURL, PostData));
@@ -290,23 +297,49 @@ public partial class proccess_procesos2 : System.Web.UI.Page
     }
 
 
+    //public void UpdloadDocumentMcapi(JObject jo)
+    //{
+    //    string documentTypeID = jo["documentTypeID"].ToString();
+    //    string user_Id = jo["user_Id"].ToString();
+    //    string case_number = jo["case_number"].ToString();
+    //    string content = jo["content"].ToString();
+    //    string fileType = jo["fileType"].ToString();
+
+    //    string PostData = "{\"documentTypeID\":\"" + documentTypeID + "\",\"user_Id\":\"" + user_Id + "\",\"case_number\":\"" + case_number + "\",\"content\":\"" + content + "\",\"fileType\":\"" + fileType + "\"}";
+    //    string PostURL = wspathUSF + "UpdloadDocument.MCAPI";
+
+    //    object resp = ToJson(PostWebService(PostURL, PostData));
+
+
+
+    //    Response.Clear();
+    //    Response.ContentType = "application/json; charset=utf-8";
+    //    Response.Write(json.Serialize(resp));
+    //    Response.End();
+    //}
+
+
     public void UpdloadDocumentMcapi(JObject jo)
     {
-        string documentTypeID = jo["documentTypeID"].ToString();
-        string user_Id = jo["user_Id"].ToString();
-        string case_number = jo["case_number"].ToString();
-        string content = jo["content"].ToString();
+
+        int documentTypeID = Convert.ToInt32(jo["documentTypeID"].ToString());
+        int user_Id = Convert.ToInt32(jo["user_Id"].ToString());
+        int case_number = Convert.ToInt32(jo["case_number"].ToString());
+        string content =jo["content"].ToString();
         string fileType = jo["fileType"].ToString();
 
-        string PostData = "{\"documentTypeID\":\"" + documentTypeID + "\",\"user_Id\":\"" + user_Id + "\",\"case_number\":\"" + case_number + "\",\"content\":\"" + content + "\",\"fileType\":\"" + fileType + "\"}";
-        string PostURL = wspathUSF + "UpdloadDocument.MCAPI";
+        string PostData = "'" + documentTypeID + "','" + user_Id + "','" + case_number +"','" + content + "','" + fileType + "'";
+        
+        wsUSF.Clases.ClsUploadDocument objRespo = new wsUSF.Clases.ClsUploadDocument();
+        wsUSF.Clases.ClsUploadbefore objResponse = new wsUSF.Clases.ClsUploadbefore();
+        object objResp = objResponse.UploadDocumentbefore(documentTypeID, user_Id, case_number, content, fileType);
 
-        object resp = ToJson(PostWebService(PostURL, PostData));
 
         Response.Clear();
         Response.ContentType = "application/json; charset=utf-8";
-        Response.Write(json.Serialize(resp));
+        Response.Write(json.Serialize(objResp));
         Response.End();
+
     }
 
     public void RetrieveDocumentMcapi(JObject jo)
@@ -361,6 +394,32 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         Response.Write(json.Serialize(resp));
         Response.End();
     }
+	
+	public void CreateNewAccountMcapi(JObject jo)
+    {
+        string mAccountType = jo["mAccountType"].ToString();
+        string mAccountSubType = jo["mAccountSubType"].ToString();
+        string UserID = jo["UserID"].ToString();
+		string caseID = jo["caseID"].ToString();
+		string customer_ssn = jo["customer_ssn"].ToString();
+		string SIMSerial = jo["SIMSerial"].ToString();
+		string IMEISerial = jo["IMEISerial"].ToString();
+		string tech = jo["tech"].ToString();
+		string mSocCode = jo["mSocCode"].ToString();
+		
+		          
+
+
+        string PostData = "{\"mAccountType\":\"" + mAccountType + "\",\"mAccountSubType\":\"" + mAccountSubType + "\",\"UserID\":\"" + UserID + "\",\"caseID\":\"" + caseID + "\",\"customer_ssn\":\"" + customer_ssn + "\",\"SIMSerial\":\"" + SIMSerial + "\",\"IMEISerial\":\"" + IMEISerial + "\",\"tech\":\"" + tech + "\",\"mSocCode\":\"" + mSocCode + "\"}";
+        string PostURL = wspathUSF + "CREATENEWACCOUNT.MCAPI";
+
+        object resp = ToJson(PostWebService(PostURL, PostData));
+
+        Response.Clear();
+        Response.ContentType = "application/json; charset=utf-8";
+        Response.Write(json.Serialize(resp));
+        Response.End();
+    }
 
 
     public string encriptar128(string pass)
@@ -389,6 +448,24 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         return a;
     }
 
+    private string getWebService(string url)
+    {
+        string text = "";
+
+        HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+        httpWebRequest.Method = WebRequestMethods.Http.Get;
+        httpWebRequest.Accept = "application/json";
+
+        var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+        using (var sr = new StreamReader(response.GetResponseStream()))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        return text;
+    }
+
     private string PostWebService(string url, string json)
     {
 		string response = "";
@@ -411,6 +488,30 @@ public partial class proccess_procesos2 : System.Web.UI.Page
             }
         }
 		return response;
+    }
+
+    private string PostWebServiceUpd(string url, string html)
+    {
+        string response = "";
+        if (url.ToLower().StartsWith("https"))
+        {
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; //TLS 1.2
+        }
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+        httpWebRequest.ContentType = "text/html";
+        httpWebRequest.Method = "POST";
+        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        {
+            streamWriter.Write(html);
+            streamWriter.Flush();
+            streamWriter.Close();
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                response = streamReader.ReadToEnd();
+            }
+        }
+        return response;
     }
 
 
