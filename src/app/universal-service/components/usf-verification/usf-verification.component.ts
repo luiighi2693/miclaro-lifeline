@@ -295,7 +295,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
     }
 
     // tslint:disable-next-line:radix
-    if (input.length === 11 && parseInt(this.valueSSN) > 99999999 === false) {
+    if (input !== undefined && input.length === 11 && parseInt(this.valueSSN) > 99999999 === false) {
       this.invalidSSN = true;
     }
 
