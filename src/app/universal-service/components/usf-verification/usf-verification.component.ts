@@ -161,6 +161,26 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y,
         onSelect: function(dateText: any) {
           console.log(dateText + ' *onSelect');
+        },
+        onChangeMonthYear: function(year: any, month: any, datepicker: any) {
+          // #CAMBIO APLICADO y Necesario ya que al seleccionar el mes y cambiar el a#o en los selects
+          // # no Cambiaba el valor del input  Ahora si se esta aplocando el cambio
+          console.log('onChangeMonthYear');
+          if ($('#inputControl3').val().length === 10) {
+            console.log('to :' + month + ' ' + $('#inputControl3').val().sub + ' ' + year);
+
+            let new_date = new Date(
+              month +
+                '/' +
+                $('#inputControl3')
+                  .val()
+                  .substr(3, 2) +
+                '/' +
+                year
+            );
+
+            $('#inputControl3').datepicker('setDate', new_date);
+          }
         }
       });
       this.datePicker_is_init = true;
@@ -200,6 +220,24 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
       const inputValue: string = inputElement.value;
       this.model.birthday = inputValue;
       console.log('#blur :' + inputValue);
+
+      /* IN TEST falta flag
+         if (inputValue.length === 10) {
+              console.log('to :' + inputValue);
+
+              let new_date = new Date(
+                inputValue
+                    .substr(0, 2) +
+                  '/' +
+                  inputValue
+                    .substr(3, 2) +
+                  '/' +
+                  inputValue
+                    .substr(6, 6)
+              );
+
+              $('#inputControl3').datepicker('setDate', new_date);
+         }*/
     }, 200);
   }
 
