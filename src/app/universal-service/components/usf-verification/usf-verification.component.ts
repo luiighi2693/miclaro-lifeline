@@ -311,7 +311,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
 
     if (format === this.format2) {
       console.log(input);
-      if (input.length === 4) {
+      if (input !== undefined && input.length === 4) {
         if (input[input.length - 1] === '-') {
           return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
         } else {
@@ -319,7 +319,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         }
       }
 
-      if (input.length === 7) {
+      if (input !== undefined && input.length === 7) {
         console.log(input);
         if (input[input.length - 1] === '-') {
           return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
@@ -328,7 +328,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         }
       }
 
-      if (input.length > 7) {
+      if (input !== undefined && input.length > 7) {
         return input;
       } else {
         return input;
