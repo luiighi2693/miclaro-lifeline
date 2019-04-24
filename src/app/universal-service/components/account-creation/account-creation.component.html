@@ -102,12 +102,13 @@
                             type="text"
                             maxlength="17"
                             class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
                             [(ngModel)]="model.imei"
                             [formControl]="form.controls['imei']"
                           />
-                          <small class="text-danger" translate>
-                            El IMEI o SIM CARD ingresados no se encuentran registrados en nuestros inventarios. Por favor, verifique e intente nuevamente.
-                          </small>
+                          <!--<small class="text-danger" translate>-->
+                            <!--El IMEI o SIM CARD ingresados no se encuentran registrados en nuestros inventarios. Por favor, verifique e intente nuevamente.-->
+                          <!--</small>-->
                         </div>
                       </div>
                     </div>
@@ -121,6 +122,7 @@
                             type="text"
                             maxlength="20"
                             class="inp-f"
+                            (keypress)="checkNumbersOnly($event)"
                             [(ngModel)]="model.simCard"
                             [formControl]="form.controls['simCard']"
                           />
@@ -199,7 +201,7 @@
                     </span>
                   </a>
 
-                  <a (click)="goToDocumentDigitalization()" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
                     <span class="tabcell">
                       <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
                     </span>

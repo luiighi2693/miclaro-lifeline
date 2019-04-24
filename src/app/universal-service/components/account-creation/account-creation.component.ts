@@ -3,6 +3,10 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
+import { BaseComponent } from '@app/core/base/BaseComponent';
+import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+
+declare let alertify: any;
 
 export interface Model {
   accountType: string;
@@ -22,7 +26,7 @@ export interface Plan {
   templateUrl: './account-creation.component.html',
   styleUrls: ['./account-creation.component.scss']
 })
-export class AccountCreationComponent implements OnInit {
+export class AccountCreationComponent extends BaseComponent implements OnInit {
   processValidationSIF = false;
 
   public accountTypes = ['Prepago Móvil'];
@@ -66,7 +70,17 @@ export class AccountCreationComponent implements OnInit {
 
   public checkImeiValidated = false;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) {}
+  validateSSNData: ValidateSSNData;
+
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
+    super(authenticationService, usfServiceService, router, fb);
+    this.validateSSNData = this.usfServiceService.getValidateSSNData();
+  }
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -84,14 +98,37 @@ export class AccountCreationComponent implements OnInit {
     if (this.form.valid && this.checkImeiValidated) {
       this.processValidationSIF = true;
 
-      setTimeout(() => {
-        this.router.navigate(['/universal-service/aceptation-terms'], { replaceUrl: true });
-      }, 3000);
-    }
-  }
+      const datos = {
+        method: 'CreateNewAccountMcapi',
+        user_ID: this.authenticationService.credentials.userid,
+        case_ID: this.validateSSNData.CASENUMBER,
+        mAccountType: "I",
+        mAccountSubType: "P",
+        customer_ssn: this.usfServiceService.getSnn(),
+        SIMSerial: this.model.simCard,
+        IMEISerial: this.model.imei,
+        tech: this.model.tecnology,
+        mSocCode: this.planSelected.plan,
+      };
 
-  goToHome() {
-    this.router.navigate(['/home'], { replaceUrl: true });
+      console.log(datos);
+
+      this.usfServiceService.createNewAccount(datos).subscribe(resp => {
+        this.processValidationSIF = false;
+
+        if (!resp.body.HasError) {
+          this.router.navigate(['/universal-service/aceptation-terms'], { replaceUrl: true });
+        } else {
+          alertify.alert(
+            'Aviso',
+            // tslint:disable-next-line:max-line-length
+            'Error intentando crear la cuenta',
+            function() {
+            }
+          );
+        }
+      });
+    }
   }
 
   goToDocumentDigitalization() {
