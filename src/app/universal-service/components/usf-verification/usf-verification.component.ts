@@ -106,12 +106,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         if (!resp.body.HasError) {
           this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
         } else {
-          alertify.alert(
-            'Aviso',
-            resp.body.ErrorDesc,
-            function() {
-            }
-          );
+          alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
         }
       });
     }
@@ -139,13 +134,34 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
   // tslint:disable-next-line:member-ordering
   public activarDatepickerFechaN() {
     if (this.datePicker_is_init === false) {
+      // tslint:disable-next-line:prefer-const
+      let dia = String(new Date().getDate());
+      // tslint:disable-next-line:radix
+      if (parseInt(dia) < 10) {
+        dia = '0' + dia;
+      }
+      // tslint:disable-next-line:prefer-const
+      let mes = String(new Date().getMonth());
+      // tslint:disable-next-line:radix
+      if (parseInt(mes) < 10) {
+        mes = '0' + mes;
+      }
+      const fecha_ = {
+        d: String(dia),
+        m: String(mes),
+        y: String(new Date().getFullYear())
+      };
       $('#inputControl3').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '-100:-18',
-        defaultDate: '-18y',
-        minDate: '-18y'
+        yearRange: '-100:-21',
+        maxDate: '-21',
+        minDate: '-100y',
+        defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y,
+        onSelect: function(dateText: any) {
+          console.log(dateText + ' *onSelect');
+        }
       });
       this.datePicker_is_init = true;
     }
