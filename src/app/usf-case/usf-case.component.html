@@ -25,8 +25,8 @@
             <span class="f-gray-ii roboto-b">Enero 01, 2018 - Enero 23 2018</span>
           </div>
 
-          <select class="sel-f-i def-ii m-left">
-            <option>Estatus</option>
+          <select class="sel-f-i def-ii m-left" style="width:150px;">
+            <option *ngFor="let opt of status; let i = index">{{ opt }}</option>
           </select>
 
           <a href="#" class="btns def-i red pull-right vcenter m-left-i">

@@ -498,18 +498,28 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       }
       // tslint:disable-next-line:prefer-const
       let selector_mes = document.getElementsByClassName('ui-datepicker-month')[0] as HTMLSelectElement;
-      // tslint:disable-next-line:typedef
-      selector_mes.addEventListener('change', function(evt) {
-        console.log(evt);
-        console.log('change Ldpk1:' + dp1.options.length);
-        console.log(
-          'select Ldpk1 index:' +
-            dp1.options.selectedIndex +
-            ' value:' +
-            dp1.options.item(dp1.options.selectedIndex).value
-        );
+      if (selector_mes != undefined) {
+        // tslint:disable-next-line:typedef
+        selector_mes.addEventListener('change', function(evt) {
+          console.log(evt);
+          console.log('change Ldpk1:' + dp1.options.length);
+          console.log(
+            'select Ldpk1 index:' +
+              dp1.options.selectedIndex +
+              ' value:' +
+              dp1.options.item(dp1.options.selectedIndex).value
+          );
+        });
+        // ----------------------------------
+        // tslint:disable-next-line:typedef
+        selector_mes.addEventListener('click', function(evt) {
+          console.log(evt);
+          console.log('click');
+        });
+        // ----------------------------------
+      }
 
-        /*
+      /*
         // si no es la opcion seleccionada se borra
           for (let c = 0; dp1.options.length > 1; c++) {
             if ( dp1.options.item(dp1.options.selectedIndex).value !== dp1.options.item(c).value ) {
@@ -525,15 +535,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
             // console.log(c);
           }
           */
-        // ----------------------------------
-      });
-      // tslint:disable-next-line:typedef
-      selector_mes.addEventListener('click', function(evt) {
-        console.log(evt);
-        console.log('click');
-      });
-      // ----------------------------------
-    }, 200);
+    }, 250);
   }
 
   public ic_click(ic_fecha?: any) {
