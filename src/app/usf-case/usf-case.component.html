@@ -30,504 +30,76 @@
           </select>
 
           <a href="#" class="btns def-i red pull-right vcenter m-left-i">
-								<span class="tabcell">
-									Buscar&nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i>
-								</span>
+            <span class="tabcell"> Buscar&nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i> </span>
           </a>
 
-          <a href="#" class="btns def-i blue pull-right vcenter">
-								<span class="tabcell">
-									Exportar
-								</span>
-          </a>
+          <a href="#" class="btns def-i blue pull-right vcenter"> <span class="tabcell"> Exportar </span> </a>
         </div>
 
         <div class="basicrow m-top-i">
           <div class="basicrow">
-            <div class="autorow pull-left f-tabletitle f-black roboto-r">
-              Administraci&oacute;n de mis solicitudes​
-            </div>
+            <div class="autorow pull-left f-tabletitle f-black roboto-r">Administraci&oacute;n de mis solicitudes​</div>
 
             <div class="autorow pull-right">
-              <a href="#" class="tablepages off vcenter">
-										<span class="tabcell">
-											<<
-										</span>
-              </a>
+              <a href="#" class="tablepages off vcenter"> <span class="tabcell"> << </span> </a>
 
-              <a href="#" class="tablepages off vcenter">
-										<span class="tabcell">
-											<
-										</span>
-              </a>
+              <a href="#" class="tablepages off vcenter"> <span class="tabcell"> < </span> </a>
 
-              <a href="#" class="tablepages on vcenter">
-										<span class="tabcell">
-											1
-										</span>
-              </a>
+              <a href="#" class="tablepages on vcenter"> <span class="tabcell"> 1 </span> </a>
 
-              <a href="#" class="tablepages vcenter">
-										<span class="tabcell">
-											2
-										</span>
-              </a>
+              <a href="#" class="tablepages vcenter"> <span class="tabcell"> 2 </span> </a>
 
-              <a href="#" class="tablepages vcenter">
-										<span class="tabcell">
-											3
-										</span>
-              </a>
+              <a href="#" class="tablepages vcenter"> <span class="tabcell"> 3 </span> </a>
 
-              <a href="#" class="tablepages vcenter">
-										<span class="tabcell">
-											>
-										</span>
-              </a>
+              <a href="#" class="tablepages vcenter"> <span class="tabcell"> > </span> </a>
 
-              <a href="#" class="tablepages vcenter">
-										<span class="tabcell">
-											>>
-										</span>
-              </a>
+              <a href="#" class="tablepages vcenter"> <span class="tabcell"> >> </span> </a>
             </div>
           </div>
 
           <div class="allcont-gline m-top">
             <div class="tablebartitle">
-              <div class="consult-col-i consult-brline text-center vcenter">
-                <div class="tabcell">
-                  Nro de USF
-                </div>
-              </div>
+              <div class="consult-col-i consult-brline text-center vcenter"><div class="tabcell">Nro de USF</div></div>
 
-              <div class="consult-col-i consult-brline text-center vcenter">
-                <div class="tabcell">
-                  BAN
-                </div>
-              </div>
+              <div class="consult-col-i consult-brline text-center vcenter"><div class="tabcell">BAN</div></div>
 
               <div class="consult-col-ii consult-brline text-center vcenter">
-                <div class="tabcell">
-                  Fecha Registro de USF
-                </div>
+                <div class="tabcell">Fecha Registro de USF</div>
               </div>
 
               <div class="consult-col-iii consult-brline text-left vcenter">
-                <div class="tabcell">
-                  Nombre y Apellido Cliente
-                </div>
+                <div class="tabcell">Nombre y Apellido Cliente</div>
               </div>
 
-              <div class="consult-col-iv consult-brline text-left vcenter">
-                <div class="tabcell">
-                  Estatus
-                </div>
-              </div>
+              <div class="consult-col-iv consult-brline text-left vcenter"><div class="tabcell">Estatus</div></div>
 
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  Acci&oacute;n
-                </div>
-              </div>
+              <div class="consult-col-v text-center vcenter"><div class="tabcell">Acci&oacute;n</div></div>
             </div>
 
-            <div class="tablecols process">
+            <div *ngFor="let iten of data_conten" class="tablecols {{iten.classCss}}">
               <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
+                <div class="tabcell">{{ iten.caseID }}</div>
               </div>
 
               <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
+                <div class="tabcell">{{ iten.ban }}</div>
               </div>
 
               <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
+                <div class="tabcell">{{ iten.date }}</div>
               </div>
 
               <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
+                <div class="tabcell">{{ iten.fullName }}</div>
               </div>
 
               <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  EN PROCESO
-                </div>
+                <div class="tabcell">{{ iten.status }}</div>
               </div>
 
               <div class="consult-col-v text-center vcenter">
                 <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols denied">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  DENEGADO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols process">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  PENDIENTE BACK
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols approved">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  APROBADO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols approved">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  APROBADO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols process">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  EN PROCESO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols process">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  EN PROCESO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols process">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  EN PROCESO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols process">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  EN PROCESO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="tablecols process">
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  000123
-                </div>
-              </div>
-
-              <div class="consult-col-i consult-grline text-center vcenter">
-                <div class="tabcell">
-                  79712345
-                </div>
-              </div>
-
-              <div class="consult-col-ii consult-grline text-center vcenter">
-                <div class="tabcell">
-                  10/01/2018
-                </div>
-              </div>
-
-              <div class="consult-col-iii consult-grline text-left vcenter">
-                <div class="tabcell">
-                  FERNANDO RODRIGUEZ
-                </div>
-              </div>
-
-              <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-                <div class="tabcell">
-                  EN PROCESO
-                </div>
-              </div>
-
-              <div class="consult-col-v text-center vcenter">
-                <div class="tabcell">
-                  <a href="#" class="act-tbutton">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                  </a>
+                  <a href="#" class="act-tbutton"> <i class="fa fa-file-text" aria-hidden="true"></i> </a>
                 </div>
               </div>
             </div>
@@ -536,14 +108,10 @@
 
         <div class="basicrow m-top-i m-bott">
           <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
-								<span class="tabcell">
-									<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
-								</span>
+            <span class="tabcell"> <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar </span>
           </a>
 
-          <div class="autorow pull-right roboto-b f-gray-ii f-med">
-            10 / 50
-          </div>
+          <div class="autorow pull-right roboto-b f-gray-ii f-med">10 / 50</div>
         </div>
       </div>
     </div>

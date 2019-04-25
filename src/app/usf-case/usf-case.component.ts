@@ -1,36 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
-const data_temp = [
-  {
-    caseID: '00123',
-    ban: '79712345',
-    date: '10/01/2018',
-    fullName: 'FERNANDO RODRIGUEZ',
-    status: 'EN PROCESO'
-  },
-  {
-    caseID: '00124',
-    ban: '79712345',
-    date: '10/01/2018',
-    fullName: 'FERNANDO RODRIGUEZ',
-    status: 'DENEGADO'
-  },
-  {
-    caseID: '00125',
-    ban: '79712345',
-    date: '10/01/2018',
-    fullName: 'FERNANDO RODRIGUEZ',
-    status: 'PENDIENTE BACK'
-  },
-  {
-    caseID: '00126',
-    ban: '79712345',
-    date: '10/01/2018',
-    fullName: 'FERNANDO RODRIGUEZ',
-    status: 'APROBADO'
-  }
-];
 
 @Component({
   selector: 'app-usf-case',
@@ -38,6 +8,36 @@ const data_temp = [
   styleUrls: ['./usf-case.component.scss']
 })
 export class UsfCaseComponent implements OnInit {
+  public data_conten: any = [
+    {
+      caseID: '00123',
+      ban: '79712345',
+      date: '10/01/2018',
+      fullName: 'FERNANDO RODRIGUEZ',
+      status: 'EN PROCESO'
+    },
+    {
+      caseID: '00124',
+      ban: '79712345',
+      date: '10/01/2018',
+      fullName: 'FERNANDO RODRIGUEZ',
+      status: 'DENEGADO'
+    },
+    {
+      caseID: '00125',
+      ban: '79712345',
+      date: '10/01/2018',
+      fullName: 'FERNANDO RODRIGUEZ',
+      status: 'PENDIENTE BACK'
+    },
+    {
+      caseID: '00126',
+      ban: '79712345',
+      date: '10/01/2018',
+      fullName: 'FERNANDO RODRIGUEZ',
+      status: 'APROBADO'
+    }
+  ];
   constructor(private authenticationService: AuthenticationService, private router: Router) {
     console.log('constructor UsfCaseComponent');
   }
@@ -48,10 +48,11 @@ export class UsfCaseComponent implements OnInit {
       console.log(iten);
       iten.remove();
     });
-    console.log(data_temp);
+    console.log(this.data_conten);
+    // tslint:disable-next-line:prefer-const
     let contenedor = document.getElementsByClassName('allcont-gline')[0];
     // Recorrido de lo datos para la insersion
-    data_temp.forEach(iten => {
+    this.data_conten.forEach((iten: any, k: any) => {
       let classRow = '';
 
       if (iten.status === 'EN PROCESO' || iten.status === 'PENDIENTE BACK') {
@@ -63,47 +64,7 @@ export class UsfCaseComponent implements OnInit {
       } else {
         classRow = '';
       }
-
-      let new_element = document.createElement('div');
-      new_element.className = 'tablecols ' + iten.status;
-      new_element.innerHTML = `<div class="consult-col-i consult-grline text-center vcenter">
-          <div class="tabcell">
-            ${iten.caseID}
-          </div>
-        </div>
-
-        <div class="consult-col-i consult-grline text-center vcenter">
-          <div class="tabcell">
-          ${iten.ban}
-          </div>
-        </div>
-
-        <div class="consult-col-ii consult-grline text-center vcenter">
-          <div class="tabcell">
-          ${iten.date}
-          </div>
-        </div>
-
-        <div class="consult-col-iii consult-grline text-left vcenter">
-          <div class="tabcell">
-          ${iten.fullName}
-          </div>
-        </div>
-
-        <div class="consult-col-iv consult-grline text-left roboto-b vcenter">
-          <div class="tabcell">
-          ${iten.status}
-          </div>
-        </div>
-
-        <div class="consult-col-v text-center vcenter">
-          <div class="tabcell">
-            <a href="#" class="act-tbutton">
-              <i class="fa fa-file-text" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>`;
-      contenedor.appendChild(new_element);
+      this.data_conten[k].classCss = classRow;
     });
   }
 
