@@ -4,9 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // import { extract } from '@app/core';
 import { UsfCaseComponent } from '../usf-case/usf-case.component';
 
-const routes: Routes = [
-  { path: 'usf-case', component: UsfCaseComponent}
-  ];
+const routes: Routes = [{ path: 'usf-case', component: UsfCaseComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

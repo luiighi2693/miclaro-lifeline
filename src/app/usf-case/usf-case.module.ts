@@ -6,10 +6,6 @@ import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [UsfCaseComponent],
-  imports: [
-    CommonModule,
-    UsfCaseRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, UsfCaseRoutingModule, SharedModule]
 })
-export class UsfCaseModule { }
+export class UsfCaseModule {}
