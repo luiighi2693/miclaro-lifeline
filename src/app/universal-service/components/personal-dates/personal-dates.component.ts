@@ -353,7 +353,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
             if ($('#inputControl').val().length === 10) {
               console.log('to :' + month + ' ' + $('#inputControl').val().sub + ' ' + year);
 
-              let new_date = new Date(
+              const new_date = new Date(
                 month +
                   '/' +
                   $('#inputControl')
