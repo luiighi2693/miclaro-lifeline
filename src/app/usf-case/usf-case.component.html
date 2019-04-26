@@ -34,7 +34,15 @@
             <option *ngFor="let opt of status; let i = index">{{ opt }}</option>
           </select>
 
-          <a href="#" class="btns def-i red pull-right vcenter m-left-i">
+          <input
+            class="inp-f"
+            maxlength="50"
+            placeholder="Nombre de Cliente"
+            type="text"
+            style="width: 15em;margin-left: 3em;"
+          />
+
+          <a href="#" class="btns def-i red pull-left vcenter m-left-i">
             <span class="tabcell"> Buscar&nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i> </span>
           </a>
 
