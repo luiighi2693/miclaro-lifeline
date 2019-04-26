@@ -179,13 +179,17 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
         dt.body.customercases.forEach((caso: any) => {
           let date_temp = new Date(caso.DTS_CREATED);
           let dd: any = date_temp.getDate();
+          let ddTxt: string = '';
           if (dd < 10) {
             dd = '0' + dd;
+            ddTxt = '0' + dd.toString();
+          } else {
+            ddTxt = dd.toString();
           }
           this.data_conten.push({
             caseID: caso.USF_CASEID,
             ban: caso.ACCOUNT_NUMBER,
-            date: date_temp.getMonth() + 1 + '/' + dd + '/' + date_temp.getFullYear(),
+            date: date_temp.getMonth() + 1 + '/' + ddTxt + '/' + date_temp.getFullYear(),
             fullName: caso.CUSTOMER_NAME + ' ' + caso.CUSTOMER_LAST,
             status: '--'
           });
