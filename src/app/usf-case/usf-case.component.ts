@@ -41,6 +41,34 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       date: '10/01/2018',
       fullName: 'FERNANDO RODRIGUEZ',
       status: 'APROBADO'
+    },
+    {
+      caseID: '00127',
+      ban: '79712300',
+      date: '10/01/2019',
+      fullName: 'RAMON SUAREZ',
+      status: 'APROBADO'
+    },
+    {
+      caseID: '00128',
+      ban: '79712302',
+      date: '10/02/2019',
+      fullName: 'PEDRO PEREZ',
+      status: 'PENDIENTE BACK'
+    },
+    {
+      caseID: '00129',
+      ban: '79712301',
+      date: '01/02/2019',
+      fullName: 'ISMAEL GARCIA',
+      status: 'DENEGADO'
+    },
+    {
+      caseID: '00130',
+      ban: '79712303',
+      date: '01/02/2019',
+      fullName: 'WILLIAM OCHOA',
+      status: 'EN PROCESO'
     }
   ];
   constructor(

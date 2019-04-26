@@ -27,8 +27,8 @@
 
           <select
             name="status_selected"
-            class="sel-f-i def-ii m-left"
-            style="width:150px;"
+            class="sel-f sufix ng-pristine ng-invalid ng-touched"
+            style="width:200px;"
             [(ngModel)]="statusSelected"
           >
             <option *ngFor="let opt of status; let i = index">{{ opt }}</option>
