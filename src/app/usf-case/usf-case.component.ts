@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { UsfServiceService } from '@app/core/usf/usf-service.service';
+import { BaseComponent } from '@app/core/base/BaseComponent';
 
 @Component({
   selector: 'app-usf-case',
   templateUrl: './usf-case.component.html',
   styleUrls: ['./usf-case.component.scss']
 })
-export class UsfCaseComponent implements OnInit {
+export class UsfCaseComponent extends BaseComponent implements OnInit {
   public status: any = ['ESTATUS'];
-  public status_selected: any = 'ESTATUS';
+  public statusSelected = 'ESTATUS';
   public data_conten: any = [
     {
       caseID: '00123',
@@ -41,8 +43,13 @@ export class UsfCaseComponent implements OnInit {
       status: 'APROBADO'
     }
   ];
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
-    console.log('constructor UsfCaseComponent');
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
+    super(authenticationService, usfServiceService, router, fb);
   }
 
   ngOnInit() {
@@ -52,8 +59,6 @@ export class UsfCaseComponent implements OnInit {
       iten.remove();
     });
     console.log(this.data_conten);
-    // tslint:disable-next-line:prefer-const
-    let contenedor = document.getElementsByClassName('allcont-gline')[0];
     // Recorrido de lo datos para la insersion
     this.data_conten.forEach((iten: any, k: any) => {
       // Creando Array con los estatus existentes para pintarlos en el select de satus en la vista
