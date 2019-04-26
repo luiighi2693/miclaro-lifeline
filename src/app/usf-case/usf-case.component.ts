@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { UsfServiceService } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
+import { exportDefaultSpecifier, isGenerated } from 'babel-types';
 
 @Component({
   selector: 'app-usf-case',
@@ -13,6 +14,7 @@ import { BaseComponent } from '@app/core/base/BaseComponent';
 export class UsfCaseComponent extends BaseComponent implements OnInit {
   public status: any = ['ESTATUS'];
   public statusSelected = 'ESTATUS';
+  public nameToSearch: String = '';
   public data_conten: any = [
     {
       caseID: '00123',
@@ -121,5 +123,40 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
 
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
+  }
+  isEmpty() {
+    return this.nameToSearch.trim().length;
+  }
+  validacionOcultarRow(iStatus: any, iNameClientTxt: String) {
+    // # (statusSelected != 'ESTATUS' && statusSelected != iten.status) || isEmpty()!=0
+    if (this.statusSelected == 'ESTATUS' && this.isEmpty() == 0) {
+      return false;
+    } else if (this.statusSelected != 'ESTATUS' && this.isEmpty() == 0 && this.statusSelected != iStatus) {
+      return true;
+    } else if (this.statusSelected != 'ESTATUS' && this.isEmpty() == 0 && this.statusSelected == iStatus) {
+      return false;
+    } else if (
+      this.statusSelected != 'ESTATUS' &&
+      this.statusSelected == iStatus &&
+      this.isEmpty() != 0 &&
+      this.nameToSearch
+        .toString()
+        .toLocaleLowerCase()
+        .includes(iNameClientTxt.toString().toLocaleLowerCase())
+    ) {
+      return false;
+    } else {
+      if (
+        this.isEmpty() != 0 &&
+        this.nameToSearch
+          .toString()
+          .toLocaleLowerCase()
+          .includes(iNameClientTxt.toString().toLocaleLowerCase())
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 }

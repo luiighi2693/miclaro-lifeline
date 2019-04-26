@@ -40,6 +40,7 @@
             placeholder="Nombre de Cliente"
             type="text"
             style="width: 15em;margin-left: 3em;"
+            [(ngModel)]="nameToSearch"
           />
 
           <a href="#" class="btns def-i red pull-left vcenter m-left-i">
@@ -93,7 +94,7 @@
               *ngFor="let iten of data_conten"
               class="tablecols {{iten.classCss}}"
               [ngClass]="{
-                oculta: statusSelected != 'ESTATUS' && statusSelected != iten.status,
+                oculta: validacionOcultarRow(iten.status, iten.fullName),
                 muestra: statusSelected == 'ESTATUS' || statusSelected == iten.status
               }"
             >
