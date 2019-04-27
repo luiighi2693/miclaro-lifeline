@@ -14,7 +14,7 @@
           <div class="shortcont">
             <div class="basicrow">
               <div class="basicrow text-center">
-                <div class="rdtitles"><span class="roboto-b">&#161;Graccontaineras</span> por tu solicitud&#33;</div>
+                <div class="rdtitles"><span class="roboto-b">&#161;Gracias</span> por tu solicitud&#33;</div>
               </div>
 
               <div class="greenmsg m-top-i">
@@ -258,9 +258,14 @@
                 </div>
               </div>
 
+              <!-- (model.earningsValidation==true)||(model.agency=='Seleccionar')) -->
               <div class="basicrow">
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToUsfVerification()" class="btns def-i red pull-right vcenter">
+                  <a
+                    (click)="goToUsfVerification()"
+                    [ngClass]="{ red: btnCondicionContinuar(), gray: btnCondicionContinuar() == false }"
+                    class="btns def-i pull-right vcenter"
+                  >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
                     </span>

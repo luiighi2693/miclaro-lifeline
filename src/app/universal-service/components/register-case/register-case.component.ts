@@ -78,6 +78,17 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     window.scroll(0, 0);
   }
+
+  btnCondicionContinuar() {
+    if (this.model.earningsValidation === true) {
+      return true;
+    } else if (this.model.agency !== 'Seleccionar') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   evaluaCountPeoplesCustom() {
     let valorNum: any = new Number(this.countPeoplesCustom);
     let valorMonto: any = 16862;
@@ -101,36 +112,37 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   }
 
   goToUsfVerification() {
-    this.usfServiceService.setDataAgencyMoneySelection(this.model);
+    if (this.btnCondicionContinuar()) {
+      this.usfServiceService.setDataAgencyMoneySelection(this.model);
+      if (!this.dependPeopleFlag) {
+        // this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
 
-    if (!this.dependPeopleFlag) {
-      // this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+        const datos = {
+          method: 'subscriberVerificationMcapi',
+          UserID: this.authenticationService.credentials.userid,
+          // UserID: 40,
+          caseID: this.validateSSNData.CASENUMBER,
+          // caseID: 267,
+          Lookup_Type: 1,
+          response: 1
+        };
 
-      const datos = {
-        method: 'subscriberVerificationMcapi',
-        UserID: this.authenticationService.credentials.userid,
-        // UserID: 40,
-        caseID: this.validateSSNData.CASENUMBER,
-        // caseID: 267,
-        Lookup_Type: 1,
-        response: 1
-      };
+        console.log(datos);
 
-      console.log(datos);
+        this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
+          // this.usfServiceService.setValidateSSNData(resp.body);
+          this.usfServiceService.setRequiredDocumentData(resp.body.required);
+          console.log(resp);
 
-      this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
-        // this.usfServiceService.setValidateSSNData(resp.body);
-        this.usfServiceService.setRequiredDocumentData(resp.body.required);
-        console.log(resp);
-
-        if (!resp.body.HasError) {
-          this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
-        } else {
-          alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
-        }
-      });
-    } else {
-      this.router.navigate(['/universal-service/usf-verification'], { replaceUrl: true });
+          if (!resp.body.HasError) {
+            this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+          } else {
+            alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
+          }
+        });
+      } else {
+        this.router.navigate(['/universal-service/usf-verification'], { replaceUrl: true });
+      }
     }
   }
 
