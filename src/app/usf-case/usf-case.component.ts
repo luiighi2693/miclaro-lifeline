@@ -8,6 +8,8 @@ import { exportDefaultSpecifier, isGenerated } from 'babel-types';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { constants } from '@env/constants';
+import * as moment from 'moment';
+declare let $: any;
 
 @Component({
   selector: 'app-usf-case',
@@ -87,6 +89,41 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(function() {
+      // tslint:disable: prefer-const
+      let start = moment().subtract(29, 'days');
+      let end = moment();
+
+      // tslint:disable-next-line: no-shadowed-variable
+      function cb(start: any, end: any) {
+        $('#rangedate').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      }
+
+      $('#rangedate').daterangepicker(
+        {
+          startDate: start,
+          endDate: end,
+          ranges: {
+            Today: [moment(), moment()],
+            Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [
+              moment()
+                .subtract(1, 'month')
+                .startOf('month'),
+              moment()
+                .subtract(1, 'month')
+                .endOf('month')
+            ]
+          }
+        },
+        cb
+      );
+
+      cb(start, end);
+    });
     // Limpiando Tabla
     document.querySelectorAll('.tablecols').forEach(iten => {
       console.log(iten);

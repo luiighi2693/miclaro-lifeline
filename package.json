@@ -44,6 +44,7 @@
     "core-js": "^2.5.6",
     "express": "^4.16.4",
     "lodash": "^4.17.10",
+    "moment": "^2.24.0",
     "ng2-validation": "latest",
     "path": "^0.12.7",
     "rxjs": "^6.3.1",
