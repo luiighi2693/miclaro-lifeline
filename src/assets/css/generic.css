@@ -2464,17 +2464,27 @@ a.tablepages.off {
 }
 
 .comiseo-daterangepicker-calendar .ui-state-highlight a.ui-state-default {
-  background-color: #357ebd !important;
   border-color: transparent !important;
   color: #fff !important;
 }
 .ui-state-default .ui-state-active {
+  background-color: #357ebd !important;
   color: #fff !important;
   border-radius: 4px 0 0 4px !important;
+}
+td.ui-state-highlight.ui-datepicker-current-day > .ui-state-default.ui-state-active {
+  border-radius: 4px !important;
+  background-color: #357ebd !important;
 }
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
   padding-bottom: 3px !important;
   border: 0px !important;
+}
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+  /*background: rgba(144, 212, 255, 0.45)!important;*/
+  background: rgba(169, 247, 140, 0.45) !important;
 }
