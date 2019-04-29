@@ -2462,9 +2462,7 @@ a.tablepages.off {
   margin-top: -13px !important;
   min-height: 37px !important;
 }
-.ui-state-highlight .ui-datepicker-current-day {
-  border-radius: 4px 0 0 4px !important;
-}
+
 .comiseo-daterangepicker-calendar .ui-state-highlight a.ui-state-default {
   background-color: #357ebd !important;
   border-color: transparent !important;
