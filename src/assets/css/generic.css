@@ -2456,3 +2456,27 @@ a.tablepages.off {
   height: 37px !important;
   margin-top: -13px !important;
 }
+
+/* estilos custom para datepicker*/
+.comiseo-daterangepicker-triggerbutton.ui-button {
+  margin-top: -13px !important;
+  min-height: 37px !important;
+}
+.ui-state-highlight .ui-datepicker-current-day {
+  border-radius: 4px 0 0 4px !important;
+}
+.comiseo-daterangepicker-calendar .ui-state-highlight a.ui-state-default {
+  background-color: #357ebd !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+.ui-state-default .ui-state-active {
+  color: #fff !important;
+  border-radius: 4px 0 0 4px !important;
+}
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+  padding-bottom: 3px !important;
+  border: 0px !important;
+}
