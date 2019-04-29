@@ -15,16 +15,22 @@
         </div>
 
         <div class="def-filtrs">
-          <select class="sel-f-i def-i m-right">
-            <option>Nro de Claro USF</option>
-          </select>
+          <input
+            class="inp-f"
+            maxlength="50"
+            placeholder="Nro de USF"
+            type="number"
+            style="width: 125px;"
+            [(ngModel)]="numberUSF"
+          />
 
           <div class="autorow pull-left m-right f-reg m-left m-top-u-iii">
-            <i class="fa fa-calendar filtr-calendar" aria-hidden="true"></i>
+            <!-- <i class="fa fa-calendar filtr-calendar" aria-hidden="true"></i> -->
             <input
               type="text"
               name="rangedate"
-              class="f-gray-ii roboto-b"
+              class="f-gray-ii roboto-b inp-f"
+              style="width: 15em;margin-left: 3em;"
               id="rangedate"
               placeholder="Enero 01, 2018 - Enero 23 2018"
             />

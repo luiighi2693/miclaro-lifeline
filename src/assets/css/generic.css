@@ -497,7 +497,11 @@ a:hover.linkdefs.termdef {
   width: 174px;
 }
 
-select.sel-f {
+select.sel-f,
+.comiseo-daterangepicker-triggerbutton
+  .ui-button.ui-corner-all
+  .ui-widget.comiseo-daterangepicker-top
+  .comiseo-daterangepicker-vfit {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -2446,4 +2450,9 @@ a.tablepages.off {
 }
 .oculta {
   display: none !important;
+}
+
+.comiseo-daterangepicker-triggerbutton.ui-button.ui-corner-all.ui-widget.comiseo-daterangepicker-bottom.comiseo-daterangepicker-vfit {
+  height: 37px !important;
+  margin-top: -13px !important;
 }

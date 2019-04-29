@@ -20,6 +20,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   public status: any = ['ESTATUS'];
   public statusSelected = 'ESTATUS';
   public nameToSearch: String = '';
+  public numberUSF: String = '';
   public data_conten: any = [
     {
       caseID: '00123',
@@ -101,6 +102,11 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
 
       $('#rangedate').daterangepicker(
         {
+          icon: 'ui-icon-triangle-1-s',
+          initialText: 'Enero 01, 2018 - Enero 23 2018',
+          datepickerOptions: {
+            numberOfMonths: 2
+          },
           startDate: start,
           endDate: end,
           ranges: {
@@ -125,7 +131,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       cb(start, end);
     });
     // Limpiando Tabla
-    document.querySelectorAll('.tablecols').forEach(iten => {
+    document.querySelectorAll('.tablecols').forEach((iten: any) => {
       console.log(iten);
       iten.remove();
     });
