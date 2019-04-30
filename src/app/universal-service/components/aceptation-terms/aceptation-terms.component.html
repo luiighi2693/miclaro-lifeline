@@ -8,130 +8,185 @@
           <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Aceptación de términos
         </div>
 
-        <div class="basicrow m-top-i m-bott text-center">
-          <app-steplife></app-steplife>
-        </div>
+        <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
 
         <div class="basicrow text-center">
           <div class="shortcont">
             <div class="basicrow">
-              <div class="basicrow f-lbig f-black roboto-m">
-                Informaci&oacute;n de Compra
-              </div>
+              <div class="basicrow f-lbig f-black roboto-m">Informaci&oacute;n de Compra</div>
 
               <div class="basicrow m-top">
                 <label class="label-f">&#42; Restricci&oacute;n LDI</label>
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input type="radio" name="ldiRestriction" [value]="true" [(ngModel)]="model.ldiRestriction" [formControl]="form.controls['ldiRestriction']"> Si
+                    <input
+                      type="radio"
+                      name="ldiRestriction"
+                      [value]="true"
+                      [(ngModel)]="model.ldiRestriction"
+                      [formControl]="form.controls['ldiRestriction']"
+                    />
+                    Si
                   </div>
 
                   <div class="popopt">
-                    <input type="radio" name="ldiRestriction" [value]="false" [(ngModel)]="model.ldiRestriction" [formControl]="form.controls['ldiRestriction']"> No
+                    <input
+                      type="radio"
+                      name="ldiRestriction"
+                      [value]="false"
+                      [(ngModel)]="model.ldiRestriction"
+                      [formControl]="form.controls['ldiRestriction']"
+                    />
+                    No
                   </div>
                 </div>
               </div>
 
               <div class="basicrow">
-                <!--<div class="basicrow">-->
-                  <!--<div class="basicrow m-top-i">-->
-                    <!--<label class="label-f">&#42; Listado de Agencias</label>-->
+                <!-- <div class="basicrow"> -->
+                <!-- <div class="basicrow m-top-i"> -->
+                <!-- <label class="label-f">&#42; Listado de Agencias</label> -->
 
-                    <!--<div class="basicrow rel">-->
-                      <!--<img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">-->
+                <!-- <div class="basicrow rel"> -->
+                <!--
+                  <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">
+                -->
 
-                      <!--<select class="sel-f qt" name="agency" [(ngModel)]="model.agency" [formControl]="form.controls['agency']">-->
-                        <!--<option [value]="'Seleccionar'" selected>Seleccionar</option>-->
-                        <!--<option [value]="agency" [disabled]="agency === 'Ingreso Suplementario de Seguridad (SSI)'" *ngFor="let agency of agencies">{{agency}}</option>-->
-                      <!--</select>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <!--
+                  <select class="sel-f qt" name="agency" [(ngModel)]="model.agency" [formControl]="form.controls['agency']">
+                -->
+                <!-- <option [value]="'Seleccionar'" selected>Seleccionar</option> -->
+                <!--
+                  <option [value]="agency" [disabled]="agency === 'Ingreso Suplementario de Seguridad (SSI)'" *ngFor="let agency of agencies">{{agency}}</option>
+                -->
+                <!-- </select> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
 
-                <!--<div class="basicrow f-bmed f-black roboto-b m-top-i" *ngIf="model.agency === 'Ingreso Suplementario de Seguridad (SSI)'">-->
-                  <!--Califica a trav&eacute;s de tus ingresos-->
-                <!--</div>-->
+                <!--
+                  <div class="basicrow f-bmed f-black roboto-b m-top-i" *ngIf="model.agency === 'Ingreso Suplementario de Seguridad (SSI)'">
+                -->
+                <!-- Califica a trav&eacute;s de tus ingresos -->
+                <!-- </div> -->
 
-                <!--<div class="basicrow" *ngIf="model.agency === 'Seleccionar'">-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                      <!--<div class="basicrow m-top">-->
-                        <!--<label class="label-f">&#42; &#191;Incluy&eacute;ndote a ti, &#191;Cu&aacute;ntas personas viven en tu hogar&#63;</label>-->
+                <!-- <div class="basicrow" *ngIf="model.agency === 'Seleccionar'"> -->
+                <!-- <div class="row"> -->
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                <!-- <div class="basicrow m-top"> -->
+                <!--
+                  <label class="label-f">&#42; &#191;Incluy&eacute;ndote a ti, &#191;Cu&aacute;ntas personas viven en tu hogar&#63;</label>
+                -->
 
-                        <!--<div class="basicrow rel">-->
-                          <!--<img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">-->
+                <!-- <div class="basicrow rel"> -->
+                <!--
+                  <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-i" src="../../../../assets/images/tooltip1.png">
+                -->
 
-                          <!--<select class="sel-f qt" name="peopleDataSelected" [(ngModel)]="model.peopleDataSelectedNumber" (ngModelChange)="onChangeSelect($event)">-->
-                            <!--<option [value]="peopleDataSelected.number" *ngFor="let peopleDataSelected of homePeopleData">{{peopleDataSelected.number}}</option>-->
-                          <!--</select>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
+                <!--
+                  <select class="sel-f qt" name="peopleDataSelected" [(ngModel)]="model.peopleDataSelectedNumber" (ngModelChange)="onChangeSelect($event)">
+                -->
+                <!--
+                  <option [value]="peopleDataSelected.number" *ngFor="let peopleDataSelected of homePeopleData">{{peopleDataSelected.number}}</option>
+                -->
+                <!-- </select> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
 
-                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                      <!--<div class="basicrow m-top">-->
-                        <!--<div class="basicrow">-->
-                          <!--<label class="label-f">&#42; &#191;Tus ingresos son iguales o menores&#63;</label>-->
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> -->
+                <!-- <div class="basicrow m-top"> -->
+                <!-- <div class="basicrow"> -->
+                <!-- <label class="label-f">&#42; &#191;Tus ingresos son iguales o menores&#63;</label> -->
 
-                          <!--<div class="basicrow m-top-u-i f-reg f-black roboto-r">-->
-                            <!--<div class="autorow pull-left m-right m-top-u-ii roboto-b">-->
-                              <!--{{model.peopleDataSelected.money}}-->
-                            <!--</div>-->
+                <!-- <div class="basicrow m-top-u-i f-reg f-black roboto-r"> -->
+                <!-- <div class="autorow pull-left m-right m-top-u-ii roboto-b"> -->
+                <!-- {{model.peopleDataSelected.money}} -->
+                <!-- </div> -->
 
-                            <!--<div class="popopt">-->
-                              <!--<input type="radio" name="earningsValidation" [value]="true" [(ngModel)]="model.earningsValidation"> Si-->
-                            <!--</div>-->
+                <!-- <div class="popopt"> -->
+                <!--
+                  <input type="radio" name="earningsValidation" [value]="true" [(ngModel)]="model.earningsValidation"> Si
+                -->
+                <!-- </div> -->
 
-                            <!--<div class="popopt">-->
-                              <!--<input type="radio" name="earningsValidation" [value]="false" [(ngModel)]="model.earningsValidation"> No-->
-                            <!--</div>-->
+                <!-- <div class="popopt"> -->
+                <!--
+                  <input type="radio" name="earningsValidation" [value]="false" [(ngModel)]="model.earningsValidation"> No
+                -->
+                <!-- </div> -->
 
-                            <!--<img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-stat pull-right" src="../../../../assets/images/tooltip1.png">-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <!--
+                  <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t-stat pull-right" src="../../../../assets/images/tooltip1.png">
+                -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
 
-                <!--<div class="basicrow m-top-i" *ngIf="model.agency === 'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)'">-->
-                  <!--<label class="label-b">&#42; Inscripci&oacute;n autom&aacute;tica para los participantes del PAN (Programa de Asistencia Nutricional)</label>-->
+                <!--
+                  <div class="basicrow m-top-i" *ngIf="model.agency === 'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)'">
+                -->
+                <!--
+                  <label class="label-b">&#42; Inscripci&oacute;n autom&aacute;tica para los participantes del PAN (Programa de Asistencia Nutricional)</label>
+                -->
 
-                  <!--<div class="basicrow m-top-ii roboto-r f-reg">-->
-                    <!--Solicito se me inscriba en el Programa Lifeline de Claro mediante el proceso de inscripci&oacute;n autom&aacute;tica.-->
-                  <!--</div>-->
+                <!-- <div class="basicrow m-top-ii roboto-r f-reg"> -->
+                <!--
+                  Solicito se me inscriba en el Programa Lifeline de Claro mediante el proceso de inscripci&oacute;n autom&aacute;tica.
+                -->
+                <!-- </div> -->
 
-                  <!--<div class="basicrow m-top f-reg f-black roboto-r">-->
-                    <!--<div class="popopt">-->
-                      <!--<input type="radio" name="lifelineProgramInscription" [value]="true" [(ngModel)]="model.lifelineProgramInscription"> Si-->
-                    <!--</div>-->
+                <!-- <div class="basicrow m-top f-reg f-black roboto-r"> -->
+                <!-- <div class="popopt"> -->
+                <!--
+                  <input type="radio" name="lifelineProgramInscription" [value]="true" [(ngModel)]="model.lifelineProgramInscription"> Si
+                -->
+                <!-- </div> -->
 
-                    <!--<div class="popopt">-->
-                      <!--<input type="radio" name="lifelineProgramInscription" [value]="false" [(ngModel)]="model.lifelineProgramInscription"> No-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <!-- <div class="popopt"> -->
+                <!--
+                  <input type="radio" name="lifelineProgramInscription" [value]="false" [(ngModel)]="model.lifelineProgramInscription"> No
+                -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
 
                 <div class="basicrow m-top">
                   <div class="termgbg">
-                    <div class="basicrow roboto-b f-reg">
-                      &#42; T&eacute;rminos y Condiciones
-                    </div>
+                    <div class="basicrow roboto-b f-reg">&#42; T&eacute;rminos y Condiciones</div>
 
                     <div class="termr-t m-top-ii" style="    font-size: 1.5rem;">
-                      Con este consentimiento AUTORIZO el uso de mis iniciales y firmas en formato electrónico, y CERTIFICO que son de mi autoría como si tuvieran en manuscrito. Específicamente,
-                      ACEPTO que el uso de mis iniciales y firma electrónica para los propósitos de esta solicitud es legal y vinculante, y que no se le restará efecto o validez al mismo por el hecho de estar en formato electrónico.
+                      “Con este consentimiento AUTORIZO el uso de mis iniciales y firmas en formato electrónico, y
+                      CERTIFICO que son de mi autoría como si estuvieran en manuscrito. Específicamente, ACEPTO que el
+                      uso de mis iniciales y firma electrónica para los propósitos de esta solicitud es legal y
+                      vinculante, y que no se le restará efecto o validez al mismo por el hecho de estar en formato
+                      electrónico.
                     </div>
 
                     <div class="basicrow m-top">
-                      <a (click)="setAceptationTerms(true)" class="btns termdef pull-right vcenter" [ngClass]="{'gray': model.aceptationTerm !== undefined, 'blue': model.aceptationTerm === undefined}">
-														<span class="tabcell">
-															Aceptar T&eacute;rminos
-														</span>
+                      <a
+                        (click)="setAceptationTerms(true)"
+                        class="btns termdef pull-right vcenter"
+                        [ngClass]="{
+                          gray: model.aceptationTerm !== undefined,
+                          blue: model.aceptationTerm === undefined
+                        }"
+                      >
+                        <span class="tabcell"> Aceptar T&eacute;rminos </span>
                       </a>
 
-                      <a (click)="setAceptationTerms(false)" class="linkdefs termdef" [ngClass]="{'grayLink': model.aceptationTerm !== undefined, 'blue': model.aceptationTerm === undefined}">
+                      <a
+                        (click)="setAceptationTerms(false)"
+                        class="linkdefs termdef"
+                        [ngClass]="{
+                          grayLink: model.aceptationTerm !== undefined,
+                          blue: model.aceptationTerm === undefined
+                        }"
+                      >
                         No Acepto
                       </a>
                     </div>
@@ -147,16 +202,20 @@
 
               <div class="basicrow">
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToPreviewViewAndFirm()" class="btns def-i red pull-right vcenter gray" [ngClass]="{'red': validateForm()}">
-												<span class="tabcell">
-													Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
-												</span>
+                  <a
+                    (click)="goToPreviewViewAndFirm()"
+                    class="btns def-i red pull-right vcenter gray"
+                    [ngClass]="{ red: validateForm() }"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
                   </a>
 
                   <a (click)="goToAccountCreation()" class="btns def-i gray pull-left vcenter">
-												<span class="tabcell">
-													<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
-												</span>
+                    <span class="tabcell">
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                    </span>
                   </a>
                 </div>
               </div>
