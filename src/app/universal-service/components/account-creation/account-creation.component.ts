@@ -42,17 +42,19 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
     simCard = '';
   }();
 
+  /*
+  {
+    plan: 'Plan 2099',
+    planDetails: [
+      '1,000 minutos para uso de voz local, larga distancia a Estados Unidos' +
+        ' y “Roaming” en EEUU compartido. Costo del minuto adicional es 10¢.',
+      '400 SMS/MMS locales, a EEUU y a ciertos destinos internacionales',
+      'Costo SMS/MMS adicional enviado es de 10¢.',
+      'SMS/MMS recibidos son gratis.'
+    ]
+  },
+  */
   plans: Plan[] = [
-    {
-      plan: 'Plan 2099',
-      planDetails: [
-        '1,000 minutos para uso de voz local, larga distancia a Estados Unidos' +
-          ' y “Roaming” en EEUU compartido. Costo del minuto adicional es 10¢.',
-        '400 SMS/MMS locales, a EEUU y a ciertos destinos internacionales',
-        'Costo SMS/MMS adicional enviado es de 10¢.',
-        'SMS/MMS recibidos son gratis.'
-      ]
-    },
     {
       plan: 'Plan 2219',
       planDetails: [
@@ -102,13 +104,13 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
         method: 'CreateNewAccountMcapi',
         user_ID: this.authenticationService.credentials.userid,
         case_ID: this.validateSSNData.CASENUMBER,
-        mAccountType: "I",
-        mAccountSubType: "P",
+        mAccountType: 'I',
+        mAccountSubType: 'P',
         customer_ssn: this.usfServiceService.getSnn(),
         SIMSerial: this.model.simCard,
         IMEISerial: this.model.imei,
         tech: this.model.tecnology,
-        mSocCode: this.planSelected.plan,
+        mSocCode: this.planSelected.plan
       };
 
       console.log(datos);
@@ -123,8 +125,7 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
             'Aviso',
             // tslint:disable-next-line:max-line-length
             'Error intentando crear la cuenta',
-            function() {
-            }
+            function() {}
           );
         }
       });
