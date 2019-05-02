@@ -102,8 +102,8 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
 
       const datos = {
         method: 'CreateNewAccountMcapi',
-        user_ID: this.authenticationService.credentials.userid,
-        case_ID: this.validateSSNData.CASENUMBER,
+        UserID: this.authenticationService.credentials.userid,
+        caseID: this.validateSSNData.CASENUMBER,
         mAccountType: 'I',
         mAccountSubType: 'P',
         customer_ssn: this.usfServiceService.getSnn(),
