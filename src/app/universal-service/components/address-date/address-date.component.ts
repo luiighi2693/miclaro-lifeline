@@ -172,12 +172,16 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
     this.form = this.fb.group({
       temporalAddress1: [null, Validators.compose([Validators.required])],
-      contactNumber1: [null, Validators.compose([Validators.required])],
+      contactNumber1: [null, Validators.compose([
+        // Validators.required
+      ])],
       contactNumber2: [null, Validators.compose([
         // Validators.required
       ])],
       temporalAddress: [null, Validators.compose([Validators.required])],
-      address: [null, Validators.compose([Validators.required])],
+      address: [null, Validators.compose([
+        // Validators.required
+      ])],
       depUnitOther: [ null, Validators.compose([
         // Validators.required
       ]) ],
@@ -388,4 +392,15 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
 
+  // changeValueTemporalAdress() {
+  //   console.log(this.model.temporalAddress);
+  //
+  //   if (this.model.temporalAddress) {
+  //     this.form.controls['address'].clearValidators();
+  //   } else {
+  //     this.form.controls['address'].setValidators([Validators.required]);
+  //   }
+  //
+  //   this.validatePostalAddress();
+  // }
 }
