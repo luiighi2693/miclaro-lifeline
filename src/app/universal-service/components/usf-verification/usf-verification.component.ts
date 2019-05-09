@@ -83,9 +83,9 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
       const datos = {
         method: 'subscriberVerificationMcapi',
         UserID: this.authenticationService.credentials.userid,
-        // UserID: 40,
+        // UserID: 69,
         caseID: this.validateSSNData.CASENUMBER,
-        // caseID: 267,
+        // caseID: 132,
         Lookup_Type: 2,
         response: 1,
         depent_sufijo: this.model.sufix,
@@ -104,7 +104,11 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         console.log(resp);
 
         if (!resp.body.HasError) {
-          this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+          if (resp.body.message === 'Subscriber passed all validations and verifications') {
+            this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
+          } else {
+            this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+          }
         } else {
           alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
         }

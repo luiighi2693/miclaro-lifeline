@@ -7,25 +7,26 @@ import { Credentials } from '@app/core';
 
 export interface ValidateSSNData {
   data: ValidateSSNDataContent[];
+  dataObject: ValidateSSNDataContent[];
   response: string;
   CASENUMBER: number;
 }
 
 export interface ValidateSSNDataContent {
-  accountSubType: string;
+  // accountSubType: string;
   accountType: string;
   address: string;
-  agency: string;
+  // agency: string;
   ban: string;
-  banStatus: string;
-  efectivedate: string;
-  generalDescription: string;
+  // banStatus: string;
+  // efectivedate: string;
+  // generalDescription: string;
   lifelineActivationDate: string;
   name: string;
   ssn: string;
   subscriberNumber: string;
-  subscriberStatus: string;
-  system: string;
+  // subscriberStatus: string;
+  // system: string;
 }
 
 export interface DataObjectAddress {
