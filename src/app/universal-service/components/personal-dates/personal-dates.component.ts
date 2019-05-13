@@ -376,7 +376,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+0:+10',
+        yearRange: '+1:+10',
         minDate: 0
       });
       // recorrido
@@ -417,7 +417,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+0:+10',
+        yearRange: '+1:+10',
         minDate: 0
       });
       this.datePicker_is_init = true;
