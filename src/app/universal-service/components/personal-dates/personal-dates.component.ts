@@ -172,13 +172,19 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     if (
       input !== undefined &&
       input.length === 11 &&
+      // tslint:disable-next-line: radix
       parseInt(this.valueSSN.replace('-', '').replace('-', '')) >= 99999999
     ) {
       console.log('antes del cambio');
       console.log(input);
       console.log(this.valueSSN);
       // si tiene los 2 - guiones  ya esta validado
-      this.valueSSN = input.replace('-', '').replace('-', '');
+      this.valueSSN = input
+        .replace('-', '')
+        .replace('-', '')
+        .replace('-', '');
+      this.invalidSSN = false;
+      this.checkSSN = true;
       return this.valueSSN;
     }
 
@@ -201,6 +207,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     if (
       input !== undefined &&
       input.length === 11 &&
+      // tslint:disable-next-line: radix
       parseInt(this.valueSSN.replace('-', '').replace('-', '')) > 99999999 === false
     ) {
       this.invalidSSN = true;
@@ -213,6 +220,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     if (
       input !== undefined &&
       input.length === 11 &&
+      // tslint:disable-next-line: radix
       parseInt(this.valueSSN.replace('-', '').replace('-', '')) > 99999999
     ) {
       this.invalidSSN = false;
