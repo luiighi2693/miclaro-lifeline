@@ -26,26 +26,21 @@ export interface RequiredDocumentContent {
   styleUrls: ['./document-digitalization.component.scss']
 })
 export class DocumentDigitalizationComponent extends BaseComponent implements OnInit {
-
   previewView = false;
+  loadingDocs = false;
 
-  documents: DocumentLifeline [] = [
+  documents: DocumentLifeline[] = [
     {
       name: 'Formulario de Servicio Universal',
       types: ['.pdf'],
       maxSize: 200,
-      subDocuments: [
-        'Formulario de Aplicación (Forma 5629)',
-        'Anejos'
-      ]
+      subDocuments: ['Formulario de Aplicación (Forma 5629)', 'Anejos']
     },
     {
       name: 'Formulario Hoja de Hogar',
       types: ['.pdf'],
       maxSize: 200,
-      subDocuments: [
-        'Formulario de Aplicación (Forma 5631)'
-      ]
+      subDocuments: ['Formulario de Aplicación (Forma 5631)']
     },
     {
       name: 'Certificación de elegibilidad',
@@ -57,37 +52,25 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       name: 'Evidencia de factura',
       types: ['.pdf'],
       maxSize: 200,
-      subDocuments: [
-        'Licencia de Conducir',
-        'ID',
-        'Factura de Luz/Agua/TV/Teléfono'
-      ]
+      subDocuments: ['Licencia de Conducir', 'ID', 'Factura de Luz/Agua/TV/Teléfono']
     },
     {
       name: 'Evidencia de Identidad',
       types: ['.pdf', '.jpeg', '.png'],
       maxSize: 200,
-      subDocuments: [
-        'Certificado de Nacimiento',
-        'Pasaporte',
-        'Licencia de Conducir'
-      ]
+      subDocuments: ['Certificado de Nacimiento', 'Pasaporte', 'Licencia de Conducir']
     },
     {
       name: 'Transferencia de Beneficio',
       types: ['.pdf'],
       maxSize: 200,
-      subDocuments: [
-        'Hoja de Transferencia de Beneficio'
-      ]
+      subDocuments: ['Hoja de Transferencia de Beneficio']
     },
     {
       name: 'Otros',
       types: ['.pdf'],
       maxSize: 300,
-      subDocuments: [
-        'Otros'
-      ]
+      subDocuments: ['Otros']
     }
   ];
 
@@ -151,7 +134,10 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
     this.dataAgencyMoneySelection = this.usfServiceService.getDataAgencyMoneySelection();
 
-    this.documents[2].subDocuments = this.dataAgencyMoneySelection.agency === 'Seleccionar' ? this.certificacionIngresoDocuments : this.certificacionProgramaDocuments;
+    this.documents[2].subDocuments =
+      this.dataAgencyMoneySelection.agency === 'Seleccionar'
+        ? this.certificacionIngresoDocuments
+        : this.certificacionProgramaDocuments;
   }
 
   ngOnInit() {
@@ -176,7 +162,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   }
 
   goToAccountCreation() {
-    if (this.validateAllDocumentsChargued){
+    if (this.validateAllDocumentsChargued) {
       this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
     }
   }
@@ -188,9 +174,9 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   onChangeLifelineCustom(event: string) {
     if (event !== null) {
       console.log(event);
-      var index =this.requiredDocumentsContent.map(x => x.id).indexOf(event);
+      var index = this.requiredDocumentsContent.map(x => x.id).indexOf(event);
       console.log(index);
-      var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name)
+      var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name);
       console.log(index2);
 
       this.subDocumentsTypeSelected = [];
@@ -202,35 +188,32 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
           this.subDocumentsTypeSelected.push(document);
         });
       }
-
     }
   }
 
-  checkResponsive() {
-
-  }
+  checkResponsive() {}
 
   onFileChange($event: Event) {
     this.uploadHasError = false;
+    this.loadingDocs = true;
     this.uploadHasValidationError = false;
     // @ts-ignore
     this.documentName = $event.target.files[0].name;
     // @ts-ignore
-    let fileExtention = ($event.target.files[0].type).replace('application/', '.').replace('image/', '.');
+    let fileExtention = $event.target.files[0].type.replace('application/', '.').replace('image/', '.');
     // @ts-ignore
     let size = $event.target.files[0].size / 1024;
 
-    var index =this.requiredDocumentsContent.map(x => x.id).indexOf(this.requiredDocumentSelected);
+    var index = this.requiredDocumentsContent.map(x => x.id).indexOf(this.requiredDocumentSelected);
     console.log(index);
-    var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name)
+    var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name);
     console.log(index, index2);
     console.log(this.documents[index2].types, fileExtention);
 
-    if (this.documents[index2].types.indexOf(fileExtention) !== -1 && size <= this.documents[index2].maxSize){
-      var FR= new FileReader();
+    if (this.documents[index2].types.indexOf(fileExtention) !== -1 && size <= this.documents[index2].maxSize) {
+      var FR = new FileReader();
 
-
-      FR.addEventListener("load", (e) => {
+      FR.addEventListener('load', e => {
         // @ts-ignore
         let imageBase64 = e.target.result.split(';base64,')[1];
 
@@ -247,68 +230,71 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
         console.log(datos);
 
-        this.usfServiceService.uploadDocument(datos).subscribe(resp => {
-          // this.usfServiceService.setValidateSSNData(resp.body);
-          console.log(resp);
+        this.usfServiceService.uploadDocument(datos).subscribe(
+          resp => {
+            // this.usfServiceService.setValidateSSNData(resp.body);
+            console.log(resp);
 
-          if (!resp.body.HasError) {
-            this.requiredDocumentsContent[index].idToSearch = resp.body.data[0].documentID;
-            this.requiredDocumentsContent[index].isCharged = true;
+            if (!resp.body.HasError) {
+              this.loadingDocs = false;
+              this.requiredDocumentsContent[index].idToSearch = resp.body.data[0].documentID;
+              this.requiredDocumentsContent[index].isCharged = true;
+            } else {
+              this.uploadHasError = true;
+            }
 
-          } else {
+            // @ts-ignore
+            $event.target.value = '';
+
+            this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
+            this.subDocumentsTypeSelected = [];
+            this.subDocumentsTypeSelected.push('Seleccionar');
+            this.subDocumentTypeSelected = 'Seleccionar';
+          },
+          error => {
+            console.log(error);
             this.uploadHasError = true;
+
+            // @ts-ignore
+            $event.target.value = '';
+
+            this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
+            this.subDocumentsTypeSelected = [];
+            this.subDocumentsTypeSelected.push('Seleccionar');
+            this.subDocumentTypeSelected = 'Seleccionar';
           }
-
-          // @ts-ignore
-          $event.target.value = '';
-
-          this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
-          this.subDocumentsTypeSelected = [];
-          this.subDocumentsTypeSelected.push('Seleccionar');
-          this.subDocumentTypeSelected = 'Seleccionar';
-
-        }, error => {
-          console.log(error);
-          this.uploadHasError = true;
-
-          // @ts-ignore
-          $event.target.value = '';
-
-          this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
-          this.subDocumentsTypeSelected = [];
-          this.subDocumentsTypeSelected.push('Seleccionar');
-          this.subDocumentTypeSelected = 'Seleccionar';
-
-        });
+        );
       });
 
       // @ts-ignore
-      FR.readAsDataURL( $event.target.files[0]);
+      FR.readAsDataURL($event.target.files[0]);
     } else {
       this.uploadHasValidationError = true;
       this.uploadHasValidationErrorSize = this.documents[index2].maxSize;
       this.uploadHasValidationErrorTypes = this.documents[index2].types.join(', ');
     }
-
   }
 
   private parseRequiredDocumentsContent() {
     this.requiredDocumentsContent.push({
-      id:null,
-      name:'Seleccionar',
+      id: null,
+      name: 'Seleccionar',
       isCharged: true,
       idToSearch: null
     });
 
     this.requiredDocuments.forEach(requiredDocument => {
-      var name = requiredDocument.split('::')[1] === 'Certificación de programa' ? 'Certificación de elegibilidad' : requiredDocument.split('::')[1];
+      var name =
+        requiredDocument.split('::')[1] === 'Certificación de programa'
+          ? 'Certificación de elegibilidad'
+          : requiredDocument.split('::')[1];
 
       this.requiredDocumentsContent.push({
-        id:requiredDocument.split('::')[0],
-        name:name,
+        id: requiredDocument.split('::')[0],
+        name: name,
         isCharged: false,
         idToSearch: null
-      })
+      });
     });
 
     this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
@@ -319,7 +305,9 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       if (this.subDocumentTypeSelected === 'Seleccionar') {
         return true;
       } else {
-        return this.requiredDocumentsContent[this.requiredDocumentsContent.map(x => x.id).indexOf(this.requiredDocumentSelected)].isCharged
+        return this.requiredDocumentsContent[
+          this.requiredDocumentsContent.map(x => x.id).indexOf(this.requiredDocumentSelected)
+        ].isCharged;
       }
     } else {
       return true;
@@ -337,26 +325,27 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       documentTypeID: id,
       user_Id: this.authenticationService.credentials.userid,
       // user_Id: 56,
-      case_number: this.validateSSNData.CASENUMBER,
+      case_number: this.validateSSNData.CASENUMBER
       // case_number: 36,
     };
 
     console.log(datos);
 
-    this.usfServiceService.retrieveDocument(datos).subscribe(resp => {
-      console.log(resp);
+    this.usfServiceService.retrieveDocument(datos).subscribe(
+      resp => {
+        console.log(resp);
 
-      if (!resp.body.HasError) {
-        this.previewView = true;
-        this.previewUrl = resp.body.data[0].docPopURL;
-        console.log(resp.body.data[0].docPopURL);
-      } else {
-
+        if (!resp.body.HasError) {
+          this.previewView = true;
+          this.previewUrl = resp.body.data[0].docPopURL;
+          console.log(resp.body.data[0].docPopURL);
+        } else {
+        }
+      },
+      error => {
+        console.log(error);
       }
-
-    }, error => {
-      console.log(error);
-    });
+    );
   }
 
   deleteFile(idToSearch: string, id: string) {
@@ -368,31 +357,32 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       documentTypeID: idToSearch,
       user_Id: this.authenticationService.credentials.userid,
       // user_Id: 56,
-      case_number: this.validateSSNData.CASENUMBER,
+      case_number: this.validateSSNData.CASENUMBER
       // case_number: 36,
     };
 
     console.log(datos);
 
-    this.usfServiceService.deleteDocument(datos).subscribe(resp => {
-      console.log(resp);
+    this.usfServiceService.deleteDocument(datos).subscribe(
+      resp => {
+        console.log(resp);
 
-      if (!resp.body.HasError) {
-        let index = this.requiredDocumentsContent.map(x => x.id).indexOf(id);
-        this.requiredDocumentsContent[index].isCharged = false;
-        this.requiredDocumentsContent[index].idToSearch = null;
+        if (!resp.body.HasError) {
+          let index = this.requiredDocumentsContent.map(x => x.id).indexOf(id);
+          this.requiredDocumentsContent[index].isCharged = false;
+          this.requiredDocumentsContent[index].idToSearch = null;
 
-        this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
-        this.subDocumentsTypeSelected = [];
-        this.subDocumentsTypeSelected.push('Seleccionar');
-        this.subDocumentTypeSelected = 'Seleccionar';
-      } else {
-
+          this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
+          this.subDocumentsTypeSelected = [];
+          this.subDocumentsTypeSelected.push('Seleccionar');
+          this.subDocumentTypeSelected = 'Seleccionar';
+        } else {
+        }
+      },
+      error => {
+        console.log(error);
       }
-
-    }, error => {
-      console.log(error);
-    });
+    );
   }
 
   validateAllDocumentsChargued() {
@@ -404,10 +394,10 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   }
 
   getHeightModal() {
-    return (window.innerHeight - (window.innerHeight * 0.27) )+'px';
+    return window.innerHeight - window.innerHeight * 0.27 + 'px';
   }
 
-  reUploadDocument(){
+  reUploadDocument() {
     var index = this.requiredDocumentsContent.map(x => x.idToSearch).indexOf(this.requiredDocumentIdSelected);
     console.log(index);
     var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name);
