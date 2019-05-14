@@ -178,7 +178,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       console.log(input);
       console.log(this.valueSSN);
       // si tiene los 2 - guiones  ya esta validado
-      this.valueSSN = input.replace('-', '');
+      this.valueSSN = input.replace('-', '').replace('-', '');
       return this.valueSSN;
     }
 
