@@ -98,21 +98,23 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
 
       console.log(datos);
 
-      this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
-        this.processValidationNLAD = false;
-        this.usfServiceService.setRequiredDocumentData(resp.body.required);
-        console.log(resp);
+      setTimeout(() => {
+        this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
+          this.processValidationNLAD = false;
+          this.usfServiceService.setRequiredDocumentData(resp.body.required);
+          console.log(resp);
 
-        if (!resp.body.HasError) {
-          if (resp.body.message === 'Subscriber passed all validations and verifications') {
-            this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
+          if (!resp.body.HasError) {
+            // if (resp.body.message === 'Subscriber passed all validations and verifications') {
+            //   this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
+            // } else {
+              this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+            // }
           } else {
-            this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+            alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
           }
-        } else {
-          alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
-        }
-      });
+        });
+      }, 1000);
     }
   }
 

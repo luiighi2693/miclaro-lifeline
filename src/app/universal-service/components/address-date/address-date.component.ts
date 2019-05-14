@@ -233,9 +233,16 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToValidationDataAddressInput() {
-    if (this.form.valid && this.model.contactNumber1.length === 12 &&
-      ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress) &&
-      this.validatePostalAddress() && this.validateContactChannel()) {
+    if (
+      // this.form.valid && this.model.contactNumber1.length === 12 &&
+      // ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress) &&
+      // this.validatePostalAddress() && this.validateContactChannel()
+      this.form.valid &&
+      ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress)
+      && this.validatePostalAddress() && this.validateContactChannel()
+      && ( (!this.model.temporalAddress && this.model.address.length > 0 && this.model.contactNumber1.length === 12)
+      || (this.model.temporalAddress)) && (this.model.contactNumber2.length === 0 || this.model.contactNumber2.length === 12)
+    ) {
       console.log(this.model);
       this.validationProcessUSPS = true;
 

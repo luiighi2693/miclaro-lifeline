@@ -106,9 +106,6 @@
                             [(ngModel)]="model.imei"
                             [formControl]="form.controls['imei']"
                           />
-                          <!--<small class="text-danger" translate>-->
-                            <!--El IMEI o SIM CARD ingresados no se encuentran registrados en nuestros inventarios. Por favor, verifique e intente nuevamente.-->
-                          <!--</small>-->
                         </div>
                       </div>
                     </div>
@@ -128,6 +125,12 @@
                           />
                         </div>
                       </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="model.imei.length !== 17 || model.simCard.length !== 20">
+                      <small class="text-danger" translate>
+                        El IMEI o SIM CARD ingresados no se encuentran registrados en nuestros inventarios. Por favor, verifique e intente nuevamente.
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -194,7 +197,7 @@
                   <a
                     (click)="goToAceptationTerms()"
                     class="btns def-i pull-right vcenter gray"
-                    [ngClass]="{ red: form.valid && checkImeiValidated }"
+                    [ngClass]="{ red: form.valid && checkImeiValidated && model.imei.length === 17 && model.simCard.length === 20}"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
