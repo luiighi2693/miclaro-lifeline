@@ -644,7 +644,7 @@
                     ( (model.temporalAddress && model.temporalAddressExtraContent.length > 0) || !model.temporalAddress)
                      && validatePostalAddress() && validateContactChannel()
                     && ( (!model.temporalAddress && model.address.length > 0 && model.contactNumber1.length === 12)
-                    || (model.temporalAddress))}"
+                    || (model.temporalAddress)) && (model.contactNumber2.length === 0 || model.contactNumber2.length === 12) }"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
