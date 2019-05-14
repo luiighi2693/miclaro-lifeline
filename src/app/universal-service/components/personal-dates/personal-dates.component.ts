@@ -93,6 +93,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       idNumber: [null, Validators.compose([Validators.required])],
       idExpirationDate: [null, Validators.compose([Validators.required])]
     });
+    console.log('init component');
+    console.log(this.model.socialSecure + ' : model socialSecure');
+    console.log('this.format2: ' + this.format2);
+    console.log('this.valueSSN: ' + this.valueSSN);
+
+    console.log(this.model);
   }
 
   inFormat(cadena_fecha: string) {
@@ -163,6 +169,19 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
   }
 
   public formatInput(input: string, format: string) {
+    if (
+      input !== undefined &&
+      input.length === 11 &&
+      parseInt(this.valueSSN.replace('-', '').replace('-', '')) >= 99999999
+    ) {
+      console.log('antes del cambio');
+      console.log(input);
+      console.log(this.valueSSN);
+      // si tiene los 2 - guiones  ya esta validado
+      this.valueSSN = input.replace('-', '');
+      return this.valueSSN;
+    }
+
     // Almacenando valor real en variable temporal
     if (input !== undefined && input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
       // console.log(input.substr(input.length - 1, 1));
@@ -171,11 +190,19 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       if (input !== 'X' && input !== 'XXX-XX-XXXX') {
         this.valueSSN = input;
         // console.log(input);
+      } else {
+        console.log('comparacion para eliminar');
+        console.log(input + ' input');
+        console.log(this.valueSSN + ' valueSSN');
       }
     }
 
     // tslint:disable-next-line:radix
-    if (input !== undefined && input.length === 11 && parseInt(this.valueSSN) > 99999999 === false) {
+    if (
+      input !== undefined &&
+      input.length === 11 &&
+      parseInt(this.valueSSN.replace('-', '').replace('-', '')) > 99999999 === false
+    ) {
       this.invalidSSN = true;
     }
 
@@ -183,7 +210,11 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     // ya que tiene el formato XXX-XX-XXXX  de 11 caracteres serian 9 digitos
     // parseInt( this.valueSSN ) > 99999999 [USADO PARA VALIDAR Y CUMPLIR LA CONDICION QUE SEA NUERICO Y DE 9 DIGITOS ]
     // tslint:disable-next-line:radix
-    if (input !== undefined && input.length === 11 && parseInt(this.valueSSN) > 99999999) {
+    if (
+      input !== undefined &&
+      input.length === 11 &&
+      parseInt(this.valueSSN.replace('-', '').replace('-', '')) > 99999999
+    ) {
       this.invalidSSN = false;
       this.checkSSN = true;
       console.log(this.valueSSN);
@@ -191,6 +222,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
     if (format === this.format2) {
       console.log(input);
+      console.log(format);
+      console.log(this.format2);
       if (input !== undefined && input.length === 4) {
         if (input[input.length - 1] === '-') {
           return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
@@ -477,6 +510,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         this.inputControl = inputValue;
       }
       console.log('#blur :' + inputValue);
+      console.log(this.format2);
+      console.log(this.valueSSN);
 
       // tslint:disable-next-line:prefer-const
       let dp1 = document.getElementsByClassName('ui-datepicker-year')[0] as HTMLSelectElement;
@@ -635,6 +670,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         this.model.socialSecure =
           this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
         console.log(this.model.socialSecure);
+        console.log(this.format2);
+        console.log(this.model);
       } else {
         this.model.socialSecure = undefined;
         this.valueSSN = undefined;
