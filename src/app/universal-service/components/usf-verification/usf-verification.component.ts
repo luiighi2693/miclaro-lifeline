@@ -114,7 +114,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
             alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
           }
         });
-      }, 1000);
+      }, 2000);
     }
   }
 

@@ -18,6 +18,7 @@ declare let alertify: any;
 })
 export class RegisterCaseComponent extends BaseComponent implements OnInit {
   dependPeopleFlag = false;
+  processValidationNLAD = false;
   dataObjectAddress: DataObjectAddress[];
 
   validateSSNData: ValidateSSNData;
@@ -117,6 +118,8 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
       if (!this.dependPeopleFlag) {
         // this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
 
+        this.processValidationNLAD = true;
+
         const datos = {
           method: 'subscriberVerificationMcapi',
           UserID: this.authenticationService.credentials.userid,
@@ -129,17 +132,21 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
 
         console.log(datos);
 
-        this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
-          // this.usfServiceService.setValidateSSNData(resp.body);
-          this.usfServiceService.setRequiredDocumentData(resp.body.required);
-          console.log(resp);
+        setTimeout(() => {
+          this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
+            // this.usfServiceService.setValidateSSNData(resp.body);
+            this.processValidationNLAD = false;
+            this.usfServiceService.setRequiredDocumentData(resp.body.required);
+            console.log(resp);
 
-          if (!resp.body.HasError) {
-            this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
-          } else {
-            alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
-          }
-        });
+            if (!resp.body.HasError) {
+              this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+            } else {
+              alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
+            }
+          });
+        },2000);
+
       } else {
         this.router.navigate(['/universal-service/usf-verification'], { replaceUrl: true });
       }
