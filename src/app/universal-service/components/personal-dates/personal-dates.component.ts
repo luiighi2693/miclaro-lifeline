@@ -172,13 +172,18 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     /* BETA */
     if (
       input !== undefined &&
-      input.length === 11 &&
-      // tslint:disable-next-line: radix
-      parseInt(
+      input.length === 11 && // tslint:disable-next-line: radix
+      (parseInt(
         String(this.valueSSN)
           .replace('-', '')
           .replace('-', '')
-      ) >= 99999999
+      ) >= 99999999 ||
+        // tslint:disable-next-line: radix
+        parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 9999999)
     ) {
       console.log('antes del cambio');
       console.log(input);
@@ -222,13 +227,18 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     // tslint:disable-next-line:radix
     if (
       input !== undefined &&
-      input.length === 11 &&
-      // tslint:disable-next-line: radix
-      parseInt(
+      input.length === 11 && // tslint:disable-next-line: radix
+      (parseInt(
         String(this.valueSSN)
           .replace('-', '')
           .replace('-', '')
-      ) >= 99999999
+      ) >= 99999999 ||
+        // tslint:disable-next-line: radix
+        parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 9999999)
     ) {
       console.log('invalido con ' + input.length);
       this.invalidSSN = true;
@@ -240,9 +250,14 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     // tslint:disable-next-line:radix
     if (
       input !== undefined &&
-      input.length === 11 &&
-      // tslint:disable-next-line: radix
-      parseInt(this.valueSSN.replace('-', '').replace('-', '')) >= 99999999
+      input.length === 11 && // tslint:disable-next-line: radix
+      (parseInt(this.valueSSN.replace('-', '').replace('-', '')) >= 99999999 ||
+        // tslint:disable-next-line: radix
+        parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 9999999)
     ) {
       console.log('invalidSSN f');
       this.invalidSSN = false;
@@ -403,9 +418,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           changeMonth: true,
           changeYear: true,
           yearRange: '-100:-21',
-          maxDate: '-21',
+          maxDate: '-21y',
           minDate: '-100y',
-          defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y,
+          defaultDate: '-22y',
           onSelect: function(dateText: any) {
             console.log(dateText + ' *onSelect');
           },
@@ -439,8 +454,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+1:+10',
-        minDate: 0
+        yearRange: '+0:+10',
+        minDate: 0,
+        defaultDate: '+1y'
       });
       // recorrido
       /* Test
@@ -472,16 +488,17 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-21',
-        maxDate: '-21',
+        maxDate: '-21y',
         minDate: '-100y',
-        defaultDate: '-21'
+        defaultDate: '-22y'
       });
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+1:+10',
-        minDate: 0
+        yearRange: '+0:+10',
+        minDate: 0,
+        defaultDate: '+1y'
       });
       this.datePicker_is_init = true;
     }
@@ -687,11 +704,18 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       // tslint:disable-next-line: radix
       if (
         this.model.socialSecure.length === 11 &&
-        parseInt(
+        // tslint:disable-next-line: radix
+        (parseInt(
           String(this.valueSSN)
             .replace('-', '')
             .replace('-', '')
-        ) >= 99999999
+        ) >= 99999999 ||
+          // tslint:disable-next-line: radix
+          parseInt(
+            String(this.valueSSN)
+              .replace('-', '')
+              .replace('-', '')
+          ) >= 9999999)
       ) {
         // this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
 
@@ -719,11 +743,18 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       // tslint:disable-next-line: radix
       if (
         this.model.socialSecure.length === 11 &&
-        parseInt(
+        // tslint:disable-next-line: radix
+        (parseInt(
           String(this.valueSSN)
             .replace('-', '')
             .replace('-', '')
-        ) >= 99999999
+        ) >= 99999999 ||
+          // tslint:disable-next-line: radix
+          parseInt(
+            String(this.valueSSN)
+              .replace('-', '')
+              .replace('-', '')
+          ) >= 9999999)
       ) {
         // this.model.socialSecure =
         // this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
