@@ -15,20 +15,19 @@ export interface PeopleData {
   money: string;
 }
 
-
 @Component({
   selector: 'app-aceptation-terms',
   templateUrl: './aceptation-terms.component.html',
   styleUrls: ['./aceptation-terms.component.scss']
 })
 export class AceptationTermsComponent extends BaseComponent implements OnInit {
-
   public agencies = [
     'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)',
     'Ingreso Suplementario de Seguridad (SSI)',
     'Medicaid',
     'Asistencia Federal para la Vivienda Pública (FPHA)',
-    'Beneficio de Pensión para Veteranos y Sobrevivientes'];
+    'Beneficio de Pensión para Veteranos y Sobrevivientes'
+  ];
 
   public form: FormGroup;
 
@@ -40,9 +39,9 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
     earningsValidation: boolean;
     lifelineProgramInscription: boolean;
     aceptationTerm: boolean;
-  };
+  }();
 
-  homePeopleData: PeopleData [] = [
+  homePeopleData: PeopleData[] = [
     { number: 1, money: '$16,389' },
     { number: 2, money: '$22,221' },
     { number: 3, money: '$28,053' },
@@ -53,10 +52,12 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
     { number: 8, money: '$57,213' }
   ];
 
-  constructor(public authenticationService: AuthenticationService,
-              public usfServiceService: UsfServiceService,
-              public router: Router,
-              public fb: FormBuilder) {
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
     super(authenticationService, usfServiceService, router, fb);
   }
 
@@ -70,12 +71,7 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
           // Validators.required
         ])
       ],
-      ldiRestriction: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ]
+      ldiRestriction: [null, Validators.compose([Validators.required])]
     });
 
     this.model.peopleDataSelectedNumber = this.homePeopleData[0].number;
@@ -83,13 +79,13 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
   }
 
   goToPreviewViewAndFirm() {
-    if (this.validateForm()){
+    if (this.validateForm()) {
       this.router.navigate(['/universal-service/preview-view-and-firm'], { replaceUrl: true });
     }
   }
 
   goToAccountCreation() {
-    this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
+    this.router.navigate(['/home'], { replaceUrl: true });
   }
 
   onChangeSelect($event: any) {

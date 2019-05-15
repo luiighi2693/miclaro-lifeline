@@ -403,9 +403,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           changeMonth: true,
           changeYear: true,
           yearRange: '-100:-21',
-          maxDate: '-21',
+          maxDate: '-21y',
           minDate: '-100y',
-          defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y,
+          defaultDate: '-22y',
           onSelect: function(dateText: any) {
             console.log(dateText + ' *onSelect');
           },
@@ -439,8 +439,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+1:+10',
-        minDate: 0
+        yearRange: '+0:+10',
+        minDate: 0,
+        defaultDate: '+1y'
       });
       // recorrido
       /* Test
@@ -472,16 +473,17 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-21',
-        maxDate: '-21',
+        maxDate: '-21y',
         minDate: '-100y',
-        defaultDate: '-21'
+        defaultDate: '-22y'
       });
       $('#inputControl2').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '+1:+10',
-        minDate: 0
+        yearRange: '+0:+10',
+        minDate: 0,
+        defaultDate: '+1y'
       });
       this.datePicker_is_init = true;
     }
