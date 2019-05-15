@@ -108,7 +108,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
             // if (resp.body.message === 'Subscriber passed all validations and verifications') {
             //   this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
             // } else {
-              this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
+            this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
             // }
           } else {
             alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
@@ -162,9 +162,9 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         changeMonth: true,
         changeYear: true,
         yearRange: '-100:-21',
-        maxDate: '-21',
+        maxDate: '-21y',
         minDate: '-100y',
-        defaultDate: fecha_.m + '/' + fecha_.d + '/' + fecha_.y,
+        defaultDate: '-22y',
         onSelect: function(dateText: any) {
           console.log(dateText + ' *onSelect');
         },
