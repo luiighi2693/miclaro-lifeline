@@ -1,3 +1,28 @@
+<!-- [INIT LOADING PROCESO DE VALIDACION NLAD] -->
+
+<div class="popupbg" *ngIf="processValidationNLAD">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia el Proceso de
+            Validaci&oacute;n NLAD
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING PROCESO DE VALIDACION NLAD] -->
+
 <div class="basicrow">
   <app-header></app-header>
 
@@ -271,9 +296,9 @@
                     </span>
                   </a>
 
-                  <a (click)="goToAddressDate()" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
                     <span class="tabcell">
-                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar
                     </span>
                   </a>
                 </div>

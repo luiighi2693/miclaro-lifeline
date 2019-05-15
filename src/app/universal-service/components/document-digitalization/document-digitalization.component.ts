@@ -241,6 +241,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
               this.requiredDocumentsContent[index].isCharged = true;
             } else {
               this.uploadHasError = true;
+              this.loadingDocs = false;
             }
 
             // @ts-ignore
@@ -254,6 +255,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
           error => {
             console.log(error);
             this.uploadHasError = true;
+            this.loadingDocs = false;
 
             // @ts-ignore
             $event.target.value = '';
