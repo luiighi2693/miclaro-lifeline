@@ -152,11 +152,6 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
       if (parseInt(mes) < 10) {
         mes = '0' + mes;
       }
-      const fecha_ = {
-        d: String(dia),
-        m: String(mes),
-        y: String(new Date().getFullYear() - 21)
-      };
       $('#inputControl3').datepicker({
         dateFormat: 'mm/dd/yy',
         changeMonth: true,
@@ -175,7 +170,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
           if ($('#inputControl3').val().length === 10) {
             console.log('to :' + month + ' ' + $('#inputControl3').val().sub + ' ' + year);
 
-            let new_date = new Date(
+            const new_date = new Date(
               month +
                 '/' +
                 $('#inputControl3')
@@ -258,28 +253,76 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
     console.log(this.model.birthday);
     console.log('ic_key_up');
   }
-
-  // tslint:disable-next-line:member-ordering
   onBlurSSN() {
     if (this.model.socialSecure !== undefined) {
-      // tslint:disable-next-line:radix
-      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
-        this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
+      // tslint:disable-next-line: radix
+      if (
+        this.model.socialSecure.length === 11 &&
+        // tslint:disable-next-line: radix
+        (parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 99999999 ||
+          // tslint:disable-next-line: radix
+          parseInt(
+            String(this.valueSSN)
+              .replace('-', '')
+              .replace('-', '')
+          ) >= 9999999)
+      ) {
+        // this.model.socialSecure = 'XXX-XX-' + this.valueSSN.substr(5, 4);
+
+        // si tiene los 2 - guiones  ya esta validado
+        let remplazo = String(this.valueSSN.replace('-', '').replace('-', '')).replace('-', '');
+        remplazo = 'XXX' + '-' + 'XX' + '-' + String(this.valueSSN).substr(-4, 4);
+
+        console.log(remplazo);
+        this.model.socialSecure = remplazo;
+        console.log('onBlurSSN If');
       } else {
+        console.log(this.valueSSN);
         this.model.socialSecure = undefined;
         this.valueSSN = undefined;
         this.checkSSN = false;
+        console.log('onBlurSSN else');
       }
     }
   }
-
   onFocusSSN() {
     if (this.model.socialSecure !== undefined) {
-      // tslint:disable-next-line:radix
-      if (this.model.socialSecure.length === 11 && parseInt(this.valueSSN) > 99999999) {
+      // tslint:disable-next-line: radix
+      if (
+        this.model.socialSecure.length === 11 &&
+        // tslint:disable-next-line: radix
+        (parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 99999999 ||
+          // tslint:disable-next-line: radix
+          parseInt(
+            String(this.valueSSN)
+              .replace('-', '')
+              .replace('-', '')
+          ) >= 9999999)
+      ) {
+        // si trae guiones se limpia
+        this.valueSSN = String(this.valueSSN)
+          .replace('-', '')
+          .replace('-', '')
+          .replace('-', '');
+        console.log(this.valueSSN);
+
+        // Restaurando el valor
         this.model.socialSecure =
-          this.valueSSN.substr(0, 3) + '-' + this.valueSSN.substr(3, 2) + '-' + this.valueSSN.substr(5, 4);
-        console.log(this.model.socialSecure);
+          String(this.valueSSN).substr(0, 3) +
+          '-' +
+          String(this.valueSSN).substr(3, 2) +
+          '-' +
+          String(this.valueSSN).substr(5, 4);
+
+        console.log('onFocusSSN If');
       } else {
         this.model.socialSecure = undefined;
         this.valueSSN = undefined;
@@ -289,19 +332,78 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
   }
 
   public formatInput(input: string, format: string) {
+    /* BETA */
+    if (
+      input !== undefined &&
+      input.length === 11 && // tslint:disable-next-line: radix
+      (parseInt(
+        String(this.valueSSN)
+          .replace('-', '')
+          .replace('-', '')
+      ) >= 99999999 ||
+        // tslint:disable-next-line: radix
+        parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 9999999)
+    ) {
+      console.log('antes del cambio');
+      console.log(input);
+      console.log(this.valueSSN);
+      // si tiene los 2 - guiones  ya esta validado
+      this.valueSSN = String(input)
+        .replace('-', '')
+        .replace('-', '')
+        .replace('-', '');
+      this.valueSSN =
+        String(this.valueSSN).substr(0, 3) +
+        '-' +
+        String(this.valueSSN).substr(3, 2) +
+        '-' +
+        String(this.valueSSN).substr(5, 4);
+      console.log(format);
+      console.log(this.format2);
+      console.log(this.model.socialSecure);
+      this.invalidSSN = false;
+      this.checkSSN = true;
+      console.log(this.form.controls['socialSecure'].valid);
+      return this.valueSSN;
+    }
+    /* * * * * * * * * * * * * * * * * */
+
     // Almacenando valor real en variable temporal
-    if (input !== undefined && input.length > 1 && input.substr(input.length - 1, 1) !== 'X') {
+    if (input !== undefined && input.length > 1 && String(input).substr(input.length - 1, 1) !== 'X') {
       // console.log(input.substr(input.length - 1, 1));
       this.valueSSN += String(input.substr(input.length - 1, 1));
     } else {
       if (input !== 'X' && input !== 'XXX-XX-XXXX') {
         this.valueSSN = input;
         // console.log(input);
+      } else {
+        console.log('comparacion para eliminar');
+        console.log(input + ' input');
+        console.log(this.valueSSN + ' valueSSN');
       }
     }
 
     // tslint:disable-next-line:radix
-    if (input !== undefined && input.length === 11 && parseInt(this.valueSSN) > 99999999 === false) {
+    if (
+      input !== undefined &&
+      input.length === 11 && // tslint:disable-next-line: radix
+      (parseInt(
+        String(this.valueSSN)
+          .replace('-', '')
+          .replace('-', '')
+      ) >= 99999999 ||
+        // tslint:disable-next-line: radix
+        parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 9999999)
+    ) {
+      console.log('invalido con ' + input.length);
       this.invalidSSN = true;
     }
 
@@ -309,7 +411,18 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
     // ya que tiene el formato XXX-XX-XXXX  de 11 caracteres serian 9 digitos
     // parseInt( this.valueSSN ) > 99999999 [USADO PARA VALIDAR Y CUMPLIR LA CONDICION QUE SEA NUERICO Y DE 9 DIGITOS ]
     // tslint:disable-next-line:radix
-    if (input !== undefined && input.length === 11 && parseInt(this.valueSSN) > 99999999) {
+    if (
+      input !== undefined &&
+      input.length === 11 && // tslint:disable-next-line: radix
+      (parseInt(this.valueSSN.replace('-', '').replace('-', '')) >= 99999999 ||
+        // tslint:disable-next-line: radix
+        parseInt(
+          String(this.valueSSN)
+            .replace('-', '')
+            .replace('-', '')
+        ) >= 9999999)
+    ) {
+      console.log('invalidSSN f');
       this.invalidSSN = false;
       this.checkSSN = true;
       console.log(this.valueSSN);
@@ -317,6 +430,8 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
 
     if (format === this.format2) {
       console.log(input);
+      console.log(format);
+      console.log(this.format2);
       if (input !== undefined && input.length === 4) {
         if (input[input.length - 1] === '-') {
           return input.substr(0, input.length - 1) + input.substr(input.length - 1, input.length);
@@ -340,23 +455,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         return input;
       }
     }
-
+    console.log('va a blanquear');
     return '';
   }
-  /*
-  private formatInput(input: string, format: string) {
-    if (format === this.format2) {
-      if (input.length === 4) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
-      }
-
-      if (input.length === 7) {
-        return input.substr(0, input.length - 1) + '-' + input.substr(input.length - 1, input.length);
-      }
-
-      return input;
-    }
-
-    return '';
-  }*/
 }
