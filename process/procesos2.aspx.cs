@@ -22,7 +22,7 @@ public partial class proccess_procesos2 : System.Web.UI.Page
     // intarcia Serializado
     System.Web.Script.Serialization.JavaScriptSerializer json = new System.Web.Script.Serialization.JavaScriptSerializer();
     
-    string wspathUSF = "http://wslife00042ws.claroinfo.com/Service/svc/1/";
+    string wspathUSF = "https://wslife00042ws.claroinfo.com/Service/svc/1/";  //"http://localhost:62828/Service/svc/1/";
     
 
     private const string AntiXsrfTokenKey = "__AntiXsrfToken";
@@ -170,8 +170,9 @@ public partial class proccess_procesos2 : System.Web.UI.Page
         string CUSTOMER_ID_TYPE = jo["CUSTOMER_ID_TYPE"].ToString();
         string ID_NUMBER = jo["ID_NUMBER"].ToString();
         string DTS_EXP = jo["DTS_EXP"].ToString();
-       
-		string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_SUFFIX\":\"" + CUSTOMER_SUFFIX + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\"}";
+        string Home = jo["Home"].ToString();
+
+        string PostData = "{\"USER_ID\":\"" + USER_ID + "\",\"CUSTOMER_SUFFIX\":\"" + CUSTOMER_SUFFIX + "\",\"CUSTOMER_NAME\":\"" + CUSTOMER_NAME + "\",\"CUSTOMER_MN\":\"" + CUSTOMER_MN + "\",\"CUSTOMER_LAST\":\"" + CUSTOMER_LAST + "\",\"CUSTOMER_SSN\":\"" + CUSTOMER_SSN + "\",\"CUSTOMER_DOB\":\"" + CUSTOMER_DOB + "\",\"GENDER\":\"" + GENDER + "\",\"CUSTOMER_ID_TYPE\":\"" + CUSTOMER_ID_TYPE + "\",\"ID_NUMBER\":\"" + ID_NUMBER + "\",\"DTS_EXP\":\"" + DTS_EXP + "\",\"Home\":\"" + Home + "\"}";
         string PostURL = wspathUSF + "VALIDATE_SSN.MCAPI";
        
         object resp = ToJson(PostWebService(PostURL, PostData));
@@ -218,6 +219,9 @@ public partial class proccess_procesos2 : System.Web.UI.Page
 
     public void subscriberVerificationMcapi(JObject jo)
     {
+
+
+
         string UserID = jo["UserID"].ToString();
         string caseID = jo["caseID"].ToString();
         string Lookup_Type = jo["Lookup_Type"].ToString();
@@ -286,7 +290,10 @@ public partial class proccess_procesos2 : System.Web.UI.Page
 
 
         string PostData = "{\"UserID\":\"" + UserID + "\",\"caseID\":\"" + caseID + "\",\"Lookup_Type\":\"" + Lookup_Type + "\",\"response\":\"" + response + "\",\"depent_sufijo\":\"" + depent_sufijo + "\",\"depent_name\":\"" + depent_name + "\",\"depent_mn\":\"" + depent_mn + "\",\"depent_last\":\"" + depent_last + "\",\"depent_dob\":\"" + depent_dob + "\",\"depent_ssn\":\"" + depent_ssn + "\"}";
+       
+        
         string PostURL = wspathUSF + "SUBSCRIBER_VERIFICATION.MCAPI";
+
 
         object resp = ToJson(PostWebService(PostURL, PostData));
 

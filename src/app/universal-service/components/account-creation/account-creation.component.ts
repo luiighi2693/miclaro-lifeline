@@ -106,7 +106,7 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
         caseID: this.validateSSNData.CASENUMBER,
         mAccountType: 'I',
         mAccountSubType: 'P',
-        customer_ssn: this.usfServiceService.getSnn(),
+        customer_ssn: this.usfServiceService.getSnn().replace('-', ''),
         SIMSerial: this.model.simCard,
         IMEISerial: this.model.imei,
         tech: this.model.tecnology,
