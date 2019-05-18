@@ -93,7 +93,10 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         depent_mn: this.model.secondName,
         depent_last: this.model.lastName,
         depent_dob: this.formatDate(this.inFormat(this.model.birthday)),
-        depent_ssn: this.valueSSN
+        depent_ssn: String(this.valueSSN)
+          .replace('-', '')
+          .replace('-', '')
+          .replace('-', '')
       };
 
       console.log(datos);

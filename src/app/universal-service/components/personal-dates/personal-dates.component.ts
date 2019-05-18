@@ -132,7 +132,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         CUSTOMER_NAME: this.model.firstName,
         CUSTOMER_MN: this.model.secondName,
         CUSTOMER_LAST: this.model.lastName,
-        CUSTOMER_SSN: this.valueSSN,
+        CUSTOMER_SSN: this.valueSSN
+          .replace('-', '')
+          .replace('-', '')
+          .replace('-', ''),
         // CUSTOMER_DOB: this.formatDate(this.form.controls['birthday'].value),
         // date.year + '-' + date.month + '-' + date.day
         CUSTOMER_DOB: this.formatDate(this.inFormat(this.valueBirthday)),
