@@ -158,7 +158,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         console.log(resp);
 
         if (!resp.body.HasError) {
-          this.usfServiceService.setSsn(this.valueSSN);
+          this.usfServiceService.setSsn(this.valueSSN.replace('-', ''));
           this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
         } else {
           this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
