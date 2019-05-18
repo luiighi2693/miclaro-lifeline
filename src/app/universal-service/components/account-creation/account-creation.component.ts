@@ -97,7 +97,12 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
   }
 
   goToAceptationTerms() {
-    if (this.form.valid && this.checkImeiValidated && this.model.imei.length === 17 && this.model.simCard.length === 20) {
+    if (
+      this.form.valid &&
+      this.checkImeiValidated &&
+      this.model.imei.length === 17 &&
+      this.model.simCard.length === 20
+    ) {
       this.processValidationSIF = true;
 
       const datos = {
@@ -106,7 +111,10 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
         caseID: this.validateSSNData.CASENUMBER,
         mAccountType: 'I',
         mAccountSubType: 'P',
-        customer_ssn: this.usfServiceService.getSnn(),
+        customer_ssn: String(this.usfServiceService.getSnn())
+          .replace('-', '')
+          .replace('-', '')
+          .replace('-', ''),
         SIMSerial: this.model.simCard,
         IMEISerial: this.model.imei,
         tech: this.model.tecnology,
