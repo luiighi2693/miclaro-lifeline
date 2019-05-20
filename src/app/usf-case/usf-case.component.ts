@@ -174,19 +174,25 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   isEmpty() {
     return this.nameToSearch.trim().length;
   }
-  validacionOcultarRow(iStatus: any, iNameClientTxt: String) {
-    // # (statusSelected != 'ESTATUS' && statusSelected != iten.status) || isEmpty()!=0
-    if (this.statusSelected == 'ESTATUS' && this.isEmpty() == 0) {
+
+  FilterByNroUsf() {}
+
+  validacionOcultarRow(iten: any) {
+    if (this.numberUSF.trim() !== '' && String(iten.caseID) === String(this.numberUSF.trim())) {
       return false;
-    } else if (this.statusSelected != 'ESTATUS' && this.isEmpty() == 0 && this.statusSelected != iStatus) {
+    } else if (this.numberUSF.trim() !== '' && String(iten.caseID) !== String(this.numberUSF.trim())) {
       return true;
-    } else if (this.statusSelected != 'ESTATUS' && this.isEmpty() == 0 && this.statusSelected == iStatus) {
+    } else if (this.statusSelected === 'ESTATUS' && this.isEmpty() === 0) {
+      return false;
+    } else if (this.statusSelected !== 'ESTATUS' && this.isEmpty() === 0 && this.statusSelected !== iten.status) {
+      return true;
+    } else if (this.statusSelected !== 'ESTATUS' && this.isEmpty() === 0 && this.statusSelected === iten.status) {
       return false;
     } else if (
-      this.statusSelected != 'ESTATUS' &&
-      this.statusSelected == iStatus &&
-      this.isEmpty() != 0 &&
-      iNameClientTxt
+      this.statusSelected !== 'ESTATUS' &&
+      this.statusSelected === iten.status &&
+      this.isEmpty() !== 0 &&
+      iten.fullName
         .toString()
         .toLocaleLowerCase()
         .includes(this.nameToSearch.toString().toLocaleLowerCase())
@@ -194,8 +200,8 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       return false;
     } else {
       if (
-        this.isEmpty() != 0 &&
-        iNameClientTxt
+        this.isEmpty() !== 0 &&
+        iten.fullName
           .toString()
           .toLocaleLowerCase()
           .includes(this.nameToSearch.toString().toLocaleLowerCase())
@@ -222,9 +228,9 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
         dt.body.customercases.forEach((caso: any) => {
           let date_temp = new Date(caso.DTS_CREATED);
           let dd: number = date_temp.getDate();
-          let ddTxt: string = '';
+          let ddTxt = '';
           let mm: number = date_temp.getMonth() + 1;
-          let mmTxt: string = '';
+          let mmTxt = '';
 
           if (dd < 10) {
             ddTxt = '0' + dd.toString();
