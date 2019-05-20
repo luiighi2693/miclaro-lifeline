@@ -14,25 +14,31 @@ import { AceptationTermsComponent } from '@app/universal-service/components/acep
 import { PreviewViewAndFirmComponent } from '@app/universal-service/components/preview-view-and-firm/preview-view-and-firm.component';
 import { ActivationComponent } from '@app/universal-service/components/activation/activation.component';
 
+import { SignaturePadModule } from 'angular2-signaturepad';
+
 const routes: Routes = [
-  { path: 'universal-service', component: UniversalServiceComponent, children: [
+  {
+    path: 'universal-service',
+    component: UniversalServiceComponent,
+    children: [
       // { path: '', loadChildren: '../home/home.module#HomeModule' },
-      { path: 'personal-dates', component: PersonalDatesComponent},
-      { path: 'social-secure-verification', component: SocialSecureVerificationComponent},
-      { path: 'address-date', component: AddressDateComponent},
-      { path: 'register-case', component: RegisterCaseComponent},
-      { path: 'usf-verification', component: UsfVerificationComponent},
-      { path: 'document-digitalization', component: DocumentDigitalizationComponent},
-      { path: 'account-creation', component: AccountCreationComponent},
-      { path: 'aceptation-terms', component: AceptationTermsComponent},
-      { path: 'preview-view-and-firm', component: PreviewViewAndFirmComponent},
-      { path: 'activation', component: ActivationComponent}
-    ]}
-  ];
+      { path: 'personal-dates', component: PersonalDatesComponent },
+      { path: 'social-secure-verification', component: SocialSecureVerificationComponent },
+      { path: 'address-date', component: AddressDateComponent },
+      { path: 'register-case', component: RegisterCaseComponent },
+      { path: 'usf-verification', component: UsfVerificationComponent },
+      { path: 'document-digitalization', component: DocumentDigitalizationComponent },
+      { path: 'account-creation', component: AccountCreationComponent },
+      { path: 'aceptation-terms', component: AceptationTermsComponent },
+      { path: 'preview-view-and-firm', component: PreviewViewAndFirmComponent },
+      { path: 'activation', component: ActivationComponent }
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule, SignaturePadModule],
   providers: []
 })
 export class UniversalServiceRoutingModule {}

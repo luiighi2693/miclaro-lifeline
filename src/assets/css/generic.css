@@ -1884,13 +1884,18 @@ a.social-ls.ig {
   width: 686px;
   padding: 40px 25px;
 }
+.popupcont.morew-iic {
+  width: 800px;
+  padding: 40px 25px;
+}
 
 .popupcont.morew-i {
   width: 686px;
   padding: 25px 0;
 }
 
-.popupcont.morew-ii {
+.popupcont.morew-ii,
+.popupcont.morew-iic {
   padding: 25px;
 }
 

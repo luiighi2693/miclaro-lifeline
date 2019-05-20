@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 const routes: Routes = [
   // Fallback when no prior route is matched
@@ -8,7 +9,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule, SignaturePadModule],
   providers: []
 })
 export class AppRoutingModule {}

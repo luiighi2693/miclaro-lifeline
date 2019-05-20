@@ -76,40 +76,6 @@
               </div>
             </div>
           </div>
-
-          <div class="col-xs-8 col-xs-offset-2">
-            <div class="basicrow msidespad">
-              <div class="autowcont lifehomedef m-top">
-                <div class="basicrow msidespad">
-                  <div class="b-title">
-                    <div class="autocont f-black roboto-m f-bmed pull-left vcenter">
-                      <div class="tabcell">
-                        <img width="100%" class="lifehomeicons" src="../../assets/images/lifecrt-icon.png" />
-
-                        <div class="autorow pull-left m-top-u">
-                          Firma Digital
-                          <button class="btn btn-default" (click)="ngAfterViewInit()">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                          <button class="btn btn-success" (click)="drawCompleteSave()">
-                            <i class="fa fa-save"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="basicrow msidespad f-black roboto-r f-reg m-top-u-i">
-                  <signature-pad
-                    [options]="signaturePadOptions"
-                    (onBeginEvent)="drawStart()"
-                    (onEndEvent)="drawComplete()"
-                  ></signature-pad>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
