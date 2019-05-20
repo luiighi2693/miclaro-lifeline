@@ -23,7 +23,9 @@ export class PreviewViewAndFirmComponent implements OnInit {
     canvasHeight: 180
   };
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {}
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
+    this.authenticationService.validaSessionActiva();
+  }
   ngOnInit() {
     window.scroll(0, 0);
   }
