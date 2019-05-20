@@ -50,9 +50,11 @@ export class PreviewViewAndFirmComponent implements OnInit {
   // tslint:disable-next-line: use-life-cycle-interface
   ngAfterViewInit() {
     // this.signaturePad is now available
-    this.signaturePad.set('minWidth', 0.5); // set szimek/signature_pad options at runtime
-    this.signaturePad.set('maxWidth', 3);
-    this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+    if (this.signaturePad !== undefined) {
+      this.signaturePad.set('minWidth', 0.5); // set szimek/signature_pad options at runtime
+      this.signaturePad.set('maxWidth', 3);
+      this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+    }
   }
 
   drawComplete() {
