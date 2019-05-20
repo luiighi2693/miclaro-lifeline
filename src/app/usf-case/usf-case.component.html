@@ -19,9 +19,10 @@
             class="inp-f"
             maxlength="50"
             placeholder="Nro de USF"
-            type="number"
+            type="text"
             style="width: 125px;"
             [(ngModel)]="numberUSF"
+            (change)="FilterByNroUsf()"
           />
 
           <div class="autorow pull-left m-right f-reg m-left m-top-u-iii">
@@ -106,7 +107,7 @@
               *ngFor="let iten of data_conten"
               class="tablecols {{iten.classCss}}"
               [ngClass]="{
-                oculta: validacionOcultarRow(iten.status, iten.fullName),
+                oculta: validacionOcultarRow(iten),
                 muestra: statusSelected == 'ESTATUS' || statusSelected == iten.status
               }"
             >
