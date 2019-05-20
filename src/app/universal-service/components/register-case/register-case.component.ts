@@ -73,11 +73,37 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
     this.model.peopleDataSelectedNumber = this.homePeopleData[0].number;
     this.model.peopleDataSelected = this.homePeopleData[0];
 
+    // Formateando Acentos
+    if (this.dataObjectAddress[0] !== undefined && this.dataObjectAddress[0].CUSTOMERADDRESS !== undefined) {
+      this.dataObjectAddress[0].CUSTOMERADDRESS = this.convertAcents(this.dataObjectAddress[0].CUSTOMERADDRESS);
+    }
+
     console.log(this.model);
   }
 
   ngOnInit() {
     window.scroll(0, 0);
+  }
+
+  convertAcents(oration: string) {
+    const acentos = [
+      ['&aacute;', 'á'],
+      ['&eacute;', 'é'],
+      ['&iacute;', 'í'],
+      ['&oacute;', 'ó'],
+      ['&uacute;', 'ú'],
+      ['&ntilde;', 'ñ'],
+      ['&Aacute;', 'Á'],
+      ['&Eacute;', 'É'],
+      ['&Iacute;', 'Í'],
+      ['&Oacute;', 'Ó'],
+      ['&Uacute;', 'Ú'],
+      ['&Ntilde;', 'Ñ']
+    ];
+    acentos.map(function(acento: any) {
+      oration = oration.replace(acento[0], acento[1]);
+    });
+    return oration;
   }
 
   btnCondicionContinuar() {
@@ -145,8 +171,7 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
               alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
             }
           });
-        },2000);
-
+        }, 2000);
       } else {
         this.router.navigate(['/universal-service/usf-verification'], { replaceUrl: true });
       }
