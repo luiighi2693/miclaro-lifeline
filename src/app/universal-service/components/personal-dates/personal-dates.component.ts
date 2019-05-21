@@ -136,23 +136,17 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           .replace('-', '')
           .replace('-', '')
           .replace('-', ''),
-        // CUSTOMER_DOB: this.formatDate(this.form.controls['birthday'].value),
-        // date.year + '-' + date.month + '-' + date.day
         CUSTOMER_DOB: this.formatDate(this.inFormat(this.valueBirthday)),
         GENDER: this.model.gender ? '1' : '0',
         CUSTOMER_ID_TYPE: this.model.idType === 'Pasaporte' ? '0' : '1',
         ID_NUMBER: this.model.idNumber,
-        // DTS_EXP: this.formatDate(this.form.controls['idExpirationDate'].value),
         DTS_EXP: this.formatDate(this.inFormat(this.valueExpirationDate)),
-        // DEP_APPLICATION: '',
-        // PHONE_1: '',
-        // COMUNICATION: '',
         Home: this.model.liveWithAnoterAdult ? 1 : 0
       };
 
       console.log(datos);
 
-      this.usfServiceService.validateSSN(datos).subscribe(resp => {
+      this.usfServiceService.doAction(datos, 'validareSSNAdMcapi').subscribe(resp => {
         this.processValidationSIF = false;
         this.usfServiceService.setValidateSSNData(resp.body);
         console.log(resp);

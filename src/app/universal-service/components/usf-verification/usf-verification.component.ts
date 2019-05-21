@@ -83,9 +83,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
       const datos = {
         method: 'subscriberVerificationMcapi',
         UserID: this.authenticationService.credentials.userid,
-        // UserID: 69,
         caseID: this.validateSSNData.CASENUMBER,
-        // caseID: 132,
         Lookup_Type: 2,
         response: 1,
         depent_sufijo: this.model.sufix,
@@ -102,7 +100,7 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
       console.log(datos);
 
       setTimeout(() => {
-        this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
+        this.usfServiceService.doAction(datos, 'subscriberVerificationMcapi').subscribe(resp => {
           this.processValidationNLAD = false;
           this.usfServiceService.setRequiredDocumentData(resp.body.required);
           console.log(resp);

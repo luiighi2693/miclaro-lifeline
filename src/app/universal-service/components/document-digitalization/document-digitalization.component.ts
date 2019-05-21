@@ -230,7 +230,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
         console.log(datos);
 
-        this.usfServiceService.uploadDocument(datos).subscribe(
+        this.usfServiceService.doAction(datos, 'UpdloadDocumentMcapi').subscribe(
           resp => {
             // this.usfServiceService.setValidateSSNData(resp.body);
             console.log(resp);
@@ -327,14 +327,12 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       method: 'RetrieveDocumentMcapi',
       documentTypeID: id,
       user_Id: this.authenticationService.credentials.userid,
-      // user_Id: 56,
       case_number: this.validateSSNData.CASENUMBER
-      // case_number: 36,
     };
 
     console.log(datos);
 
-    this.usfServiceService.retrieveDocument(datos).subscribe(
+    this.usfServiceService.doAction(datos, 'RetrieveDocumentMcapi').subscribe(
       resp => {
         console.log(resp);
 
@@ -359,14 +357,12 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       method: 'DeleteDocumentMcapi',
       documentTypeID: idToSearch,
       user_Id: this.authenticationService.credentials.userid,
-      // user_Id: 56,
       case_number: this.validateSSNData.CASENUMBER
-      // case_number: 36,
     };
 
     console.log(datos);
 
-    this.usfServiceService.deleteDocument(datos).subscribe(
+    this.usfServiceService.doAction(datos, 'DeleteDocumentMcapi').subscribe(
       resp => {
         console.log(resp);
 

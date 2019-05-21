@@ -13,20 +13,15 @@ export interface ValidateSSNData {
 }
 
 export interface ValidateSSNDataContent {
-  // accountSubType: string;
   accountType: string;
   address: string;
-  // agency: string;
   ban: string;
-  // banStatus: string;
-  // efectivedate: string;
-  // generalDescription: string;
   lifelineActivationDate: string;
   name: string;
   ssn: string;
   subscriberNumber: string;
-  // subscriberStatus: string;
-  // system: string;
+  phone1: string;
+  CASENUMBER: string;
 }
 
 export interface DataObjectAddress {
@@ -64,11 +59,11 @@ const ssnKey = 'ssn';
 export class UsfServiceService {
   constructor(private http: HttpClient) { }
 
-  validateSSN(data: any): Observable<any> {
-     // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', data, {
-     //   observe: 'response'
-     // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+  doAction(data: any, method: string): Observable<any> {
+    let url = (constants.MOCK_API ? constants.MOCK_API_PATH : constants.API_PATH);
+    let path = constants.MOCK_API ? ('/' + method) : '';
+
+    return this.http.post<any>(url + path, data, { observe: 'response' });
   }
 
   public getValidateSSNData(): ValidateSSNData | null {
@@ -113,22 +108,6 @@ export class UsfServiceService {
     }
   }
 
-  validateAddress(data: any): Observable<any> {
-    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/ADDRESSVALIDATION.MCAPI', data, {
-    //   observe: 'response'
-    // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
-  }
-
-  subscriberVerification(data: any): Observable<any> {
-    // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/subscriber/SUBSCRIBER_VERIFICATION.MCAPI', data, {
-    //   observe: 'response'
-    // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
-  }
-
-
-
   public getRequiredDocumentData(): string[] | null {
     let requiredDocuments: string[];
     requiredDocuments = JSON.parse(sessionStorage.getItem(requiredDocumentsKey));
@@ -155,33 +134,5 @@ export class UsfServiceService {
     } else {
       sessionStorage.removeItem(dataAgencyMoneySelectionKey);
     }
-  }
-
-  uploadDocument(data: any): Observable<any> {
-    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/UpdloadDocument.MCAPI', data, {
-    //   observe: 'response'
-    // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
-  }
-
-  retrieveDocument(data: any): Observable<any> {
-    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/RetrieveDocument.MCAPI', data, {
-    //   observe: 'response'
-    // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
-  }
-
-  deleteDocument(data: any): Observable<any> {
-    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/DeleteDocument.MCAPI', data, {
-    //   observe: 'response'
-    // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
-  }
-
-  createNewAccount(data: any): Observable<any> {
-    // return this.http.post<any>('http://wslife00042ws.claroinfo.com/Service/svc/1/CREATENEWACCOUNT.MCAPI', data, {
-    //   observe: 'response'
-    // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
   }
 }

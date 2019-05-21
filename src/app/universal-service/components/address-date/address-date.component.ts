@@ -250,15 +250,12 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         method: 'addressValidationMcapi',
         user_ID: this.authenticationService.credentials.userid,
         case_ID: this.validateSSNData.CASENUMBER,
-        // caseID: 1234,
         addresstype : this.model.temporalAddress ? 3 : 1,
-        // Tipodireccion1: this.model.temporalAddress1 ? 1 : 0,
         address1: this.model.address,
         address2: this.model.depUnitOther + ' ' +(this.model.temporalAddress ? ' ' + this.model.temporalAddressExtraContent : ''),
         city: this.model.municipality,
         state: 'PR',
         zip: this.model.postalCode,
-        // Tipodireccion3: this.model.temporalAddress ? 3 : 0,
         phone1: this.model.contactNumber1,
         phone2: this.model.contactNumber2,
         email: this.model.email,
@@ -273,7 +270,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
       console.log(datos);
 
-      this.usfServiceService.validateAddress(datos).subscribe(resp => {
+      this.usfServiceService.doAction(datos, 'addressValidationMcapi').subscribe(resp => {
         this.validationProcessUSPS = false;
 
         if (!resp.body.HasError) {

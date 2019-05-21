@@ -149,9 +149,7 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
         const datos = {
           method: 'subscriberVerificationMcapi',
           UserID: this.authenticationService.credentials.userid,
-          // UserID: 40,
           caseID: this.validateSSNData.CASENUMBER,
-          // caseID: 267,
           Lookup_Type: 1,
           response: 1
         };
@@ -159,8 +157,7 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
         console.log(datos);
 
         setTimeout(() => {
-          this.usfServiceService.subscriberVerification(datos).subscribe(resp => {
-            // this.usfServiceService.setValidateSSNData(resp.body);
+          this.usfServiceService.doAction(datos, 'subscriberVerificationMcapi').subscribe(resp => {
             this.processValidationNLAD = false;
             this.usfServiceService.setRequiredDocumentData(resp.body.required);
             console.log(resp);

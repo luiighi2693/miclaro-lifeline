@@ -215,6 +215,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
 
   getCasesUSF() {
     const data = {
+      method: 'getCasesWithFiltersMcapi',
       DateFrom: '2019-04-25',
       DateTo: '2019-04-25',
       pageNo: 5,
@@ -222,7 +223,8 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       caseID: '',
       Status: ''
     };
-    this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
+    //this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
+    this.usfServiceService.doAction(data, 'getCasesWithFiltersMcapi').subscribe((dt: any) => {
       if (!dt.HasError) {
         this.data_conten = [];
         dt.body.customercases.forEach((caso: any) => {

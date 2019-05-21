@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { constants } from '@env/constants';
 import { Router } from '@angular/router';
+import { UsfServiceService } from '@app/core/usf/usf-service.service';
 declare let alertify: any;
 
 export interface Credentials {
@@ -30,7 +31,7 @@ export class AuthenticationService {
   private _credentials: Credentials | null;
   private _max_min_inactive = 15;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor( public usfServiceService: UsfServiceService, private router: Router) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       const resp_temp = JSON.parse(savedCredentials);
@@ -102,9 +103,11 @@ export class AuthenticationService {
     // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/LOGINAD.MCAPI', data, {
     //   observe: 'response'
     // });
-    return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
+    // return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
     // this.setCredentials(data, context.remember);
     // return of(data);
+
+    return this.usfServiceService.doAction(data, 'loginAdMcapi');
   }
 
   /**
