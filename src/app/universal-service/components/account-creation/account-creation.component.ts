@@ -120,7 +120,7 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
 
       console.log(datos);
 
-      this.usfServiceService.createNewAccount(datos).subscribe(resp => {
+      this.usfServiceService.doAction(datos, 'CreateNewAccountMcapi').subscribe(resp => {
         this.processValidationSIF = false;
 
         if (!resp.body.HasError) {

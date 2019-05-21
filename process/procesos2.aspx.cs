@@ -21,7 +21,7 @@ public partial class proccess_procesos2 : System.Web.UI.Page
 
     // intarcia Serializado
     System.Web.Script.Serialization.JavaScriptSerializer json = new System.Web.Script.Serialization.JavaScriptSerializer();
-    
+
     string wspathUSF = "https://wslife00042ws.claroinfo.com/Service/svc/1/";  //"http://localhost:62828/Service/svc/1/";
     
 
@@ -132,6 +132,10 @@ public partial class proccess_procesos2 : System.Web.UI.Page
 		else if (ejecutar == "CreateNewAccountMcapi")
         {
             CreateNewAccountMcapi(jo);
+        }
+        else if (ejecutar == "getCasesWithFiltersMcapi")
+        {
+            getCasesWithFiltersMcapi(jo);
         }
         else
         {
@@ -419,6 +423,27 @@ public partial class proccess_procesos2 : System.Web.UI.Page
 
         string PostData = "{\"mAccountType\":\"" + mAccountType + "\",\"mAccountSubType\":\"" + mAccountSubType + "\",\"UserID\":\"" + UserID + "\",\"caseID\":\"" + caseID + "\",\"customer_ssn\":\"" + customer_ssn + "\",\"SIMSerial\":\"" + SIMSerial + "\",\"IMEISerial\":\"" + IMEISerial + "\",\"tech\":\"" + tech + "\",\"mSocCode\":\"" + mSocCode + "\"}";
         string PostURL = wspathUSF + "CREATENEWACCOUNT.MCAPI";
+
+        object resp = ToJson(PostWebService(PostURL, PostData));
+
+        Response.Clear();
+        Response.ContentType = "application/json; charset=utf-8";
+        Response.Write(json.Serialize(resp));
+        Response.End();
+    }
+
+    public void getCasesWithFiltersMcapi(JObject jo)
+    {
+        string DateFrom = jo["DateFrom"].ToString();
+        string DateTo = jo["DateTo"].ToString();
+        string pageNo = jo["pageNo"].ToString();
+        string pageSize = jo["pageSize"].ToString();
+        string caseID = jo["caseID"].ToString();
+        string Status = jo["Status"].ToString();
+
+
+        string PostData = "{\"DateFrom\":\"" + DateFrom + "\",\"DateTo\":\"" + DateTo + "\",\"pageNo\":\"" + pageNo + "\",\"pageSize\":\"" + pageSize + "\",\"caseID\":\"" + caseID + "\",\"Status\":\"" + Status + "\"}";
+        string PostURL = wspathUSF + "reports/getCasesWithFilters.MCAPI";
 
         object resp = ToJson(PostWebService(PostURL, PostData));
 
