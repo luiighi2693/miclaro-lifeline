@@ -105,6 +105,8 @@ export class AuthenticationService {
     return this.http.post<any>(constants.API_PATH, data, { observe: 'response' });
     // this.setCredentials(data, context.remember);
     // return of(data);
+
+    //return this.usfServiceService.doAction(data, 'loginAdMcapi');
   }
 
   /**

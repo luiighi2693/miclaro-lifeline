@@ -13,20 +13,15 @@ export interface ValidateSSNData {
 }
 
 export interface ValidateSSNDataContent {
-  // accountSubType: string;
   accountType: string;
   address: string;
-  // agency: string;
   ban: string;
-  // banStatus: string;
-  // efectivedate: string;
-  // generalDescription: string;
   lifelineActivationDate: string;
   name: string;
   ssn: string;
   subscriberNumber: string;
-  // subscriberStatus: string;
-  // system: string;
+  phone1: string;
+  CASENUMBER: string;
 }
 
 export interface DataObjectAddress {
@@ -64,7 +59,13 @@ const ssnKey = 'ssn';
 export class UsfServiceService {
   constructor(private http: HttpClient) { }
 
-  validateSSN(data: any): Observable<any> {
+  doAction(data: any, method: string): Observable<any> {
+    return this.http.post<any>( (constants.MOCK_API ? constants.MOCK_API_PATH : constants.API_PATH) +
+    constants.MOCK_API ? ('?method=' + method) : '', data, { observe: 'response' });
+  }
+
+
+ validateSSN(data: any): Observable<any> {
      // return this.http.post<any>('http://wslifeusf.claropr.com/Service/svc/1/VALIDATE_SSN.MCAPI', data, {
      //   observe: 'response'
      // });
