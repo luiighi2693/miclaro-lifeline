@@ -271,6 +271,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       // @ts-ignore
       FR.readAsDataURL($event.target.files[0]);
     } else {
+      this.loadingDocs = false;
       this.uploadHasValidationError = true;
       this.uploadHasValidationErrorSize = this.documents[index2].maxSize;
       this.uploadHasValidationErrorTypes = this.documents[index2].types.join(', ');

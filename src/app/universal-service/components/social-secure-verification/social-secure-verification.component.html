@@ -18,7 +18,7 @@
               <div class="redbgbadmsg">
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
 
-                El sistema ha identificado una o mas cuentas existentes con los datos suministrados con el beneficio Lifeline.
+                El sistema ha detectado que usted tiene un caso abierto con el servicio de Lifeline.
               </div>
 
               <div class="userinfo full">
@@ -48,45 +48,46 @@
 
                 <div class="redstat m-top-ii">
                   <div class="autorow roboto-r pull-left">
-                    N&uacute;mero de Cuenta
+                    N&uacute;mero de Caso
                   </div>
 
                   <div class="autorow roboto-b pull-right">
-                    {{validateSSNData.dataObject[0].ban}}
+                    <!--{{validateSSNData.dataObject[0].ban}}-->
+                    {{validateSSNData.CASENUMBER}}
                   </div>
                 </div>
 
-                <div class="redstat m-top-ii">
-                  <div class="autorow roboto-r pull-left">
-                    Fecha de efectividad
-                  </div>
+                <!--<div class="redstat m-top-ii">-->
+                  <!--<div class="autorow roboto-r pull-left">-->
+                    <!--Fecha de efectividad-->
+                  <!--</div>-->
 
-                  <div class="autorow roboto-b pull-right">
-                    <!--01/01/2009-->
-                    {{getFormatDateCustom(validateSSNData.dataObject[0].lifelineActivationDate)}}
-                  </div>
-                </div>
+                  <!--<div class="autorow roboto-b pull-right">-->
+                    <!--&lt;!&ndash;01/01/2009&ndash;&gt;-->
+                    <!--{{getFormatDateCustom(validateSSNData.dataObject[0].lifelineActivationDate)}}-->
+                  <!--</div>-->
+                <!--</div>-->
 
-                <div class="redstat m-top-ii">
-                  <div class="autorow roboto-r pull-left">
-                    Posee Servicio Universal
-                  </div>
+                <!--<div class="redstat m-top-ii">-->
+                  <!--<div class="autorow roboto-r pull-left">-->
+                    <!--Posee Servicio Universal-->
+                  <!--</div>-->
 
-                  <div class="autorow roboto-b pull-right">
-                    <!--NO-->
-                    {{validateSSNData.response === 'True' ? 'SI': 'NO'}}
-                  </div>
-                </div>
+                  <!--<div class="autorow roboto-b pull-right">-->
+                    <!--&lt;!&ndash;NO&ndash;&gt;-->
+                    <!--{{validateSSNData.response === 'True' ? 'SI': 'NO'}}-->
+                  <!--</div>-->
+                <!--</div>-->
 
-                <div class="redstat m-top-ii">
-                  <div class="autorow roboto-r pull-left">
-                    Tipo de Cuenta
-                  </div>
+                <!--<div class="redstat m-top-ii">-->
+                  <!--<div class="autorow roboto-r pull-left">-->
+                    <!--Tipo de Cuenta-->
+                  <!--</div>-->
 
-                  <div class="autorow roboto-b pull-right">
-                    {{validateSSNData.dataObject[0].accountType}}
-                  </div>
-                </div>
+                  <!--<div class="autorow roboto-b pull-right">-->
+                    <!--{{validateSSNData.dataObject[0].accountType}}-->
+                  <!--</div>-->
+                <!--</div>-->
 
                 <div class="redstat m-top-ii">
                   <div class="autorow roboto-r pull-left">
@@ -109,51 +110,51 @@
                 </div>
               </div>
 
-              <div class="basicrow">
-                <div class="row">
-                  <div class="basicrow m-top-i">
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                      &#191;Esta unidad pertenece al aplicante del Servicio Universal&#63;
-                    </div>
+              <!--<div class="basicrow">-->
+                <!--<div class="row">-->
+                  <!--<div class="basicrow m-top-i">-->
+                    <!--<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">-->
+                      <!--&#191;Esta unidad pertenece al aplicante del Servicio Universal&#63;-->
+                    <!--</div>-->
 
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                      <div class="autorow pull-right">
-                        <div class="popopt">
-                          <input type="radio" name="universalServicesUnitApplicant" [value]="true" [(ngModel)]="universalServicesUnitApplicant" [formControl]="form.controls['universalServicesUnitApplicant']"> Si
-                        </div>
+                    <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">-->
+                      <!--<div class="autorow pull-right">-->
+                        <!--<div class="popopt">-->
+                          <!--<input type="radio" name="universalServicesUnitApplicant" [value]="true" [(ngModel)]="universalServicesUnitApplicant" [formControl]="form.controls['universalServicesUnitApplicant']"> Si-->
+                        <!--</div>-->
 
-                        <div class="popopt nomarg">
-                          <input type="radio" name="universalServicesUnitApplicant" [value]="false" [(ngModel)]="universalServicesUnitApplicant" [formControl]="form.controls['universalServicesUnitApplicant']"> no
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                        <!--<div class="popopt nomarg">-->
+                          <!--<input type="radio" name="universalServicesUnitApplicant" [value]="false" [(ngModel)]="universalServicesUnitApplicant" [formControl]="form.controls['universalServicesUnitApplicant']"> no-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
 
-                  <div class="basicrow m-top-ii">
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                      &#191;Desea abrir una nueva cuenta Prepago con beneficio Lifeline&#63;
-                    </div>
+                  <!--<div class="basicrow m-top-ii">-->
+                    <!--<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">-->
+                      <!--&#191;Desea abrir una nueva cuenta Prepago con beneficio Lifeline&#63;-->
+                    <!--</div>-->
 
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                      <div class="autorow pull-right">
-                        <div class="popopt">
-                          <input type="radio" name="prepaidAccountCreation" [value]="true" [(ngModel)]="prepaidAccountCreation" [formControl]="form.controls['prepaidAccountCreation']"> Si
-                        </div>
+                    <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">-->
+                      <!--<div class="autorow pull-right">-->
+                        <!--<div class="popopt">-->
+                          <!--<input type="radio" name="prepaidAccountCreation" [value]="true" [(ngModel)]="prepaidAccountCreation" [formControl]="form.controls['prepaidAccountCreation']"> Si-->
+                        <!--</div>-->
 
-                        <div class="popopt nomarg">
-                          <input type="radio" name="prepaidAccountCreation" [value]="false" [(ngModel)]="prepaidAccountCreation" [formControl]="form.controls['prepaidAccountCreation']"> No
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                        <!--<div class="popopt nomarg">-->
+                          <!--<input type="radio" name="prepaidAccountCreation" [value]="false" [(ngModel)]="prepaidAccountCreation" [formControl]="form.controls['prepaidAccountCreation']"> No-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
 
               <div class="basicrow">
                 <div class="basicrow m-top-i">
                   <div class="logline full"></div>
                 </div>
-
+l
                 <div class="basicrow text-center m-top-i">
                   <a (click)="goToHome()" class="btns def-i red pull-right vcenter">
 												<span class="tabcell">
