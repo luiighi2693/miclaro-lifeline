@@ -31,8 +31,12 @@
                     Nombre
                   </div>
 
-                  <div class="autorow roboto-b pull-right">
+                  <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
                     {{validateSSNData.dataObject[0].name}}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{validateSSNData.data[0].name}}
                   </div>
                 </div>
 
@@ -41,8 +45,12 @@
                     SSN
                   </div>
 
-                  <div class="autorow roboto-b pull-right">
+                  <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
                     &#42;&#42;&#42;&#42;&#42;&#42;{{validateSSNData.dataObject[0].ssn}}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{validateSSNData.data[0].ssn}}
                   </div>
                 </div>
 
@@ -51,9 +59,12 @@
                     N&uacute;mero de Caso
                   </div>
 
-                  <div class="autorow roboto-b pull-right">
-                    <!--{{validateSSNData.dataObject[0].ban}}-->
+                  <div  *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
                     {{validateSSNData.dataObject[0].CASENUMBER}}
+                  </div>
+
+                  <div  *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{validateSSNData.CASENUMBER}}
                   </div>
                 </div>
 
@@ -94,8 +105,12 @@
                     N&uacute;mero de tel&eacute;fono
                   </div>
 
-                  <div class="autorow roboto-b pull-right">
+                  <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
                     {{validateSSNData.dataObject[0].phone1}}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                    {{validateSSNData.data[0].subscriberNumber}}
                   </div>
                 </div>
 
@@ -104,8 +119,12 @@
                     Direcci&oacute;n actual del servicio
                   </div>
 
-                  <div class="basicrow roboto-b m-top-ii">
+                  <div *ngIf="!validateSSNData.data" class="basicrow roboto-b m-top-ii">
                     {{validateSSNData.dataObject[0].address}}
+                  </div>
+
+                  <div *ngIf="validateSSNData.data" class="basicrow roboto-b m-top-ii">
+                    {{validateSSNData.data[0].address}}
                   </div>
                 </div>
               </div>
