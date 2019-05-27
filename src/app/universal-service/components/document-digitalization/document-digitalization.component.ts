@@ -33,43 +33,43 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     {
       name: 'Formulario de Servicio Universal',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Formulario de Aplicación (Forma 5629)', 'Anejos']
     },
     {
       name: 'Formulario Hoja de Hogar',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Formulario de Aplicación (Forma 5631)']
     },
     {
       name: 'Certificación de elegibilidad',
       types: ['.pdf'],
-      maxSize: 350,
+      maxSize: 10000,
       subDocuments: []
     },
     {
       name: 'Evidencia de factura',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Licencia de Conducir', 'ID', 'Factura de Luz/Agua/TV/Teléfono']
     },
     {
       name: 'Evidencia de Identidad',
       types: ['.pdf', '.jpeg', '.png'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Certificado de Nacimiento', 'Pasaporte', 'Licencia de Conducir']
     },
     {
       name: 'Transferencia de Beneficio',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Hoja de Transferencia de Beneficio']
     },
     {
       name: 'Otros',
       types: ['.pdf'],
-      maxSize: 300,
+      maxSize: 10000,
       subDocuments: ['Otros']
     }
   ];
