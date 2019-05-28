@@ -3,7 +3,7 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 declare let alertify: any;
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
-
+declare let $: any;
 @Component({
   selector: 'app-preview-view-and-firm',
   templateUrl: './preview-view-and-firm.component.html',
@@ -13,7 +13,9 @@ export class PreviewViewAndFirmComponent implements OnInit {
   firmInput = false;
   step2 = false;
   signer = '';
-
+  iniciales = '';
+  fechaN = '';
+  fechaActivada = false;
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   isLoading: boolean;
   signaturePadOptions: Object = {
@@ -34,12 +36,60 @@ export class PreviewViewAndFirmComponent implements OnInit {
     this.step2 = true;
   }
 
+  activarFecha() {
+    if (!this.fechaActivada) {
+      $('#fechaN')
+        .datepicker({
+          dateFormat: 'mm/dd/yy',
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '-100:-21',
+          maxDate: '-21y',
+          minDate: '-100y',
+          defaultDate: '-22y',
+          onSelect: function(dateText: any) {
+            console.log(dateText + ' *onSelect');
+          },
+          onChangeMonthYear: function(year: any, month: any, datepicker: any) {
+            // #CAMBIO APLICADO y Necesario ya que al seleccionar el mes y cambiar el a#o en los selects
+            // # no Cambiaba el valor del input  Ahora si se esta aplocando el cambio
+            console.log('onChangeMonthYear');
+            if ($('#fechaN').val().length === 10) {
+              console.log('to :' + month + ' ' + $('#fechaN').val().sub + ' ' + year);
+
+              const new_date = new Date(
+                month +
+                  '/' +
+                  $('#fechaN')
+                    .val()
+                    .substr(3, 2) +
+                  '/' +
+                  year
+              );
+
+              $('#fechaN').datepicker('setDate', new_date);
+            }
+          }
+        })
+        .on('change', function(evtChange: any) {
+          console.log(evtChange);
+          console.log('Change event');
+        });
+      this.fechaActivada = false;
+      $('#fechaN').focus();
+    } else {
+      $('#fechaN').focus();
+    }
+  }
+
   showFirmInput() {
     this.firmInput = true;
   }
 
   goToActivation() {
-    this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+    if (this.validateSing()) {
+      this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+    }
   }
 
   goToHome() {
@@ -54,6 +104,15 @@ export class PreviewViewAndFirmComponent implements OnInit {
       this.signaturePad.set('minWidth', 0.5); // set szimek/signature_pad options at runtime
       this.signaturePad.set('maxWidth', 3);
       this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+    }
+    this.signer = '';
+  }
+
+  validateSing() {
+    if (this.iniciales.trim().length > 0 && this.fechaN.trim().length !== 10 && this.signer.trim() !== '') {
+      return true;
+    } else {
+      return false;
     }
   }
 
