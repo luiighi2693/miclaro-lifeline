@@ -3,7 +3,7 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { UsfServiceService } from '@app/core/usf/usf-service.service';
+import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 
 export interface Model {
@@ -52,6 +52,8 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
     { number: 8, money: '$57,213' }
   ];
 
+  validateSSNData: ValidateSSNData;
+
   constructor(
     public authenticationService: AuthenticationService,
     public usfServiceService: UsfServiceService,
@@ -59,6 +61,7 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
     public fb: FormBuilder
   ) {
     super(authenticationService, usfServiceService, router, fb);
+    this.validateSSNData = this.usfServiceService.getValidateSSNData();
   }
 
   ngOnInit() {
@@ -123,6 +126,20 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
   setAceptationTerms(value: boolean) {
     if (this.model.aceptationTerm === undefined) {
       this.model.aceptationTerm = value;
+    }
+
+    if (value) {
+
+      const datos = {
+        method: 'CreateSubscriberMcapi',
+        UserID: this.authenticationService.credentials.userid,
+        caseID: this.validateSSNData.CASENUMBER
+      };
+
+      console.log(datos);
+
+      this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {
+      });
     }
   }
 }
