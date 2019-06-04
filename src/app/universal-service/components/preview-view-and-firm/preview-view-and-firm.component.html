@@ -100,14 +100,21 @@
           <div class="basicrow f-lbig f-black roboto-m text-left">Formulario Hoja de Hogar (Programa de Lifeline)</div>
 
           <div class="basicrow m-top-i">
-            <object
+            <iframe
+              [src]="sanitizer.bypassSecurityTrustResourceUrl('http://onbase.claroinfo.com/frmfccAplication.aspx?Number='+userId+'&Case='+caseId)"
               width="100%"
-              data="../../../../assets/Claro.pdf"
-              type="application/pdf"
               style="height: -webkit-fill-available;"
             >
               <embed src="../../../../assets/Claro.pdf" type="application/pdf" />
-            </object>
+            </iframe>
+            <!--<object-->
+              <!--width="100%"-->
+              <!--data="../../../../assets/Claro.pdf"-->
+              <!--type="application/pdf"-->
+              <!--style="height: -webkit-fill-available;"-->
+            <!--&gt;-->
+              <!--<embed src="../../../../assets/Claro.pdf" type="application/pdf" />-->
+            <!--</object>-->
             <!-- <img width="100%" src="../../../../assets/images/firmamock.png"> -->
           </div>
 
@@ -130,14 +137,22 @@
           </div>
 
           <div class="basicrow m-top-i">
-            <object
+            <iframe
+              [src]="sanitizer.bypassSecurityTrustResourceUrl('http://onbase.claroinfo.com/frmfccAplication.aspx?Number='+userId+'&Case='+caseId)"
               width="100%"
-              data="../../../../assets/Claro.pdf"
-              type="application/pdf"
               style="height: -webkit-fill-available;"
             >
               <embed src="../../../../assets/Claro.pdf" type="application/pdf" />
-            </object>
+            </iframe>
+
+            <!--<object-->
+              <!--width="100%"-->
+              <!--data="../../../../assets/Claro.pdf"-->
+              <!--type="application/pdf"-->
+              <!--style="height: -webkit-fill-available;"-->
+            <!--&gt;-->
+              <!--<embed src="../../../../assets/Claro.pdf" type="application/pdf" />-->
+            <!--</object>-->
             <!-- <img width="100%" src="../../../../assets/images/firmamock2.png"> -->
           </div>
 
