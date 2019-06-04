@@ -100,7 +100,7 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
     if (
       this.form.valid &&
       this.checkImeiValidated &&
-      this.model.imei.length === 17 &&
+      this.model.imei.length === 15 &&
       this.model.simCard.length === 20
     ) {
       this.processValidationSIF = true;
