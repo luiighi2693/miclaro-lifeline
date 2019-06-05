@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 import { DataAgencyMoneySelection, UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
+declare let alertify: any;
 
 export interface DocumentLifeline {
   name: string;
@@ -242,6 +243,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
             } else {
               this.uploadHasError = true;
               this.loadingDocs = false;
+              alertify.alert('Aviso', resp.body.ErrorDesc);
             }
 
             // @ts-ignore
