@@ -41,49 +41,36 @@ export class PreviewViewAndFirmComponent implements OnInit {
       $('#fechaN')
         .datepicker({
           dateFormat: 'mm/dd/yy',
-          changeMonth: true,
-          changeYear: true,
-          yearRange: '-100:-21',
-          maxDate: '-21y',
-          minDate: '-100y',
-          defaultDate: '-22y',
+          setDate: new Date(),
+          minDate: 0,
+          maxDate: 0,
+          defaultDate: '+0d',
           onSelect: function(dateText: any) {
             console.log(dateText + ' *onSelect');
           },
           onChangeMonthYear: function(year: any, month: any, datepicker: any) {
-            // #CAMBIO APLICADO y Necesario ya que al seleccionar el mes y cambiar el a#o en los selects
-            // # no Cambiaba el valor del input  Ahora si se esta aplocando el cambio
-            console.log('onChangeMonthYear');
-            if ($('#fechaN').val().length === 10) {
-              console.log('to :' + month + ' ' + $('#fechaN').val().sub + ' ' + year);
-
-              const new_date = new Date(
-                month +
-                  '/' +
-                  $('#fechaN')
-                    .val()
-                    .substr(3, 2) +
-                  '/' +
-                  year
-              );
-
-              $('#fechaN').datepicker('setDate', new_date);
-            }
+            $('#fechaN').datepicker('setDate', new Date());
           }
         })
         .on('change', function(evtChange: any) {
-          console.log(evtChange);
-          console.log('Change event');
+          $('#fechaN').datepicker('setDate', new Date());
         });
+      $('#fechaN')
+        .datepicker()
+        .datepicker('setDate', new Date());
       this.fechaActivada = false;
-      $('#fechaN').focus();
+      // $('#fechaN').focus();
     } else {
-      $('#fechaN').focus();
+      $('#fechaN')
+        .datepicker()
+        .datepicker('setDate', new Date());
+      // $('#fechaN').focus();
     }
   }
 
   showFirmInput() {
     this.firmInput = true;
+    setTimeout(this.activarFecha, 100);
   }
 
   goToActivation() {
