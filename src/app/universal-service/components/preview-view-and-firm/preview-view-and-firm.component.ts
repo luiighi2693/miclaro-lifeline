@@ -3,13 +3,17 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 declare let alertify: any;
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import { FormBuilder } from '@angular/forms';
+import { BaseComponent } from '@app/core/base/BaseComponent';
+import { DomSanitizer } from '@angular/platform-browser';
 declare let $: any;
 @Component({
   selector: 'app-preview-view-and-firm',
   templateUrl: './preview-view-and-firm.component.html',
   styleUrls: ['./preview-view-and-firm.component.scss']
 })
-export class PreviewViewAndFirmComponent implements OnInit {
+export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit {
   firmInput = false;
   step2 = false;
   signer = '';
@@ -25,8 +29,24 @@ export class PreviewViewAndFirmComponent implements OnInit {
     canvasHeight: 180
   };
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
-    this.authenticationService.validaSessionActiva();
+  validateSSNData: ValidateSSNData;
+
+  userId: string;
+  caseId: number;
+
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder,
+    public sanitizer: DomSanitizer
+  ) {
+    super(authenticationService, usfServiceService, router, fb);
+
+    this.validateSSNData = this.usfServiceService.getValidateSSNData();
+
+    this.userId = this.authenticationService.credentials.userid;
+    this.caseId = this.validateSSNData.CASENUMBER;
   }
   ngOnInit() {
     window.scroll(0, 0);
