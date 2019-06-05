@@ -358,6 +358,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     const datos = {
       method: 'DeleteDocumentMcapi',
       documentTypeID: idToSearch,
+      documentTypeUsf: id,
       user_Id: this.authenticationService.credentials.userid,
       case_number: this.validateSSNData.CASENUMBER
     };
