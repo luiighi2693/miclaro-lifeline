@@ -116,7 +116,7 @@ export class PreviewViewAndFirmComponent implements OnInit {
     console.log(firmaUrl);
     this.signer = firmaUrl;
     this.copyCode(firmaUrl);
-    alertify.alert('Aviso', 'Copiada la firma... ');
+    // alertify.alert('Aviso', 'Copiada la firma... ');
   }
 
   drawStart() {
