@@ -165,7 +165,9 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
             if (!resp.body.HasError) {
               this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
             } else {
-              alertify.alert('Aviso', resp.body.ErrorDesc, function() {});
+              alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+                this.goToHome();
+              });
             }
           });
         }, 2000);

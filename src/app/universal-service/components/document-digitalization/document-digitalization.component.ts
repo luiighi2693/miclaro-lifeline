@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 import { DataAgencyMoneySelection, UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
+declare let alertify: any;
 
 export interface DocumentLifeline {
   name: string;
@@ -33,43 +34,43 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     {
       name: 'Formulario de Servicio Universal',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Formulario de Aplicación (Forma 5629)', 'Anejos']
     },
     {
       name: 'Formulario Hoja de Hogar',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Formulario de Aplicación (Forma 5631)']
     },
     {
       name: 'Certificación de elegibilidad',
       types: ['.pdf'],
-      maxSize: 350,
+      maxSize: 10000,
       subDocuments: []
     },
     {
       name: 'Evidencia de factura',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Licencia de Conducir', 'ID', 'Factura de Luz/Agua/TV/Teléfono']
     },
     {
       name: 'Evidencia de Identidad',
       types: ['.pdf', '.jpeg', '.png'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Certificado de Nacimiento', 'Pasaporte', 'Licencia de Conducir']
     },
     {
       name: 'Transferencia de Beneficio',
       types: ['.pdf'],
-      maxSize: 200,
+      maxSize: 10000,
       subDocuments: ['Hoja de Transferencia de Beneficio']
     },
     {
       name: 'Otros',
       types: ['.pdf'],
-      maxSize: 300,
+      maxSize: 10000,
       subDocuments: ['Otros']
     }
   ];
@@ -242,6 +243,9 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
             } else {
               this.uploadHasError = true;
               this.loadingDocs = false;
+              alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+                console.log(this.requiredDocumentsContent);
+              });
             }
 
             // @ts-ignore
@@ -303,6 +307,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
   }
 
+  // tslint:disable-next-line: member-ordering
   validateDocumentCharged() {
     if (this.requiredDocumentSelected !== null) {
       if (this.subDocumentTypeSelected === 'Seleccionar') {
@@ -317,6 +322,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     }
   }
 
+  // tslint:disable-next-line: member-ordering
   showPreviewFile(id: string) {
     console.log('showPreviewFile');
     console.log(id);
@@ -349,6 +355,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     );
   }
 
+  // tslint:disable-next-line: member-ordering
   deleteFile(idToSearch: string, id: string) {
     console.log('deleteFile');
     console.log(idToSearch, id);
@@ -356,6 +363,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     const datos = {
       method: 'DeleteDocumentMcapi',
       documentTypeID: idToSearch,
+      documentTypeUsf: id,
       user_Id: this.authenticationService.credentials.userid,
       case_number: this.validateSSNData.CASENUMBER
     };

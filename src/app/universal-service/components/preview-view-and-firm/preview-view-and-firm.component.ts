@@ -3,17 +3,23 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 declare let alertify: any;
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
-
+import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import { FormBuilder } from '@angular/forms';
+import { BaseComponent } from '@app/core/base/BaseComponent';
+import { DomSanitizer } from '@angular/platform-browser';
+declare let $: any;
 @Component({
   selector: 'app-preview-view-and-firm',
   templateUrl: './preview-view-and-firm.component.html',
   styleUrls: ['./preview-view-and-firm.component.scss']
 })
-export class PreviewViewAndFirmComponent implements OnInit {
+export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit {
   firmInput = false;
   step2 = false;
   signer = '';
-
+  iniciales = '';
+  fechaN = '';
+  fechaActivada = false;
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   isLoading: boolean;
   signaturePadOptions: Object = {
@@ -23,8 +29,24 @@ export class PreviewViewAndFirmComponent implements OnInit {
     canvasHeight: 180
   };
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
-    this.authenticationService.validaSessionActiva();
+  validateSSNData: ValidateSSNData;
+
+  userId: string;
+  caseId: number;
+
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder,
+    public sanitizer: DomSanitizer
+  ) {
+    super(authenticationService, usfServiceService, router, fb);
+
+    this.validateSSNData = this.usfServiceService.getValidateSSNData();
+
+    this.userId = this.authenticationService.credentials.userid;
+    this.caseId = this.validateSSNData.CASENUMBER;
   }
   ngOnInit() {
     window.scroll(0, 0);
@@ -34,12 +56,47 @@ export class PreviewViewAndFirmComponent implements OnInit {
     this.step2 = true;
   }
 
+  activarFecha() {
+    if (!this.fechaActivada) {
+      $('#fechaN')
+        .datepicker({
+          dateFormat: 'mm/dd/yy',
+          setDate: new Date(),
+          minDate: 0,
+          maxDate: 0,
+          defaultDate: '+0d',
+          onSelect: function(dateText: any) {
+            console.log(dateText + ' *onSelect');
+          },
+          onChangeMonthYear: function(year: any, month: any, datepicker: any) {
+            $('#fechaN').datepicker('setDate', new Date());
+          }
+        })
+        .on('change', function(evtChange: any) {
+          $('#fechaN').datepicker('setDate', new Date());
+        });
+      $('#fechaN')
+        .datepicker()
+        .datepicker('setDate', new Date());
+      this.fechaActivada = false;
+      // $('#fechaN').focus();
+    } else {
+      $('#fechaN')
+        .datepicker()
+        .datepicker('setDate', new Date());
+      // $('#fechaN').focus();
+    }
+  }
+
   showFirmInput() {
     this.firmInput = true;
+    setTimeout(this.activarFecha, 100);
   }
 
   goToActivation() {
-    this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+    if (this.validateSing()) {
+      this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+    }
   }
 
   goToHome() {
@@ -54,6 +111,15 @@ export class PreviewViewAndFirmComponent implements OnInit {
       this.signaturePad.set('minWidth', 0.5); // set szimek/signature_pad options at runtime
       this.signaturePad.set('maxWidth', 3);
       this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+    }
+    this.signer = '';
+  }
+
+  validateSing() {
+    if (this.iniciales.trim().length > 0 && this.fechaN.trim().length !== 10 && this.signer.trim() !== '') {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -70,7 +136,7 @@ export class PreviewViewAndFirmComponent implements OnInit {
     console.log(firmaUrl);
     this.signer = firmaUrl;
     this.copyCode(firmaUrl);
-    alertify.alert('Aviso', 'Copiada la firma... ');
+    // alertify.alert('Aviso', 'Copiada la firma... ');
   }
 
   drawStart() {
