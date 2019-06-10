@@ -284,7 +284,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
           alertify.alert(
             'Aviso',
             // tslint:disable-next-line:max-line-length
-            'Error intentando validar la dirección ingresada',
+            resp.body.ErrorDesc,
             function() {
             }
           );
