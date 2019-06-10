@@ -34,6 +34,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   userId: string;
   caseId: number;
 
+  firmaUrl: any;
+
   constructor(
     public authenticationService: AuthenticationService,
     public usfServiceService: UsfServiceService,
@@ -95,7 +97,36 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
   goToActivation() {
     if (this.validateSing()) {
-      this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+      console.log('done');
+      console.log(this.firmaUrl);
+      console.log(this.iniciales);
+      console.log(this.fechaN);
+
+      const datos = {
+        method: 'CreatefirmMcapi',
+        USER_ID: this.userId,
+        CASE_ID: this.caseId,
+        FIRM_INITIALS: this.iniciales,
+        FIRM_DESCRIPTION: this.firmaUrl
+      };
+
+      console.log(datos);
+
+      this.usfServiceService.doAction(datos, 'CreatefirmMcapi').subscribe(
+        resp => {
+          console.log(resp);
+
+          if (!resp.body.HasError) {
+            this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+          } else {
+
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
     }
   }
 
@@ -125,8 +156,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
   drawComplete() {
     // will be notified of szimek/signature_pad's onEnd event
-    const firmaUrl = this.signaturePad.toDataURL();
-    console.log(firmaUrl);
+    this.firmaUrl = this.signaturePad.toDataURL();
+    console.log(this.firmaUrl);
     console.log(this.signaturePad);
   }
 
