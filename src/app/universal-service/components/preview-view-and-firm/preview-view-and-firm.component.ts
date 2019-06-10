@@ -34,13 +34,19 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   userId: string;
   caseId: number;
 
-  constructor(public authenticationService: AuthenticationService, public usfServiceService: UsfServiceService, public router: Router, public fb: FormBuilder, public sanitizer: DomSanitizer) {
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder,
+    public sanitizer: DomSanitizer
+  ) {
     super(authenticationService, usfServiceService, router, fb);
 
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
 
     this.userId = this.authenticationService.credentials.userid;
-      this.caseId =  this.validateSSNData.CASENUMBER;
+    this.caseId = this.validateSSNData.CASENUMBER;
   }
   ngOnInit() {
     window.scroll(0, 0);
@@ -55,49 +61,36 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
       $('#fechaN')
         .datepicker({
           dateFormat: 'mm/dd/yy',
-          changeMonth: true,
-          changeYear: true,
-          yearRange: '-100:-21',
-          maxDate: '-21y',
-          minDate: '-100y',
-          defaultDate: '-22y',
+          setDate: new Date(),
+          minDate: 0,
+          maxDate: 0,
+          defaultDate: '+0d',
           onSelect: function(dateText: any) {
             console.log(dateText + ' *onSelect');
           },
           onChangeMonthYear: function(year: any, month: any, datepicker: any) {
-            // #CAMBIO APLICADO y Necesario ya que al seleccionar el mes y cambiar el a#o en los selects
-            // # no Cambiaba el valor del input  Ahora si se esta aplocando el cambio
-            console.log('onChangeMonthYear');
-            if ($('#fechaN').val().length === 10) {
-              console.log('to :' + month + ' ' + $('#fechaN').val().sub + ' ' + year);
-
-              const new_date = new Date(
-                month +
-                  '/' +
-                  $('#fechaN')
-                    .val()
-                    .substr(3, 2) +
-                  '/' +
-                  year
-              );
-
-              $('#fechaN').datepicker('setDate', new_date);
-            }
+            $('#fechaN').datepicker('setDate', new Date());
           }
         })
         .on('change', function(evtChange: any) {
-          console.log(evtChange);
-          console.log('Change event');
+          $('#fechaN').datepicker('setDate', new Date());
         });
+      $('#fechaN')
+        .datepicker()
+        .datepicker('setDate', new Date());
       this.fechaActivada = false;
-      $('#fechaN').focus();
+      // $('#fechaN').focus();
     } else {
-      $('#fechaN').focus();
+      $('#fechaN')
+        .datepicker()
+        .datepicker('setDate', new Date());
+      // $('#fechaN').focus();
     }
   }
 
   showFirmInput() {
     this.firmInput = true;
+    setTimeout(this.activarFecha, 100);
   }
 
   goToActivation() {
@@ -143,7 +136,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     console.log(firmaUrl);
     this.signer = firmaUrl;
     this.copyCode(firmaUrl);
-    alertify.alert('Aviso', 'Copiada la firma... ');
+    // alertify.alert('Aviso', 'Copiada la firma... ');
   }
 
   drawStart() {

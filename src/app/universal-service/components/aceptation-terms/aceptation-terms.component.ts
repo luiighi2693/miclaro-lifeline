@@ -129,7 +129,6 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
     }
 
     if (value) {
-
       const datos = {
         method: 'CreateSubscriberMcapi',
         UserID: this.authenticationService.credentials.userid,
@@ -138,8 +137,7 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
 
       console.log(datos);
 
-      this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {
-      });
+      this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {});
     }
   }
 }

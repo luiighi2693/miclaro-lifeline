@@ -243,7 +243,9 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
             } else {
               this.uploadHasError = true;
               this.loadingDocs = false;
-              alertify.alert('Aviso', resp.body.ErrorDesc);
+              alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+                console.log(this.requiredDocumentsContent);
+              });
             }
 
             // @ts-ignore
@@ -305,6 +307,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
   }
 
+  // tslint:disable-next-line: member-ordering
   validateDocumentCharged() {
     if (this.requiredDocumentSelected !== null) {
       if (this.subDocumentTypeSelected === 'Seleccionar') {
@@ -319,6 +322,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     }
   }
 
+  // tslint:disable-next-line: member-ordering
   showPreviewFile(id: string) {
     console.log('showPreviewFile');
     console.log(id);
@@ -351,6 +355,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     );
   }
 
+  // tslint:disable-next-line: member-ordering
   deleteFile(idToSearch: string, id: string) {
     console.log('deleteFile');
     console.log(idToSearch, id);
