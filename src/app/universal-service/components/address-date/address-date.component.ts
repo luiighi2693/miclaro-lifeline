@@ -155,6 +155,10 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }();
 
   validateSSNData: ValidateSSNData;
+  
+  counter1 = 1;
+  counter2 = 1;
+  counter4 = 1;
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -275,18 +279,51 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
         if (!resp.body.HasError) {
           this.usfServiceService.setDataObjectAddress(resp.body.dataObject);
-          if (resp.body.dataObject.length < 3) {
-            this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-          } else {
+          // if (resp.body.dataObject.length < 3) {
+          //   this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
+          // } else {
             this.validationDataAddressInput = true;
-          }
+          // }
         } else {
           alertify.alert(
             'Aviso',
             // tslint:disable-next-line:max-line-length
             resp.body.ErrorDesc, () => {
-              this.goToHome()
+              //casos de error
+
+              //caso 1
+              if (!this.model.temporalAddress && this.model.postalAddressFlag) {
+                if (this.counter1 > 3) {
+                  this.goToHome()
+                } else {
+                  this.counter1++;
+                }
+              }
+
+              //caso 2
+              if (!this.model.temporalAddress && !this.model.postalAddressFlag) {
+                if (this.counter2 > 3) {
+                  this.goToHome()
+                } else {
+                  this.counter2++;
+                }
+              }
+
+              //caso 3
+              if (this.model.temporalAddress && this.model.postalAddressFlag) {
+                this.goToHome()
+              }
+              
+              //caso 4
+              if (this.model.temporalAddress && !this.model.postalAddressFlag) {
+                if (this.counter4 > 3) {
+                  this.goToHome()
+                } else {
+                  this.counter4++;
+                }
+              } 
             });
+
         }
 
 
