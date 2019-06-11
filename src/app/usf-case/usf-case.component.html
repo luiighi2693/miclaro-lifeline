@@ -1,3 +1,27 @@
+<!-- [INIT LOADING DATOS] -->
+
+<div class="popupbg" *ngIf="loadingRequest">
+  <div class="popupcont morew">
+    <div class="basicrow text-center">
+      <img width="100%" class="bigclarogif" src="../../../../assets/images/claroloadgif.gif" />
+    </div>
+
+    <div class="basicrow f-bmed f-black roboto-r">
+      <div class="row">
+        <div
+          class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        >
+          <div class="basicrow m-top-i text-center">
+            <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Espere un momento mientras
+            es procesada la informaci&oacute;n.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- [END LOADING DATOS] -->
 <div class="basicrow">
   <app-header></app-header>
 
