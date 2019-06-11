@@ -54,9 +54,12 @@
               </div>
 
               <div class="basicrow f-reg roboto-b">
-                URB HERMOSILLO<br />
-                123 CALLE 1<br />
-                BAYAMÓN PR 00961-1212
+                {{model.temporalAddress ? model.temporalAddressExtraContent : model.address}} <br/>
+                {{model.temporalAddress ? model.address + ' ' + model.depUnitOther : model.depUnitOther}} <br/>
+                {{ model.municipality }} PR {{ model.postalCode }}
+                <!--URB HERMOSILLO<br />-->
+                <!--123 CALLE 1<br />-->
+                <!--BAYAMÓN PR 00961-1212-->
               </div>
             </div>
           </div>
@@ -68,7 +71,7 @@
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="basicrow roboto-b m-top-i">Direcci&oacute;n Postal Ingresada:</div>
 
-            <div class="optchoice roboto-r text-left" [ngClass]="model.addressSelected === 'postal' ? 'on' : ''">
+            <div class="optchoice roboto-r text-left" [ngClass]="model.addressSelected === 'postal' && !model.suggestedFlag ? 'on' : ''">
               <div class="checkdef">
                 <!--
                   <input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>
@@ -78,21 +81,46 @@
                   name="addressSelected"
                   id="radioG2"
                   class="css-radio"
+                  disabled
                   [value]="'postal'"
                   [(ngModel)]="model.addressSelected"
                   [formControl]="form.controls['addressSelected']"
                 /><label for="radioG2" class="css-label3 radGroup1"></label>
               </div>
 
-              <div class="basicrow f-reg roboto-b">
+              <!--<div class="basicrow f-reg roboto-b">-->
+                <!--{{ model.postalAddress }}<br />-->
+                <!--{{ model.postalDepUnitOther }}<br />-->
+                <!--{{ model.postalMunicipality }} PR {{ model.postalCode2 }}-->
+              <!--</div>-->
+
+              <!--DIRECCIONES POSTALES-->
+
+              <!--CASO 1-->
+              <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress && model.postalAddressFlag">
                 {{ model.address }}<br />
-                CALLE {{ model.depUnitOther }}<br />
+                {{ model.depUnitOther }}<br />
                 {{ model.municipality }} PR {{ model.postalCode }}
               </div>
+
+              <!--CASO 2-->
+              <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress && !model.postalAddressFlag">
+              {{ model.postalAddress }}<br />
+              {{ model.postalDepUnitOther }}<br />
+              {{ model.postalMunicipality }} PR {{ model.postalCode2 }}
+              </div>
+
+              <!--CASO 4-->
+              <div class="basicrow f-reg roboto-b" *ngIf="model.temporalAddress && !model.postalAddressFlag">
+              {{ model.postalAddress }}<br />
+              {{ model.postalDepUnitOther }}<br />
+              {{ model.postalMunicipality }} PR {{ model.postalCode2 }}
+              </div>
+
             </div>
           </div>
 
-          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngIf="!model.postalAddressFlag">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngIf="model.suggestedFlag">
             <div class="basicrow roboto-b m-top-i">Direcci&oacute;n Postal Sugerida:</div>
 
             <div
@@ -108,6 +136,7 @@
                   name="addressSelected"
                   id="radioG3"
                   class="css-radio"
+                  disabled
                   [value]="'postalSuggested'"
                   [(ngModel)]="model.addressSelected"
                   [formControl]="form.controls['addressSelected']"
@@ -115,9 +144,9 @@
               </div>
 
               <div class="basicrow f-reg roboto-b">
-                URB HERMOSILLO<br />
-                123 CALLE 1<br />
-                BAYAMÓN PR 00961-1212
+                {{ model.suggestedAddress }}<br />
+                {{ model.suggestedDepUnitOther }}<br />
+                {{ model.suggestedMunicipality }} PR {{ model.suggestedPostalCode }}
               </div>
             </div>
           </div>

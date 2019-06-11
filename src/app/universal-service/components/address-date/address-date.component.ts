@@ -29,6 +29,11 @@ export interface Model {
   postalCode2: string;
   addressSelected: string;
   temporalAddressExtraContent: string;
+  suggestedFlag: boolean;
+  suggestedAddress: string;
+  suggestedDepUnitOther: string;
+  suggestedMunicipality: string;
+  suggestedPostalCode: string;
 }
 
 @Component({
@@ -152,6 +157,11 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     postalCode2 = '';
     addressSelected = 'postal';
     temporalAddressExtraContent = '';
+    suggestedFlag = false;;
+    suggestedAddress = '';
+    suggestedDepUnitOther = '';
+    suggestedMunicipality = '';
+    suggestedPostalCode = '';
   }();
 
   validateSSNData: ValidateSSNData;
@@ -279,11 +289,25 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
         if (!resp.body.HasError) {
           this.usfServiceService.setDataObjectAddress(resp.body.dataObject);
-          // if (resp.body.dataObject.length < 3) {
-          //   this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-          // } else {
+            //CASO DE EXITO
+
+            this.model.suggestedFlag = true;
+            this.model.addressSelected = 'postalSuggested';
             this.validationDataAddressInput = true;
-          // }
+
+          //CASO 4
+          if (this.model.temporalAddress && !this.model.postalAddressFlag) {
+            this.model.suggestedAddress = this.model.postalAddress;
+            this.model.suggestedDepUnitOther = this.model.postalDepUnitOther;
+            this.model.suggestedMunicipality = this.model.postalMunicipality;
+            this.model.suggestedPostalCode = this.model.postalCode2;
+          } else {
+            this.model.suggestedAddress = resp.body.data[0].addr;
+            this.model.suggestedDepUnitOther = resp.body.data[0].urban;
+            this.model.suggestedMunicipality = resp.body.data[0].city;
+            this.model.suggestedPostalCode = resp.body.data[0].zip;
+          }
+
         } else {
           alertify.alert(
             'Aviso',
