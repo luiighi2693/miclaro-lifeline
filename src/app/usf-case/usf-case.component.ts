@@ -214,10 +214,24 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   getCasesUSF() {
+    let mm = new Date().getMonth() + 1;
+    let dd = new Date().getDate();
+    let mm_txt = '';
+    let dd_txt = '';
+    if (mm < 10) {
+      mm_txt = '0' + mm;
+    } else {
+      mm_txt = mm.toString();
+    }
+    if (dd < 10) {
+      dd_txt = '0' + dd;
+    } else {
+      dd_txt = dd.toString();
+    }
     const data = {
       method: 'getCasesWithFiltersMcapi',
       DateFrom: '2019-04-25',
-      DateTo: '2019-04-25',
+      DateTo: '2019-' + mm_txt + '-' + dd_txt,
       pageNo: 5,
       pageSize: 20,
       caseID: '',
