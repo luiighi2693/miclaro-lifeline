@@ -242,16 +242,20 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
     } else {
       dd_txt = dd.toString();
     }
+    let pages = 5; // by default
+    if (this.numberUSF.trim() === '') {
+      pages = 1;
+    }
     const data = {
       method: 'getCasesWithFiltersMcapi',
       DateFrom: '2019-01-01',
       DateTo: '2019-' + mm_txt + '-' + dd_txt,
-      pageNo: 5,
+      pageNo: pages,
       pageSize: 20,
       caseID: this.numberUSF,
       Status: ''
     };
-    //this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
+    // this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
     return this.usfServiceService.doAction(data, 'getCasesWithFiltersMcapi').subscribe((dt: any) => {
       if (!dt.HasError) {
         this.data_conten = [];
