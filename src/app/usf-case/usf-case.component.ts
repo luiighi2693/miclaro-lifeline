@@ -21,6 +21,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   public statusSelected = 'ESTATUS';
   public nameToSearch: String = '';
   public numberUSF: String = '';
+  public loadingRequest = false;
   public data_conten: any = [
     {
       caseID: '00123',
@@ -90,6 +91,11 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem('numberCaseToSearch') !== null) {
+      this.numberUSF = localStorage.getItem('numberCaseToSearch');
+      this.loadingRequest = true;
+      this.getCasesUSF();
+    }
     $(function() {
       // tslint:disable: prefer-const
       let start = moment().subtract(29, 'days');
@@ -123,11 +129,18 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
                 .subtract(1, 'month')
                 .endOf('month')
             ]
+          },
+          onchange: function(ev: any) {
+            console.log(ev);
           }
         },
         cb
       );
 
+      $('#rangedate').on('cancel.daterangepicker', function(ev: any, picker: any) {
+        // cuando se aplica un cambio de Fecha
+        console.log(ev, picker);
+      });
       cb(start, end);
     });
     // Limpiando Tabla
@@ -214,17 +227,32 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   getCasesUSF() {
+    this.loadingRequest = true;
+    let mm = new Date().getMonth() + 1;
+    let dd = new Date().getDate();
+    let mm_txt = '';
+    let dd_txt = '';
+    if (mm < 10) {
+      mm_txt = '0' + mm;
+    } else {
+      mm_txt = mm.toString();
+    }
+    if (dd < 10) {
+      dd_txt = '0' + dd;
+    } else {
+      dd_txt = dd.toString();
+    }
     const data = {
       method: 'getCasesWithFiltersMcapi',
-      DateFrom: '2019-04-25',
-      DateTo: '2019-04-25',
+      DateFrom: '2019-01-01',
+      DateTo: '2019-' + mm_txt + '-' + dd_txt,
       pageNo: 5,
       pageSize: 20,
-      caseID: '',
+      caseID: this.numberUSF,
       Status: ''
     };
     //this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
-    this.usfServiceService.doAction(data, 'getCasesWithFiltersMcapi').subscribe((dt: any) => {
+    return this.usfServiceService.doAction(data, 'getCasesWithFiltersMcapi').subscribe((dt: any) => {
       if (!dt.HasError) {
         this.data_conten = [];
         dt.body.customercases.forEach((caso: any) => {
@@ -255,6 +283,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
             status: '--'
           });
         });
+        this.loadingRequest = false;
       }
     });
   }
