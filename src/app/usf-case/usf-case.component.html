@@ -34,7 +34,7 @@
 
         <div class="basicrow text-center">
           <div class="basicrow f-lbig f-black roboto-m text-left">
-            Bienvenido/a, <span class="f-red" (click)="getCasesUSF()">Bethzaida</span>
+            Bienvenido/a, <span class="f-red" (click)="getCasesUSF()">{{ authenticationService.getCredentials().UserName }}</span>
           </div>
         </div>
 

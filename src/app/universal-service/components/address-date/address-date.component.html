@@ -43,7 +43,7 @@
       <div class="basicrow">
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n F&iacute;sica Ingresada:</div>
+            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n {{model.temporalAddress ? 'Rural' : 'Física'}} Ingresada:</div>
 
             <div class="optchoice on roboto-r text-left">
               <!--<div class="checkdef">-->
@@ -53,13 +53,17 @@
                 <!--&gt;</label>-->
               <!--</div>-->
 
-              <div class="basicrow f-reg roboto-b">
+              <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress">
                 {{model.fisicalAddress}} <br/>
                 {{model.fisicalDepUnitOther}} <br/>
                 {{ model.fisicalMunicipality }} PR {{ model.fisicalPostalCode }}
-                <!--URB HERMOSILLO<br />-->
-                <!--123 CALLE 1<br />-->
-                <!--BAYAMÓN PR 00961-1212-->
+              </div>
+
+              <!--CASO 4-->
+              <div class="basicrow f-reg roboto-b" *ngIf="model.temporalAddress">
+                {{model.temporalAddressExtraContent}} <br/>
+                {{model.address + ' ' + model.depUnitOther}} <br/>
+                {{ model.municipality }} PR {{ model.postalCode }}
               </div>
             </div>
           </div>
@@ -561,7 +565,7 @@
                           <input
                             type="text"
                             maxlength="40"
-                            placeholder="N&uacute;mero y Nombre de Calle"
+                            placeholder="N&uacute;mero, Nombre de Calle y Ato/Unidad/Otro"
                             class="inp-f qt"
                             [(ngModel)]="model.postalAddress"
                             [formControl]="form.controls['postalAddress']"
@@ -575,8 +579,8 @@
                         <div class="basicrow">
                           <input
                             type="text"
-                            maxlength="6"
-                            placeholder="Dpto/Unidad/Otro"
+                            maxlength="20"
+                            placeholder="Urban"
                             class="inp-f"
                             [(ngModel)]="model.postalDepUnitOther"
                             [formControl]="form.controls['postalDepUnitOther']"
