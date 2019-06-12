@@ -310,17 +310,18 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
           //CASO 4
           if (this.model.temporalAddress && !this.model.postalAddressFlag) {
             this.model.suggestedFlag = false;
-            this.model.suggestedAddress = this.model.postalAddress;
-            this.model.suggestedDepUnitOther = this.model.postalDepUnitOther;
-            this.model.suggestedMunicipality = this.model.postalMunicipality;
-            this.model.suggestedPostalCode = this.model.postalCode2;
+            // this.model.suggestedAddress = this.model.postalAddress;
+            // this.model.suggestedDepUnitOther = this.model.postalDepUnitOther;
+            // this.model.suggestedMunicipality = this.model.postalMunicipality;
+            // this.model.suggestedPostalCode = this.model.postalCode2;
           } else {
             this.model.suggestedFlag = true;
-            this.model.suggestedAddress = resp.body.data[0].addr;
-            this.model.suggestedDepUnitOther = resp.body.data[0].urban;
-            this.model.suggestedMunicipality = resp.body.data[0].city;
-            this.model.suggestedPostalCode = resp.body.data[0].zip;
           }
+
+          this.model.suggestedAddress = resp.body.data[0].addr;
+          this.model.suggestedDepUnitOther = resp.body.data[0].urban;
+          this.model.suggestedMunicipality = resp.body.data[0].city;
+          this.model.suggestedPostalCode = resp.body.data[0].zip;
 
         } else {
           alertify.alert(
