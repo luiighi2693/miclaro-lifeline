@@ -10,6 +10,7 @@ export interface Model {
   CUSTOMER_LAST: string;
   USF_CASEID: string;
   mBan: string;
+  subscriber: string;
 }
 
 @Component({
@@ -18,7 +19,6 @@ export interface Model {
   styleUrls: ['./activation.component.scss']
 })
 export class ActivationComponent extends BaseComponent implements OnInit {
-
   validateSSNData: ValidateSSNData;
 
   model: Model = new class implements Model {
@@ -26,19 +26,21 @@ export class ActivationComponent extends BaseComponent implements OnInit {
     CUSTOMER_LAST = '';
     USF_CASEID = '';
     mBan = '';
-  };
+    subscriber = '';
+  }();
 
-  constructor(public authenticationService: AuthenticationService,
-              public usfServiceService: UsfServiceService,
-              public router: Router,
-              public fb: FormBuilder) {
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
     super(authenticationService, usfServiceService, router, fb);
 
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
 
     let userId = this.authenticationService.credentials.userid;
     let caseId = this.validateSSNData.CASENUMBER;
-
 
     const datos = {
       method: 'getBanMcapi',
@@ -55,7 +57,6 @@ export class ActivationComponent extends BaseComponent implements OnInit {
         if (!resp.body.HasError) {
           this.model = resp.body;
         } else {
-
         }
       },
       error => {
@@ -71,5 +72,4 @@ export class ActivationComponent extends BaseComponent implements OnInit {
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
-
 }

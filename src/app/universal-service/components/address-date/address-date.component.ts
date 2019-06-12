@@ -34,6 +34,10 @@ export interface Model {
   suggestedDepUnitOther: string;
   suggestedMunicipality: string;
   suggestedPostalCode: string;
+  fisicalAddress: string;
+  fisicalDepUnitOther: string;
+  fisicalMunicipality: string;
+  fisicalPostalCode: string;
 }
 
 @Component({
@@ -157,11 +161,15 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     postalCode2 = '';
     addressSelected = 'postal';
     temporalAddressExtraContent = '';
-    suggestedFlag = false;;
+    suggestedFlag = false;
     suggestedAddress = '';
     suggestedDepUnitOther = '';
     suggestedMunicipality = '';
     suggestedPostalCode = '';
+    fisicalAddress = '';
+    fisicalDepUnitOther = '';
+    fisicalMunicipality = '';
+    fisicalPostalCode = '';
   }();
 
   validateSSNData: ValidateSSNData;
@@ -294,21 +302,26 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
             this.validationDataAddressInput = true;
           this.model.addressSelected = 'postal';
 
+          this.model.fisicalAddress = resp.body.data[0].addr;
+          this.model.fisicalDepUnitOther = resp.body.data[0].bldgorfirm;
+          this.model.fisicalMunicipality = resp.body.data[0].city;
+          this.model.fisicalPostalCode = resp.body.data[0].zip;
 
           //CASO 4
           if (this.model.temporalAddress && !this.model.postalAddressFlag) {
             this.model.suggestedFlag = false;
-            this.model.suggestedAddress = this.model.postalAddress;
-            this.model.suggestedDepUnitOther = this.model.postalDepUnitOther;
-            this.model.suggestedMunicipality = this.model.postalMunicipality;
-            this.model.suggestedPostalCode = this.model.postalCode2;
+            // this.model.suggestedAddress = this.model.postalAddress;
+            // this.model.suggestedDepUnitOther = this.model.postalDepUnitOther;
+            // this.model.suggestedMunicipality = this.model.postalMunicipality;
+            // this.model.suggestedPostalCode = this.model.postalCode2;
           } else {
             this.model.suggestedFlag = true;
-            this.model.suggestedAddress = resp.body.data[0].addr;
-            this.model.suggestedDepUnitOther = resp.body.data[0].urban;
-            this.model.suggestedMunicipality = resp.body.data[0].city;
-            this.model.suggestedPostalCode = resp.body.data[0].zip;
           }
+
+          this.model.suggestedAddress = resp.body.data[0].addr;
+          this.model.suggestedDepUnitOther = resp.body.data[0].urban;
+          this.model.suggestedMunicipality = resp.body.data[0].city;
+          this.model.suggestedPostalCode = resp.body.data[0].zip;
 
         } else {
           alertify.alert(
