@@ -24,13 +24,13 @@
               <div class="greenmsg m-top-i">
                 <i class="fa fa-check-circle staytop" aria-hidden="true"></i>
 
-                <span class="roboto-b">Miguel Nieves</span><br/><br/>
+                <span class="roboto-b">{{model.CUSTOMER_NAME + ' ' + model.CUSTOMER_LAST}}</span><br/><br/>
 
-                Tu solicitud de Servicio Universal se encuentra en proceso de aprobaci&oacute;n bajo el <span class="roboto-b">N&uacute;mero de Caso: 123456.</span><br/><br/>
+                Tu solicitud de Servicio Universal se encuentra en proceso de aprobaci&oacute;n bajo el <span class="roboto-b">N&uacute;mero de Caso: {{model.USF_CASEID}}.</span><br/><br/>
 
                 <span class="roboto-b">Su N&uacute;mero de Cuenta en Claro: 7890000331.</span><br/><br/>
 
-                <span class="roboto-b">Su N&uacute;mero de Tel&eacute;fono Prepago ya esta activo y listo para su uso: 7875332222.</span><br/><br/>
+                <span class="roboto-b">Su N&uacute;mero de Tel&eacute;fono Prepago ya esta activo y listo para su uso: {{model.mBan}}.</span><br/><br/>
 
                 De requerir informaci&oacute;n adicional un agente de servicio al cliente estar&aacute; en contacto con usted.
               </div>

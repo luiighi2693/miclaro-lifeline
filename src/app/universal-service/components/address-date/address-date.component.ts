@@ -291,17 +291,19 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
           this.usfServiceService.setDataObjectAddress(resp.body.dataObject);
             //CASO DE EXITO
 
-            this.model.suggestedFlag = true;
-            this.model.addressSelected = 'postalSuggested';
             this.validationDataAddressInput = true;
+          this.model.addressSelected = 'postal';
+
 
           //CASO 4
           if (this.model.temporalAddress && !this.model.postalAddressFlag) {
+            this.model.suggestedFlag = false;
             this.model.suggestedAddress = this.model.postalAddress;
             this.model.suggestedDepUnitOther = this.model.postalDepUnitOther;
             this.model.suggestedMunicipality = this.model.postalMunicipality;
             this.model.suggestedPostalCode = this.model.postalCode2;
           } else {
+            this.model.suggestedFlag = true;
             this.model.suggestedAddress = resp.body.data[0].addr;
             this.model.suggestedDepUnitOther = resp.body.data[0].urban;
             this.model.suggestedMunicipality = resp.body.data[0].city;
@@ -361,14 +363,15 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToRegisterCase() {
-    if (this.form.valid) {
+    // if (this.form.valid) {
+    if (this.model.addressSelected ===  'postalSuggested' || (this.model.temporalAddress && !this.model.postalAddressFlag && this.model.addressSelected ===  'postal')) {
       console.log(this.model);
       this.validationDataAddressInput = false;
-      this.validationProcessMAILPREP = true;
+      // this.validationProcessMAILPREP = true;
 
-      setTimeout(() => {
+      // setTimeout(() => {
         this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-      }, 3000);
+      // }, 3000);
     }
   }
 
