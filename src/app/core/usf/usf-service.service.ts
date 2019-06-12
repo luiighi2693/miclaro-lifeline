@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { constants } from '@env/constants';
 import { Credentials } from '@app/core';
 
-
 export interface ValidateSSNData {
   data: ValidateSSNDataContent[];
   dataObject: ValidateSSNDataContent[];
@@ -40,7 +39,7 @@ export interface PeopleData {
 }
 
 export interface DataAgencyMoneySelection {
-  agency : string;
+  agency: string;
   ldiRestriction: boolean;
   peopleDataSelectedNumber: number;
   peopleDataSelected: PeopleData;
@@ -57,13 +56,21 @@ const ssnKey = 'ssn';
 
 @Injectable()
 export class UsfServiceService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   doAction(data: any, method: string): Observable<any> {
-    let url = (constants.MOCK_API ? constants.MOCK_API_PATH : constants.API_PATH);
-    let path = constants.MOCK_API ? ('/' + method) : '';
+    let url = constants.MOCK_API ? constants.MOCK_API_PATH : constants.API_PATH;
+    let path = '';
 
-    return this.http.post<any>(url + path, data, { observe: 'response' });
+    if (url.includes('localhost')) {
+      return this.http.post<any>(url + path, data, {
+        observe: 'response',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
+      });
+    } else {
+      path = constants.MOCK_API ? '/' + method : '';
+      return this.http.post<any>(url + path, data, { observe: 'response' });
+    }
   }
 
   public getValidateSSNData(): ValidateSSNData | null {

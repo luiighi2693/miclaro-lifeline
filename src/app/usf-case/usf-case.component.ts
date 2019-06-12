@@ -243,7 +243,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       dd_txt = dd.toString();
     }
     let pages = 5; // by default
-    if (this.numberUSF.trim() === '') {
+    if (this.numberUSF.trim() !== '') {
       pages = 1;
     }
     const data = {
@@ -255,7 +255,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       caseID: this.numberUSF,
       Status: ''
     };
-    // this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
+    //    this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
     return this.usfServiceService.doAction(data, 'getCasesWithFiltersMcapi').subscribe((dt: any) => {
       if (!dt.HasError) {
         this.data_conten = [];
