@@ -54,9 +54,9 @@
               <!--</div>-->
 
               <div class="basicrow f-reg roboto-b">
-                {{model.temporalAddress ? model.temporalAddressExtraContent : model.address}} <br/>
-                {{model.temporalAddress ? model.address + ' ' + model.depUnitOther : model.depUnitOther}} <br/>
-                {{ model.municipality }} PR {{ model.postalCode }}
+                {{model.fisicalAddress}} <br/>
+                {{model.fisicalDepUnitOther}} <br/>
+                {{ model.fisicalMunicipality }} PR {{ model.fisicalPostalCode }}
                 <!--URB HERMOSILLO<br />-->
                 <!--123 CALLE 1<br />-->
                 <!--BAYAMÓN PR 00961-1212-->
@@ -326,7 +326,7 @@
                           <input
                             type="text"
                             maxlength="40"
-                            placeholder="N&uacute;mero y Nombre de Calle"
+                            placeholder="N&uacute;mero, Nombre de Calle y Ato/Unidad/Otro"
                             class="inp-f qt"
                             [(ngModel)]="model.address"
                             [formControl]="form.controls['address']"
@@ -340,8 +340,8 @@
                         <div class="basicrow">
                           <input
                             type="text"
-                            maxlength="6"
-                            placeholder="Dpto/Unidad/Otro"
+                            maxlength="20"
+                            placeholder="Urban"
                             class="inp-f"
                             [(ngModel)]="model.depUnitOther"
                             [formControl]="form.controls['depUnitOther']"
