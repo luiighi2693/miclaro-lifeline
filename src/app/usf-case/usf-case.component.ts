@@ -22,6 +22,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   public nameToSearch: String = '';
   public numberUSF: String = '';
   public loadingRequest = false;
+  public date_range: any = null;
   public data_conten: any = [
     {
       caseID: '00123',
@@ -130,8 +131,9 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
                 .endOf('month')
             ]
           },
-          onchange: function(ev: any) {
-            console.log(ev);
+          change: function(event: any, data: any) {
+            this.date_range = JSON.parse($('#rangedate').val());
+            console.log('change', this.date_range);
           }
         },
         cb
@@ -246,6 +248,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
     if (this.numberUSF.trim() !== '') {
       pages = 1;
     }
+
     const data = {
       method: 'getCasesWithFiltersMcapi',
       DateFrom: '2019-01-01',

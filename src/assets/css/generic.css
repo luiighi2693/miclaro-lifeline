@@ -1775,7 +1775,8 @@ a.social-ls.ig {
 }
 
 .shortcont {
-  width: 551px;
+  /*width: 551px;*/
+  width: 610px;
   height: auto;
   display: inline-block;
   margin: 0 auto;

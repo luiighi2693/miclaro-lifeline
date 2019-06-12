@@ -7,16 +7,18 @@
     </div>
 
     <div class="basicrow f-bmed f-black roboto-r">
-      <!--<div class="row">-->
-        <!--<div-->
-          <!--class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"-->
-        <!--&gt;-->
-          <!--<div class="basicrow m-top-i text-center">-->
-            <!--<img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia Proceso de-->
-            <!--Validaci&oacute;n Mailprep-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
+      <!-- <div class="row"> -->
+      <!-- <div -->
+      <!--
+        class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+      -->
+      <!-- &gt; -->
+      <!-- <div class="basicrow m-top-i text-center"> -->
+      <!-- <img width="100%" class="loadongoin" src="../../../../assets/images/gload.gif" /> Inicia Proceso de -->
+      <!-- Validaci&oacute;n Mailprep -->
+      <!-- </div> -->
+      <!-- </div> -->
+      <!-- </div> -->
       <div class="row">
         <div
           class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
@@ -43,26 +45,28 @@
       <div class="basicrow">
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="basicrow roboto-b m-top-i">Direcci&oacute;n {{model.temporalAddress ? 'Rural' : 'Física'}} Ingresada:</div>
+            <div class="basicrow roboto-b m-top-i">
+              Direcci&oacute;n {{ model.temporalAddress ? 'Rural' : 'Física' }} Ingresada:
+            </div>
 
             <div class="optchoice on roboto-r text-left">
-              <!--<div class="checkdef">-->
-                <!--<input type="radio" name="radioG1" id="radioG1" class="css-radio" checked /><label-->
-                  <!--for="radioG1"-->
-                  <!--class="css-label3 radGroup1"-->
-                <!--&gt;</label>-->
-              <!--</div>-->
+              <!-- <div class="checkdef"> -->
+              <!-- <input type="radio" name="radioG1" id="radioG1" class="css-radio" checked /><label -->
+              <!-- for="radioG1" -->
+              <!-- class="css-label3 radGroup1" -->
+              <!-- &gt;</label> -->
+              <!-- </div> -->
 
               <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress">
-                {{model.fisicalAddress}} <br/>
-                {{model.fisicalDepUnitOther}} <br/>
+                {{ model.fisicalAddress }} <br />
+                {{ model.fisicalDepUnitOther }} <br />
                 {{ model.fisicalMunicipality }} PR {{ model.fisicalPostalCode }}
               </div>
 
-              <!--CASO 4-->
+              <!-- CASO 4 -->
               <div class="basicrow f-reg roboto-b" *ngIf="model.temporalAddress">
-                {{model.temporalAddressExtraContent}} <br/>
-                {{model.address + ' ' + model.depUnitOther}} <br/>
+                {{ model.temporalAddressExtraContent }} <br />
+                {{ model.address + ' ' + model.depUnitOther }} <br />
                 {{ model.municipality }} PR {{ model.postalCode }}
               </div>
             </div>
@@ -76,51 +80,52 @@
             <div class="basicrow roboto-b m-top-i">Direcci&oacute;n Postal Ingresada:</div>
 
             <div class="optchoice roboto-r text-left" [ngClass]="model.addressSelected === 'postal' ? 'on' : ''">
-              <!--<div class="checkdef">-->
-                <!--&lt;!&ndash;-->
-                  <!--<input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>-->
-                <!--&ndash;&gt;-->
-                <!--<input-->
-                  <!--type="radio"-->
-                  <!--name="addressSelected"-->
-                  <!--id="radioG2"-->
-                  <!--class="css-radio"-->
-                  <!--disabled-->
-                  <!--[value]="'postal'"-->
-                  <!--[(ngModel)]="model.addressSelected"-->
-                  <!--[formControl]="form.controls['addressSelected']"-->
-                <!--/><label for="radioG2" class="css-label3 radGroup1"></label>-->
-              <!--</div>-->
+              <!-- <div class="checkdef"> -->
+              <!-- &lt;!&ndash; -->
+              <!--
+                <input type="radio" name="radioG2" id="radioG2" class="css-radio" checked/><label for="radioG2" class="css-label3 radGroup1"></label>
+              -->
+              <!-- &ndash;&gt; -->
+              <!-- <input -->
+              <!-- type="radio" -->
+              <!-- name="addressSelected" -->
+              <!-- id="radioG2" -->
+              <!-- class="css-radio" -->
+              <!-- disabled -->
+              <!-- [value]="'postal'" -->
+              <!-- [(ngModel)]="model.addressSelected" -->
+              <!-- [formControl]="form.controls['addressSelected']" -->
+              <!-- /><label for="radioG2" class="css-label3 radGroup1"></label> -->
+              <!-- </div> -->
 
-              <!--<div class="basicrow f-reg roboto-b">-->
-                <!--{{ model.postalAddress }}<br />-->
-                <!--{{ model.postalDepUnitOther }}<br />-->
-                <!--{{ model.postalMunicipality }} PR {{ model.postalCode2 }}-->
-              <!--</div>-->
+              <!-- <div class="basicrow f-reg roboto-b"> -->
+              <!-- {{ model.postalAddress }}<br /> -->
+              <!-- {{ model.postalDepUnitOther }}<br /> -->
+              <!-- {{ model.postalMunicipality }} PR {{ model.postalCode2 }} -->
+              <!-- </div> -->
 
-              <!--DIRECCIONES POSTALES-->
+              <!-- DIRECCIONES POSTALES -->
 
-              <!--CASO 1-->
+              <!-- CASO 1 -->
               <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress && model.postalAddressFlag">
                 {{ model.address }}<br />
                 {{ model.depUnitOther }}<br />
                 {{ model.municipality }} PR {{ model.postalCode }}
               </div>
 
-              <!--CASO 2-->
+              <!-- CASO 2 -->
               <div class="basicrow f-reg roboto-b" *ngIf="!model.temporalAddress && !model.postalAddressFlag">
-              {{ model.postalAddress }}<br />
-              {{ model.postalDepUnitOther }}<br />
-              {{ model.postalMunicipality }} PR {{ model.postalCode2 }}
+                {{ model.postalAddress }}<br />
+                {{ model.postalDepUnitOther }}<br />
+                {{ model.postalMunicipality }} PR {{ model.postalCode2 }}
               </div>
 
-              <!--CASO 4-->
+              <!-- CASO 4 -->
               <div class="basicrow f-reg roboto-b" *ngIf="model.temporalAddress && !model.postalAddressFlag">
                 {{ model.suggestedAddress }}<br />
                 {{ model.suggestedDepUnitOther }}<br />
                 {{ model.suggestedMunicipality }} PR {{ model.suggestedPostalCode }}
               </div>
-
             </div>
           </div>
 
@@ -160,7 +165,15 @@
         <div class="basicrow m-top-i"><div class="logline full"></div></div>
 
         <div class="basicrow text-center m-top-i">
-          <a (click)="goToRegisterCase()" class="btns def-i gray centr vcenter" [ngClass]="{ red: model.addressSelected ===  'postalSuggested' || (model.temporalAddress && !model.postalAddressFlag && model.addressSelected ===  'postal') }">
+          <a
+            (click)="goToRegisterCase()"
+            class="btns def-i gray centr vcenter"
+            [ngClass]="{
+              red:
+                model.addressSelected === 'postalSuggested' ||
+                (model.temporalAddress && !model.postalAddressFlag && model.addressSelected === 'postal')
+            }"
+          >
             <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
           </a>
         </div>
@@ -275,22 +288,22 @@
                 </div>
               </div>
 
-              <!--<div class="row">-->
+              <!-- <div class="row"> -->
 
-                <!--<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">-->
-                  <!--<div class="basicrow m-top-i" *ngIf="model.temporalAddress">-->
-                    <!--<div class="basicrow rel">-->
-                      <!--<input-->
-                        <!--[(ngModel)]="model.temporalAddressExtraContent"-->
-                        <!--type="text"-->
-                        <!--maxlength="40"-->
-                        <!--placeholder="Carretera, Kilómetro o Hectómetro"-->
-                        <!--class="inp-f qt"-->
-                      <!--/>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
+              <!-- <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> -->
+              <!-- <div class="basicrow m-top-i" *ngIf="model.temporalAddress"> -->
+              <!-- <div class="basicrow rel"> -->
+              <!-- <input -->
+              <!-- [(ngModel)]="model.temporalAddressExtraContent" -->
+              <!-- type="text" -->
+              <!-- maxlength="40" -->
+              <!-- placeholder="Carretera, Kilómetro o Hectómetro" -->
+              <!-- class="inp-f qt" -->
+              <!-- /> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- </div> -->
 
               <div class="basicrow">
                 <div class="basicrow">
@@ -315,7 +328,6 @@
                   <div class="row">
                     <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                       <div class="basicrow m-top-ii">
-
                         <div class="basicrow rel">
                           <img
                             data-toggle="popover"
@@ -330,7 +342,7 @@
                           <input
                             type="text"
                             maxlength="40"
-                            placeholder="N&uacute;mero, Nombre de Calle y Ato/Unidad/Otro"
+                            placeholder="N&uacute;mero, Nombre de Calle y Apt/Unidad/Otro"
                             class="inp-f qt"
                             [(ngModel)]="model.address"
                             [formControl]="form.controls['address']"
@@ -473,22 +485,12 @@
 
                 <div class="basicrow m-top-u-i f-reg f-black roboto-r">
                   <div class="popopt">
-                    <input
-                      type="checkbox"
-                      name="contactChannel"
-                      [value]="'1'"
-                      [(ngModel)]="contactChannelEmail"
-                    />
+                    <input type="checkbox" name="contactChannel" [value]="'1'" [(ngModel)]="contactChannelEmail" />
                     Correo Electr&oacute;nico
                   </div>
 
                   <div class="popopt">
-                    <input
-                      type="checkbox"
-                      name="contactChannel"
-                      [value]="'2'"
-                      [(ngModel)]="contactChannelPhone"
-                    />
+                    <input type="checkbox" name="contactChannel" [value]="'2'" [(ngModel)]="contactChannelPhone" />
                     Tel&eacute;fono
                   </div>
 
@@ -503,12 +505,7 @@
                   </div>
 
                   <div class="popopt">
-                    <input
-                      type="checkbox"
-                      name="contactChannel"
-                      [value]="'4'"
-                      [(ngModel)]="contactChannelMail"
-                    />
+                    <input type="checkbox" name="contactChannel" [value]="'4'" [(ngModel)]="contactChannelMail" />
                     Correo
                   </div>
                 </div>
@@ -565,7 +562,7 @@
                           <input
                             type="text"
                             maxlength="40"
-                            placeholder="N&uacute;mero, Nombre de Calle y Ato/Unidad/Otro"
+                            placeholder="N&uacute;mero, Nombre de Calle y Apt/Unidad/Otro"
                             class="inp-f qt"
                             [(ngModel)]="model.postalAddress"
                             [formControl]="form.controls['postalAddress']"
@@ -682,11 +679,17 @@
                   <a
                     (click)="goToValidationDataAddressInput()"
                     class="btns def-i red pull-right vcenter gray"
-                    [ngClass]="{ red: form.valid &&
-                    ( (model.temporalAddress && model.temporalAddressExtraContent.length > 0) || !model.temporalAddress)
-                     && validatePostalAddress() && validateContactChannel()
-                    && ( (!model.temporalAddress && model.address.length > 0 && model.contactNumber1.length === 12)
-                    || (model.temporalAddress)) && (model.contactNumber2.length === 0 || model.contactNumber2.length === 12) }"
+                    [ngClass]="{
+                      red:
+                        form.valid &&
+                        ((model.temporalAddress && model.temporalAddressExtraContent.length > 0) ||
+                          !model.temporalAddress) &&
+                        validatePostalAddress() &&
+                        validateContactChannel() &&
+                        ((!model.temporalAddress && model.address.length > 0 && model.contactNumber1.length === 12) ||
+                          model.temporalAddress) &&
+                        (model.contactNumber2.length === 0 || model.contactNumber2.length === 12)
+                    }"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
