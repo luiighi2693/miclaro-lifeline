@@ -332,7 +332,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
               //caso 1
               if (!this.model.temporalAddress && this.model.postalAddressFlag) {
-                if (this.counter1 > 3) {
+                if (this.counter1 > 2) {
                   this.goToHome()
                 } else {
                   this.counter1++;
@@ -341,7 +341,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
               //caso 2
               if (!this.model.temporalAddress && !this.model.postalAddressFlag) {
-                if (this.counter2 > 3) {
+                if (this.counter2 > 2) {
                   this.goToHome()
                 } else {
                   this.counter2++;
@@ -355,7 +355,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
               
               //caso 4
               if (this.model.temporalAddress && !this.model.postalAddressFlag) {
-                if (this.counter4 > 3) {
+                if (this.counter4 > 2) {
                   this.goToHome()
                 } else {
                   this.counter4++;
