@@ -58,12 +58,10 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
     {
       plan: 'Plan 2219',
       planDetails: [
-        '1,000 minutos para uso de voz local, larga distancia a Estados Unidos' +
-          ' y “Roaming” en EEUU compartido. Costo del minuto adicional es 10¢.',
-        '1,000 SMS/MMS locales, a EEUU y a ciertos destinos internacionales.',
-        'Costo SMS/MMS adicional enviado es de 10¢.',
+        '1,100 minutos para uso de voz local, larga distancia a Estados Unidos' + ' y “Roaming” en EEUU.',
+        '1,000 SMS/MMS en PR & USA.',
         'SMS/MMS recibidos son gratis.',
-        ' 2 GB de data para uso en PR y en EEUU con bloqueo'
+        ' 2 GB de data para uso en PR y en EEUU con Bloqueo.'
       ]
     }
   ];
