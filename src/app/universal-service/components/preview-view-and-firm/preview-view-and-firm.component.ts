@@ -108,7 +108,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
         method: 'CreatefirmMcapi',
         USER_ID: this.userId,
         CASE_ID: this.caseId,
-        FIRM_INITIALS: this.iniciales,
+        FIRM_INITIALS: this.step2 ? '' : this.iniciales,
+        FIRM_INITIALSAPLIC: this.step2 ? this.iniciales : '',
         FIRM_DESCRIPTION: this.firmaUrl
       };
 
