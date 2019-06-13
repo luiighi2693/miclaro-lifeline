@@ -15,6 +15,7 @@ declare let $: any;
 })
 export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit {
   firmInput = false;
+  firmInput2 = false;
   step2 = false;
   signer = '';
   iniciales = '';
@@ -94,6 +95,11 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     this.firmInput = true;
     setTimeout(this.activarFecha, 100);
   }
+  showFirmInput2() {
+    this.firmInput = false;
+    this.firmInput2 = true;
+    setTimeout(this.activarFecha, 100);
+  }
 
   goToActivation() {
     if (this.validateSing()) {
@@ -119,14 +125,12 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
           if (!resp.body.HasError) {
             this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
           } else {
-
           }
         },
         error => {
           console.log(error);
         }
       );
-
     }
   }
 
@@ -147,6 +151,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   }
 
   validateSing() {
+    console.log(this.iniciales.trim().length > 0, this.fechaN.trim().length, this.signer.trim());
     if (this.iniciales.trim().length > 0 && this.fechaN.trim().length !== 10 && this.signer.trim() !== '') {
       return true;
     } else {
@@ -168,6 +173,12 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     this.signer = firmaUrl;
     this.copyCode(firmaUrl);
     // alertify.alert('Aviso', 'Copiada la firma... ');
+  }
+  drawCompleteSave2() {
+    const firmaUrl = this.signaturePad.toDataURL();
+    console.log(firmaUrl);
+    this.signer = firmaUrl;
+    this.copyCode(firmaUrl);
   }
 
   drawStart() {

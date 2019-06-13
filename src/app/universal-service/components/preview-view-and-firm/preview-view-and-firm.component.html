@@ -1,4 +1,4 @@
-<div class="popupbg" *ngIf="firmInput">
+<div class="popupbg" *ngIf="firmInput || firmInput2">
   <div class="popupcont morew-iic">
     <div class="basicrow f-reg f-black roboto-r text-justify">
       Con este consentimiento <span class="roboto-b">AUTORIZO</span> el uso de mis iniciales y firmas en formato
@@ -46,7 +46,12 @@
                       <div class="autorow pull-left m-top-u" style="cursor: default;user-select: none;">
                         Firma Digital
                         <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
-                        <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
+                        <button *ngIf="firmInput" class="btn btn-success" (click)="drawCompleteSave()">
+                          <i class="fa fa-save"></i>
+                        </button>
+                        <button *ngIf="firmInput2" class="btn btn-success" (click)="drawCompleteSave2()">
+                          <i class="fa fa-save"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -68,7 +73,7 @@
 
     <div class="basicrow text-center m-top-i">
       <a
-        (click)="goToActivation()"
+        (click)="goToStep2()"
         [ngClass]="{
           btns: true,
           'def-i': true,
@@ -78,7 +83,7 @@
           vcenter: true
         }"
       >
-        <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+        <span class="tabcell">* Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
       </a>
     </div>
   </div>
@@ -124,7 +129,7 @@
 
           <div class="basicrow">
             <div class="basicrow text-center m-top-i">
-              <a (click)="goToStep2()" class="btns def-i red pull-right vcenter">
+              <a (click)="showFirmInput()" class="btns def-i red pull-right vcenter">
                 <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
               </a>
 

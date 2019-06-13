@@ -92,6 +92,13 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    // init date range for default
+    const mes = new Date().getMonth() + 1 < 10 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1;
+    console.log(mes);
+    this.date_range = {
+      start: new Date().getFullYear() + '-01-01',
+      end: new Date().getFullYear() + '-' + mes + '-' + new Date().getDate()
+    };
     if (localStorage.getItem('numberCaseToSearch') !== null) {
       this.numberUSF = localStorage.getItem('numberCaseToSearch');
       this.loadingRequest = true;
@@ -105,6 +112,10 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       // tslint:disable-next-line: no-shadowed-variable
       function cb(start: any, end: any) {
         $('#rangedate').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      }
+
+      function searchCasesUSF() {
+        console.log('searchCasesUSF');
       }
 
       $('#rangedate').daterangepicker(
@@ -134,6 +145,8 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
           change: function(event: any, data: any) {
             this.date_range = JSON.parse($('#rangedate').val());
             console.log('change', this.date_range);
+            // setTimeout(this.getCasesUSF(), 100);
+            searchCasesUSF();
           }
         },
         cb
@@ -251,8 +264,8 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
 
     const data = {
       method: 'getCasesWithFiltersMcapi',
-      DateFrom: '2019-01-01',
-      DateTo: '2019-' + mm_txt + '-' + dd_txt,
+      DateFrom: this.date_range.start,
+      DateTo: this.date_range.end,
       pageNo: pages,
       pageSize: 20,
       caseID: this.numberUSF,
