@@ -47,7 +47,9 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
 
+    // this.userId = '78';
     this.userId = this.authenticationService.credentials.userid;
+    // this.caseId = 501;
     this.caseId = this.validateSSNData.CASENUMBER;
   }
   ngOnInit() {
@@ -115,18 +117,28 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
       this.usfServiceService.doAction(datos, 'CreatefirmMcapi').subscribe(
         resp => {
           console.log(resp);
+          this.firmInput = false;
 
           if (!resp.body.HasError) {
-            this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+            if (!this.step2) {
+              if (this.signaturePad !== undefined) {
+                this.signaturePad.set('minWidth', 0.5); // set szimek/signature_pad options at runtime
+                this.signaturePad.set('maxWidth', 3);
+                this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
+              }
+              this.signer = '';
+              this.iniciales = '';
+              this.step2 = true;
+            } else {
+              this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+            }
           } else {
-
           }
         },
         error => {
           console.log(error);
         }
       );
-
     }
   }
 
