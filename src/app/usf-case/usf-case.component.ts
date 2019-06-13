@@ -92,11 +92,25 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    let mes = (new Date().getMonth() + 1).toString();
+    if (new Date().getMonth() + 1 < 10) {
+      mes = '0' + mes;
+    }
+    this.date_range = {
+      start: new Date().getFullYear() + '-01-01',
+      end: new Date().getFullYear() + '-' + mes + '-' + new Date().getDate()
+    };
     if (localStorage.getItem('numberCaseToSearch') !== null) {
       this.numberUSF = localStorage.getItem('numberCaseToSearch');
       this.loadingRequest = true;
       this.getCasesUSF();
     }
+    let self = this;
+    function searchCases() {
+      console.log('searchCases', self.date_range);
+      self.getCasesUSF();
+    }
+
     $(function() {
       // tslint:disable: prefer-const
       let start = moment().subtract(29, 'days');
@@ -132,8 +146,10 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
             ]
           },
           change: function(event: any, data: any) {
+            this.loadingRequest = true;
             this.date_range = JSON.parse($('#rangedate').val());
-            console.log('change', this.date_range);
+            self.date_range = this.date_range;
+            searchCases();
           }
         },
         cb
@@ -182,7 +198,12 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       this.data_conten[k].classCss = classRow;
     });
   }
-
+  validaEnter(evt: any) {
+    if (evt.keyCode === 13) {
+      // si pisa enter
+      this.getCasesUSF();
+    }
+  }
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
@@ -230,29 +251,14 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
 
   getCasesUSF() {
     this.loadingRequest = true;
-    let mm = new Date().getMonth() + 1;
-    let dd = new Date().getDate();
-    let mm_txt = '';
-    let dd_txt = '';
-    if (mm < 10) {
-      mm_txt = '0' + mm;
-    } else {
-      mm_txt = mm.toString();
-    }
-    if (dd < 10) {
-      dd_txt = '0' + dd;
-    } else {
-      dd_txt = dd.toString();
-    }
     let pages = 5; // by default
     if (this.numberUSF.trim() !== '') {
       pages = 1;
     }
-
     const data = {
       method: 'getCasesWithFiltersMcapi',
-      DateFrom: '2019-01-01',
-      DateTo: '2019-' + mm_txt + '-' + dd_txt,
+      DateFrom: this.date_range.start,
+      DateTo: this.date_range.end,
       pageNo: pages,
       pageSize: 20,
       caseID: this.numberUSF,
