@@ -21,6 +21,8 @@ export interface Model {
 export class ActivationComponent extends BaseComponent implements OnInit {
   validateSSNData: ValidateSSNData;
 
+  suscriberActivation: boolean;
+
   model: Model = new class implements Model {
     CUSTOMER_NAME = '';
     CUSTOMER_LAST = '';
@@ -42,6 +44,8 @@ export class ActivationComponent extends BaseComponent implements OnInit {
     let userId = this.authenticationService.credentials.userid;
     let caseId = this.validateSSNData.CASENUMBER;
 
+    this.suscriberActivation = true;
+
     const datos = {
       method: 'getBanMcapi',
       UserID: userId,
@@ -53,6 +57,8 @@ export class ActivationComponent extends BaseComponent implements OnInit {
     this.usfServiceService.doAction(datos, 'getBanMcapi').subscribe(
       resp => {
         console.log(resp);
+
+        this.suscriberActivation = false;
 
         if (!resp.body.HasError) {
           this.model = resp.body;
