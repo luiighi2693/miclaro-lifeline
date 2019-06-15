@@ -244,7 +244,9 @@
                 <div class="redbgbadmsg error m-top-i" *ngIf="uploadHasError">
                   <i class="fa fa-times-circle" aria-hidden="true"></i>
 
-                  Su foto/documento <span class="roboto-b">{{ documentName }}</span> no fue cargada exitosamente.<br /><br />
+                  Su foto/documento
+                  <span class="roboto-b">{{ documentName + ' / ' + subDocumentTypeSelected }}</span> no fue cargada
+                  exitosamente.<br /><br />
 
                   <span class="roboto-b">Favor volver a intentar.</span>
                 </div>
@@ -252,7 +254,9 @@
                 <div class="redbgbadmsg error m-top-i" *ngIf="uploadHasValidationError">
                   <i class="fa fa-times-circle" aria-hidden="true"></i>
 
-                  Su foto/documento <span class="roboto-b">{{ documentName }}</span> no fue cargada exitosamente.<br /><br />
+                  Su foto/documento
+                  <span class="roboto-b">{{ documentName + ' / ' + subDocumentTypeSelected }}</span> no fue cargada
+                  exitosamente.<br /><br />
                   Debe seleccionar un documento de tipo
                   <span class="roboto-b">{{ uploadHasValidationErrorTypes }}</span> y como maximo
                   <span class="roboto-b">{{ uploadHasValidationErrorSize }}KB.</span><br /><br />
