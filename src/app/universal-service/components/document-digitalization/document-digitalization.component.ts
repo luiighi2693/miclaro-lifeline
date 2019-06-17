@@ -276,6 +276,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       FR.readAsDataURL($event.target.files[0]);
     } else {
       this.loadingDocs = false;
+      this.documentName = this.documents[index].name;
       this.uploadHasValidationError = true;
       this.uploadHasValidationErrorSize = this.documents[index2].maxSize;
       this.uploadHasValidationErrorTypes = this.documents[index2].types.join(', ');
@@ -410,7 +411,6 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name);
     console.log(index2);
 
-
     const datos = {
       method: 'DeleteDocumentMcapi',
       documentTypeID: this.requiredDocumentsContent[index].idToSearch,
@@ -426,12 +426,12 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
         console.log(resp);
 
         // if (!resp.body.HasError) {
-          this.requiredDocumentsContent[index].isCharged = false;
-          this.requiredDocumentSelected = this.requiredDocumentsContent[index].id;
-          let el: HTMLElement = this.inputFiles.nativeElement as HTMLElement;
-          el.click();
+        this.requiredDocumentsContent[index].isCharged = false;
+        this.requiredDocumentSelected = this.requiredDocumentsContent[index].id;
+        let el: HTMLElement = this.inputFiles.nativeElement as HTMLElement;
+        el.click();
 
-          this.previewView = false;
+        this.previewView = false;
         // } else {
         // }
       },
@@ -439,8 +439,5 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
         console.log(error);
       }
     );
-
-
-
   }
 }

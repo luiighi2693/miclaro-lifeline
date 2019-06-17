@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 import { FormBuilder } from '@angular/forms';
 import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+declare let alertify: any;
 
 export interface Model {
   CUSTOMER_NAME: string;
@@ -20,6 +21,8 @@ export interface Model {
 })
 export class ActivationComponent extends BaseComponent implements OnInit {
   validateSSNData: ValidateSSNData;
+
+  suscriberActivation: boolean;
 
   model: Model = new class implements Model {
     CUSTOMER_NAME = '';
@@ -42,6 +45,8 @@ export class ActivationComponent extends BaseComponent implements OnInit {
     let userId = this.authenticationService.credentials.userid;
     let caseId = this.validateSSNData.CASENUMBER;
 
+    this.suscriberActivation = true;
+
     const datos = {
       method: 'getBanMcapi',
       UserID: userId,
@@ -50,19 +55,26 @@ export class ActivationComponent extends BaseComponent implements OnInit {
 
     console.log(datos);
 
-    this.usfServiceService.doAction(datos, 'getBanMcapi').subscribe(
-      resp => {
-        console.log(resp);
+    setTimeout(() => {
+      this.usfServiceService.doAction(datos, 'getBanMcapi').subscribe(
+        resp => {
+          console.log(resp);
 
-        if (!resp.body.HasError) {
-          this.model = resp.body;
-        } else {
+          this.suscriberActivation = false;
+
+          if (!resp.body.HasError) {
+            this.model = resp.body;
+          } else {
+            alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+              this.goToHome();
+            });
+          }
+        },
+        error => {
+          console.log(error);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      );
+    }, 5000);
   }
 
   ngOnInit() {
