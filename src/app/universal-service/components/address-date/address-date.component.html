@@ -728,21 +728,21 @@
                 <br />
                 <div class="redstat m-top">
                   <div class="autorow roboto-r pull-left">Dirección</div>
-                  <div class="autorow roboto-b pull-right">{{ dataReject.addr }}</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.inaddr }}</div>
                 </div>
 
                 <br />
                 <div class="redstat m-top">
                   <div class="autorow roboto-r pull-left">City</div>
-                  <div class="autorow roboto-b pull-right">{{ dataReject.city }}</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.incity }}</div>
                 </div>
                 <div class="redstat m-top">
                   <div class="autorow roboto-r pull-left">Estado</div>
                   <div class="autorow roboto-b pull-right">{{ dataReject.instate }}</div>
                 </div>
-                <div *ngIf="dataReject.urban !== ''" class="redstat m-top">
+                <div *ngIf="dataReject.inurban !== ''" class="redstat m-top">
                   <div class="autorow roboto-r pull-left">Urban</div>
-                  <div class="autorow roboto-b pull-right">{{ dataReject.urban }}</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.inurban }}</div>
                 </div>
                 <div class="redstat m-top">
                   <div class="autorow roboto-r pull-left">Codigo Postal</div>
