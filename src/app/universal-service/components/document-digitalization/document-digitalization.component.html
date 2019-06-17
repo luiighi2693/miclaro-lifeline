@@ -269,7 +269,11 @@
                 <div class="basicrow m-top-i"><label class="label-f">&#42; Documentos Requeridos</label></div>
 
                 <div class="basicrow m-top-u" *ngFor="let documentType of this.requiredDocumentsContent">
-                  <div class="basicrow" [ngClass]="{ on: documentType.isCharged }" *ngIf="documentType.id !== null">
+                  <div
+                    class="basicrow"
+                    [ngClass]="{ on: documentType.isCharged && !documentType.isContinue }"
+                    *ngIf="documentType.id !== null"
+                  >
                     <div class="dgtl-list">
                       <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> {{ documentType.name }}
                     </div>

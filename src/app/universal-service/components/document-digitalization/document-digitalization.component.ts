@@ -19,6 +19,7 @@ export interface RequiredDocumentContent {
   name: string;
   isCharged: boolean;
   idToSearch: string;
+  isContinue: boolean;
 }
 
 @Component({
@@ -169,6 +170,9 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   }
 
   continueChargeDocuments() {
+    this.requiredDocumentsContent[
+      this.requiredDocumentsContent.map(x => x.idToSearch).indexOf(this.requiredDocumentIdSelected)
+    ].isContinue = true;
     this.previewView = false;
   }
 
@@ -288,7 +292,8 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
       id: null,
       name: 'Seleccionar',
       isCharged: true,
-      idToSearch: null
+      idToSearch: null,
+      isContinue: false
     });
 
     this.requiredDocuments.forEach(requiredDocument => {
@@ -301,7 +306,8 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
         id: requiredDocument.split('::')[0],
         name: name,
         isCharged: false,
-        idToSearch: null
+        idToSearch: null,
+        isContinue: false
       });
     });
 
