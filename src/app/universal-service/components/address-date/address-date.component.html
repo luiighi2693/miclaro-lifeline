@@ -216,8 +216,7 @@
     <div class="container">
       <div class="basicrow">
         <div class="fulltitle f-btitle m-bott-i">
-          <i class="fa fa-laptop" aria-hidden="true" (click)="showEception()"></i> Servicio Universal / Validación de
-          Dirección
+          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validación de Dirección
         </div>
 
         <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
@@ -719,17 +718,40 @@
 
               <div class="userinfo full">
                 <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ validateSSNData.CASENUMBER }}</div>
+                </div>
+
+                <br />
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Dirección</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.addr }}</div>
+                </div>
+
+                <br />
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">City</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.city }}</div>
+                </div>
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Estado</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.instate }}</div>
+                </div>
+                <div *ngIf="dataReject.urban !== ''" class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Urban</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.urban }}</div>
+                </div>
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Codigo Postal</div>
+                  <div class="autorow roboto-b pull-right">{{ dataReject.zip }}</div>
+                </div>
                 <!--
                   <div class="redstat m-top">
-                    <div class="autorow roboto-r pull-left">Nombre</div>
+                    <div class="autorow roboto-r pull-left">City</div>
 
-                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
-                      {{ validateSSNData.dataObject[0].name }}
-                    </div>
-
-                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
-                      {{ validateSSNData.data[0].name }}
-                    </div>
                   </div>
 
                   <div class="redstat m-top-ii">
@@ -744,17 +766,6 @@
                     </div>
                   </div>
 
-                  <div class="redstat m-top-ii">
-                    <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
-
-                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
-                      {{ validateSSNData.dataObject[0].CASENUMBER }}
-                    </div>
-
-                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
-                      {{ validateSSNData.CASENUMBER }}
-                    </div>
-                  </div>
 
                   <div class="redstat m-top-ii">
                     <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
@@ -786,11 +797,7 @@
                 <div class="basicrow m-top-i"><div class="logline full"></div></div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a
-                    (click)="goToPersonalDates()"
-                    class="btns red vcenter"
-                    data-old-class="btns def-i red pull-right vcenter"
-                  >
+                  <a (click)="goToHome()" class="btns red vcenter" data-old-class="btns def-i red pull-right vcenter">
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
                     </span>

@@ -55,6 +55,8 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   contactChannelTextMessage = false;
   contactChannelMail = false;
 
+  public dataReject: any = null;
+
   format1 = 'XXX-XXX-XX-XX';
 
   public municipalities = [
@@ -345,13 +347,13 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
           this.model.suggestedMunicipality = resp.body.data[0].city;
           this.model.suggestedPostalCode = resp.body.data[0].zip;
         } else {
+          this.dataReject = resp.body.data[0];
           alertify.alert(
             'Aviso',
             // tslint:disable-next-line:max-line-length
             resp.body.ErrorDesc,
             () => {
               //casos de error
-
               //caso 1
               if (!this.model.temporalAddress && this.model.postalAddressFlag) {
                 if (this.counter1 > 2) {
