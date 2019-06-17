@@ -173,10 +173,11 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }();
 
   validateSSNData: ValidateSSNData;
-  
+
   counter1 = 1;
   counter2 = 1;
   counter4 = 1;
+  someErrorValidation = false;
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -194,26 +195,41 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
     this.form = this.fb.group({
       temporalAddress1: [null, Validators.compose([Validators.required])],
-      contactNumber1: [null, Validators.compose([
-        // Validators.required
-      ])],
-      contactNumber2: [null, Validators.compose([
-        // Validators.required
-      ])],
+      contactNumber1: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
+      contactNumber2: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
       temporalAddress: [null, Validators.compose([Validators.required])],
-      address: [null, Validators.compose([
-        // Validators.required
-      ])],
-      depUnitOther: [ null, Validators.compose([
-        // Validators.required
-      ]) ],
+      address: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
+      depUnitOther: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
       municipality: [null, Validators.compose([Validators.required])],
       estate: [null, Validators.compose([Validators.required])],
       postalCode: [null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required, CustomValidators.email])],
-      contactChannel: [null, Validators.compose([
-        // Validators.required
-      ])],
+      contactChannel: [
+        null,
+        Validators.compose([
+          // Validators.required
+        ])
+      ],
       postalAddressFlag: [null, Validators.compose([Validators.required])],
       postalAddress: [
         null,
@@ -260,10 +276,13 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
       // ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress) &&
       // this.validatePostalAddress() && this.validateContactChannel()
       this.form.valid &&
-      ( (this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) || !this.model.temporalAddress)
-      && this.validatePostalAddress() && this.validateContactChannel()
-      && ( (!this.model.temporalAddress && this.model.address.length > 0 && this.model.contactNumber1.length === 12)
-      || (this.model.temporalAddress)) && (this.model.contactNumber2.length === 0 || this.model.contactNumber2.length === 12)
+      ((this.model.temporalAddress && this.model.temporalAddressExtraContent.length > 0) ||
+        !this.model.temporalAddress) &&
+      this.validatePostalAddress() &&
+      this.validateContactChannel() &&
+      ((!this.model.temporalAddress && this.model.address.length > 0 && this.model.contactNumber1.length === 12) ||
+        this.model.temporalAddress) &&
+      (this.model.contactNumber2.length === 0 || this.model.contactNumber2.length === 12)
     ) {
       console.log(this.model);
       this.validationProcessUSPS = true;
@@ -272,9 +291,12 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         method: 'addressValidationMcapi',
         user_ID: this.authenticationService.credentials.userid,
         case_ID: this.validateSSNData.CASENUMBER,
-        addresstype : this.model.temporalAddress ? 3 : 1,
+        addresstype: this.model.temporalAddress ? 3 : 1,
         address1: this.model.address,
-        address2: this.model.depUnitOther + ' ' +(this.model.temporalAddress ? ' ' + this.model.temporalAddressExtraContent : ''),
+        address2:
+          this.model.depUnitOther +
+          ' ' +
+          (this.model.temporalAddress ? ' ' + this.model.temporalAddressExtraContent : ''),
         city: this.model.municipality,
         state: 'PR',
         zip: this.model.postalCode,
@@ -297,9 +319,9 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
         if (!resp.body.HasError) {
           this.usfServiceService.setDataObjectAddress(resp.body.dataObject);
-            //CASO DE EXITO
+          //CASO DE EXITO
 
-            this.validationDataAddressInput = true;
+          this.validationDataAddressInput = true;
           this.model.addressSelected = 'postal';
 
           this.model.fisicalAddress = resp.body.data[0].addr;
@@ -322,18 +344,19 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
           this.model.suggestedDepUnitOther = resp.body.data[0].urban;
           this.model.suggestedMunicipality = resp.body.data[0].city;
           this.model.suggestedPostalCode = resp.body.data[0].zip;
-
         } else {
           alertify.alert(
             'Aviso',
             // tslint:disable-next-line:max-line-length
-            resp.body.ErrorDesc, () => {
+            resp.body.ErrorDesc,
+            () => {
               //casos de error
 
               //caso 1
               if (!this.model.temporalAddress && this.model.postalAddressFlag) {
                 if (this.counter1 > 2) {
-                  this.goToHome()
+                  // this.goToHome();
+                  this.showEception();
                 } else {
                   this.counter1++;
                 }
@@ -342,7 +365,8 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
               //caso 2
               if (!this.model.temporalAddress && !this.model.postalAddressFlag) {
                 if (this.counter2 > 2) {
-                  this.goToHome()
+                  // this.goToHome();
+                  this.showEception();
                 } else {
                   this.counter2++;
                 }
@@ -350,22 +374,22 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
               //caso 3
               if (this.model.temporalAddress && this.model.postalAddressFlag) {
-                this.goToHome()
+                // this.goToHome();
+                this.showEception();
               }
-              
+
               //caso 4
               if (this.model.temporalAddress && !this.model.postalAddressFlag) {
                 if (this.counter4 > 2) {
-                  this.goToHome()
+                  // this.goToHome();
+                  this.showEception();
                 } else {
                   this.counter4++;
                 }
-              } 
-            });
-
+              }
+            }
+          );
         }
-
-
       });
 
       // setTimeout(() => {
@@ -377,19 +401,26 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
   goToRegisterCase() {
     // if (this.form.valid) {
-    if (this.model.addressSelected ===  'postalSuggested' || (this.model.temporalAddress && !this.model.postalAddressFlag && this.model.addressSelected ===  'postal')) {
+    if (
+      this.model.addressSelected === 'postalSuggested' ||
+      (this.model.temporalAddress && !this.model.postalAddressFlag && this.model.addressSelected === 'postal')
+    ) {
       console.log(this.model);
       this.validationDataAddressInput = false;
       // this.validationProcessMAILPREP = true;
 
       // setTimeout(() => {
-        this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
+      this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
       // }, 3000);
     }
   }
 
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
+  }
+
+  showEception() {
+    this.someErrorValidation = true;
   }
 
   goToPersonalDates() {
@@ -440,15 +471,25 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
   validatePostalAddress() {
     if (this.model.postalAddressFlag) {
-      return true
+      return true;
     } else {
-      return this.model.postalAddress.length > 0 && this.model.postalMunicipality.length > 0 && this.model.postalEstate.length > 0 && this.model.postalCode2.length > 0;
+      return (
+        this.model.postalAddress.length > 0 &&
+        this.model.postalMunicipality.length > 0 &&
+        this.model.postalEstate.length > 0 &&
+        this.model.postalCode2.length > 0
+      );
     }
   }
 
   public validateContactChannel() {
     let contactChannelArray = [];
-    contactChannelArray.push(this.contactChannelEmail, this.contactChannelPhone, this.contactChannelTextMessage, this.contactChannelMail);
+    contactChannelArray.push(
+      this.contactChannelEmail,
+      this.contactChannelPhone,
+      this.contactChannelTextMessage,
+      this.contactChannelMail
+    );
     console.log(contactChannelArray);
     return contactChannelArray.includes(true);
   }
@@ -458,11 +499,16 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     let contactChannelArrayValues: number[] = [];
     let index = 0;
 
-    contactChannelArray.push(this.contactChannelEmail, this.contactChannelPhone, this.contactChannelTextMessage, this.contactChannelMail);
+    contactChannelArray.push(
+      this.contactChannelEmail,
+      this.contactChannelPhone,
+      this.contactChannelTextMessage,
+      this.contactChannelMail
+    );
 
     contactChannelArray.forEach(contactChannelflag => {
       if (contactChannelflag) {
-        contactChannelArrayValues.push(index + 1)
+        contactChannelArrayValues.push(index + 1);
       }
       index++;
     });
@@ -470,7 +516,6 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     // return contactChannelArrayValues;
     return '[' + contactChannelArrayValues.join(',') + ']';
   }
-
 
   // changeValueTemporalAdress() {
   //   console.log(this.model.temporalAddress);

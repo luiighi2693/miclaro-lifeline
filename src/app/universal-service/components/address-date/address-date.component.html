@@ -216,12 +216,13 @@
     <div class="container">
       <div class="basicrow">
         <div class="fulltitle f-btitle m-bott-i">
-          <i class="fa fa-laptop" aria-hidden="true"></i> Servicio Universal / Validación de Dirección
+          <i class="fa fa-laptop" aria-hidden="true" (click)="showEception()"></i> Servicio Universal / Validación de
+          Dirección
         </div>
 
         <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
 
-        <div class="basicrow text-center">
+        <div *ngIf="!someErrorValidation" class="basicrow text-center">
           <div class="shortcont">
             <div class="basicrow">
               <div class="basicrow f-lbig f-black roboto-m">Direcci&oacute;n F&iacute;sica</div>
@@ -699,6 +700,99 @@
                   <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
                     <span class="tabcell">
                       <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="someErrorValidation" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="redbgbadmsg">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+
+                El sistema ha detectado que no cumplio con la validacion de direcci&oacute;n.
+              </div>
+
+              <div class="userinfo full">
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+                <!--
+                  <div class="redstat m-top">
+                    <div class="autorow roboto-r pull-left">Nombre</div>
+
+                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.dataObject[0].name }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.data[0].name }}
+                    </div>
+                  </div>
+
+                  <div class="redstat m-top-ii">
+                    <div class="autorow roboto-r pull-left">SSN</div>
+
+                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                      &#42;&#42;&#42;&#42;&#42;&#42;{{ validateSSNData.dataObject[0].ssn }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                      &#42;&#42;&#42;&#42;&#42;&#42;{{ validateSSNData.data[0].ssn }}
+                    </div>
+                  </div>
+
+                  <div class="redstat m-top-ii">
+                    <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.dataObject[0].CASENUMBER }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.CASENUMBER }}
+                    </div>
+                  </div>
+
+                  <div class="redstat m-top-ii">
+                    <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                    <div *ngIf="!validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.dataObject[0].phone1 }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="autorow roboto-b pull-right">
+                      {{ validateSSNData.data[0].subscriberNumber }}
+                    </div>
+                  </div>
+
+                  <div class="redstat m-top-ii">
+                    <div class="basicrow roboto-r">Direcci&oacute;n actual del servicio</div>
+
+                    <div *ngIf="!validateSSNData.data" class="basicrow roboto-b m-top-ii">
+                      {{ validateSSNData.dataObject[0].address }}
+                    </div>
+
+                    <div *ngIf="validateSSNData.data" class="basicrow roboto-b m-top-ii">
+                      {{ validateSSNData.data[0].address }}
+                    </div>
+                  </div>
+                -->
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goToPersonalDates()"
+                    class="btns red vcenter"
+                    data-old-class="btns def-i red pull-right vcenter"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
                     </span>
                   </a>
                 </div>
