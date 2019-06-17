@@ -21,6 +21,8 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   public statusSelected = 'ESTATUS';
   public nameToSearch: String = '';
   public numberUSF: String = '';
+  public loadingRequest = false;
+  public date_range: any = null;
   public data_conten: any = [
     {
       caseID: '00123',
@@ -90,6 +92,25 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    let mes = (new Date().getMonth() + 1).toString();
+    if (new Date().getMonth() + 1 < 10) {
+      mes = '0' + mes;
+    }
+    this.date_range = {
+      start: new Date().getFullYear() + '-01-01',
+      end: new Date().getFullYear() + '-' + mes + '-' + new Date().getDate()
+    };
+    if (localStorage.getItem('numberCaseToSearch') !== null) {
+      this.numberUSF = localStorage.getItem('numberCaseToSearch');
+      this.loadingRequest = true;
+      this.getCasesUSF();
+    }
+    let self = this;
+    function searchCases() {
+      console.log('searchCases', self.date_range);
+      self.getCasesUSF();
+    }
+
     $(function() {
       // tslint:disable: prefer-const
       let start = moment().subtract(29, 'days');
@@ -123,11 +144,21 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
                 .subtract(1, 'month')
                 .endOf('month')
             ]
+          },
+          change: function(event: any, data: any) {
+            this.loadingRequest = true;
+            this.date_range = JSON.parse($('#rangedate').val());
+            self.date_range = this.date_range;
+            searchCases();
           }
         },
         cb
       );
 
+      $('#rangedate').on('cancel.daterangepicker', function(ev: any, picker: any) {
+        // cuando se aplica un cambio de Fecha
+        console.log(ev, picker);
+      });
       cb(start, end);
     });
     // Limpiando Tabla
@@ -167,7 +198,12 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
       this.data_conten[k].classCss = classRow;
     });
   }
-
+  validaEnter(evt: any) {
+    if (evt.keyCode === 13) {
+      // si pisa enter
+      this.getCasesUSF();
+    }
+  }
   goToHome() {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
@@ -214,17 +250,22 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
   }
 
   getCasesUSF() {
+    this.loadingRequest = true;
+    let pages = 5; // by default
+    if (this.numberUSF.trim() !== '') {
+      pages = 1;
+    }
     const data = {
       method: 'getCasesWithFiltersMcapi',
-      DateFrom: '2019-04-25',
-      DateTo: '2019-04-25',
-      pageNo: 5,
+      DateFrom: this.date_range.start,
+      DateTo: this.date_range.end,
+      pageNo: pages,
       pageSize: 20,
-      caseID: '',
+      caseID: this.numberUSF,
       Status: ''
     };
-    //this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
-    this.usfServiceService.doAction(data, 'getCasesWithFiltersMcapi').subscribe((dt: any) => {
+    //    this.http.post<any>(constants.URL_CASES, data, { observe: 'response' }).subscribe((dt: any) => {
+    return this.usfServiceService.doAction(data, 'getCasesWithFiltersMcapi').subscribe((dt: any) => {
       if (!dt.HasError) {
         this.data_conten = [];
         dt.body.customercases.forEach((caso: any) => {
@@ -255,6 +296,7 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
             status: '--'
           });
         });
+        this.loadingRequest = false;
       }
     });
   }

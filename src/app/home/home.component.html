@@ -53,15 +53,16 @@
                     </div>
 
                     <div class="basicrow msidespad">
-                      <div class="basicrow f-black roboto-r f-reg m-top-u-i">Consultar caso de activaci&oacute;n.</div>
+                      <div class="basicrow f-black roboto-r f-reg m-top-u-i">Consultar caso</div>
 
                       <div class="basicrow m-top">
                         <input
                           type="text"
                           maxlength="9"
-                          placeholder="Nro de Caso &oacute; Nro de SSN"
+                          placeholder="Nro de Caso"
                           class="inp-f"
                           (keypress)="checkNumbersOnly($event)"
+                          id="numberCaseToSearch"
                         />
                       </div>
 

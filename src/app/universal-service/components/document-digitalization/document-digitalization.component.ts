@@ -410,12 +410,37 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     var index2 = this.documents.map(x => x.name).indexOf(this.requiredDocumentsContent[index].name);
     console.log(index2);
 
-    this.requiredDocumentsContent[index].isCharged = false;
-    this.requiredDocumentSelected = this.requiredDocumentsContent[index].id;
 
-    let el: HTMLElement = this.inputFiles.nativeElement as HTMLElement;
-    el.click();
+    const datos = {
+      method: 'DeleteDocumentMcapi',
+      documentTypeID: this.requiredDocumentsContent[index].idToSearch,
+      documentTypeUsf: this.requiredDocumentsContent[index].id,
+      user_Id: this.authenticationService.credentials.userid,
+      case_number: this.validateSSNData.CASENUMBER
+    };
 
-    this.previewView = false;
+    console.log(datos);
+
+    this.usfServiceService.doAction(datos, 'DeleteDocumentMcapi').subscribe(
+      resp => {
+        console.log(resp);
+
+        // if (!resp.body.HasError) {
+          this.requiredDocumentsContent[index].isCharged = false;
+          this.requiredDocumentSelected = this.requiredDocumentsContent[index].id;
+          let el: HTMLElement = this.inputFiles.nativeElement as HTMLElement;
+          el.click();
+
+          this.previewView = false;
+        // } else {
+        // }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+
+
   }
 }

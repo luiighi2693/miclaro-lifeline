@@ -141,7 +141,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         CUSTOMER_ID_TYPE: this.model.idType === 'Pasaporte' ? '0' : '1',
         ID_NUMBER: this.model.idNumber,
         DTS_EXP: this.formatDate(this.inFormat(this.valueExpirationDate)),
-        Home: this.model.liveWithAnoterAdult ? 1 : 0
+        HOME_VALIDATION: this.model.liveWithAnoterAdult ? 1 : 0,
+        HAVE_LIFELINE: this.model.hasLifelineTheAdult ? 1 : 0,
+        SHARE_MONEY: this.model.sharedMoneyWithTheAdult ? 1 : 0
       };
 
       console.log(datos);

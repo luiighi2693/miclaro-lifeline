@@ -29,6 +29,15 @@ export interface Model {
   postalCode2: string;
   addressSelected: string;
   temporalAddressExtraContent: string;
+  suggestedFlag: boolean;
+  suggestedAddress: string;
+  suggestedDepUnitOther: string;
+  suggestedMunicipality: string;
+  suggestedPostalCode: string;
+  fisicalAddress: string;
+  fisicalDepUnitOther: string;
+  fisicalMunicipality: string;
+  fisicalPostalCode: string;
 }
 
 @Component({
@@ -152,9 +161,22 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     postalCode2 = '';
     addressSelected = 'postal';
     temporalAddressExtraContent = '';
+    suggestedFlag = false;
+    suggestedAddress = '';
+    suggestedDepUnitOther = '';
+    suggestedMunicipality = '';
+    suggestedPostalCode = '';
+    fisicalAddress = '';
+    fisicalDepUnitOther = '';
+    fisicalMunicipality = '';
+    fisicalPostalCode = '';
   }();
 
   validateSSNData: ValidateSSNData;
+  
+  counter1 = 1;
+  counter2 = 1;
+  counter4 = 1;
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -275,19 +297,72 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
 
         if (!resp.body.HasError) {
           this.usfServiceService.setDataObjectAddress(resp.body.dataObject);
-          if (resp.body.dataObject.length < 3) {
-            this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-          } else {
+            //CASO DE EXITO
+
             this.validationDataAddressInput = true;
+          this.model.addressSelected = 'postal';
+
+          this.model.fisicalAddress = resp.body.data[0].addr;
+          this.model.fisicalDepUnitOther = resp.body.data[0].bldgorfirm;
+          this.model.fisicalMunicipality = resp.body.data[0].city;
+          this.model.fisicalPostalCode = resp.body.data[0].zip;
+
+          //CASO 4
+          if (this.model.temporalAddress && !this.model.postalAddressFlag) {
+            this.model.suggestedFlag = false;
+            // this.model.suggestedAddress = this.model.postalAddress;
+            // this.model.suggestedDepUnitOther = this.model.postalDepUnitOther;
+            // this.model.suggestedMunicipality = this.model.postalMunicipality;
+            // this.model.suggestedPostalCode = this.model.postalCode2;
+          } else {
+            this.model.suggestedFlag = true;
           }
+
+          this.model.suggestedAddress = resp.body.data[0].addr;
+          this.model.suggestedDepUnitOther = resp.body.data[0].urban;
+          this.model.suggestedMunicipality = resp.body.data[0].city;
+          this.model.suggestedPostalCode = resp.body.data[0].zip;
+
         } else {
           alertify.alert(
             'Aviso',
             // tslint:disable-next-line:max-line-length
-            'Error intentando validar la dirección ingresada',
-            function() {
-            }
-          );
+            resp.body.ErrorDesc, () => {
+              //casos de error
+
+              //caso 1
+              if (!this.model.temporalAddress && this.model.postalAddressFlag) {
+                if (this.counter1 > 2) {
+                  this.goToHome()
+                } else {
+                  this.counter1++;
+                }
+              }
+
+              //caso 2
+              if (!this.model.temporalAddress && !this.model.postalAddressFlag) {
+                if (this.counter2 > 2) {
+                  this.goToHome()
+                } else {
+                  this.counter2++;
+                }
+              }
+
+              //caso 3
+              if (this.model.temporalAddress && this.model.postalAddressFlag) {
+                this.goToHome()
+              }
+              
+              //caso 4
+              if (this.model.temporalAddress && !this.model.postalAddressFlag) {
+                if (this.counter4 > 2) {
+                  this.goToHome()
+                } else {
+                  this.counter4++;
+                }
+              } 
+            });
+
         }
 
 
@@ -301,14 +376,15 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   }
 
   goToRegisterCase() {
-    if (this.form.valid) {
+    // if (this.form.valid) {
+    if (this.model.addressSelected ===  'postalSuggested' || (this.model.temporalAddress && !this.model.postalAddressFlag && this.model.addressSelected ===  'postal')) {
       console.log(this.model);
       this.validationDataAddressInput = false;
-      this.validationProcessMAILPREP = true;
+      // this.validationProcessMAILPREP = true;
 
-      setTimeout(() => {
+      // setTimeout(() => {
         this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
-      }, 3000);
+      // }, 3000);
     }
   }
 
