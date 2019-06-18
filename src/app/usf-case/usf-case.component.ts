@@ -9,6 +9,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { constants } from '@env/constants';
 import * as moment from 'moment';
+import * as XLSX from 'xlsx';
 declare let $: any;
 
 @Component({
@@ -247,6 +248,23 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
         return true;
       }
     }
+  }
+
+  exportTo() {
+    let dataArray: any = [['Nro de USF', 'BAN', 'Fecha Registro de USF', ' Nombre y Apellido Cliente', 'Estatus']];
+    this.data_conten.forEach((caso: any) => {
+      dataArray.push([caso.caseID, caso.ban, caso.date, caso.fullName, caso.status]);
+    });
+
+    /* generate worksheet */
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(dataArray);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'CasesUSF.xlsx');
   }
 
   getCasesUSF() {

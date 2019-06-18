@@ -49,6 +49,7 @@
     "ng2-validation": "latest",
     "path": "^0.12.7",
     "rxjs": "^6.3.1",
+    "xlsx": "^0.14.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
