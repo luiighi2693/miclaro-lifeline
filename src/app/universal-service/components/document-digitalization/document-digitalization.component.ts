@@ -79,6 +79,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   public form: FormGroup;
 
   subDocumentTypeSelected: string;
+  subDocumentErrorService: string;
   subDocumentsTypeSelected: string[] = [];
 
   requiredDocuments: string[] = [];
@@ -90,6 +91,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
   uploadHasValidationError = false;
   validateSSNData: ValidateSSNData;
   documentName: string;
+  documentNameErrorService: string;
 
   uploadHasValidationErrorSize: number;
   uploadHasValidationErrorTypes: string;
@@ -254,6 +256,9 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
             // @ts-ignore
             $event.target.value = '';
+
+            this.documentNameErrorService = this.documents[index].name;
+            this.subDocumentErrorService = this.subDocumentTypeSelected;
 
             this.requiredDocumentSelected = this.requiredDocumentsContent[0].id;
             this.subDocumentsTypeSelected = [];
