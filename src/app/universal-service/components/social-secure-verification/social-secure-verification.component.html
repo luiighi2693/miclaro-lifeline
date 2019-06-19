@@ -13,13 +13,52 @@
         <div class="basicrow text-center">
           <div class="shortcont">
             <div class="basicrow">
-              <div class="redbgbadmsg">
+              <div *ngIf="existeSinCompletar === null" class="redbgbadmsg">
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
 
-                El sistema ha detectado que usted tiene un caso abierto con el servicio de Lifeline.
+                El sistema ha detectado que este n&uacute;mero de SSN tiene una cuenta registrada con servicio de
+                Lifeline activo.
               </div>
 
-              <div class="userinfo full">
+              <div *ngIf="existeSinCompletar !== null" class="redbgbadmsg">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+
+                El sistema ha detectado que su n&uacute;mero de SSN tiene un caso abierto para subscripcion al servicio
+                de Life Line.
+              </div>
+
+              <div *ngIf="existeSinCompletar !== null" class="userinfo full">
+                <!-- Cuando no termino completamente -->
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.name }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ existeSinCompletarData.ssn }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.case }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.phone }}</div>
+                </div>
+              </div>
+
+              <div *ngIf="existeSinCompletar === null" class="userinfo full">
                 <div class="basicrow f-black roboto-b f-bmed">Datos</div>
 
                 <div class="redstat m-top">

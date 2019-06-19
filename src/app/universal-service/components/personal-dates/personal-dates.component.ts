@@ -74,6 +74,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0, 0);
+    localStorage.setItem('existSSNCase', null);
     this.usfServiceService.setValidateSSNData();
 
     this.form = this.fb.group({
@@ -157,6 +158,11 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           this.usfServiceService.setSsn(this.valueSSN.replace('-', '').replace('-', ''));
           this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
         } else {
+          localStorage.setItem('existSSNCase', resp.body.dataObject[0]);
+          localStorage.setItem('existSSNCaseName', resp.body.dataObject[0].name);
+          localStorage.setItem('existSSNCaseNumber', resp.body.dataObject[0].CASENUMBER);
+          localStorage.setItem('existSSNCaseSSN', resp.body.dataObject[0].ssn);
+          localStorage.setItem('existSSNCasePhone', resp.body.dataObject[0].phone1);
           this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
         }
       });

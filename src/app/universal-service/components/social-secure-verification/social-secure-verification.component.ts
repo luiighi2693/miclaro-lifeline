@@ -16,8 +16,14 @@ export class SocialSecureVerificationComponent extends BaseComponent implements 
   prepaidAccountCreation: boolean;
   public form: FormGroup;
   validateSSNData: ValidateSSNData;
-
-  constructor(public authenticationService: AuthenticationService, public usfServiceService: UsfServiceService, public router: Router, public fb: FormBuilder) {
+  existeSinCompletar: any = null;
+  existeSinCompletarData: any = null;
+  constructor(
+    public authenticationService: AuthenticationService,
+    public usfServiceService: UsfServiceService,
+    public router: Router,
+    public fb: FormBuilder
+  ) {
     super(authenticationService, usfServiceService, router, fb);
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
     console.log(this.validateSSNData);
@@ -25,20 +31,17 @@ export class SocialSecureVerificationComponent extends BaseComponent implements 
 
   ngOnInit() {
     window.scroll(0, 0);
-
+    this.existeSinCompletar = localStorage.getItem('existSSNCase');
+    console.log(this.existeSinCompletar.CASENUMBER);
+    this.existeSinCompletarData = {
+      case: localStorage.getItem('existSSNCaseNumber'),
+      name: localStorage.getItem('existSSNCaseName'),
+      ssn: localStorage.getItem('existSSNCaseSSN'),
+      phone: localStorage.getItem('existSSNCasePhone')
+    };
     this.form = this.fb.group({
-      universalServicesUnitApplicant: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      prepaidAccountCreation: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ]
+      universalServicesUnitApplicant: [null, Validators.compose([Validators.required])],
+      prepaidAccountCreation: [null, Validators.compose([Validators.required])]
     });
   }
 
