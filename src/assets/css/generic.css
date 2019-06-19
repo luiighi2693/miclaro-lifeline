@@ -2113,6 +2113,15 @@ a.lbluebtn {
   color: #0da650;
 }
 
+.dgtl-list.on {
+  border: 1px solid #cccccc;
+  background-color: #f2f2f2;
+}
+
+.dgtlcheck.on {
+  color: #0da650;
+}
+
 .dgtl-action {
   width: 38px;
   height: 38px;
