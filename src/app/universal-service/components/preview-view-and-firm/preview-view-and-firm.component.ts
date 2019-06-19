@@ -15,7 +15,9 @@ declare let $: any;
 })
 export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit {
   firmInput = false;
+  step1 = true;
   step2 = false;
+  step3 = false;
   signer = '';
   iniciales = '';
   fechaN = '';
@@ -47,9 +49,9 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
 
-    // this.userId = '78';
+    // this.userId = '79';
     this.userId = this.authenticationService.credentials.userid;
-    // this.caseId = 501;
+    // this.caseId = 580;
     this.caseId = this.validateSSNData.CASENUMBER;
   }
   ngOnInit() {
@@ -108,10 +110,12 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
         method: 'CreatefirmMcapi',
         USER_ID: this.userId,
         CASE_ID: this.caseId,
-        FIRM_INITIALS: this.step2 ? '' : this.iniciales,
+        FIRM_INITIALS: this.step1 ? this.iniciales : '',
         FIRM_INITIALSAPLIC: this.step2 ? this.iniciales : '',
-        FIRM_DESCRIPTION: this.step2 ? '' : this.firmaUrl,
-        FIRM_DESCRIPTIONAPLIC : this.step2 ? this.firmaUrl : '',
+        FIRM_INITIALSAPLIC3: this.step3 ? this.iniciales : '',
+        FIRM_DESCRIPTION: this.step1 ? this.firmaUrl : '',
+        FIRM_DESCRIPTIONAPLIC: this.step2 ? this.firmaUrl : '',
+        FIRM_DESCRIPTIONAPLIC3: this.step3 ? this.firmaUrl : ''
       };
 
       console.log(datos);
@@ -122,7 +126,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
           this.firmInput = false;
 
           if (!resp.body.HasError) {
-            if (!this.step2) {
+            if (!this.step3) {
               if (this.signaturePad !== undefined) {
                 this.signaturePad.set('minWidth', 0.5); // set szimek/signature_pad options at runtime
                 this.signaturePad.set('maxWidth', 3);
@@ -130,7 +134,16 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
               }
               this.signer = '';
               this.iniciales = '';
-              this.step2 = true;
+
+              if (this.step1) {
+                this.step2 = true;
+                this.step1 = false;
+                this.step3 = false;
+              } else if (this.step2) {
+                this.step3 = true;
+                this.step1 = false;
+                this.step2 = false;
+              }
             } else {
               this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
             }

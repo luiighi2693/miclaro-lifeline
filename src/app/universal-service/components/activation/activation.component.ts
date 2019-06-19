@@ -74,7 +74,7 @@ export class ActivationComponent extends BaseComponent implements OnInit {
           console.log(error);
         }
       );
-    }, 5000);
+    }, 15000);
   }
 
   ngOnInit() {
