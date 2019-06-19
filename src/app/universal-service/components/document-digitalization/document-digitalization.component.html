@@ -245,7 +245,7 @@
                   <i class="fa fa-times-circle" aria-hidden="true"></i>
 
                   Su foto/documento
-                  <span class="roboto-b">{{ documentName + ' / ' + subDocumentTypeSelected }}</span> no fue cargada
+                  <span class="roboto-b">{{ documentNameErrorService + ' / ' + subDocumentErrorService }}</span> no fue cargada
                   exitosamente.<br /><br />
 
                   <span class="roboto-b">Favor volver a intentar.</span>
@@ -269,9 +269,13 @@
                 <div class="basicrow m-top-i"><label class="label-f">&#42; Documentos Requeridos</label></div>
 
                 <div class="basicrow m-top-u" *ngFor="let documentType of this.requiredDocumentsContent">
-                  <div class="basicrow" [ngClass]="{ on: documentType.isCharged }" *ngIf="documentType.id !== null">
-                    <div class="dgtl-list">
-                      <i class="fa fa-check-circle dgtlcheck" aria-hidden="true"></i> {{ documentType.name }}
+                  <div
+                    class="basicrow"
+                    [ngClass]="{ on: documentType.isCharged && !documentType.isContinue }"
+                    *ngIf="documentType.id !== null"
+                  >
+                    <div class="dgtl-list" [ngClass]="{ on: documentType.isContinue }">
+                      <i class="fa fa-check-circle dgtlcheck" [ngClass]="{ on: documentType.isContinue }" aria-hidden="true"></i> {{ documentType.name }}
                     </div>
 
                     <a (click)="showPreviewFile(documentType.idToSearch)" class="dgtl-action vcenter">
