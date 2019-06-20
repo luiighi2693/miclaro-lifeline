@@ -22,7 +22,7 @@ export interface Model {
 export class ActivationComponent extends BaseComponent implements OnInit {
   validateSSNData: ValidateSSNData;
 
-  suscriberActivation: boolean;
+  // suscriberActivation: boolean;
 
   model: Model = new class implements Model {
     CUSTOMER_NAME = '';
@@ -31,6 +31,8 @@ export class ActivationComponent extends BaseComponent implements OnInit {
     mBan = '';
     subscriber = '';
   }();
+
+  suscriberNumber: string;
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -45,7 +47,7 @@ export class ActivationComponent extends BaseComponent implements OnInit {
     let userId = this.authenticationService.credentials.userid;
     let caseId = this.validateSSNData.CASENUMBER;
 
-    this.suscriberActivation = true;
+    // this.suscriberActivation = true;
 
     const datos = {
       method: 'getBanMcapi',
@@ -55,26 +57,26 @@ export class ActivationComponent extends BaseComponent implements OnInit {
 
     console.log(datos);
 
-    setTimeout(() => {
-      this.usfServiceService.doAction(datos, 'getBanMcapi').subscribe(
-        resp => {
-          console.log(resp);
+    this.usfServiceService.doAction(datos, 'getBanMcapi').subscribe(
+      resp => {
+        console.log(resp);
 
-          this.suscriberActivation = false;
+        // this.suscriberActivation = false;
 
-          if (!resp.body.HasError) {
-            this.model = resp.body;
-          } else {
-            alertify.alert('Aviso', resp.body.ErrorDesc, () => {
-              this.goToHome();
-            });
-          }
-        },
-        error => {
-          console.log(error);
+        if (!resp.body.HasError) {
+          this.model = resp.body;
+
+          this.suscriberNumber = sessionStorage.getItem('suscriberNumber');
+        } else {
+          alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+            this.goToHome();
+          });
         }
-      );
-    }, 15000);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnInit() {

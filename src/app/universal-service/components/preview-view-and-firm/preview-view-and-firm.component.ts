@@ -38,6 +38,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
   firmaUrl: any;
 
+  suscriberActivation: boolean = false;
+
   constructor(
     public authenticationService: AuthenticationService,
     public usfServiceService: UsfServiceService,
@@ -145,9 +147,39 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
                 this.step2 = false;
               }
             } else {
-              this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+
+              this.suscriberActivation = true;
+
+              const datos = {
+                method: 'CreateSubscriberMcapi',
+                UserID: this.userId,
+                caseID: this.caseId,
+              };
+
+              console.log(datos);
+
+              this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {
+
+                  this.suscriberActivation = false;
+
+                if (!resp.body.HasError) {
+                  sessionStorage.setItem('suscriberNumber', resp.body.subscriber);
+                  this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+                } else {
+                  alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+                    this.goToHome();
+                  });
+                }
+                },
+                error => {
+                  console.log(error);
+                });
+
             }
           } else {
+            alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+              this.goToHome();
+            });
           }
         },
         error => {

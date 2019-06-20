@@ -97,30 +97,6 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
 
   validateForm() {
     return this.form.valid && this.model.aceptationTerm;
-
-    // if (this.form.valid && this.model.aceptationTerm !== undefined) {
-    //   if (this.model.agency === 'Seleccionar' &&
-    //     this.model.peopleDataSelected &&
-    //     this.model.earningsValidation !== undefined) {
-    //     return this.model.earningsValidation;
-    //   }
-    //
-    //   if (this.model.agency ===
-    //     'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)' &&
-    //     this.model.lifelineProgramInscription !== undefined) {
-    //     return true;
-    //   }
-    //
-    //   if (this.model.agency !== 'Seleccionar' &&
-    //     this.model.agency !==
-    //     'Programa de Asistencia para Nutrición Suplementaria (SNAP) (Estampillas para Alimentos)') {
-    //     return true;
-    //   }
-    //
-    //   return false;
-    // }
-    //
-    // return false;
   }
 
   setAceptationTerms(value: boolean) {
@@ -128,16 +104,16 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
       this.model.aceptationTerm = value;
     }
 
-    if (value) {
-      const datos = {
-        method: 'CreateSubscriberMcapi',
-        UserID: this.authenticationService.credentials.userid,
-        caseID: this.validateSSNData.CASENUMBER
-      };
-
-      console.log(datos);
-
-      this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {});
-    }
+    // if (value) {
+    //   const datos = {
+    //     method: 'CreateSubscriberMcapi',
+    //     UserID: this.authenticationService.credentials.userid,
+    //     caseID: this.validateSSNData.CASENUMBER
+    //   };
+    //
+    //   console.log(datos);
+    //
+    //   this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {});
+    // }
   }
 }
