@@ -31,8 +31,9 @@ export class SocialSecureVerificationComponent extends BaseComponent implements 
 
   ngOnInit() {
     window.scroll(0, 0);
-    this.existeSinCompletar = localStorage.getItem('existSSNCase');
-    console.log(this.existeSinCompletar.CASENUMBER);
+    this.existeSinCompletar =
+      localStorage.getItem('existSSNCase') !== 'null' ? localStorage.getItem('existSSNCase') : null;
+    //console.log(this.existeSinCompletar.CASENUMBER);
     this.existeSinCompletarData = {
       case: localStorage.getItem('existSSNCaseNumber'),
       name: localStorage.getItem('existSSNCaseName'),
