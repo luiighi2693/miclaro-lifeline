@@ -112,10 +112,10 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
         CASE_ID: this.caseId,
         FIRM_INITIALS: this.step1 ? this.iniciales : '',
         FIRM_INITIALSAPLIC: this.step2 ? this.iniciales : '',
-        FIRM_INITIALSAPLIC3: this.step3 ? this.iniciales : '',
+        FIRM_INITIALSCLAR: this.step3 ? this.iniciales : '',
         FIRM_DESCRIPTION: this.step1 ? this.firmaUrl : '',
         FIRM_DESCRIPTIONAPLIC: this.step2 ? this.firmaUrl : '',
-        FIRM_DESCRIPTIONAPLIC3: this.step3 ? this.firmaUrl : ''
+        FIRM_DESCRIPTIONCLAR: this.step3 ? this.firmaUrl : ''
       };
 
       console.log(datos);

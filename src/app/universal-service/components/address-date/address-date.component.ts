@@ -307,6 +307,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         email: this.model.email,
         contact_preference: this.getContactChannelValues(),
         PostalAddress: this.model.postalAddressFlag ? 'true' : 'false',
+        temporal_address: this.model.temporalAddress1 ? '1' : '0',
         PostalAddress1: this.model.postalAddress,
         PostalAddress2: this.model.postalDepUnitOther,
         PostalAddresscity: this.model.postalMunicipality,
