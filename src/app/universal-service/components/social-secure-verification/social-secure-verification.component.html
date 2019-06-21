@@ -14,10 +14,13 @@
           <div class="shortcont">
             <div class="basicrow">
               <div *ngIf="existeSinCompletar === null" class="redbgbadmsg">
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-
-                El sistema ha detectado que este n&uacute;mero de SSN tiene una cuenta registrada con servicio de
-                Lifeline activo.
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Su solicitud no pudo ser procesada. Su caso
+                fue enviado al Back End.
+                <!--
+                  [cambio pedido por Jhonny 21/06/2019 ]
+                  El sistema ha detectado que este n&uacute;mero de SSN tiene una cuenta registrada con servicio de
+                  Lifeline activo.
+                -->
               </div>
 
               <div *ngIf="existeSinCompletar !== null" class="redbgbadmsg">
@@ -50,11 +53,21 @@
 
                   <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.case }}</div>
                 </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Ban</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.ban }}</div>
+                </div>
 
                 <div class="redstat m-top-ii">
                   <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
 
                   <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.phone }}</div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Direcci&oacute;n</div>
+
+                  <div class="autorow roboto-b pull-right">{{ existeSinCompletarData.address }}</div>
                 </div>
               </div>
 
@@ -206,15 +219,13 @@
                 <div class="basicrow m-top-i"><div class="logline full"></div></div>
 
                 <div class="basicrow text-center m-top-i">
-                  <a (click)="goToHome()" class="btns def-i red pull-right vcenter">
+                  <a
+                    (click)="goToHome()"
+                    class="btns red def-i vcenter"
+                    style="padding: 16px 30px 8px;display: inline !important;float: none !important;"
+                  >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
-                  </a>
-
-                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
-                    <span class="tabcell">
-                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar
                     </span>
                   </a>
                 </div>

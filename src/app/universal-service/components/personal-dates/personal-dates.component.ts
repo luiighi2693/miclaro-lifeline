@@ -164,6 +164,19 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
             localStorage.setItem('existSSNCaseNumber', resp.body.dataObject[0].CASENUMBER);
             localStorage.setItem('existSSNCaseSSN', resp.body.dataObject[0].ssn);
             localStorage.setItem('existSSNCasePhone', resp.body.dataObject[0].phone1);
+            localStorage.setItem('existSSNCaseAddress', resp.body.dataObject[0].address);
+            localStorage.setItem('existSSNCaseBan', resp.body.dataObject[0].ban);
+          } else {
+            localStorage.setItem('existSSNCase', null);
+            localStorage.setItem('existSSNCase', resp.body.data[0]);
+            localStorage.setItem('existSSNCaseName', resp.body.data[0].name);
+            localStorage.setItem('existSSNCaseNumber', resp.body.data[0].CASENUMBER);
+            localStorage.setItem('existSSNCaseSSN', resp.body.data[0].ssn);
+            localStorage.setItem('existSSNCasePhone', resp.body.data[0].subscriberNumber);
+            localStorage.setItem('existSSNCaseAddress', resp.body.data[0].address);
+            localStorage.setItem('existSSNCaseBan', resp.body.data[0].ban);
+            localStorage.setItem('lifelineActivationDate', resp.body.data[0].lifelineActivationDate);
+            localStorage.setItem('accountType', resp.body.data[0].accountType);
           }
           this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
         }
