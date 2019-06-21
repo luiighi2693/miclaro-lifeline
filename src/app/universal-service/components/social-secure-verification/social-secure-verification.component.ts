@@ -33,14 +33,14 @@ export class SocialSecureVerificationComponent extends BaseComponent implements 
     window.scroll(0, 0);
     this.existeSinCompletar =
       localStorage.getItem('existSSNCase') !== 'null' ? localStorage.getItem('existSSNCase') : null;
-    //console.log(this.existeSinCompletar.CASENUMBER);
     this.existeSinCompletarData = {
       case: localStorage.getItem('existSSNCaseNumber'),
       name: localStorage.getItem('existSSNCaseName'),
       ssn: localStorage.getItem('existSSNCaseSSN'),
       phone: localStorage.getItem('existSSNCasePhone'),
       address: localStorage.getItem('existSSNCaseAddress'),
-      ban: localStorage.getItem('existSSNCaseBan')
+      ban: localStorage.getItem('existSSNCaseBan'),
+      accountType: localStorage.getItem('accountType')
     };
     this.form = this.fb.group({
       universalServicesUnitApplicant: [null, Validators.compose([Validators.required])],
