@@ -146,12 +146,19 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
 
         this.processValidationNLAD = true;
 
+        let program = this.agencies.indexOf(this.model.agency);
+        if (program === -1) {
+          program = 0;
+        }
+
         const datos = {
           method: 'subscriberVerificationMcapi',
           UserID: this.authenticationService.credentials.userid,
           caseID: this.validateSSNData.CASENUMBER,
           Lookup_Type: 1,
-          response: 1
+          response: 1,
+          people_live: this.model.peopleDataSelectedNumber,
+          program: program
         };
 
         console.log(datos);
