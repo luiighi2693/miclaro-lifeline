@@ -155,6 +155,17 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         console.log(resp);
 
         if (!resp.body.HasError) {
+          // Limpiando en caso satisfactorio
+          localStorage.setItem('existSSNCase', null);
+          localStorage.setItem('existSSNCaseName', null);
+          localStorage.setItem('existSSNCaseNumber', null);
+          localStorage.setItem('existSSNCaseSSN', null);
+          localStorage.setItem('existSSNCasePhone', null);
+          localStorage.setItem('existSSNCaseAddress', null);
+          localStorage.setItem('existSSNCaseBan', null);
+          localStorage.setItem('lifelineActivationDate', null);
+          localStorage.setItem('accountType', null);
+
           this.usfServiceService.setSsn(this.valueSSN.replace('-', '').replace('-', ''));
           this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
         } else {
