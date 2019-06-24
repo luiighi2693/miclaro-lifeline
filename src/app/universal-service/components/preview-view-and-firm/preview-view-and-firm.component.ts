@@ -117,7 +117,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
         FIRM_INITIALSCLAR: this.step3 ? this.iniciales : '',
         FIRM_DESCRIPTION: this.step1 ? this.firmaUrl : '',
         FIRM_DESCRIPTIONAPLIC: this.step2 ? this.firmaUrl : '',
-        FIRM_DESCRIPTIONCLAR: this.step3 ? this.firmaUrl : ''
+        FIRM_DESCRIPTIONCLAR: this.step3 ? this.firmaUrl : '',
+        Id_Firm: this.getIdFirm()
       };
 
       console.log(datos);
@@ -147,34 +148,33 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
                 this.step2 = false;
               }
             } else {
-
               this.suscriberActivation = true;
 
               const datos = {
                 method: 'CreateSubscriberMcapi',
                 UserID: this.userId,
-                caseID: this.caseId,
+                caseID: this.caseId
               };
 
               console.log(datos);
 
-              this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {
-
+              this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(
+                resp => {
                   this.suscriberActivation = false;
 
-                if (!resp.body.HasError) {
-                  sessionStorage.setItem('suscriberNumber', resp.body.subscriber);
-                  this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
-                } else {
-                  alertify.alert('Aviso', resp.body.ErrorDesc, () => {
-                    this.goToHome();
-                  });
-                }
+                  if (!resp.body.HasError) {
+                    sessionStorage.setItem('suscriberNumber', resp.body.subscriber);
+                    this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+                  } else {
+                    alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+                      this.goToHome();
+                    });
+                  }
                 },
                 error => {
                   console.log(error);
-                });
-
+                }
+              );
             }
           } else {
             alertify.alert('Aviso', resp.body.ErrorDesc, () => {
@@ -241,5 +241,15 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     aux.select();
     document.execCommand('copy');
     document.body.removeChild(aux);
+  }
+
+  private getIdFirm() {
+    if (this.step1) {
+      return 1;
+    } else if (this.step2) {
+      return 2;
+    } else {
+      return 3;
+    }
   }
 }
