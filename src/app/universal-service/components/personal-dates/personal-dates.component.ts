@@ -172,7 +172,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           if (resp.body.dataObject.length > 0) {
             // cuando viene en dataObject
             // es que NO se Registro completamente
-            localStorage.setItem('existSSNCase', resp.body.dataObject[0]);
+            localStorage.setItem('existSSNCase', 'incomplete');
             localStorage.setItem('existSSNCaseName', resp.body.dataObject[0].name);
             localStorage.setItem('existSSNCaseNumber', resp.body.dataObject[0].CASENUMBER);
             localStorage.setItem('existSSNCaseSSN', resp.body.dataObject[0].ssn);
@@ -180,6 +180,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
             localStorage.setItem('existSSNCaseAddress', resp.body.dataObject[0].address);
             localStorage.setItem('existSSNCaseBan', resp.body.dataObject[0].ban);
             localStorage.setItem('accountType', resp.body.dataObject[0].accountType);
+            localStorage.setItem('lifelineActivationDate', resp.body.dataObject[0].efectivedate);
           } else {
             // en data es que SI se Registro completamente
             localStorage.setItem('existSSNCase', null);

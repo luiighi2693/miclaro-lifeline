@@ -40,7 +40,8 @@ export class SocialSecureVerificationComponent extends BaseComponent implements 
       phone: localStorage.getItem('existSSNCasePhone'),
       address: localStorage.getItem('existSSNCaseAddress'),
       ban: localStorage.getItem('existSSNCaseBan'),
-      accountType: localStorage.getItem('accountType')
+      accountType: localStorage.getItem('accountType'),
+      date: localStorage.getItem('lifelineActivationDate')
     };
     this.form = this.fb.group({
       universalServicesUnitApplicant: [null, Validators.compose([Validators.required])],
