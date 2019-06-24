@@ -13,21 +13,26 @@
         <div class="basicrow text-center">
           <div class="shortcont">
             <div class="basicrow">
+              <!--
+                quedaria para caso con direccion 3 intentos fallidos
+                <div *ngIf="existeSinCompletar === 'incomplete'" class="redbgbadmsg">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Su solicitud no pudo ser procesada. Su caso
+                  fue enviado al Back End.
+                </div>
+              -->
+
               <div *ngIf="existeSinCompletar === 'incomplete'" class="redbgbadmsg">
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Su solicitud no pudo ser procesada. Su caso
-                fue enviado al Back End.
-                <!--
-                  [cambio pedido por Jhonny 21/06/2019 ]
-                  El sistema ha detectado que este n&uacute;mero de SSN tiene una cuenta registrada con servicio de
-                  Lifeline activo.
-                -->
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <!-- [cambio pedido por Jhonny 24/06/2019 ] -->
+                El sistema ha detectado que su n&uacute;mero de SSN tiene un caso abierto para subscripcion al servicio
+                de Life Line.
               </div>
 
               <div *ngIf="existeSinCompletar !== 'incomplete'" class="redbgbadmsg">
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-
-                El sistema ha detectado que su n&uacute;mero de SSN tiene un caso abierto para subscripcion al servicio
-                de Life Line.
+                <!-- [cambio pedido por Jhonny 24/06/2019 ] -->
+                El sistema ha detectado que este n&uacute;mero de SSN tiene una cuenta registrada con servicio de
+                Lifeline activo.
               </div>
 
               <div *ngIf="existeSinCompletar === 'incomplete'" class="userinfo full">
