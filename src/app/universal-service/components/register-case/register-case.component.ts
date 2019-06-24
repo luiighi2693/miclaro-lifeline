@@ -151,7 +151,10 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
           UserID: this.authenticationService.credentials.userid,
           caseID: this.validateSSNData.CASENUMBER,
           Lookup_Type: 1,
-          response: 1
+          response: 1,
+          program: this.model.agency === 'Seleccionar' ? 0 : this.agencies.indexOf(this.model.agency) + 1,
+          people_live: this.model.agency === 'Seleccionar' ? this.homePeopleData[this.homePeopleData.map(x =>
+            x.number.toString()).indexOf(this.model.peopleDataSelectedNumber.toString())].number : 0
         };
 
         console.log(datos);
