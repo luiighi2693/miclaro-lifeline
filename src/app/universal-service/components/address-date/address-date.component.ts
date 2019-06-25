@@ -294,11 +294,8 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         user_ID: this.authenticationService.credentials.userid,
         case_ID: this.validateSSNData.CASENUMBER,
         addresstype: this.model.temporalAddress ? 3 : 1,
-        address1: this.model.address,
-        address2:
-          this.model.depUnitOther +
-          ' ' +
-          (this.model.temporalAddress ? ' ' + this.model.temporalAddressExtraContent : ''),
+        address1: (this.model.temporalAddress ? this.model.temporalAddressExtraContent + ' ' + this.model.address : this.model.address),
+        address2: this.model.depUnitOther,
         city: this.model.municipality,
         state: 'PR',
         zip: this.model.postalCode,
