@@ -155,15 +155,44 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         console.log(resp);
 
         if (!resp.body.HasError) {
+          // Limpiando en caso satisfactorio
+          localStorage.setItem('existSSNCase', null);
+          localStorage.setItem('existSSNCaseName', null);
+          localStorage.setItem('existSSNCaseNumber', null);
+          localStorage.setItem('existSSNCaseSSN', null);
+          localStorage.setItem('existSSNCasePhone', null);
+          localStorage.setItem('existSSNCaseAddress', null);
+          localStorage.setItem('existSSNCaseBan', null);
+          localStorage.setItem('lifelineActivationDate', null);
+          localStorage.setItem('accountType', null);
+
           this.usfServiceService.setSsn(this.valueSSN.replace('-', '').replace('-', ''));
           this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
         } else {
           if (resp.body.dataObject.length > 0) {
-            localStorage.setItem('existSSNCase', resp.body.dataObject[0]);
+            // cuando viene en dataObject
+            // es que NO se Registro completamente
+            localStorage.setItem('existSSNCase', 'incomplete');
             localStorage.setItem('existSSNCaseName', resp.body.dataObject[0].name);
             localStorage.setItem('existSSNCaseNumber', resp.body.dataObject[0].CASENUMBER);
             localStorage.setItem('existSSNCaseSSN', resp.body.dataObject[0].ssn);
             localStorage.setItem('existSSNCasePhone', resp.body.dataObject[0].phone1);
+            localStorage.setItem('existSSNCaseAddress', resp.body.dataObject[0].address);
+            localStorage.setItem('existSSNCaseBan', resp.body.dataObject[0].ban);
+            localStorage.setItem('accountType', resp.body.dataObject[0].accountType);
+            localStorage.setItem('lifelineActivationDate', resp.body.dataObject[0].efectivedate);
+          } else {
+            // en data es que SI se Registro completamente
+            localStorage.setItem('existSSNCase', null);
+            localStorage.setItem('existSSNCase', resp.body.data[0]);
+            localStorage.setItem('existSSNCaseName', resp.body.data[0].name);
+            localStorage.setItem('existSSNCaseNumber', resp.body.data[0].CASENUMBER);
+            localStorage.setItem('existSSNCaseSSN', resp.body.data[0].ssn);
+            localStorage.setItem('existSSNCasePhone', resp.body.data[0].subscriberNumber);
+            localStorage.setItem('existSSNCaseAddress', resp.body.data[0].address);
+            localStorage.setItem('existSSNCaseBan', resp.body.data[0].ban);
+            localStorage.setItem('lifelineActivationDate', resp.body.data[0].lifelineActivationDate);
+            localStorage.setItem('accountType', resp.body.data[0].accountType);
           }
           this.router.navigate(['/universal-service/social-secure-verification'], { replaceUrl: true });
         }
