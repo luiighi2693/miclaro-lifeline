@@ -6,6 +6,8 @@ import { CustomValidators } from 'ng2-validation';
 import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 
+declare let alertify: any;
+
 export interface Model {
   agency: string;
 }
@@ -83,7 +85,33 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
 
   goToPreviewViewAndFirm() {
     if (this.validateForm()) {
-      this.router.navigate(['/universal-service/preview-view-and-firm'], { replaceUrl: true });
+
+      const datos = {
+        method: 'Updlongdistance',
+        USER_ID: this.authenticationService.credentials.userid,
+        CASE_ID: this.validateSSNData.CASENUMBER,
+        LDI: this.model.ldiRestriction ? '1' : '0'
+      };
+
+      console.log(datos);
+
+      this.usfServiceService.doAction(datos, 'Updlongdistance').subscribe(
+        resp => {
+          console.log(resp);
+
+          if (!resp.body.HasError) {
+            this.router.navigate(['/universal-service/preview-view-and-firm'], { replaceUrl: true });
+          } else {
+            alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+              this.goToHome();
+            });
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
     }
   }
 
