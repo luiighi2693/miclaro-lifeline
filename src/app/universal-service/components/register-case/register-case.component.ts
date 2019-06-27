@@ -141,6 +141,22 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   goToUsfVerification() {
     if (this.btnCondicionContinuar()) {
       this.usfServiceService.setDataAgencyMoneySelection(this.model);
+
+      sessionStorage.setItem(
+        'program',
+        (this.model.agency === 'Seleccionar' ? 0 : this.agencies.indexOf(this.model.agency) + 1).toString()
+      );
+      sessionStorage.setItem(
+        'people_live',
+        (this.model.agency === 'Seleccionar'
+          ? this.homePeopleData[
+              this.homePeopleData.map(x => x.number.toString()).indexOf(this.model.peopleDataSelectedNumber.toString())
+            ].number
+          : 0
+        ).toString()
+      );
+      sessionStorage.setItem('pan', (this.model.lifelineProgramInscription ? 1 : 0).toString());
+
       if (!this.dependPeopleFlag) {
         // this.router.navigate(['/universal-service/document-digitalization'], { replaceUrl: true });
 
@@ -152,9 +168,9 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
           caseID: this.validateSSNData.CASENUMBER,
           Lookup_Type: 1,
           response: 1,
-          program: this.model.agency === 'Seleccionar' ? 0 : this.agencies.indexOf(this.model.agency) + 1,
-          people_live: this.model.agency === 'Seleccionar' ? this.homePeopleData[this.homePeopleData.map(x =>
-            x.number.toString()).indexOf(this.model.peopleDataSelectedNumber.toString())].number : 0
+          program: Number(sessionStorage.getItem('program')),
+          people_live: Number(sessionStorage.getItem('people_live')),
+          pan: Number(sessionStorage.getItem('pan'))
         };
 
         console.log(datos);

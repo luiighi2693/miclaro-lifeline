@@ -86,6 +86,11 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         caseID: this.validateSSNData.CASENUMBER,
         Lookup_Type: 2,
         response: 1,
+
+        program: Number(sessionStorage.getItem('program')),
+        people_live: Number(sessionStorage.getItem('people_live')),
+        pan: Number(sessionStorage.getItem('pan')),
+
         depent_sufijo: this.model.sufix,
         depent_name: this.model.firstName,
         depent_mn: this.model.secondName,

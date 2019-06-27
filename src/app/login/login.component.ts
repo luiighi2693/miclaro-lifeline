@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
             // this.error = error;
             this.error =
               'Estimado usuario al momento la aplicación no está disponible para su uso por favor ' +
-              'intente nuevamente en 10 min o contacte al administrador del sistema.';
+              'intente nuevamente en 5 min o contacte al administrador del sistema.';
           }
         );
     }
