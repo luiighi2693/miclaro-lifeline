@@ -3,7 +3,7 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 declare let alertify: any;
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
-import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import { UsfServiceService, ValidateSSNData, DataObjectAddress } from '@app/core/usf/usf-service.service';
 import { FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -22,6 +22,12 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   iniciales = '';
   fechaN = '';
   fechaActivada = false;
+  toBackEnd = false;
+  msjError = '';
+  caseIDReject: any = null;
+  // para tener y renderizar la data en caso de error
+  dataObjectAddress: DataObjectAddress[];
+
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   isLoading: boolean;
   signaturePadOptions: Object = {
@@ -50,6 +56,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     super(authenticationService, usfServiceService, router, fb);
 
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
+    this.dataObjectAddress = this.usfServiceService.getDataObjectAddress();
 
     // this.userId = '79';
     this.userId = this.authenticationService.credentials.userid;
@@ -147,34 +154,39 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
                 this.step2 = false;
               }
             } else {
-
               this.suscriberActivation = true;
 
               const datos = {
                 method: 'CreateSubscriberMcapi',
                 UserID: this.userId,
-                caseID: this.caseId,
+                caseID: this.caseId
               };
 
               console.log(datos);
 
-              this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(resp => {
-
+              this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(
+                resp => {
                   this.suscriberActivation = false;
 
-                if (!resp.body.HasError) {
-                  sessionStorage.setItem('suscriberNumber', resp.body.subscriber);
-                  this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
-                } else {
-                  alertify.alert('Aviso', resp.body.ErrorDesc, () => {
-                    this.goToHome();
-                  });
-                }
+                  if (!resp.body.HasError) {
+                    sessionStorage.setItem('suscriberNumber', resp.body.subscriber);
+                    this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
+                  } else {
+                    if (resp.body.ErrorDesc.toLocaleLowerCase().indexOf('enviado al back end')) {
+                      this.msjError = resp.body.ErrorDesc;
+                      this.toBackEnd = true;
+                      this.caseIDReject = datos.caseID;
+                    } else {
+                      alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+                        this.goToHome();
+                      });
+                    }
+                  }
                 },
                 error => {
                   console.log(error);
-                });
-
+                }
+              );
             }
           } else {
             alertify.alert('Aviso', resp.body.ErrorDesc, () => {

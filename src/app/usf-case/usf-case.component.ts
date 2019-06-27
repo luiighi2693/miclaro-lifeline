@@ -264,7 +264,13 @@ export class UsfCaseComponent extends BaseComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
     /* save to file */
-    XLSX.writeFile(wb, 'CasesUSF.xlsx');
+    // XLSX.writeFile(wb, 'CasesUSF.xlsx');
+
+    // TEST
+    // The exported read and readFile functions accept an options argument:
+    // {password: '123', WTF: true}
+    /**/
+    XLSX.readFile(XLSX.writeFile(wb, 'CasesUSF.xlsx'), { password: '123', WTF: true });
   }
 
   getCasesUSF() {

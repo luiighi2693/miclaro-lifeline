@@ -119,7 +119,7 @@
 
         <div class="basicrow m-top-i m-bott text-center"><app-steplife></app-steplife></div>
 
-        <div class="basicrow" *ngIf="!step2 && !step3 && step1">
+        <div class="basicrow" *ngIf="!step2 && !step3 && step1 && !toBackEnd">
           <div class="basicrow f-lbig f-black roboto-m text-left">Formulario Hoja de Hogar (Programa de Lifeline)</div>
 
           <div class="basicrow m-top-i">
@@ -148,7 +148,7 @@
           </div>
         </div>
 
-        <div class="basicrow" *ngIf="step2 && !step3 && !step1">
+        <div class="basicrow" *ngIf="step2 && !step3 && !step1 && !toBackEnd">
           <div class="basicrow f-lbig f-black roboto-m text-left">
             Formulario de Aplicaci&oacute;n (Programa de Lifeline)
           </div>
@@ -179,7 +179,7 @@
           </div>
         </div>
 
-        <div class="basicrow" *ngIf="!step2 && step3 && !step1">
+        <div class="basicrow" *ngIf="!step2 && step3 && !step1 && !toBackEnd">
           <div class="basicrow f-lbig f-black roboto-m text-left">Anejo 1 Información Adicional</div>
 
           <div class="basicrow m-top-i">
@@ -207,6 +207,86 @@
             </div>
           </div>
         </div>
+
+        <!-- manejo de error cuando es enviado al BackEnd -->
+        <div *ngIf="toBackEnd" class="basicrow text-center">
+          <div class="shortcont">
+            <div class="basicrow">
+              <div class="redbgbadmsg"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ msjError }}</div>
+
+              <div class="userinfo full">
+                <!-- Cuando no termino completamente -->
+                <div class="basicrow f-black roboto-b f-bmed">Datos</div>
+
+                <div class="redstat m-top">
+                  <div class="autorow roboto-r pull-left">Nombre</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    {{ dataObjectAddress[0].CUSTOMERNAME + ' ' + dataObjectAddress[0].CUSTOMERLASTNAME }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">SSN</div>
+
+                  <div class="autorow roboto-b pull-right">
+                    &#42;&#42;&#42;&#42;&#42;&#42;{{ dataObjectAddress[0].SSN }}
+                  </div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de Caso</div>
+
+                  <div class="autorow roboto-b pull-right">{{ caseIDReject }}</div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Ban</div>
+
+                  <div class="autorow roboto-b pull-right"></div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
+                  <div class="autorow roboto-b pull-right"></div>
+                </div>
+
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">N&uacute;mero de tel&eacute;fono</div>
+
+                  <div class="autorow roboto-b pull-right"></div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Direcci&oacute;n</div>
+
+                  <div class="autorow roboto-b pull-right"></div>
+                </div>
+                <div class="redstat m-top-ii">
+                  <div class="autorow roboto-r pull-left">Fecha</div>
+
+                  <div class="autorow roboto-b pull-right"></div>
+                </div>
+              </div>
+
+              <div class="basicrow">
+                <div class="basicrow m-top-i"><div class="logline full"></div></div>
+
+                <div class="basicrow text-center m-top-i">
+                  <a
+                    (click)="goToHome()"
+                    class="btns red def-i vcenter"
+                    style="padding: 16px 30px 8px;display: inline !important;float: none !important;"
+                  >
+                    <span class="tabcell">
+                      Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //CIERRE manejo de error cuando es enviado al BackEnd -->
       </div>
     </div>
   </div>
