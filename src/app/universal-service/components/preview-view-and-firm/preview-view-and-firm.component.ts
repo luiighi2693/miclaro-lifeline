@@ -25,6 +25,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   toBackEnd = false;
   msjError = '';
   caseIDReject: any = null;
+  suscriberNumber: any = null;
+  banNumber: any = null;
   // para tener y renderizar la data en caso de error
   dataObjectAddress: DataObjectAddress[];
 
@@ -168,7 +170,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
               this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(
                 resp => {
                   this.suscriberActivation = false;
-
+                  this.suscriberNumber = resp.body.subscriber;
+                  this.banNumber = resp.body.mBan;
                   if (!resp.body.HasError) {
                     sessionStorage.setItem('suscriberNumber', resp.body.subscriber);
                     this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
@@ -177,6 +180,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
                       this.msjError = resp.body.ErrorDesc;
                       this.toBackEnd = true;
                       this.caseIDReject = datos.caseID;
+                      console.log(this.dataObjectAddress, this.validateSSNData);
                     } else {
                       alertify.alert('Aviso', resp.body.ErrorDesc, () => {
                         this.goToHome();
