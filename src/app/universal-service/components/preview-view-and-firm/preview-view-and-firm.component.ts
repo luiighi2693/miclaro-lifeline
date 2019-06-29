@@ -15,6 +15,7 @@ declare let $: any;
 })
 export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit {
   firmInput = false;
+  firmInput2 = false;
   step1 = true;
   step2 = false;
   step3 = false;
@@ -108,6 +109,11 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
   showFirmInput() {
     this.firmInput = true;
+    setTimeout(this.activarFecha, 100);
+  }
+  showFirmInput2() {
+    this.firmInput = false;
+    this.firmInput2 = true;
     setTimeout(this.activarFecha, 100);
   }
 

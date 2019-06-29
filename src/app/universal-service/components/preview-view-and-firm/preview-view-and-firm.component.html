@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<div class="popupbg" *ngIf="firmInput">
+<div class="popupbg" *ngIf="firmInput && getIdFirm() == 1">
   <div class="popupcont morew-iic container-firm">
     <!-- Maquetacion Formulario1 -->
     <div class="basicrow">
@@ -139,7 +139,7 @@
     <div class="basicrow">
       <div class="row">
         <div class="row">
-          <div class="col-xs-8 col-xs-offset-2">
+          <div class="col-xs-10 col-xs-offset-1">
             <div class="row" style="padding: 0 2.2em;">
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="basicrow m-top-i">
@@ -163,7 +163,252 @@
           </div>
         </div>
 
-        <div class="col-xs-8 col-xs-offset-2">
+        <div class="col-xs-10 col-xs-offset-1">
+          <div class="basicrow msidespad">
+            <div class="autowcont lifehomedef m-top">
+              <div class="basicrow msidespad">
+                <div class="b-title">
+                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter">
+                    <div class="tabcell">
+                      <img
+                        width="100%"
+                        class="lifehomeicons"
+                        style="cursor: default;user-select: none;"
+                        src="../../assets/images/lifecrt-icon.png"
+                      />
+
+                      <div class="autorow pull-left m-top-u" style="cursor: default;user-select: none;">
+                        Firma Digital
+                        <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow msidespad f-black roboto-r f-reg m-top-u-i">
+                <signature-pad
+                  [options]="signaturePadOptions"
+                  (onBeginEvent)="drawStart()"
+                  (onEndEvent)="drawComplete()"
+                ></signature-pad>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basicrow text-center m-top-i">
+      <a
+        (click)="goToActivation()"
+        [ngClass]="{
+          btns: true,
+          'def-i': true,
+          red: validateSing(),
+          gray: !validateSing(),
+          centr: true,
+          vcenter: true
+        }"
+      >
+        <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="popupbg" *ngIf="firmInput && getIdFirm() == 2">
+  <div class="popupcont morew-iic container-firm">
+    <!-- Maquetacion Formulario2 -->
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <h3 style="color:#009ada;font-family: 'robotoregular';font-size: 17pt;">Programa de Lifeline:</h3>
+          <h3 style="color:#009ada;font-family: 'robotobold';font-size: 17pt;font-weight: bold;">
+            Formulario de Aplicaci&oacute;n
+          </h3>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <img
+            style="width: auto;max-height: 60px;right: 0px;position: absolute;padding-bottom: 1em;"
+            src="../../../../assets/images/formlogo.png"
+          />
+        </div>
+      </div>
+      <div class="row ln-top">
+        <div class="col-xs-3">
+          <h2 style="font-weight: bold;">Acuerdo</h2>
+          <span> Inicia el siguiente Acuerdo y escribe a tu firma y a la fecha.</span>
+          <span class="txt-silver">
+            Entrega esta hoja a tu proveedor de servicios con la programa de Lifeline Forma de Aplicación.
+          </span>
+        </div>
+        <div class="col-xs-9">
+          <ul class="list-form-1">
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" /> <span class="lbl-iniciales">Iniciales</span>
+              <p>A) Vivo en una direccion con más de un hogar.</p>
+            </li>
+            <li>
+              <input type="text" class="inputCustom" maxlength="2" /> <span class="lbl-iniciales">Iniciales</span>
+              <p>
+                B) Entiendo que el limite de un solo hogar es una regla de la Comision Federal de Comunicaciones
+                (Federal Comunications Commission, FCC por sus siglas en inglés) y que perderé a mi beneficio de
+                Lifeline si rompo esta regla.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- //CIERRE Maquetacion Formulario2 -->
+
+    <div class="basicrow">
+      <div class="row">
+        <div class="row">
+          <div class="col-xs-10 col-xs-offset-1">
+            <div class="row" style="padding: 0 2.2em;">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="basicrow m-top-i">
+                  <label class="label-f">&#42; Iniciales</label>
+
+                  <input class="inp-f " type="text" maxlength="2" [(ngModel)]="iniciales" />
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="basicrow m-top-i">
+                  <label class="label-f">&#42; Fecha</label>
+
+                  <div class="basicrow rel">
+                    <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="activarFecha()"></i>
+
+                    <input class="inp-f qt" [(ngModel)]="fechaN" id="fechaN" (click)="activarFecha()" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1">
+          <div class="basicrow msidespad">
+            <div class="autowcont lifehomedef m-top">
+              <div class="basicrow msidespad">
+                <div class="b-title">
+                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter">
+                    <div class="tabcell">
+                      <img
+                        width="100%"
+                        class="lifehomeicons"
+                        style="cursor: default;user-select: none;"
+                        src="../../assets/images/lifecrt-icon.png"
+                      />
+
+                      <div class="autorow pull-left m-top-u" style="cursor: default;user-select: none;">
+                        Firma Digital
+                        <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="basicrow msidespad f-black roboto-r f-reg m-top-u-i">
+                <signature-pad
+                  [options]="signaturePadOptions"
+                  (onBeginEvent)="drawStart()"
+                  (onEndEvent)="drawComplete()"
+                ></signature-pad>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basicrow text-center m-top-i">
+      <a
+        (click)="goToActivation()"
+        [ngClass]="{
+          btns: true,
+          'def-i': true,
+          red: validateSing(),
+          gray: !validateSing(),
+          centr: true,
+          vcenter: true
+        }"
+      >
+        <span class="tabcell"> Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="popupbg" *ngIf="firmInput && getIdFirm() == 3">
+  <div class="popupcont morew-iic container-firm">
+    <!-- Maquetacion Formulario3 -->
+    <div class="basicrow">
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <img style="width: auto;max-height: 92px;" src="../../../../assets/images/clarolifeformlogo.png" />
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+          <h3 style="color:#009ada;font-family: 'robotoregular';font-size: 17pt;">
+            ANEJO 1 FCC FORM 5629- Programa de Lifeline: Forma de Aplición
+          </h3>
+        </div>
+      </div>
+      <div class="row ln-top">
+        <div class="col-xs-12">
+          <h1>6. Información adicional</h1>
+          <ul class="list-form-1">
+            <li>
+              <input type="text" class="inputCustom inputCustom2" maxlength="2" />
+              <p>
+                Con este consentimiento <span class="roboto-b">AUTORIZO</span> el uso de mis iniciales y firmas en
+                formato electr&oacute;nico, y <span class="roboto-b">CERTIFICO</span> que son de mi autor&iacute;a como
+                si estuvieran en manuscrito. Espec&iacute;ficamente, <span class="roboto-b">ACEPTO</span> que el uso de
+                mis iniciales y firma electr&oacute;nica para los prop&oacute;sitos de esta solicitud es legal y
+                vinculante, y que no se le restar&aacute; efecto o validez al mismo por el hecho de estar en formato
+                electr&oacute;nico.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- //CIERRE Maquetacion Formulario3 -->
+
+    <div class="basicrow">
+      <div class="row">
+        <div class="row">
+          <div class="col-xs-10 col-xs-offset-1">
+            <div class="row" style="padding: 0 2.2em;">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="basicrow m-top-i">
+                  <label class="label-f">&#42; Iniciales</label>
+
+                  <input class="inp-f " type="text" maxlength="2" [(ngModel)]="iniciales" />
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="basicrow m-top-i">
+                  <label class="label-f">&#42; Fecha</label>
+
+                  <div class="basicrow rel">
+                    <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="activarFecha()"></i>
+
+                    <input class="inp-f qt" [(ngModel)]="fechaN" id="fechaN" (click)="activarFecha()" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1">
           <div class="basicrow msidespad">
             <div class="autowcont lifehomedef m-top">
               <div class="basicrow msidespad">
