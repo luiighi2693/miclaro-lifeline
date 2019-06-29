@@ -36,7 +36,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     minWidth: 0.1, // (float) Minimum width of a line. Defaults to 0.5
     maxWidth: 3, // (float) Maximum width of a line. Defaults to 2.5
     canvasWidth: 740,
-    canvasHeight: 180
+    // canvasHeight: 180
+    canvasHeight: 100
   };
 
   validateSSNData: ValidateSSNData;
