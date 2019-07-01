@@ -34,6 +34,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   // para recorrer  y validar la recoleccion de firmas en popup 2
   inicialesF2: string[] = ['', '', '', '', '', '', '', '', ''];
 
+  check3erPopup = false;
   @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
   isLoading: boolean;
   signaturePadOptions: Object = {
@@ -88,7 +89,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   validateInicialesF2() {
     let todasCoinciden = true;
     this.inicialesF2.map(inicialStepTwo => {
-      if (inicialStepTwo !== this.iniciales) {
+      if (inicialStepTwo.toUpperCase() !== this.iniciales.toUpperCase()) {
         todasCoinciden = false;
       }
     });
