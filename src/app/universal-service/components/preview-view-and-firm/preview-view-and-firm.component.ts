@@ -31,6 +31,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   banNumber: any = null;
   // para tener y renderizar la data en caso de error
   dataObjectAddress: DataObjectAddress[];
+  // para recorrer  y validar la recoleccion de firmas en popup 2
+  inicialesF2: string[] = ['', '', '', '', '', '', '', '', ''];
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   isLoading: boolean;
@@ -84,11 +86,14 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   }
 
   validateInicialesF2() {
-    if (this.iniciales === this.inicialesF1) {
-      return true;
-    } else {
-      return false;
-    }
+    let todasCoinciden = true;
+    this.inicialesF2.map(inicialStepTwo => {
+      if (inicialStepTwo !== this.iniciales) {
+        todasCoinciden = false;
+      }
+    });
+    console.log(this.inicialesF2, this.iniciales, todasCoinciden);
+    return todasCoinciden;
   }
 
   validateInicialesF3() {
@@ -180,7 +185,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
                 this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
               }
               this.signer = '';
-              this.iniciales = '';
+              // this.iniciales = '';
 
               if (this.step1) {
                 this.step2 = true;
