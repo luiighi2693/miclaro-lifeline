@@ -22,7 +22,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   iniciales = '';
   fechaN = '';
   fechaActivada = false;
-  @ViewChild(SignaturePad) signaturePad: SignaturePad;
+  @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
   isLoading: boolean;
   signaturePadOptions: Object = {
     minWidth: 0.1, // (float) Minimum width of a line. Defaults to 0.5

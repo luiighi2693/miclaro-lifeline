@@ -119,7 +119,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
   previewUrl: string;
 
-  @ViewChild('inputFiles') inputFiles: ElementRef;
+  @ViewChild('inputFiles', { static: true }) inputFiles: ElementRef;
 
   constructor(
     public authenticationService: AuthenticationService,
