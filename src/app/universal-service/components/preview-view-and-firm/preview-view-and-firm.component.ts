@@ -21,6 +21,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   step3 = false;
   signer = '';
   iniciales = '';
+  inicialesF1 = '';
   fechaN = '';
   fechaActivada = false;
   toBackEnd = false;
@@ -74,6 +75,29 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   goToStep2() {
     this.step2 = true;
   }
+  validateInicialesF1() {
+    if (this.iniciales === this.inicialesF1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  validateInicialesF2() {
+    if (this.iniciales === this.inicialesF1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  validateInicialesF3() {
+    if (this.iniciales === this.inicialesF1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   activarFecha() {
     if (!this.fechaActivada) {
@@ -118,7 +142,11 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   }
 
   goToActivation() {
-    if (this.validateSing()) {
+    if (
+      (this.getIdFirm() === 1 && (this.validateSing() && this.validateInicialesF1())) ||
+      (this.getIdFirm() === 2 && (this.validateSing() && this.validateInicialesF2())) ||
+      (this.getIdFirm() === 3 && (this.validateSing() && this.validateInicialesF3()))
+    ) {
       console.log('done');
       console.log(this.firmaUrl);
       console.log(this.iniciales);

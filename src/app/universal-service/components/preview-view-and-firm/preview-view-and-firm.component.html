@@ -23,7 +23,7 @@
 
 <div class="popupbg" *ngIf="firmInput && getIdFirm() == 1">
   <div class="popupcont morew-iic container-firm">
-    <!-- Maquetacion Formulario2 -->
+    <!-- Maquetacion Formulario1 -->
     <div class="basicrow">
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -60,7 +60,13 @@
               <p>A) Vivo en una direccion con más de un hogar.</p>
             </li>
             <li>
-              <input type="text" class="inputCustom" maxlength="2" /> <span class="lbl-iniciales">Iniciales</span>
+              <input
+                type="text"
+                [ngClass]="{ red: !validateInicialesF1(), inputCustom: true }"
+                maxlength="2"
+                [(ngModel)]="inicialesF1"
+              />
+              <span class="lbl-iniciales">Iniciales</span>
               <p>
                 B) Entiendo que el limite de un solo hogar es una regla de la Comision Federal de Comunicaciones
                 (Federal Comunications Commission, FCC por sus siglas en inglés) y que perderé a mi beneficio de
@@ -71,7 +77,7 @@
         </div>
       </div>
     </div>
-    <!-- //CIERRE Maquetacion Formulario2 -->
+    <!-- //CIERRE Maquetacion Formulario1 -->
 
     <div class="basicrow">
       <div class="row">
@@ -134,8 +140,8 @@
         [ngClass]="{
           btns: true,
           'def-i': true,
-          red: validateSing(),
-          gray: !validateSing(),
+          red: validateSing() && validateInicialesF1(),
+          gray: !validateSing() || !validateInicialesF1(),
           centr: true,
           vcenter: true
         }"
@@ -148,7 +154,7 @@
 
 <div class="popupbg" *ngIf="firmInput && getIdFirm() == 2">
   <div class="popupcont morew-iic container-firm">
-    <!-- Maquetacion Formulario1 -->
+    <!-- Maquetacion Formulario2 -->
     <div class="basicrow">
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -250,50 +256,16 @@
         </div>
       </div>
     </div>
-    <!-- //CIERRE Maquetacion Formulario1 -->
-    <!--
-      <div class="basicrow f-reg f-black roboto-r text-justify">
-        Con este consentimiento <span class="roboto-b">AUTORIZO</span> el uso de mis iniciales y firmas en formato
-        electr&oacute;nico, y <span class="roboto-b">CERTIFICO</span> que son de mi autor&iacute;a como si estuvieran en
-        manuscrito. Espec&iacute;ficamente, <span class="roboto-b">ACEPTO</span> que el uso de mis iniciales y firma
-        electr&oacute;nica para los prop&oacute;sitos de esta solicitud es legal y vinculante, y que no se le
-        restar&aacute; efecto o validez al mismo por el hecho de estar en formato electr&oacute;nico.
-      </div>
-    -->
+    <!-- //CIERRE Maquetacion Formulario2 -->
 
     <div class="basicrow">
       <div class="row">
-        <div class="row">
-          <div class="col-xs-10 col-xs-offset-1">
-            <div class="row" style="padding: 0 2.2em;">
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="basicrow m-top-i">
-                  <label class="label-f">&#42; Iniciales</label>
-
-                  <input class="inp-f " type="text" maxlength="2" [(ngModel)]="iniciales" />
-                </div>
-              </div>
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="basicrow m-top-i">
-                  <label class="label-f">&#42; Fecha</label>
-
-                  <div class="basicrow rel">
-                    <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="activarFecha()"></i>
-
-                    <input class="inp-f qt" [(ngModel)]="fechaN" id="fechaN" (click)="activarFecha()" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="col-xs-10 col-xs-offset-1">
           <div class="basicrow msidespad">
             <div class="autowcont lifehomedef m-top">
               <div class="basicrow msidespad">
-                <div class="b-title">
-                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter">
+                <div class="b-title" style="height: 55px">
+                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter" style="width: 100%;">
                     <div class="tabcell">
                       <img
                         width="100%"
@@ -307,6 +279,22 @@
                         <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
                         <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
                       </div>
+                    </div>
+                    <div class="basicrow rel pull-right" style="max-width: 200px;padding: 5px 0px;">
+                      <i
+                        class="fa fa-calendar inpcal-icon"
+                        aria-hidden="true"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                      ></i>
+                      <input
+                        class="inp-f qt"
+                        [(ngModel)]="fechaN"
+                        id="fechaN"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                        disabled="disabled"
+                      />
                     </div>
                   </div>
                 </div>
@@ -331,8 +319,8 @@
         [ngClass]="{
           btns: true,
           'def-i': true,
-          red: validateSing(),
-          gray: !validateSing(),
+          red: validateSing() && validateInicialesF2(),
+          gray: !validateSing() || !validateInicialesF2(),
           centr: true,
           vcenter: true
         }"
