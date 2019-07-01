@@ -124,7 +124,7 @@
                         <i
                           class="fa fa-calendar inpcal-icon"
                           aria-hidden="true"
-                          (click)="ic_click($event.target.value)"
+                          (click)="activarDatepickerFechaN()"
                           style="margin-top: 10px;"
                         ></i>
                         <input
@@ -134,9 +134,9 @@
                           [(ngModel)]="model.birthday"
                           [formControl]="form.controls['birthday']"
                           #ic_fecha3
-                          (blur)="ic_blur($event.target.value)"
-                          (click)="ic_click($event.target.value)"
-                          (keyup)="ic_key_up(ic_fecha3)"
+                          (blur)="ic_blur()"
+                          (click)="activarDatepickerFechaN()"
+                          (keyup)="ic_key_up()"
                         />
                       </div>
                     </div>

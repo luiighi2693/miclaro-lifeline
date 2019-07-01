@@ -166,8 +166,9 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
         maxDate: '-21y',
         minDate: '-100y',
         defaultDate: '-22y',
-        onSelect: function(dateText: any) {
+        onSelect: (dateText: any) => {
           console.log(dateText + ' *onSelect');
+          this.model.birthday = dateText;
         },
         onChangeMonthYear: function(year: any, month: any, datepicker: any) {
           // #CAMBIO APLICADO y Necesario ya que al seleccionar el mes y cambiar el a#o en los selects
@@ -221,40 +222,14 @@ export class UsfVerificationComponent extends BaseComponent implements OnInit {
   }
 
   // tslint:disable-next-line:member-ordering
-  public ic_blur(ic_fecha?: any) {
+  public ic_blur() {
     setTimeout(() => {
-      const inputElement: HTMLInputElement = document.getElementById('inputControl3') as HTMLInputElement;
-      const inputValue: string = inputElement.value;
-      this.model.birthday = inputValue;
-      console.log('#blur :' + inputValue);
-
-      /* IN TEST falta flag
-         if (inputValue.length === 10) {
-              console.log('to :' + inputValue);
-
-              let new_date = new Date(
-                inputValue
-                    .substr(0, 2) +
-                  '/' +
-                  inputValue
-                    .substr(3, 2) +
-                  '/' +
-                  inputValue
-                    .substr(6, 6)
-              );
-
-              $('#inputControl3').datepicker('setDate', new_date);
-         }*/
+      console.log('#blur :' + this.model.birthday);
     }, 200);
   }
 
   // tslint:disable-next-line:member-ordering
-  public ic_click(ic_fecha?: any) {
-    this.activarDatepickerFechaN();
-  }
-
-  // tslint:disable-next-line:member-ordering
-  public ic_key_up(ic_fecha?: string) {
+  public ic_key_up() {
     this.model.birthday = this.formateadorFecha(this.model.birthday);
     console.log(this.model.birthday);
     console.log('ic_key_up');

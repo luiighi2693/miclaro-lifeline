@@ -3,15 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
-// import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
 import { CoreModule } from '@app/core';
-// import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
-// import { ShellModule } from './shell/shell.module';
-// import { AboutModule } from './about/about.module';
 import { LoginModule } from './login/login.module';
 import { UniversalServiceModule } from './universal-service/universal-service.module';
 import { AppComponent } from './app.component';
@@ -25,13 +21,9 @@ import { UsfCaseModule } from './usf-case/usf-case.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // TranslateModule.forRoot(),
     NgbModule,
     CoreModule,
-    // SharedModule,
-    // ShellModule,
     HomeModule,
-    // AboutModule,
     LoginModule,
     UniversalServiceModule,
     UsfCaseModule,

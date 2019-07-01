@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
-import Util from '@app/universal-service/util';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UsfServiceService } from '@app/core/usf/usf-service.service';
 import { BaseComponent } from '@app/core/base/BaseComponent';
-// para poder usar Jquery de forma limpia solo donde es necesario
-// y de esta forma se pueden usar todas sus librerias y dependencias
-// como lo es datepicker y extras de JqueryUI
 declare let $: any;
 
 export interface Model {
@@ -80,12 +76,7 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     this.form = this.fb.group({
       sufix: [null, Validators.compose([Validators.required])],
       firstName: [null, Validators.compose([Validators.required])],
-      secondName: [
-        null,
-        Validators.compose([
-          // Validators.required
-        ])
-      ],
+      secondName: [null, Validators.compose([])],
       lastName: [null, Validators.compose([Validators.required])],
       socialSecure: [null, Validators.compose([Validators.required])],
       birthday: [null, Validators.compose([Validators.required])],
@@ -332,102 +323,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     return '';
   }
 
-  public setFechaExpiracion(entrada: string) {
-    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_expiracion') as HTMLInputElement;
-    const inputValue: string = inputElement.value;
-
-    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
-      entrada = entrada.replace('/', '');
-      console.log(entrada);
-      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
-      this.valueExpirationDate = entrada;
-      this.model.idExpirationDate = entrada;
-    }
-
-    console.log(entrada + ' :' + entrada.length);
-    console.log(inputValue + ' :' + inputValue.length);
-
-    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
-      // caso para el 2do Slash
-      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
-      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
-      this.valueExpirationDate = entrada;
-      this.model.idExpirationDate = entrada;
-    }
-
-    if (entrada.length >= 10) {
-      console.log(this.inFormat(entrada));
-      console.log(inputValue);
-    }
-  }
-  public inDelayDatePicker() {
-    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
-    // tslint:disable-next-line:prefer-const
-    let entrada = '';
-    if (inputElement != null) {
-      entrada = inputElement.value;
-    }
-    console.log('in delay ' + entrada);
-    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
-      entrada = entrada.replace('/', '');
-      console.log(entrada);
-      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
-      this.valueBirthday = entrada;
-      this.model.birthday = entrada;
-    }
-    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
-      // caso para el 2do Slash
-      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
-      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
-      this.valueBirthday = entrada;
-      this.model.birthday = entrada;
-    }
-    if (entrada.length >= 10) {
-      console.log(this.inFormat(entrada));
-      console.log(entrada);
-    }
-    $('#activadorFN').click();
-    return;
-  }
-  public setFechaNacimiento(entrada: string) {
-    const inputElement: HTMLInputElement = document.getElementById('dp_fecha_nacimiento') as HTMLInputElement;
-    const inputValue: string = inputElement.value;
-
-    if (entrada.length > 2 && entrada.indexOf('/') !== 2) {
-      entrada = entrada.replace('/', '');
-      console.log(entrada);
-
-      // console.log(inputValue.substr(0, 2) + '/' + inputValue.substr(2, entrada.length));
-      entrada = entrada.substr(0, 2) + '/' + entrada.substr(2, entrada.length);
-      // this.valueBirthday = entrada;
-      // this.model.birthday = entrada;
-    }
-
-    if (entrada.length > 5 && entrada.indexOf('/', 5) !== 5) {
-      // caso para el 2do Slash
-      console.log(entrada.substr(0, 5) + '/' + entrada.substr(5, 4));
-      entrada = entrada.substr(0, 5) + '/' + entrada.substr(5, 4);
-      // this.valueBirthday = entrada;
-      // this.model.birthday = entrada;
-    }
-
-    console.log(entrada + ' :' + entrada.length);
-    if (entrada.length === 0) {
-      setTimeout(() => {
-        this.inDelayDatePicker();
-      }, 150);
-    }
-
-    if (entrada.length >= 10) {
-      console.log('#' + this.model.birthday);
-      console.log('##' + this.valueBirthday);
-      console.log(this.inFormat(entrada));
-      console.log(inputValue);
-      // $('#dp_fecha_nacimiento').datepicker('show');
-    }
-  }
-
-  // NUEVA ESTRUCCTURA >>>>>>>>>>>>>>>>>>>
   public activarDatepickerFechaN() {
     if (this.datePicker_is_init === false) {
       // tslint:disable-next-line:prefer-const
@@ -457,7 +352,8 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           maxDate: '-21y',
           minDate: '-100y',
           defaultDate: '-22y',
-          onSelect: function(dateText: any) {
+          onSelect: (dateText: any) => {
+            this.inputControl = dateText;
             console.log(dateText + ' *onSelect');
           },
           onChangeMonthYear: function(year: any, month: any, datepicker: any) {
@@ -492,28 +388,12 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         changeYear: true,
         yearRange: '+0:+10',
         minDate: 0,
-        defaultDate: '+1y'
+        defaultDate: '+1y',
+        onSelect: (dateText: any) => {
+          this.inputControl2 = dateText;
+          console.log(dateText + ' *onSelect');
+        },
       });
-      // recorrido
-      /* Test
-      // tslint:disable-next-line:prefer-const
-      let dp1 = document.getElementsByClassName('ui-datepicker-year')[0] as HTMLSelectElement;
-      if (dp1 !== undefined && this.datePicker_is_init === false) {
-        for (let c = 0; c < dp1.options.length; c++) {
-          dp1.options.remove(c);
-        }
-        document.getElementsByClassName('ui-datepicker-year')[0].innerHTML = '';
-        for (let c = new Date().getFullYear() - 100; c < new Date().getFullYear() - 18; c++) {
-          const opt = document.createElement('option');
-          opt.value = '' + c;
-          opt.innerHTML = '' + c;
-          dp1.options.add(opt);
-          // console.log(c);
-        }
-        // ----------------------------------
-        this.datePicker_is_init = true;
-      }
-      */
     }
     $('#inputControl').datepicker('show');
   }
@@ -566,17 +446,9 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
     return entrada;
   }
 
-  // Pruebas de control de evento
-  public ic_in(entra: any) {
-    // console.log('ic_in');
-  }
-  public ic_blur(ic_fecha?: any) {
-    // console.log(ic_fecha);
-    // console.log(this.inputControl);
-    // console.log('ic_blur');
+  public ic_blur() {
     setTimeout(() => {
-      const inputElement: HTMLInputElement = document.getElementById('inputControl') as HTMLInputElement;
-      const inputValue: string = inputElement.value;
+      const inputValue: string = this.inputControl;
       // tslint:disable-next-line:radix
       const year: number = parseInt(inputValue.substr(-4, 4));
       // tslint:disable-next-line:radix
@@ -608,7 +480,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
           opt.value = '' + c;
           opt.innerHTML = '' + c;
           dp1.options.add(opt);
-          // console.log(c);
         }
 
         // Test despues de iniciado
@@ -628,7 +499,6 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
               dp1.options.item(dp1.options.selectedIndex).value
           );
         });
-        // ----------------------------------
         // tslint:disable-next-line:typedef
         selector_mes.addEventListener('click', function(evt) {
           console.log(evt);
@@ -636,35 +506,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
         });
         // ----------------------------------
       }
-
-      /*
-        // si no es la opcion seleccionada se borra
-          for (let c = 0; dp1.options.length > 1; c++) {
-            if ( dp1.options.item(dp1.options.selectedIndex).value !== dp1.options.item(c).value ) {
-              console.log(dp1.options.item(c).value + ' RM' + c);
-              dp1.options.item(c).remove();
-            }
-          }
-          for (let c = new Date().getFullYear() - 100; c < new Date().getFullYear() - 18; c++) {
-            const opt = document.createElement('option');
-            opt.value = '' + c;
-            opt.innerHTML = '' + c;
-            dp1.options.add(opt);
-            // console.log(c);
-          }
-          */
     }, 250);
   }
 
-  public ic_click(ic_fecha?: any) {
-    this.activarDatepickerFechaN();
-    // console.log(ic_fecha);
-    // console.log(this.inputControl);
-    // console.log('ic_click');
-  }
-
-  public ic_key_up(ic_fecha?: string) {
-    // console.log(ic_fecha);
+  public ic_key_up() {
     this.inputControl = this.formateadorFecha(this.inputControl);
     console.log(this.inputControl);
     // si tiene 10 digitos y esta formateada
@@ -673,10 +518,10 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       this.inputControl.indexOf('/') === 2 &&
       this.inputControl.indexOf('/', 5) === 5
     ) {
-      // tslint:disable-next-line:radix
+
       const year: number = parseInt(this.inputControl.substr(-4, 4));
       console.log('y:' + year + ' c: ' + new Date(new Date().setFullYear(new Date().getFullYear() - 21)).getFullYear());
-      // tslint:disable-next-line:radix
+
       if (year > new Date(new Date().setFullYear(new Date().getFullYear() - 21)).getFullYear()) {
         this.valueBirthday = '';
         this.model.birthday = '';
@@ -684,55 +529,25 @@ export class PersonalDatesComponent extends BaseComponent implements OnInit {
       } else {
         this.valueBirthday = this.inputControl;
         this.model.birthday = this.inputControl;
-        this.inputControl = this.inputControl;
       }
     }
     console.log('ic_key_up');
   }
 
-  public ic_change(ic_fecha?: string) {
-    // console.log(ic_fecha);
-    // console.log(this.inputControl);
-    // console.log('ic_change');
-  }
-
   // ============= Segundo DatePicker ==================
-  // Pruebas de control de evento
-  public ic_in2(entra: any) {
-    // console.log(entra);
-    // console.log('ic_in2');
-  }
-  public ic_blur2(ic_fecha?: any) {
-    // console.log(ic_fecha);
-    // console.log('ic_blur2');
+  public ic_blur2() {
     setTimeout(() => {
-      const inputElement: HTMLInputElement = document.getElementById('inputControl2') as HTMLInputElement;
-      const inputValue: string = inputElement.value;
+      const inputValue: string = this.inputControl2;
       this.model.idExpirationDate = inputValue;
       this.valueExpirationDate = inputValue;
-      this.inputControl2 = inputValue;
       console.log('#blur :' + inputValue);
     }, 200);
   }
 
-  public ic_click2(ic_fecha?: any) {
-    this.activarDatepickerFechaE();
-    // console.log(ic_fecha);
-    // console.log(this.inputControl2);
-    // console.log('ic_click2');
-  }
-
-  public ic_key_up2(ic_fecha?: string) {
-    // console.log(ic_fecha);
+  public ic_key_up2() {
     this.inputControl2 = this.formateadorFecha(this.inputControl2);
     console.log(this.inputControl2);
     console.log('ic_key_up2');
-  }
-
-  public ic_change2(ic_fecha?: string) {
-    // console.log(ic_fecha);
-    // console.log(this.inputControl2);
-    // console.log('ic_change2');
   }
 
   onBlurSSN() {

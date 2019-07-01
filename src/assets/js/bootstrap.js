@@ -1979,7 +1979,7 @@ if (typeof jQuery === 'undefined') {
       return this.clear()
     }
 
-    for (i = offsets.length; i--;) {
+    for (i=0, i = offsets.length; i--;) {
       activeTarget != targets[i]
         && scrollTop >= offsets[i]
         && (offsets[i + 1] === undefined || scrollTop < offsets[i + 1])

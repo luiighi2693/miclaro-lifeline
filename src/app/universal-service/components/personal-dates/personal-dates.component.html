@@ -169,37 +169,7 @@
                           Campo Requerido
                         </small>
                       </div>
-
-                      <!-- <div *ngIf="!checkSSN" class="basicrow f-reg f-red roboto-l text-justify m-top-u"> -->
-                      <!--
-                        Este n&uacute;mero de SSN ya posee una cuenta registrada en USF, por favor ind&iacute;quele al usuario que debe dirigirse a una tienda Claro
-                      -->
-                      <!-- </div> -->
                     </div>
-
-                    <!-- [RESULTADO POSITIVO] -->
-
-                    <!--
-                      [RESULTADO NEGATIVO]>
-
-                      <div class="basicrow m-top-i">
-                        <label class="label-f">&#42; Seguro Social</label>
-
-                        <div class="basicrow rel">
-                          <div class="social-oc wrong"></div>
-
-                          <img data-toggle="popover" data-html="true" data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." data-placement="bottom" width="100%" class="q-t" src="../../../../assets/images/tooltip1.png">
-
-                          <input type="text" (keypress)="numberOnly($event)" (keyup)="formatInputSocialSecure('socialSecure')" maxlength="11" name="socialSecure" [(ngModel)]="model.socialSecure" class="inp-f redbg qt">
-                        </div>
-
-                        <div class="basicrow f-reg f-red roboto-l text-justify m-top-u">
-                          Este n&uacute;mero de SSN ya posee una cuenta registrada en USF, por favor ind&iacute;quele al usuario que debe dirigirse a una tienda Claro
-                        </div>
-                      </div>
-
-                      <![RESULTADO NEGATIVO]
-                    -->
                   </div>
 
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -221,12 +191,9 @@
                           id="inputControl"
                           [(ngModel)]="inputControl"
                           [formControl]="form.controls['birthday']"
-                          #ic_fecha
-                          (blur)="ic_blur($event.target.value)"
-                          (click)="ic_click($event.target.value)"
-                          (keyup)="ic_key_up(ic_fecha)"
-                          (change)="ic_change(ic_fecha)"
-                          (input)="ic_in($event.target.value)"
+                          (blur)="ic_blur()"
+                          (click)="activarDatepickerFechaN()"
+                          (keyup)="ic_key_up()"
                         />
                         <small
                           [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
@@ -239,37 +206,6 @@
                     </div>
                   </div>
 
-                  <!--
-                    BK [ RESPALDO ANTIGUA FORMA ]
-
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                      <div class="basicrow m-top-i">
-                        <label class="label-f">&#42; Fecha de Nacimiento</label>
-
-                        <div class="basicrow rel">
-                          <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d1.toggle()"></i>
-
-                          <input
-                            type="text"
-                            class="inp-f qt"
-                            ngbDatepicker
-                            #d1="ngbDatepicker"
-                            [minDate]="{ year: 1918, month: 1, day: 1 }"
-                            [maxDate]="{ year: 2001, month: 1, day: 1 }"
-                            [(ngModel)]="model.birthday"
-                            [formControl]="form.controls['birthday']"
-                          />
-                          <small
-                            [hidden]="form.controls['birthday'].valid || form.controls['birthday'].untouched"
-                            class="text-danger"
-                            translate
-                          >
-                            Campo Requerido
-                          </small>
-                        </div>
-                      </div>
-                    </div>
-                  -->
                 </div>
               </div>
 
@@ -370,11 +306,9 @@
                           [(ngModel)]="inputControl2"
                           [formControl]="form.controls['idExpirationDate']"
                           #ic_fecha2
-                          (blur)="ic_blur2($event.target.value)"
-                          (click)="ic_click2($event.target.value)"
-                          (keyup)="ic_key_up2(ic_fecha2)"
-                          (change)="ic_change2(ic_fecha2)"
-                          (input)="ic_in2($event.target.value)"
+                          (blur)="ic_blur2()"
+                          (click)="activarDatepickerFechaE()"
+                          (keyup)="ic_key_up2()"
                         />
                         <small
                           [hidden]="
@@ -389,38 +323,6 @@
                     </div>
                   </div>
 
-                  <!--
-                    ANTIGUA MANERA
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                      <div class="basicrow m-top-i">
-                        <label class="label-f">&#42; Fecha de Expiraci&oacute;n del ID</label>
-
-                        <div class="basicrow rel">
-                          <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="d.toggle()"></i>
-
-                          <input
-                            type="text"
-                            class="inp-f qt"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            [minDate]="{ year: 2018, month: 1, day: 1 }"
-                            [maxDate]="{ year: 2028, month: 1, day: 1 }"
-                            [(ngModel)]="model.idExpirationDate"
-                            [formControl]="form.controls['idExpirationDate']"
-                          />
-                          <small
-                            [hidden]="
-                              form.controls['idExpirationDate'].valid || form.controls['idExpirationDate'].untouched
-                            "
-                            class="text-danger"
-                            translate
-                          >
-                            Campo Requerido
-                          </small>
-                        </div>
-                      </div>
-                    </div>
-                  -->
                 </div>
               </div>
 

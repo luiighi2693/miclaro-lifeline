@@ -62,7 +62,7 @@
                           placeholder="Nro de Caso"
                           class="inp-f"
                           (keypress)="checkNumbersOnly($event)"
-                          id="numberCaseToSearch"
+                          [(ngModel)]='numberCase'
                         />
                       </div>
 

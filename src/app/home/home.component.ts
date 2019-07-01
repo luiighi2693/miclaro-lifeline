@@ -24,8 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   gotoUsfCase() {
-    const intemp = (<HTMLInputElement>document.getElementById('numberCaseToSearch')).value;
-    localStorage.setItem('numberCaseToSearch', intemp);
+    localStorage.setItem('numberCaseToSearch', this.numberCase);
     this.router.navigate(['/usf-case'], { replaceUrl: true });
   }
 
