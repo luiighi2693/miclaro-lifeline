@@ -28,8 +28,8 @@
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <h3 style="color:#009ada;font-family: 'robotoregular';font-size: 17pt;">Programa de Lifeline:</h3>
-          <h3 style="color:#009ada;font-family: 'robotobold';font-size: 17pt;font-weight: bold;">
-            Formulario de Aplicaci&oacute;n
+          <h3 style="color:#009ada;font-family: 'robotobold';font-size: 17pt;font-weight: bold;padding-bottom: 10px;">
+            Hoja de Hogar
           </h3>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -46,11 +46,17 @@
           <span class="txt-silver">
             Entrega esta hoja a tu proveedor de servicios con la programa de Lifeline Forma de Aplicación.
           </span>
+          <span class="txt-silver sub">
+            Doy mi consentimiento para que USAC me contacte en mi número de teléfono Lifeline para recibir recordatorios
+            y actualizaciones importantes sobre mi servicio de Lifeline. Se puede aplicar tarifas de mensajes y datos.
+            Envié STOP por mensaje de texto para detener a los mensajes.
+          </span>
         </div>
         <div class="col-xs-9">
           <ul class="list-form-1">
             <li>
-              <input type="text" class="inputCustom" maxlength="2" /> <span class="lbl-iniciales">Iniciales</span>
+              <input type="text" class="inputCustom" maxlength="2" [(ngModel)]="iniciales" />
+              <span class="lbl-iniciales">Iniciales</span>
               <p>A) Vivo en una direccion con más de un hogar.</p>
             </li>
             <li>
@@ -69,37 +75,12 @@
 
     <div class="basicrow">
       <div class="row">
-        <div class="row">
-          <div class="col-xs-10 col-xs-offset-1">
-            <div class="row" style="padding: 0 2.2em;">
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="basicrow m-top-i">
-                  <label class="label-f">&#42; Iniciales</label>
-
-                  <input class="inp-f " type="text" maxlength="2" [(ngModel)]="iniciales" />
-                </div>
-              </div>
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="basicrow m-top-i">
-                  <label class="label-f">&#42; Fecha</label>
-
-                  <div class="basicrow rel">
-                    <i class="fa fa-calendar inpcal-icon" aria-hidden="true" (click)="activarFecha()"></i>
-
-                    <input class="inp-f qt" [(ngModel)]="fechaN" id="fechaN" (click)="activarFecha()" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="col-xs-10 col-xs-offset-1">
           <div class="basicrow msidespad">
             <div class="autowcont lifehomedef m-top">
               <div class="basicrow msidespad">
-                <div class="b-title">
-                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter">
+                <div class="b-title" style="height: 55px">
+                  <div class="autocont f-black roboto-m f-bmed pull-left vcenter" style="width: 100%;">
                     <div class="tabcell">
                       <img
                         width="100%"
@@ -113,6 +94,22 @@
                         <button class="btn btn-default" (click)="ngAfterViewInit()"><i class="fa fa-trash"></i></button>
                         <button class="btn btn-success" (click)="drawCompleteSave()"><i class="fa fa-save"></i></button>
                       </div>
+                    </div>
+                    <div class="basicrow rel pull-right" style="max-width: 200px;padding: 5px 0px;">
+                      <i
+                        class="fa fa-calendar inpcal-icon"
+                        aria-hidden="true"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                      ></i>
+                      <input
+                        class="inp-f qt"
+                        [(ngModel)]="fechaN"
+                        id="fechaN"
+                        (click)="activarFecha()"
+                        style="color: silver;"
+                        disabled="disabled"
+                      />
                     </div>
                   </div>
                 </div>
