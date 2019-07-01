@@ -33,7 +33,7 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
 
   public form: FormGroup;
 
-  model = new class {
+  model = new (class {
     agency = 'Seleccionar';
     ldiRestriction: boolean;
     peopleDataSelectedNumber: number;
@@ -41,7 +41,7 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
     earningsValidation: boolean;
     lifelineProgramInscription: boolean;
     aceptationTerm: boolean;
-  }();
+  })();
 
   homePeopleData: PeopleData[] = [
     { number: 1, money: '$16,389' },
@@ -85,7 +85,6 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
 
   goToPreviewViewAndFirm() {
     if (this.validateForm()) {
-
       const datos = {
         method: 'Updlongdistance',
         USER_ID: this.authenticationService.credentials.userid,
@@ -111,7 +110,6 @@ export class AceptationTermsComponent extends BaseComponent implements OnInit {
           console.log(error);
         }
       );
-
     }
   }
 

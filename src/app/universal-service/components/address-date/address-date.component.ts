@@ -143,7 +143,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
   public estates = ['Puerto Rico'];
 
   public form: FormGroup;
-  model: Model = new class implements Model {
+  model: Model = new (class implements Model {
     temporalAddress1: boolean;
     contactNumber1 = '';
     contactNumber2 = '';
@@ -172,7 +172,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     fisicalDepUnitOther = '';
     fisicalMunicipality = '';
     fisicalPostalCode = '';
-  }();
+  })();
 
   validateSSNData: ValidateSSNData;
 
@@ -294,7 +294,9 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         user_ID: this.authenticationService.credentials.userid,
         case_ID: this.validateSSNData.CASENUMBER,
         addresstype: this.model.temporalAddress ? 3 : 1,
-        address1: (this.model.temporalAddress ? this.model.temporalAddressExtraContent + ' ' + this.model.address : this.model.address),
+        address1: this.model.temporalAddress
+          ? this.model.temporalAddressExtraContent + ' ' + this.model.address
+          : this.model.address,
         address2: this.model.depUnitOther,
         city: this.model.municipality,
         state: 'PR',

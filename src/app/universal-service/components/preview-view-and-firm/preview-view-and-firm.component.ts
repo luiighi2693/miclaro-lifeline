@@ -3,7 +3,7 @@ import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 declare let alertify: any;
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
-import { UsfServiceService, ValidateSSNData } from '@app/core/usf/usf-service.service';
+import { UsfServiceService, ValidateSSNData, DataObjectAddress } from '@app/core/usf/usf-service.service';
 import { FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@app/core/base/BaseComponent';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,20 +15,33 @@ declare let $: any;
 })
 export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit {
   firmInput = false;
+  firmInput2 = false;
   step1 = true;
   step2 = false;
   step3 = false;
   signer = '';
   iniciales = '';
+  inicialesF1 = '';
   fechaN = '';
   fechaActivada = false;
+  toBackEnd = false;
+  msjError = '';
+  caseIDReject: any = null;
+  suscriberNumber: any = null;
+  banNumber: any = null;
+  // para tener y renderizar la data en caso de error
+  dataObjectAddress: DataObjectAddress[];
+  // para recorrer  y validar la recoleccion de firmas en popup 2
+  inicialesF2: string[] = ['', '', '', '', '', '', '', '', ''];
+
   @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
   isLoading: boolean;
   signaturePadOptions: Object = {
     minWidth: 0.1, // (float) Minimum width of a line. Defaults to 0.5
     maxWidth: 3, // (float) Maximum width of a line. Defaults to 2.5
     canvasWidth: 740,
-    canvasHeight: 180
+    // canvasHeight: 180
+    canvasHeight: 100
   };
 
   validateSSNData: ValidateSSNData;
@@ -50,6 +63,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     super(authenticationService, usfServiceService, router, fb);
 
     this.validateSSNData = this.usfServiceService.getValidateSSNData();
+    this.dataObjectAddress = this.usfServiceService.getDataObjectAddress();
 
     // this.userId = '79';
     this.userId = this.authenticationService.credentials.userid;
@@ -62,6 +76,32 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
   goToStep2() {
     this.step2 = true;
+  }
+  validateInicialesF1() {
+    if (this.iniciales === this.inicialesF1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  validateInicialesF2() {
+    let todasCoinciden = true;
+    this.inicialesF2.map(inicialStepTwo => {
+      if (inicialStepTwo !== this.iniciales) {
+        todasCoinciden = false;
+      }
+    });
+    console.log(this.inicialesF2, this.iniciales, todasCoinciden);
+    return todasCoinciden;
+  }
+
+  validateInicialesF3() {
+    if (this.iniciales === this.inicialesF1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   activarFecha() {
@@ -100,9 +140,18 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     this.firmInput = true;
     setTimeout(this.activarFecha, 100);
   }
+  showFirmInput2() {
+    this.firmInput = false;
+    this.firmInput2 = true;
+    setTimeout(this.activarFecha, 100);
+  }
 
   goToActivation() {
-    if (this.validateSing()) {
+    if (
+      (this.getIdFirm() === 1 && (this.validateSing() && this.validateInicialesF1())) ||
+      (this.getIdFirm() === 2 && (this.validateSing() && this.validateInicialesF2())) ||
+      (this.getIdFirm() === 3 && (this.validateSing() && this.validateInicialesF3()))
+    ) {
       console.log('done');
       console.log(this.firmaUrl);
       console.log(this.iniciales);
@@ -136,7 +185,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
                 this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
               }
               this.signer = '';
-              this.iniciales = '';
+              // this.iniciales = '';
 
               if (this.step1) {
                 this.step2 = true;
@@ -161,14 +210,22 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
               this.usfServiceService.doAction(datos, 'CreateSubscriberMcapi').subscribe(
                 resp => {
                   this.suscriberActivation = false;
-
+                  this.suscriberNumber = resp.body.subscriber;
+                  this.banNumber = resp.body.mBan;
                   if (!resp.body.HasError) {
                     sessionStorage.setItem('suscriberNumber', resp.body.subscriber);
                     this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
                   } else {
-                    alertify.alert('Aviso', resp.body.ErrorDesc, () => {
-                      this.goToHome();
-                    });
+                    if (resp.body.ErrorDesc.toLocaleLowerCase().indexOf('enviado al back end')) {
+                      this.msjError = resp.body.ErrorDesc;
+                      this.toBackEnd = true;
+                      this.caseIDReject = datos.caseID;
+                      console.log(this.dataObjectAddress, this.validateSSNData);
+                    } else {
+                      alertify.alert('Aviso', resp.body.ErrorDesc, () => {
+                        this.goToHome();
+                      });
+                    }
                   }
                 },
                 error => {
@@ -243,7 +300,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     document.body.removeChild(aux);
   }
 
-  private getIdFirm() {
+  getIdFirm() {
     if (this.step1) {
       return 1;
     } else if (this.step2) {
