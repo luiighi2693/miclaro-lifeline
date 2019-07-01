@@ -267,7 +267,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     document.body.removeChild(aux);
   }
 
-  private getIdFirm() {
+  getIdFirm() {
     if (this.step1) {
       return 1;
     } else if (this.step2) {
