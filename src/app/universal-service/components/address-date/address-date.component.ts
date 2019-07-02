@@ -272,6 +272,10 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
     });
   }
 
+  goToBack() {
+    this.validationDataAddressInput = false;
+  }
+
   goToValidationDataAddressInput() {
     if (
       // this.form.valid && this.model.contactNumber1.length === 12 &&
