@@ -35,7 +35,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   inicialesF2: string[] = ['', '', '', '', '', '', '', '', ''];
 
   check3erPopup = false;
-  @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
+  @ViewChild(SignaturePad) signaturePad: SignaturePad;
   isLoading: boolean;
   signaturePadOptions: Object = {
     minWidth: 0.1, // (float) Minimum width of a line. Defaults to 0.5
