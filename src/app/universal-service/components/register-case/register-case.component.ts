@@ -203,4 +203,8 @@ export class RegisterCaseComponent extends BaseComponent implements OnInit {
   onChangeSelect($event: any) {
     this.model.peopleDataSelected = this.homePeopleData.find(x => x.number.toString() === $event);
   }
+
+  getSnn(SSN: string) {
+    return SSN.length === 3 ? '0' + SSN : SSN;
+  }
 }
