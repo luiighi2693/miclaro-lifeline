@@ -36,7 +36,10 @@ export class SocialSecureVerificationComponent extends BaseComponent implements 
     this.existeSinCompletarData = {
       case: localStorage.getItem('existSSNCaseNumber'),
       name: localStorage.getItem('existSSNCaseName'),
-      ssn: localStorage.getItem('existSSNCaseSSN'),
+      ssn:
+        localStorage.getItem('existSSNCaseSSN').length === 3
+          ? '0' + localStorage.getItem('existSSNCaseSSN')
+          : localStorage.getItem('existSSNCaseSSN'),
       phone: localStorage.getItem('existSSNCasePhone'),
       address: localStorage.getItem('existSSNCaseAddress'),
       ban: localStorage.getItem('existSSNCaseBan'),
