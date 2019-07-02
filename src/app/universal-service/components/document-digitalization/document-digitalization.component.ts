@@ -165,6 +165,12 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
     });
   }
 
+  goToAddressDate() {
+    if (this.validateAllDocumentsChargued) {
+      this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
+    }
+  }
+
   goToAccountCreation() {
     if (this.validateAllDocumentsChargued) {
       this.router.navigate(['/universal-service/account-creation'], { replaceUrl: true });
