@@ -54,6 +54,12 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
 
   suscriberActivation: boolean = false;
 
+  currentDate: any = {
+    dd: new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate(),
+    mm: new Date().getMonth() < 9 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1,
+    yy: new Date().getFullYear()
+  };
+
   constructor(
     public authenticationService: AuthenticationService,
     public usfServiceService: UsfServiceService,
@@ -218,6 +224,8 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
                     this.router.navigate(['/universal-service/activation'], { replaceUrl: true });
                   } else {
                     if (resp.body.ErrorDesc.toLocaleLowerCase().indexOf('enviado al back end')) {
+                      this.suscriberNumber = localStorage.getItem('phone1');
+                      // ottro numero es localStorage.getItem('simCard')
                       this.msjError = resp.body.ErrorDesc;
                       this.toBackEnd = true;
                       this.caseIDReject = datos.caseID;

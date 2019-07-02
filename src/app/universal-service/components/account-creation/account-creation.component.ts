@@ -34,13 +34,13 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
   public tecnologies = ['GSM'];
 
   public form: FormGroup;
-  model: Model = new class implements Model {
+  model: Model = new (class implements Model {
     accountType = '';
     tecnology = '';
     planType = '';
     imei = '';
     simCard = '';
-  }();
+  })();
 
   /*
   {
@@ -122,8 +122,11 @@ export class AccountCreationComponent extends BaseComponent implements OnInit {
         this.processValidationSIF = false;
 
         if (!resp.body.HasError) {
+          // para ser usado en caso de excepcion en ultima ventana
+          localStorage.setItem('simCard', this.model.simCard);
           this.router.navigate(['/universal-service/aceptation-terms'], { replaceUrl: true });
         } else {
+          localStorage.setItem('simCard', null);
           alertify.alert(
             'Aviso',
             // tslint:disable-next-line:max-line-length

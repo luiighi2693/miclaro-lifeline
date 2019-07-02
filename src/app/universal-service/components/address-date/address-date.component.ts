@@ -322,6 +322,8 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
         if (!resp.body.HasError) {
           this.usfServiceService.setDataObjectAddress(resp.body.dataObject);
           //CASO DE EXITO
+          // para ser usado en caso de excepcion en ultima ventana
+          localStorage.setItem('phone1', datos.phone1);
 
           this.validationDataAddressInput = true;
           this.model.addressSelected = 'postal';
@@ -347,6 +349,7 @@ export class AddressDateComponent extends BaseComponent implements OnInit {
           this.model.suggestedMunicipality = resp.body.data[0].city;
           this.model.suggestedPostalCode = resp.body.data[0].zip;
         } else {
+          localStorage.setItem('phone1', null);
           this.dataReject = resp.body.data[0];
           alertify.alert(
             'Aviso',

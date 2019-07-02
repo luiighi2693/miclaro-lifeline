@@ -593,7 +593,7 @@
 
                 <div class="redstat m-top-ii">
                   <div class="autorow roboto-r pull-left">Tipo de Cuenta</div>
-                  <div class="autorow roboto-b pull-right"></div>
+                  <div class="autorow roboto-b pull-right">Prepago Móvil</div>
                 </div>
 
                 <div class="redstat m-top-ii">
@@ -609,7 +609,9 @@
                 <div class="redstat m-top-ii">
                   <div class="autorow roboto-r pull-left">Fecha</div>
 
-                  <div class="autorow roboto-b pull-right">{{ dataObjectAddress[0].DOB }}</div>
+                  <div class="autorow roboto-b pull-right">
+                    {{ currentDate.yy + '-' + currentDate.mm + '-' + currentDate.dd }}
+                  </div>
                 </div>
               </div>
 
