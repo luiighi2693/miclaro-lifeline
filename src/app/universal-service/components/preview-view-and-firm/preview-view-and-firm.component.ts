@@ -85,18 +85,53 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
     this.step2 = true;
   }
   validateInicialesF1() {
-    if (this.iniciales === this.inicialesF1) {
+    //if (this.iniciales === this.inicialesF1) {
+    if (
+      this.iniciales.trim() !== '' &&
+      this.inicialesF1.trim() !== '' &&
+      this.iniciales.trim().length === 2 &&
+      this.inicialesF1.trim().length === 2 &&
+      this.iniciales.trim() === this.inicialesF1.trim()
+    ) {
+      return true;
+    } else if (
+      this.iniciales.trim() !== '' &&
+      this.inicialesF1.trim() !== '' &&
+      this.iniciales.trim() !== this.inicialesF1.trim()
+    ) {
+      return false;
+    } else if (this.iniciales.trim() !== '') {
+      return true;
+    } else if (this.inicialesF1.trim() !== '') {
       return true;
     } else {
       return false;
     }
   }
-
+  procesarIniciales(evt: any, campN: number) {
+    console.log(evt, campN);
+    if (campN == 1) {
+      if (this.iniciales.trim() !== '') {
+        // this.inicialesF1 = '';
+      }
+    }
+    if (campN == 2) {
+      if (this.inicialesF1.trim() !== '') {
+        // this.iniciales = '';
+      }
+    }
+  }
   validateInicialesF2() {
     let todasCoinciden = true;
     this.inicialesF2.map(inicialStepTwo => {
-      if (inicialStepTwo.toUpperCase() !== this.iniciales.toUpperCase()) {
-        todasCoinciden = false;
+      if (this.iniciales.trim().length == 2) {
+        if (inicialStepTwo.toUpperCase() !== this.iniciales.toUpperCase()) {
+          todasCoinciden = false;
+        }
+      } else if (this.inicialesF1.trim().length == 2) {
+        if (inicialStepTwo.toUpperCase() !== this.inicialesF1.toUpperCase()) {
+          todasCoinciden = false;
+        }
       }
     });
     console.log(this.inicialesF2, this.iniciales, todasCoinciden);
@@ -104,11 +139,7 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   }
 
   validateInicialesF3() {
-    if (this.iniciales === this.inicialesF1) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.check3erPopup;
   }
 
   activarFecha() {
@@ -163,14 +194,21 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
       console.log(this.firmaUrl);
       console.log(this.iniciales);
       console.log(this.fechaN);
+      let inicialesTem = '';
+      if (this.iniciales.trim().length == 2) {
+        inicialesTem = this.iniciales;
+      } else {
+        //quiere decir que marco la opcion (B) en el prier form
+        inicialesTem = this.inicialesF1;
+      }
 
       const datos = {
         method: 'CreatefirmMcapi',
         USER_ID: this.userId,
         CASE_ID: this.caseId,
-        FIRM_INITIALS: this.step1 ? this.iniciales : '',
-        FIRM_INITIALSAPLIC: this.step2 ? this.iniciales : '',
-        FIRM_INITIALSCLAR: this.step3 ? this.iniciales : '',
+        FIRM_INITIALS: this.step1 ? inicialesTem : '',
+        FIRM_INITIALSAPLIC: this.step2 ? inicialesTem : '',
+        FIRM_INITIALSCLAR: this.step3 ? inicialesTem : '',
         FIRM_DESCRIPTION: this.step1 ? this.firmaUrl : '',
         FIRM_DESCRIPTIONAPLIC: this.step2 ? this.firmaUrl : '',
         FIRM_DESCRIPTIONCLAR: this.step3 ? this.firmaUrl : '',
@@ -272,7 +310,11 @@ export class PreviewViewAndFirmComponent extends BaseComponent implements OnInit
   }
 
   validateSing() {
-    if (this.iniciales.trim().length > 0 && this.fechaN.trim().length !== 10 && this.signer.trim() !== '') {
+    if (
+      (this.iniciales.trim().length > 0 || this.inicialesF1.trim().length > 0) &&
+      this.fechaN.trim().length !== 10 &&
+      this.signer.trim() !== ''
+    ) {
       return true;
     } else {
       return false;

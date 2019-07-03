@@ -167,7 +167,7 @@ export class DocumentDigitalizationComponent extends BaseComponent implements On
 
   goToAddressDate() {
     if (this.validateAllDocumentsChargued) {
-      this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
+      this.router.navigate(['/universal-service/register-case'], { replaceUrl: true });
     }
   }
 
