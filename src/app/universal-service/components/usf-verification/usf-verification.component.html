@@ -208,16 +208,16 @@
                   <a
                     (click)="goToDocumentDigitalization()"
                     class="btns def-i pull-right vcenter gray"
-                    [ngClass]="{ red: form.valid && this.model.socialSecure.length === 11}"
+                    [ngClass]="{ red: form.valid && this.model.socialSecure.length === 11 }"
                   >
                     <span class="tabcell">
                       Continuar&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
                     </span>
                   </a>
 
-                  <a (click)="goToHome()" class="btns def-i gray pull-left vcenter">
+                  <a (click)="goToRegisterCase()" class="btns def-i gray pull-left vcenter">
                     <span class="tabcell">
-                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Reiniciar
+                      <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
                     </span>
                   </a>
                 </div>
